@@ -1,12 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import {App} from './App'
-import { Navigate } from "react-router";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-const root = ReactDOM.createRoot(document.getElementById("app"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Navigate>
-        <App />
-    </Navigate>
-
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

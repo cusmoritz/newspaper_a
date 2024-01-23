@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Home } from './Home';
 
 
 const App = () => {
 return (
-    <>
-        <div>
-    <h1>TIME</h1>
-    <div>Body?</div>
-    </div>
-    </>
+    <BrowserRouter>
+        <div className="App">
+            <Routes>
+            <Route exact path="/" element={<Home/>} />
 
-);
+            </Routes>
+        </div>
+    </BrowserRouter>
+    );
 
 };
 

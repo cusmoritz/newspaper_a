@@ -2,14 +2,17 @@ import React from "react";
 
 export const Story = () => {
     return (
-        <div class="story-container">
+        <div className="story-container">
+            <div className="feature-image-container">
+                <img src="https://placehold.jp/1000x500.png" className="story-feature-image" />
+            </div>
             <h3>This is the story headline</h3>
             <h4>This is the story subhead or deck</h4>
-            <div class="byline-container">
-                <p class="byline-p">By Marcus Moritz</p>
-                <p class="byline-email">marcus@thetooth.com</p>
+            <div className="byline-container">
+                <p className="byline-p">By Marcus Moritz</p>
+                <p className="byline-email">marcus@thetooth.com</p>
             </div>
-            <div class="editors-note">
+            <div className="editors-note">
                 This is an editor's note about this story. -- Ed
             </div>
             <div>

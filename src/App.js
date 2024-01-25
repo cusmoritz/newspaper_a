@@ -4,9 +4,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from './Home';
 import { Header } from './Header';
 import { Footer } from './Footer';
+// import { createDatabase } from '../db';
 
 
 const App = () => {
+
+// useEffect(() => {
+//     createDatabase()   
+// }, []);
+
+
 return (
     <BrowserRouter>
         <div className="App">

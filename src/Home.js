@@ -1,5 +1,5 @@
 import React from "react";
-import { Story } from "./Story";
+import { Story } from "./components/Story";
 
 export const Home = () => {
     return (

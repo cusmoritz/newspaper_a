@@ -4,49 +4,35 @@ const { DATABASE_URL = 'postgres://localhost:5432' } = process.env;
 const client = new Client({
     connectionString: DATABASE_URL,
     ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : undefined,
-
 });
+
 client.connect();
+
+console.log('client', client)
 
 const createDatabase = async() => {
     try {
         console.log('Creating database...')
         await client.query(`
-        CREATE TABLE IF NOT EXISTS owners (
-            owner_id SERIAL PRIMARY KEY,
-            owner_first_name VARCHAR(100) NOT NULL,
-            owner_last_name VARCHAR(100) NOT NULL,
-            owner_address TEXT NOT NULL,
-            owner_phone_main INT NOT NULL,
-            owner_phone_secondary INT NOT NULL,
-            owner_email VARCHAR(100)
+        CREATE TABLE IF NOT EXISTS storys (
+            story_id SERIAL PRIMARY KEY,
+            story_text TEXT NOT NULL,
+            story_deck TEXT NOT NULL,
+            create_date DATE NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS pets (
-            pet_unique_id SERIAL PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            age INT NOT NULL,
-            pet_sex BOOLEAN NOT NULL,
-            pet_birth_date DATE NOT NULL,
-            pet_birth_estimate BOOLEAN DEFAULT FALSE,
-            pet_weight FLOAT NOT NULL,
-            pet_owner INT REFERENCES owners(owner_id)
+        CREATE TABLE IF NOT EXISTS authors (
+            author_id SERIAL PRIMARY KEY,
+            author_first VARCHAR(100) NOT NULL,
+            author_last VARCHAR(100) NOT NULL,
+            author_email VARCHAR(200) NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS dog_breeds (
-            dog_breed_unique_id SERIAL PRIMARY KEY,
-            dog_breed_name VARCHAR(100) NOT NULL
+        CREATE TABLE IF NOT EXISTS story_images (
+            image_id SERIAL PRIMARY KEY,
+            image_file VARCHAR(100) NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS bird_types (
-            bird_type_unique_id SERIAL PRIMARY KEY,
-            bird_breed_name VARCHAR(100) NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS rodent_types (
-            rodent_type_unique_id SERIAL PRIMARY KEY,
-            rodent_breed_name VARCHAR(100) NOT NULL
-        );
 
         `, [])
         console.log('Done creating database...')
@@ -60,5 +46,5 @@ createDatabase();
 
 module.exports = {
     createDatabase,
-    
+
 }

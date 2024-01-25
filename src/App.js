@@ -1,32 +1,55 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Home } from './Home';
-import { Header } from './Header';
-import { Footer } from './Footer';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 // import { createDatabase } from '../db';
+import { health } from './api';
+import { AdminHome } from './components/AdminHome';
+import { CreateStory } from './components/CreateStory';
 
 
 const App = () => {
 
-// useEffect(() => {
-//     createDatabase()   
-// }, []);
+    // useEffect(() => {
+    //     health();
+    // }, []);
 
+    // there's probably a safer and better way to do this?
+    const domain = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+    console.log('view', domain)
+    const subdomain = domain.split('.')[0];
+    console.log('subdomain', subdomain)
 
-return (
-    <BrowserRouter>
-        <div className="App">
-            <Header />
-            <Routes>
-            <Route exact path="/" element={<Home/>} />
-
-            </Routes>
-            <Footer />
-        </div>
-    </BrowserRouter>
-    );
-
+    if (subdomain === "admin") {
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    <Header />
+                    <Routes>
+                    <Route exact path="/" element={<AdminHome/>} />
+                    <Route path="/createstory" element={<CreateStory/>} />
+                    </Routes>
+                    <Footer />
+                </div>
+            </BrowserRouter>
+        )
+    } else {
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    <Header />
+                    <Routes>
+                    <Route exact path="/" element={<Home/>} />
+        
+                    </Routes>
+                    <Footer />
+                </div>
+            </BrowserRouter>
+            );
+    }
 };
 
 

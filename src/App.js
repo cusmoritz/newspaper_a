@@ -9,6 +9,7 @@ import { Footer } from './components/Footer';
 import { health } from './api';
 import { AdminHome } from './components/AdminHome';
 import { CreateStory } from './components/CreateStory';
+import { StoryStats } from './components/StoryStats';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
                     <Routes>
                     <Route exact path="/" element={<AdminHome/>} />
                     <Route path="/createstory" element={<CreateStory/>} />
+                    <Route path="/storystats" element={<StoryStats/>} />
                     </Routes>
                     <Footer />
                 </div>

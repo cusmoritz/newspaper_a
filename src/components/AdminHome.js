@@ -14,6 +14,7 @@ export const AdminHome = () => {
         <div className="admin-home-container">
             <h1>Admin page</h1>
             <button><Link to="/createstory">Create story</Link></button>
+            <button><Link to="/storystats">Story stats</Link></button>
         </div>
     );
 };

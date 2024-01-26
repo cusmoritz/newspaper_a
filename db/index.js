@@ -10,6 +10,12 @@ client.connect();
 
 console.log('client', client)
 
+// story metadata:
+// original create date
+// updated date
+// update author
+
+
 const createDatabase = async() => {
     try {
         console.log('Creating database...')
@@ -19,7 +25,7 @@ const createDatabase = async() => {
             story_text TEXT NOT NULL,
             story_deck TEXT NOT NULL,
             create_date DATE NOT NULL
-        );
+        );     
 
         CREATE TABLE IF NOT EXISTS authors (
             author_id SERIAL PRIMARY KEY,
@@ -28,9 +34,10 @@ const createDatabase = async() => {
             author_email VARCHAR(200) NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS story_images (
+        CREATE TABLE IF NOT EXISTS image_table (
             image_id SERIAL PRIMARY KEY,
-            image_file VARCHAR(100) NOT NULL
+            image_file_string VARCHAR(150) NOT NULL,
+            image_blob BLOB
         );
 
 

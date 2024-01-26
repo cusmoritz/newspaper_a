@@ -10,6 +10,7 @@ import { health } from './api';
 import { AdminHome } from './components/AdminHome';
 import { CreateStory } from './components/CreateStory';
 import { StoryStats } from './components/StoryStats';
+import { CreateAuthor } from './components/CreateAuthor';
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
                     <Route exact path="/" element={<AdminHome/>} />
                     <Route path="/createstory" element={<CreateStory/>} />
                     <Route path="/storystats" element={<StoryStats/>} />
+                    <Route path="/createauthor" element={<CreateAuthor/>} />
                     </Routes>
                     <Footer />
                 </div>

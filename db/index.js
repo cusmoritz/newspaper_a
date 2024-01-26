@@ -31,13 +31,13 @@ const createDatabase = async() => {
             author_id SERIAL PRIMARY KEY,
             author_first VARCHAR(100) NOT NULL,
             author_last VARCHAR(100) NOT NULL,
-            author_email VARCHAR(200) NOT NULL
+            author_email VARCHAR(200) NOT NULL,
+            author_role VARCHAR(20) NOT NULL
         );
 
         CREATE TABLE IF NOT EXISTS image_table (
             image_id SERIAL PRIMARY KEY,
-            image_file_string VARCHAR(150) NOT NULL,
-            image_blob BLOB
+            image_file_string VARCHAR(150) NOT NULL
         );
 
 
@@ -49,7 +49,55 @@ const createDatabase = async() => {
     }
 };
 
+const destroyDatabase = async () => {
+    try {
+        console.log('destroying db');
+        await client.query(`
+        DROP TABLE IF EXISTS storys;
+        DROP TABLE IF EXISTS image_table;
+        DROP TABLE IF EXISTS authors;
+        `, [])
+        console.log('done destroying db');
+    } catch (error) {
+        console.log('there was an error destroying the database', error);
+        throw error;
+    }
+}
+
+destroyDatabase();
 createDatabase();
+
+const createAuthor = async (values) => {
+    try {
+        await client.query(`
+            INSERT INTO authors (author_first, author_last, author_email, author_role)
+            VALUES ($1, $2, $3, $4)
+            RETURNING *
+            ;
+        `, [values.first, values.last, values.email, values.role])
+    } catch (error) {
+        console.log('there was an error creating a new author: ', error);
+        throw error;
+    }
+}
+
+const authors = [
+    {first: "marcus", last: "moritz", email: "marcus@thetooth.com", role: "editor"},
+    {first: "john", last: "laconte", email: "john@thetooth.com", role: "writer"},
+    {first: "ross", last: "leonhart", email: "ross@thetooth.com", role: "assistant editor"},
+    {first: "jaron", last: "jaron", email: "jaron@thetooth.com", role: "intern"},
+    {first: "scott", last: "miller", email: "scott@thetooth.com", role: "business writer"},
+    {first: "ricky", last: "martinez", email: "ricky@thetooth.com", role: "music writer"}
+]
+
+const insertAuthors = (array) => {
+    array.forEach(writer => {
+        createAuthor(writer);
+        console.log('writer', writer)
+    });
+}
+
+insertAuthors(authors);
 
 module.exports = {
     createDatabase,

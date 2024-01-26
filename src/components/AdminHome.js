@@ -15,6 +15,7 @@ export const AdminHome = () => {
             <h1>Admin page</h1>
             <button><Link to="/createstory">Create story</Link></button>
             <button><Link to="/storystats">Story stats</Link></button>
+            <button><Link to="/createauthor">Create Author</Link></button>
         </div>
     );
 };

@@ -1,40 +1,63 @@
-// server file
+// // server file
 
-const {client} = require('../db/index');
-const express = require('express');
+const express = require('express')
+const app = express()
+const port = 3000;
+
 const cors = require('cors');
 
-// create an apiRouter
-const apiRouter = express.Router();
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
 
-apiRouter.use(express.json());
+app.listen(port, () => {
+  console.log(`listening on port ${port}`)
+})
 
-apiRouter.use(cors());
+app.use(cors());
 
-apiRouter.use((request, response, next) => {
+// // create an apiRouter
+// const apiRouter = express.Router();
+
+app.use(express.json());
+
+// apiRouter.use(cors());
+
+const {fetchAllAuthors} = require('../db/authors');
+
+app.use((request, response, next) => {
     console.log('request.method: ', request.method);
     console.log('request.url: ', request.url);
     // response.send('Hello!');
     next();
 });
 
-// const {createDatabase} = require('../db/index.js')
+// // const {createDatabase} = require('../db/index.js')
 
-client.connect();
+// // client.connect();
 
-apiRouter.listen(PORT, function () {
-    console.log(`listening on port ${PORT}`);
-});
+// app.listen();
 
-apiRouter.get('/health', async (request, response, next) => {
+app.get('/api/health', async (request, response, next) => {
     try {
         // console.log('here')
         // createDatabase();
         response.send('All good!')
     } catch (error) {
-        console.log('there was an error in health server', error)
+        console.log('there was an error in server health: ', error)
         throw error;
     }
 });
 
-module.exports = apiRouter;
+app.get('/author/allauthors', async (request, response, next) => {
+    try {
+        console.log('yes here')
+        const authors = await fetchAllAuthors();
+        return authors;
+    } catch (error) {
+        console.log('there was an error at server author/allauthors: ', error);
+        throw error;
+    }
+})
+
+// module.exports = apiRouter;

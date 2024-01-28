@@ -8,13 +8,24 @@ const client = new Client({
 
 client.connect();
 
-console.log('client', client)
-
 // story metadata:
 // original create date
 // updated date
 // update author
 
+const createAuthor = async (values) => {
+    try {
+        await client.query(`
+            INSERT INTO authors (author_first, author_last, author_email, author_role)
+            VALUES ($1, $2, $3, $4)
+            RETURNING *
+            ;
+        `, [values.first, values.last, values.email, values.role])
+    } catch (error) {
+        console.log('there was an error creating a new author: ', error);
+        throw error;
+    }
+}
 
 const createDatabase = async() => {
     try {
@@ -39,8 +50,6 @@ const createDatabase = async() => {
             image_id SERIAL PRIMARY KEY,
             image_file_string VARCHAR(150) NOT NULL
         );
-
-
         `, [])
         console.log('Done creating database...')
     } catch (error) {
@@ -51,32 +60,15 @@ const createDatabase = async() => {
 
 const destroyDatabase = async () => {
     try {
-        console.log('destroying db');
+        console.log('destroying db...');
         await client.query(`
         DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS image_table;
         DROP TABLE IF EXISTS authors;
         `, [])
-        console.log('done destroying db');
+        console.log('done destroying db...');
     } catch (error) {
-        console.log('there was an error destroying the database', error);
-        throw error;
-    }
-}
-
-destroyDatabase();
-createDatabase();
-
-const createAuthor = async (values) => {
-    try {
-        await client.query(`
-            INSERT INTO authors (author_first, author_last, author_email, author_role)
-            VALUES ($1, $2, $3, $4)
-            RETURNING *
-            ;
-        `, [values.first, values.last, values.email, values.role])
-    } catch (error) {
-        console.log('there was an error creating a new author: ', error);
+        console.log('there was an error destroying the database: ', error);
         throw error;
     }
 }
@@ -97,9 +89,10 @@ const insertAuthors = (array) => {
     });
 }
 
+destroyDatabase();
+createDatabase();
 insertAuthors(authors);
 
 module.exports = {
-    createDatabase,
-
+    createAuthor,
 }

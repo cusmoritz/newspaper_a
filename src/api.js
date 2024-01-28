@@ -20,3 +20,20 @@ export const health = async () => {
         throw error;
     }
 }
+
+export const fetchAllAuthors = async () => {
+    try {
+        console.log('yes')
+        const request = await fetch(`${BASE_URL}/api/author/allauthors`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        const allAuthors = request.json();
+        return allAuthors;
+    } catch (error) {
+        console.log('there was an error fetching all authors: ', error);
+        throw error;
+    }
+}

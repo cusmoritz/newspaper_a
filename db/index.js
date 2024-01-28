@@ -33,9 +33,12 @@ const createDatabase = async() => {
         await client.query(`
         CREATE TABLE IF NOT EXISTS storys (
             story_id SERIAL PRIMARY KEY,
-            story_text TEXT NOT NULL,
+            story_head TEXT UNIQUE NOT NULL,
             story_deck TEXT NOT NULL,
-            create_date DATE NOT NULL
+            story_text TEXT NOT NULL,
+            story_author INT NOT NULL,
+            story_tags TEXT,
+            original_create_date DATE NOT NULL
         );     
 
         CREATE TABLE IF NOT EXISTS authors (
@@ -48,7 +51,8 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS image_table (
             image_id SERIAL PRIMARY KEY,
-            image_file_string VARCHAR(150) NOT NULL
+            image_file_string VARCHAR(150) NOT NULL,
+            image_original_story INT NOT NULL
         );
         `, [])
         console.log('Done creating database...')
@@ -91,7 +95,7 @@ const insertAuthors = (array) => {
 
 destroyDatabase();
 createDatabase();
-insertAuthors(authors);
+//insertAuthors(authors);
 
 module.exports = {
     createAuthor,

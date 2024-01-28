@@ -37,3 +37,26 @@ export const fetchAllAuthors = async () => {
         throw error;
     }
 }
+
+export const submitNewStory = async (storyObj) => {
+    try {
+
+        const request = await fetch(`${BASE_URL}/api/submitnewstory`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                story: storyObj
+            })
+        });
+        if (!request) {
+            return error;
+        } else {
+            return "Successfully submitted."
+        }
+    } catch (error) {
+        console.log('there was an error submitting a new story: ', error);
+        throw error;
+    }
+}

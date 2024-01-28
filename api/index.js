@@ -60,4 +60,18 @@ app.get('/author/allauthors', async (request, response, next) => {
     }
 })
 
+app.post('/submitnewstory', async (request, response, next) => {
+    try {
+        const {story} = request.body.story;
+        const newStory = await newStory(story)
+        if (newStory) {
+            response.send(newStory).status(200);
+        } else {
+            response.send().status(500);
+        }
+    } catch (error) {
+        console.log('there was an error submitting a new story: ', error);
+        throw error;
+    }
+})
 // module.exports = apiRouter;

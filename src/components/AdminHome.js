@@ -13,9 +13,9 @@ export const AdminHome = () => {
     return (
         <div className="admin-home-container">
             <h1>Admin page</h1>
-            <button><Link to="/createstory">Create story</Link></button>
-            <button><Link to="/storystats">Story stats</Link></button>
-            <button><Link to="/createauthor">Create Author</Link></button>
+            <Link to="/createstory"><button>New story</button></Link>
+            <Link to="/storystats"><button>Story stats</button></Link>
+            <Link to="/createauthor"><button>Create Author</button></Link>
         </div>
     );
 };

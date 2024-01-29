@@ -41,7 +41,7 @@ export const CreateStory = () => {
     return(
         <div className="create-story-container">
             <h3>Create a story by populating the fields below.</h3>
-            <button><Link to="/" onClick={() => clearFields()}>Cancel</Link></button>
+            <Link to="/" onClick={() => clearFields()}><button>Cancel</button></Link>
             <label>New story fields:</label>
             <fieldset>
                 
@@ -74,12 +74,9 @@ export const CreateStory = () => {
                 <img id="myImg" src="#" height="200px" width="200px"/>
             </fieldset>
             <div>
-                <h4>Display text:</h4>
-                <h5>{title}</h5>
-                <p>{subhead}</p>
-                <p>By {author}</p>
-                <p>{story}</p>
-                <p>{tags}</p>
+
+                {/* TODO: add photo search feature */}
+
             </div>
             <button onClick={() => submitStory()}>Submit new story</button>
         </div>

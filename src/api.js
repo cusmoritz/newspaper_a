@@ -41,7 +41,7 @@ export const fetchAllAuthors = async () => {
 export const submitNewStory = async (storyObj) => {
     try {
 
-        const request = await fetch(`${BASE_URL}/api/submitnewstory`, {
+        const request = await fetch(`${BASE_URL}/api/story/submitnewstory`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

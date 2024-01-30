@@ -1,5 +1,5 @@
 const {Client} = require('pg');
-const { DATABASE_URL = 'postgres://localhost:5432/marcus' } = process.env;
+const { DATABASE_URL = 'postgres://localhost:5432' } = process.env;
 // Create a client for connecting to the server.
 const client = new Client({
     connectionString: DATABASE_URL,
@@ -52,8 +52,20 @@ const createDatabase = async() => {
         CREATE TABLE IF NOT EXISTS image_table (
             image_id SERIAL PRIMARY KEY,
             image_file_string VARCHAR(150) NOT NULL,
-            image_original_story INT NOT NULL
+            image_original_story INT NOT NULL,
+            image_orig_author INT NOT NULL,
+            image_story_attatched INT
         );
+
+        CREATE TABLE IF NOT EXISTS story_meta (
+            story_meta_id SERIAL PRIMARY KEY,
+            story_id INT NOT NULL,
+            story_views INT,
+            story_original_creator INT NOT NULL,
+            story_updated_by INT,
+            story_update_date DATE
+        );
+
         `, [])
         console.log('Done creating database...')
     } catch (error) {
@@ -69,6 +81,7 @@ const destroyDatabase = async () => {
         DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS image_table;
         DROP TABLE IF EXISTS authors;
+        DROP TABLE IF EXISTS story_meta;
         `, [])
         console.log('done destroying db...');
     } catch (error) {
@@ -99,4 +112,5 @@ createDatabase();
 
 module.exports = {
     createAuthor,
+    client,
 }

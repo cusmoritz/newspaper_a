@@ -5,8 +5,7 @@ import { useEffect } from 'react';
 import { Home } from './Home';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-// import { createDatabase } from '../db';
-import { health } from './api';
+
 import { AdminHome } from './components/AdminHome';
 import { CreateStory } from './components/CreateStory';
 import { StoryStats } from './components/StoryStats';

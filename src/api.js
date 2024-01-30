@@ -30,6 +30,7 @@ export const fetchAllAuthors = async () => {
                 'Content-Type': 'application/json'
             },
         });
+        console.log('request', request)
         const allAuthors = request.json();
         return allAuthors;
     } catch (error) {

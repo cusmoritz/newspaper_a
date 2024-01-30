@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`)
+  console.log(`listening on port ${port}`);
 })
 
 const {fetchAllAuthors} = require('../db/authors');
@@ -34,16 +34,16 @@ app.use((request, response, next) => {
 //     }
 // });
 
-app.get('/author/allauthors', async (request, response, next) => {
+app.get('/api/author/allauthors', async (request, response, next) => {
     try {
         console.log('yes here')
         const authors = await fetchAllAuthors();
-        return authors;
+        response.send(authors)
     } catch (error) {
         console.log('there was an error at server author/allauthors: ', error);
         throw error;
     }
-})
+});
 
 // app.post('/story/submitnewstory', async (request, response, next) => {
 //     try {
@@ -60,4 +60,4 @@ app.get('/author/allauthors', async (request, response, next) => {
 //     }
 // })
 
-// module.exports = apiRouter;
+module.exports = app;

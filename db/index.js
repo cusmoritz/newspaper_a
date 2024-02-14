@@ -67,6 +67,12 @@ const createDatabase = async() => {
             story_update_date DATE
         );
 
+        CREATE TABLE IF NOT EXISTS error_log (
+            error_number SERIAL PRIMARY KEY,
+            error_date DATE NOT NULL,
+            error_text TEXT NOT NULL
+        );
+
         `, [])
         console.log('Done creating database...')
     } catch (error) {

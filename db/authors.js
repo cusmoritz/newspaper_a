@@ -33,7 +33,7 @@ const fetchOneAuthor = async(value) => {
 
 const fetchAllAuthors = async() => {
     try {
-        const allAuthors = await client.query(`
+        const {rows: allAuthors} = await client.query(`
             SELECT * FROM authors
             ;
         `, []);

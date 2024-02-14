@@ -20,20 +20,35 @@ const createNewStory = async (storyInfo) => {
 }
 
 
-const returnAllStorys = async () => {
+const returnAllActiveStorys = async () => {
     try {
-        const allStorys = await client.query(`
+        const activeStorys = await client.query(`
         SELECT * FROM storys
+        WHERE story_active_flag = true
         ORDER BY original_create_date DESC
         ;
         `);
-        console.log('all storys db: ', allStorys);
-        return allStorys;
+        console.log('all storys db: ', activeStorys);
+        return activeStorys;
     } catch (error) {
-        console.log('there was an error fetching all storys: ', error);
+        console.log('there was an error fetching active storys: ', error);
         throw error;
     }
 };
+
+const returnEveryStory = async () => {
+    try {
+        const everyStory = await client.query(`
+        SELECT * FROM storys
+        ORDER BY original_create_date DESC
+        ;
+        `, []);
+        return everyStory;
+    } catch (error) {
+        console.log('there was an error fetching every story', error);
+        throw error;
+    }
+}
 
 const returnStoryFromDate = async (date) => {
     try {
@@ -51,7 +66,8 @@ const returnStoryFromDate = async (date) => {
 
 module.exports = {
     createNewStory,
-    returnAllStorys,
+    returnAllActiveStorys,
     returnStoryFromDate,
+    returnEveryStory,
     
 }

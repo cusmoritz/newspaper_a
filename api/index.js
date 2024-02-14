@@ -1,29 +1,36 @@
 // server file
 
 const express = require('express');
-const app = express();
-const port = 3000;
-
 const cors = require('cors');
+// const path = require('path');
 
-app.use(cors());
+const server = express();
+const port = 3001;
 
-app.use(express.json());
+server.use(express.json());
+server.use(cors());
 
-app.listen(port, () => {
+// server.use(express.static(path.join(__dirname, 'build')));
+// server.get("*", (req, res) => { 
+// res.sendFile(path.join(__dirname, "build", "index.html")) });
+
+const {client} = require('../db/index');
+client.connect();
+
+server.listen(port, () => {
   console.log(`listening on port ${port}`);
 })
 
 const {fetchAllAuthors} = require('../db/authors');
 
-app.use((request, response, next) => {
+server.use((request, response, next) => {
     console.log('request.method: ', request.method);
     console.log('request.url: ', request.url);
     // response.send('Hello!');
     next();
 });
 
-// app.get('/api/health', async (request, response, next) => {
+// server.get('/api/health', async (request, response, next) => {
 //     try {
 //         // console.log('here')
 //         // createDatabase();
@@ -34,7 +41,7 @@ app.use((request, response, next) => {
 //     }
 // });
 
-app.get('/api/author/allauthors', async (request, response, next) => {
+server.get('/api/author/allauthors', async (request, response, next) => {
     try {
         console.log('yes here')
         const authors = await fetchAllAuthors();
@@ -45,7 +52,7 @@ app.get('/api/author/allauthors', async (request, response, next) => {
     }
 });
 
-// app.post('/story/submitnewstory', async (request, response, next) => {
+// server.post('/story/submitnewstory', async (request, response, next) => {
 //     try {
 //         const {story} = request.body.story;
 //         const newStory = await newStory(story)
@@ -60,4 +67,4 @@ app.get('/api/author/allauthors', async (request, response, next) => {
 //     }
 // })
 
-module.exports = app;
+module.exports = server;

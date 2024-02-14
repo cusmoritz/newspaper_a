@@ -6,7 +6,7 @@ const client = new Client({
     ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : undefined,
 });
 
-client.connect();
+//client.connect();
 
 // story metadata:
 // original create date
@@ -38,6 +38,7 @@ const createDatabase = async() => {
             story_text TEXT NOT NULL,
             story_author INT NOT NULL,
             story_tags TEXT,
+            story_active_flag BOOLEAN DEFAULT true,
             original_create_date DATE NOT NULL
         );     
 

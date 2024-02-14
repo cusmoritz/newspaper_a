@@ -24,6 +24,7 @@ export const health = async () => {
 export const fetchAllAuthors = async () => {
     try {
         console.log('yes')
+        console.log('werewrewrew', process.env)
         const request = await fetch(`${BASE_URL}/api/author/allauthors`, {
             method: "GET",
             headers: {

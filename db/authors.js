@@ -1,6 +1,7 @@
 
 // author functions
 const {client} = require('./index');
+const {logEverything} = require('./errors');
 
 const createAuthor = async (values) => {
     try {
@@ -11,6 +12,7 @@ const createAuthor = async (values) => {
             ;
         `, [values.first, values.last, values.email, values.role])
     } catch (error) {
+        logEverything(error);
         console.log('there was an error creating a new author: ', error);
         throw error;
     }
@@ -26,6 +28,7 @@ const fetchOneAuthor = async(value) => {
         `, [value]);
         return oneAuthor;
     } catch (error) {
+        logEverything(error);
         console.log("there was an error fetching an author:", error);
         throw error;
     }
@@ -39,6 +42,7 @@ const fetchAllAuthors = async() => {
         `, []);
         return allAuthors;
     } catch (error) {
+        logEverything(error);
         console.log("there was an error fetching an author:", error);
         throw error;
     };

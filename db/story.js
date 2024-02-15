@@ -14,6 +14,7 @@ const createNewStory = async (storyInfo) => {
         `, [storyInfo.head, storyInfo.deck, storyInfo.text, storyInfo.author, storyInfo.tags, originalCreateDate]);
         return story;
     } catch (error) {
+        logEverything(error);
         console.log('there was an error submitting a new story: ', error);
         throw error;
     }
@@ -31,6 +32,7 @@ const returnAllActiveStorys = async () => {
         console.log('all storys db: ', activeStorys);
         return activeStorys;
     } catch (error) {
+        logEverything(error);
         console.log('there was an error fetching active storys: ', error);
         throw error;
     }
@@ -45,6 +47,7 @@ const returnEveryStory = async () => {
         `, []);
         return everyStory;
     } catch (error) {
+        logEverything(error);
         console.log('there was an error fetching every story', error);
         throw error;
     }
@@ -59,6 +62,7 @@ const returnStoryFromDate = async (date) => {
         `, [date]);
         return storyFromDate;
     } catch (error) {
+        logEverything(error);
         console.log('there was an error fetching storys by date: ', error);
         throw error;
     }

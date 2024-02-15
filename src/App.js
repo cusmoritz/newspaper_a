@@ -30,10 +30,10 @@ const App = () => {
                 <div className="App">
                     <Header />
                     <Routes>
-                    <Route exact path="/" element={<AdminHome/>} />
-                    <Route path="/createstory" element={<CreateStory/>} />
-                    <Route path="/storystats" element={<StoryStats/>} />
-                    <Route path="/createauthor" element={<CreateAuthor/>} />
+                        <Route exact path="/" element={<AdminHome/>} />
+                        <Route path="/createstory" element={<CreateStory/>} />
+                        <Route path="/storystats" element={<StoryStats/>} />
+                        <Route path="/createauthor" element={<CreateAuthor/>} />
                     </Routes>
                     <Footer />
                 </div>

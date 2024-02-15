@@ -15,3 +15,7 @@ const logEverything = async (errorObj) => {
         throw error;
     }
 };
+
+module.exports ={
+    logEverything,
+}

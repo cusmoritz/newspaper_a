@@ -81,7 +81,7 @@ export const fetchEveryStoryStats = async () => {
     }
 }
 
-export const fetchIndividualStory = async(storyId) => {
+export const fetchOneStoryStats = async(storyId) => {
     try {
         cosnt request = await fetch(`${BASE_URL}/api/story/stats/${storyId}`, {
             method: "GET",

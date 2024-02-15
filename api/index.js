@@ -60,6 +60,15 @@ server.get('/api/story/stats/allstorystats', async (request, response, next) => 
         logEverything(error);
         throw error;
     }
+});
+
+server.get('/api/story/stats/:storyId', async (request, response, next) => {
+    try {
+        
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }
 })
 
 // server.post('/story/submitnewstory', async (request, response, next) => {

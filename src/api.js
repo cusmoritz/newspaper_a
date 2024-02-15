@@ -62,3 +62,39 @@ export const submitNewStory = async (storyObj) => {
         throw error;
     }
 }
+
+export const fetchEveryStoryStats = async () => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/story/stats/allstorystats`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (request) {
+            return request;
+        } else {
+            return {error: "Unseccessful fetch for all story stats"};
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const fetchIndividualStory = async(storyId) => {
+    try {
+        cosnt request = await fetch(`${BASE_URL}/api/story/stats/${storyId}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (request) {
+            return request;
+        } else {
+            return {error: "Uncesesful fetch for story stats"};
+        }
+    } catch (error) {
+        throw error;
+    }
+}

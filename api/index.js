@@ -52,6 +52,16 @@ server.get('/api/author/allauthors', async (request, response, next) => {
     }
 });
 
+server.get('/api/story/stats/allstorystats', async (request, response, next) => {
+    try {
+        const everyStat = await fetchEveryStoryStat();
+        response.send(everyStat);
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }
+})
+
 // server.post('/story/submitnewstory', async (request, response, next) => {
 //     try {
 //         const {story} = request.body.story;

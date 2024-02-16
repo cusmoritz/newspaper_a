@@ -40,7 +40,8 @@ const createDatabase = async() => {
             story_author INT NOT NULL,
             story_tags TEXT,
             story_active_flag BOOLEAN DEFAULT true,
-            original_create_date DATE NOT NULL
+            original_create_date DATE NOT NULL,
+            most_recent_update DATE
         );     
 
         CREATE TABLE IF NOT EXISTS authors (

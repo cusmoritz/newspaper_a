@@ -22,7 +22,9 @@ export const StoryStats = () => {
         } catch (error) {
             throw error;
         }
-    }
+    };
+
+    const fetchA
 
     const [allStorys, setAllStorys] = useState([]);
     const [oneStory, setOneStory] = useState({});
@@ -34,6 +36,7 @@ export const StoryStats = () => {
     return (
         <div>
             <Link to="/"><button>Back</button></Link>
+            {}
             These are story statistics.
         </div>
     )

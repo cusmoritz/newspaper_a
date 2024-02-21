@@ -39,6 +39,7 @@ const createDatabase = async() => {
             story_text TEXT NOT NULL,
             story_author INT NOT NULL,
             story_tags TEXT,
+            story_slug TEXT NOT NULL,
             story_active_flag BOOLEAN DEFAULT true,
             original_create_date DATE NOT NULL,
             most_recent_update DATE
@@ -62,9 +63,10 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS story_meta (
             story_meta_id SERIAL PRIMARY KEY,
-            story_id INT NOT NULL,
+            story_meta_id INT NOT NULL,
             story_views INT,
             story_original_creator INT NOT NULL,
+            story_meta_original_publish_date DATE NOT NULL,
             story_updated_by INT,
             story_update_date DATE
         );

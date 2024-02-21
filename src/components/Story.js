@@ -1,6 +1,13 @@
 import React from "react";
 
 export const Story = () => {
+
+    const updatePageViews = () => {
+
+    }
+
+    // params path = /story/:slug
+
     return (
         <div className="story-container">
             <div className="feature-image-container">

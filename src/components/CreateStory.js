@@ -10,6 +10,7 @@ export const CreateStory = () => {
     const [story, setStory] = useState("");
     const [tags, setTags] = useState("");
     const [author, setAuthor] = useState("");
+    const [slug, setSlug] = useState("");
 
 
     window.addEventListener('load', function() {
@@ -30,12 +31,19 @@ export const CreateStory = () => {
         return result;
       }
 
+      const validateSlug = async () => {
+            const cleanSlug = slug.toLowerCase().replace(" ", "-");
+            const valid = await checkSlug(cleanSlug);
+            
+      }
+
       const clearFields = () => {
         setTitle("");
         setSubhead("");
         setStory("");
         setTags("");
         setAuthor("");
+        setSlug("");
       }
 
     return(
@@ -63,6 +71,10 @@ export const CreateStory = () => {
                 
                 <label htmlFor="tag-input">Add tags to this story. To add multiple tags, serparate tags with a comma.</label>
                 <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>
+
+                <label htmlFor="slug-input">Add a potential SEO URL slug for this story: </label>
+                <input onChange={((event) => setSlug(event.target.value))} className="slug-input" />
+                <button onClick={(() => )}>Check Slug</button>
                 
             </fieldset>
             <fieldset>

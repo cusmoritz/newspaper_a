@@ -43,12 +43,19 @@ const returnStoryFromDate = async (date) => {
 const createNewStory = async (storyInfo) => {
     try {
         const originalCreateDate = new Date(); 
-        const story = await client.query(`
+        const {rows: story} = await client.query(`
         INSERT INTO storys (story_head, story_deck, story_text, story_author, story_tags, create_date)
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *
         ;
         `, [storyInfo.head, storyInfo.deck, storyInfo.text, storyInfo.author, storyInfo.tags, originalCreateDate]);
+
+        const {rows: metaInit} = await client.query(`
+            INSERT INTO story_meta (story_meta_id, story_original_creator, story_meta_original_publish_date)
+            VALUES ($1, $2, $3)
+            ;
+        `, [story.story_id, story.story_author, story.create_date]);
+        
         return story;
     } catch (error) {
         logEverything(error);

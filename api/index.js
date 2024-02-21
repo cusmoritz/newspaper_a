@@ -22,6 +22,7 @@ server.listen(port, () => {
 })
 
 const {fetchAllAuthors} = require('../db/authors');
+const {createNewStory} = require('../db/story');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);
@@ -57,6 +58,33 @@ server.get('/api/admin/author/allauthors', async (request, response, next) => {
 //         throw error;
 //     }
 // });
+
+server.post('/api/story/submitnewstory', async (request, response, next) => {
+    try {
+        const {story} = request.body.story;
+        const newStory = await createNewStory(story)
+        if (newStory) {
+            response.send(newStory).status(200);
+        } else {
+            response.send().status(500);
+        }
+    } catch (error) {
+        logEverything(error);
+        console.log('there was an error submitting a new story: ', error);
+        throw error;
+    }
+});
+
+server.post('/api/admin/story/checkslug', async (request, response, next) => {
+    try {
+        const {checkSlug} = request.body.slug;
+        
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }    
+
+})
 
 server.get('/api/admin/story/everystory', async (request, response, next) => {
     try {
@@ -98,24 +126,5 @@ server.get('/api/admin/story/stats/:storyId', async (request, response, next) =>
 
 
 
-
-
-    // TODO: Create admin level of api
-
-server.post('/api/story/submitnewstory', async (request, response, next) => {
-    try {
-        const {story} = request.body.story;
-        const newStory = await newStory(story)
-        if (newStory) {
-            response.send(newStory).status(200);
-        } else {
-            response.send().status(500);
-        }
-    } catch (error) {
-        logEverything(error);
-        console.log('there was an error submitting a new story: ', error);
-        throw error;
-    }
-})
 
 module.exports = server;

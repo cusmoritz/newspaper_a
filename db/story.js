@@ -106,8 +106,51 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
     }
 };
 
+const fetchFrontPage = async () => {
+    try {
+        const now = new Date();
+        const {rows: frontPage} = await clientquery(`
+            SELECT * FROM storys
+            WHERE original_create_date < $1
+            LIMIT 10
+            ;
+        `, [now]);
 
+        return frontPage;
 
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }
+
+    // for pagination with tags and page number:
+
+    // if (pageNumber === 1) {
+    //     const {rows: page} = await client.query(`
+    //         SELECT (story_id, story_head, story_deck, story_led, story_author, story_tags) FROM storys
+    //         WHERE orignal_create_date < $1
+    //         ORDER BY DESC
+    //         LIMIT 10
+    //         ;
+    //     `, [now])
+    // } else {
+    //     const offset = pageNumber * 10;
+    //     const {rows: page} = await client.query(`
+    //     SELECT (story_id, story_head, story_deck, story_led, story_author, story_tags) FROM storys
+    //     WHERE orignal_create_date < $1
+    //     ORDER BY DESC
+    //     LIMIT 10 OFFSET $2
+    //     ;
+    // `, [now, offset])
+
+            // story_id SERIAL PRIMARY KEY,
+            // story_head TEXT UNIQUE NOT NULL,
+            // story_deck TEXT NOT NULL,
+            // story_led TEXT NOT NULL,
+            // story_text TEXT NOT NULL,
+            // story_author INT NOT NULL,
+            // story_tags TEXT,
+}
 
 
 
@@ -116,5 +159,5 @@ module.exports = {
     returnAllActiveStorys,
     returnStoryFromDate,
     returnEveryStory,
-    
+    fetchFrontPage,
 }

@@ -22,7 +22,7 @@ server.listen(port, () => {
 })
 
 const {fetchAllAuthors} = require('../db/authors');
-const {createNewStory} = require('../db/story');
+const {createNewStory, fetchPage} = require('../db/story');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);
@@ -31,9 +31,44 @@ server.use((request, response, next) => {
     next();
 });
 
+
 /////////////// FRONT END FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
+server.get('/api/story/frontpage', async (request, response, next) => {
+    try {
+        // const pageNumber = request.params;
+        const frontPage = await fetchFrontPage();
 
+        if (frontPage) {
+            response.send(frontPage).status(200);
+        } else {
+            response.send({Error: "Problem fetching front page."}).status(500);
+        }
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }
+});
+
+// server.get('/api/:tag/:pageNumber', async (request, response, next) => {
+//     try {
+//            const {rows: storyResults} = await fetchStorysForTagAndPage(tag, page);
+//     } catch (error) {
+//         logEverything(error);
+//         throw error;
+//     }
+// });
+
+// What does the api structure look like?
+
+    // taken from another local news site:
+    // /news/:tag (ex. copper-county, /news/regional, /news/sports ...)
+    
+    // and then pagination? 
+    // /news/:tag/:pageNumber /news/:tag/:page2 ... ??
+
+    // "front page" should probably look different, 
+    // ex top 10 most recent stories, top 10 most popular?
 
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\

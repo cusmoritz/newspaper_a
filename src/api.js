@@ -6,6 +6,20 @@ const BASE_URL = REACT_APP_BASE_URL;
 
 /////////////// FRONT END FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
+export const fetchFrontPage = async () => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/story/frontpage`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const frontPage = request.json();
+        return frontPage;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\

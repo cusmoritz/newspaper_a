@@ -46,7 +46,7 @@ const App = () => {
                     <Header />
                     <Routes>
                     <Route exact path="/" element={<Home/>} />
-        
+                    <Route path="/story/:slug" element={<Story />} />
                     </Routes>
                     <Footer />
                 </div>

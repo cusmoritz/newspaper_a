@@ -11,6 +11,7 @@ export const CreateStory = () => {
     const [tags, setTags] = useState("");
     const [author, setAuthor] = useState("");
     const [slug, setSlug] = useState("");
+    const [led, setLed] = useState("");
 
 
     window.addEventListener('load', function() {
@@ -27,14 +28,14 @@ export const CreateStory = () => {
       });
 
       const submitStory = async () => {
-        const result = await submitNewStory({title, subhead, story, tags, author});
+        const result = await submitNewStory({title, subhead, story, tags, author, led});
         return result;
       }
 
       const validateSlug = async () => {
             const cleanSlug = slug.toLowerCase().replace(" ", "-");
             const valid = await checkSlug(cleanSlug);
-            
+
       }
 
       const clearFields = () => {
@@ -44,9 +45,10 @@ export const CreateStory = () => {
         setTags("");
         setAuthor("");
         setSlug("");
+        setLed("");
       }
 
-    return(
+    return (
         <div className="create-story-container">
             <h3>Create a story by populating the fields below.</h3>
             <Link to="/" onClick={() => clearFields()}><button>Cancel</button></Link>
@@ -66,6 +68,9 @@ export const CreateStory = () => {
                 <label htmlFor="subhead-input">Subhead:</label>
                 <input className="subhead-input" value={subhead} onChange={(event) => setSubhead(event.target.value)}></input>
                 
+                <label htmlFor="led-input">Led:</label>
+                <textarea className="led-input" onChange={(event) => {setLed(event.target.value)}}></textarea>
+
                 <label htmlFor="story-input">Story:</label>
                 <textarea value={story} onChange={(event) => setStory(event.target.value)}></textarea>
                 

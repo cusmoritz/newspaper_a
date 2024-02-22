@@ -75,16 +75,16 @@ server.post('/api/story/submitnewstory', async (request, response, next) => {
     }
 });
 
-server.post('/api/admin/story/checkslug', async (request, response, next) => {
-    try {
-        const {checkSlug} = request.body.slug;
-        
-    } catch (error) {
-        logEverything(error);
-        throw error;
-    }    
+// server.post('/api/admin/story/checkslug', async (request, response, next) => {
+//     try {
+//         const {checkSlug} = request.body.slug;
 
-})
+//     } catch (error) {
+//         logEverything(error);
+//         throw error;
+//     }    
+
+// })
 
 server.get('/api/admin/story/everystory', async (request, response, next) => {
     try {

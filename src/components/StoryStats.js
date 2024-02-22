@@ -45,6 +45,7 @@ export const StoryStats = () => {
                         <p>{story.story_author}</p>
                         <p>{storyDate}</p>
                         <p>Active: {story.story_active_flag}</p>
+                        <button onClick={(event) => {oneStoryStats(story.storyId)}}>Expand</button>
                     </fieldset>
                 )
             })}

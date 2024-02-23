@@ -14,6 +14,11 @@ import { CreateAuthor } from './components/CreateAuthor';
 
 const App = () => {
 
+    const updatePageViews = async (storyId) => {
+        const success = await addPageView(storyId);
+        return success;
+    }
+
     // useEffect(() => {
     //     health();
     // }, []);

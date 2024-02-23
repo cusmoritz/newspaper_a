@@ -115,17 +115,18 @@ export const fetchAllStoryStatsAdmin = async () => {
 
 export const fetchOneStoryStats = async(storyId) => {
     try {
-        cosnt request = await fetch(`${BASE_URL}/api/admin/story/stats/${storyId}`, {
+        const request = await fetch(`${BASE_URL}/api/admin/story/stats/${storyId}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+        
         if (request) {
             const response = request.json();
             return response;
         } else {
-            return {error: "Uncesesful fetch for story stats"};
+            return {error: "Unsuccesful fetch for story stats"};
         }
     } catch (error) {
         throw error;

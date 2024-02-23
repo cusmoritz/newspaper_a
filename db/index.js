@@ -36,13 +36,16 @@ const createDatabase = async() => {
             story_id SERIAL PRIMARY KEY,
             story_head TEXT UNIQUE NOT NULL,
             story_deck TEXT NOT NULL,
+            story_led TEXT NOT NULL,
             story_text TEXT NOT NULL,
             story_author INT NOT NULL,
             story_tags TEXT,
             story_slug TEXT NOT NULL,
             story_active_flag BOOLEAN DEFAULT true,
             original_create_date DATE NOT NULL,
-            most_recent_update DATE
+            story_update_author INT,
+            most_recent_update DATE,
+            page_views INT DEFAULT 0
         );     
 
         CREATE TABLE IF NOT EXISTS authors (
@@ -63,7 +66,7 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS story_meta (
             story_meta_id SERIAL PRIMARY KEY,
-            story_meta_id INT NOT NULL,
+            story_main_id INT NOT NULL,
             story_views INT,
             story_original_creator INT NOT NULL,
             story_meta_original_publish_date DATE NOT NULL,
@@ -76,6 +79,8 @@ const createDatabase = async() => {
             error_date DATE NOT NULL,
             error_text TEXT NOT NULL
         );
+
+        CREATE INDEX idx_pagination ON storys(original_create_date) USING btree DESC;
 
         `, [])
         console.log('Done creating database...')

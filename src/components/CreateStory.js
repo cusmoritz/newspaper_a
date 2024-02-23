@@ -79,7 +79,7 @@ export const CreateStory = () => {
 
                 <label htmlFor="slug-input">Add a potential SEO URL slug for this story: </label>
                 <input onChange={((event) => setSlug(event.target.value))} className="slug-input" />
-                <button onClick={(() => )}>Check Slug</button>
+                <button onClick={(() => console.log('loaded'))}>Check Slug</button>
                 
             </fieldset>
             <fieldset>

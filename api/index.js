@@ -34,36 +34,36 @@ server.use((request, response, next) => {
 
 /////////////// FRONT END FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
-server.get('/api/story/frontpage', async (request, response, next) => {
-    try {
-        // const pageNumber = request.params;
-        const frontPage = await fetchFrontPage();
+// server.get('/api/story/frontpage', async (request, response, next) => {
+//     try {
+//         // const pageNumber = request.params;
+//         const frontPage = await fetchFrontPage();
 
-        if (frontPage) {
-            response.send(frontPage).status(200);
-        } else {
-            response.send({Error: "Problem fetching front page."}).status(500);
-        }
-    } catch (error) {
-        logEverything(error);
-        throw error;
-    }
-});
+//         if (frontPage) {
+//             response.send(frontPage).status(200);
+//         } else {
+//             response.send({Error: "Problem fetching front page."}).status(500);
+//         }
+//     } catch (error) {
+//         logEverything(error);
+//         throw error;
+//     }
+// });
 
-server.get('/api/story/pageview/:storyId', async (request, response, next) => {
-    try {
-        const storyId = request.params;
-        const viewUpdate = await addPageView(storyId);
-        if (viewUpdate) {
-            response.send(viewUpdate).status(200);
-        } else {
-            response.send({"Error": "Could not update page views"}).status(500);
-        };
-    } catch (error) {
-        logEverything(error);
-        throw error;
-    }
-})
+// server.get('/api/story/pageview/:storyId', async (request, response, next) => {
+//     try {
+//         const storyId = request.params;
+//         const viewUpdate = await addPageView(storyId);
+//         if (viewUpdate) {
+//             response.send(viewUpdate).status(200);
+//         } else {
+//             response.send({"Error": "Could not update page views"}).status(500);
+//         };
+//     } catch (error) {
+//         logEverything(error);
+//         throw error;
+//     }
+// })
 
 // server.get('/api/:tag/:pageNumber', async (request, response, next) => {
 //     try {
@@ -88,16 +88,16 @@ server.get('/api/story/pageview/:storyId', async (request, response, next) => {
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
-server.get('/api/admin/author/allauthors', async (request, response, next) => {
-    try {
-        console.log('yes here')
-        const authors = await fetchAllAuthors();
-        response.send(authors)
-    } catch (error) {
-        console.log('there was an error at server author/allauthors: ', error);
-        throw error;
-    }
-});
+// server.get('/api/admin/author/allauthors', async (request, response, next) => {
+//     try {
+//         console.log('yes here')
+//         const authors = await fetchAllAuthors();
+//         response.send(authors)
+//     } catch (error) {
+//         console.log('there was an error at server author/allauthors: ', error);
+//         throw error;
+//     }
+// });
 
 // server.get('/api/admin/story/stats/allstorystats', async (request, response, next) => {
 //     try {
@@ -109,21 +109,20 @@ server.get('/api/admin/author/allauthors', async (request, response, next) => {
 //     }
 // });
 
-server.post('/api/story/submitnewstory', async (request, response, next) => {
-    try {
-        const {story} = request.body.story;
-        const newStory = await createNewStory(story)
-        if (newStory) {
-            response.send(newStory).status(200);
-        } else {
-            response.send().status(500);
-        }
-    } catch (error) {
-        logEverything(error);
-        console.log('there was an error submitting a new story: ', error);
-        throw error;
-    }
-});
+// server.post('/api/story/submitnewstory', async (request, response, next) => {
+//     try {
+//         const {story} = request.body;
+//         const newStory = await createNewStory(story)
+//         if (newStory) {
+//             response.send(newStory).status(200);
+//         } else {
+//             response.send().status(500);
+//         }
+//     } catch (error) {
+//         logEverything(error);
+//         throw error;
+//     }
+// });
 
 // server.post('/api/admin/story/checkslug', async (request, response, next) => {
 //     try {
@@ -136,26 +135,26 @@ server.post('/api/story/submitnewstory', async (request, response, next) => {
 
 // })
 
-server.get('/api/admin/story/everystory', async (request, response, next) => {
-    try {
-        const allStorys = await returnEveryStoryAdmin();
-        response.send(allStorys); 
-    } catch (error) {
-        logEverything(error);
-        throw error;
-    }
-});
+// server.get('/api/admin/story/everystory', async (request, response, next) => {
+//     try {
+//         const allStorys = await returnEveryStoryAdmin();
+//         response.send(allStorys); 
+//     } catch (error) {
+//         logEverything(error);
+//         throw error;
+//     }
+// });
 
-server.get('/api/admin/story/stats/:storyId', async (request, response, next) => {
-    try {
-        const id = request.params;
-        const storyStats = await oneStoryStats(id);
-        response.send(storyStats).status(200);
-    } catch (error) {
-        logEverything(error);
-        throw error;
-    }
-});
+// server.get('/api/admin/story/stats/:storyId', async (request, response, next) => {
+//     try {
+//         const id = request.params;
+//         const storyStats = await oneStoryStats(id);
+//         response.send(storyStats).status(200);
+//     } catch (error) {
+//         logEverything(error);
+//         throw error;
+//     }
+// });
 
 
 

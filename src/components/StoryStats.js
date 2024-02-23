@@ -13,8 +13,8 @@ export const StoryStats = () => {
 
     const oneStoryStats = async (storyId) => {
         try {
-            const setOneStory = await fetchOneStoryStats(storyId);
-            if (!setOneStory) {
+            const getOneStats = await fetchOneStoryStats(storyId);
+            if (!getOneStats) {
                 return {error: "There was a problem fetching one story"};
                 setOneStory({});
             } else {
@@ -24,8 +24,6 @@ export const StoryStats = () => {
             throw error;
         }
     };
-
-    const fetchA
 
     const [allStorys, setAllStorys] = useState([]);
     const [oneStory, setOneStory] = useState({});

@@ -174,6 +174,6 @@ module.exports = {
     createNewStory,
     returnAllActiveStorys,
     returnStoryFromDate,
-    returnEveryStory,
+    returnEveryStoryAdmin,
     fetchFrontPage,
 }

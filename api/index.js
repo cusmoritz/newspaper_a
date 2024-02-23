@@ -50,6 +50,21 @@ server.get('/api/story/frontpage', async (request, response, next) => {
     }
 });
 
+server.get('/api/story/pageview/:storyId', async (request, response, next) => {
+    try {
+        const storyId = request.params;
+        const viewUpdate = await addPageView(storyId);
+        if (viewUpdate) {
+            response.send(viewUpdate).status(200);
+        } else {
+            response.send({"Error": "Could not update page views"}).status(500);
+        };
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }
+})
+
 // server.get('/api/:tag/:pageNumber', async (request, response, next) => {
 //     try {
 //            const {rows: storyResults} = await fetchStorysForTagAndPage(tag, page);

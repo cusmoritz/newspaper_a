@@ -37,6 +37,21 @@ const returnStoryFromDate = async (date) => {
     }
 };
 
+const addPageView = async (storyId) => {
+    try {
+        const {rows: pageView} = await client.query(`
+            UPDATE storys
+            SET story_views = story_views + 1
+            WHERE story_main_id = $1
+            ;
+        `, [storyId]);
+        return pageView;
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }
+}
+
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
@@ -110,8 +125,9 @@ const fetchFrontPage = async () => {
     try {
         const now = new Date();
         const {rows: frontPage} = await clientquery(`
-            SELECT * FROM storys
+            SELECT (story_id, story_head, storydeck, story_led, story_author, story_tags) FROM storys
             WHERE original_create_date < $1
+            ORDER DESC
             LIMIT 10
             ;
         `, [now]);

@@ -19,6 +19,20 @@ export const fetchFrontPage = async () => {
     } catch (error) {
         throw error;
     }
+};
+
+export const addPageView = async (storyId) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/story/pageview/:storyId`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return request;
+    } catch (error) {
+        throw error;
+    }
 }
 
 

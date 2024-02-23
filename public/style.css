@@ -1,6 +1,14 @@
 :root {
     --darkBlue: #1d2a35;
     --lightGrey: #bcbcbc;
+    
+}
+
+@font-face {
+    font-family: 'Catull';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../src/fonts/catull.woff') format('woff');
 }
 
 .footer-container {
@@ -22,6 +30,10 @@
     }
     margin-top: 30px;
 
+}
+
+body {
+    font-family:'Catull', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 @media only screen and (max-width: 600px) {

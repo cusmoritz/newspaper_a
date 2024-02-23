@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'CatullRegular';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../src/fonts/catull.woff') format('woff');
+}
+
+
+/* @font-face {
+    font-family: 'Catull Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Catull Regular'), url('Catull.woff') format('woff');
+    } */

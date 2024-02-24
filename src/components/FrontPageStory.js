@@ -5,6 +5,9 @@ export const FrontPageStory = ({props}) => {
     console.log('story', story)
     return (
         <div className="front-page-story-container">
+            <div>
+                <img src="https://placehold.jp/150x150.png" className="logo" alt="The Tooth logo"/>
+            </div>
             <h2 className="front-page-headline" value={story.story_id}>{story.story_head}</h2>
             <h3 className="front-page-story-deck">{story.story_deck}</h3>
             <div className="front-page-author-container">

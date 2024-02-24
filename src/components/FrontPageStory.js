@@ -12,6 +12,7 @@ export const FrontPageStory = ({props}) => {
                 <p className="front-page-author-email">{story.story_author.author_email}</p>
             </div>
             <p className="front-page-story-led">{story.story_led} {story.story_led}</p>
+            <div className="front-page-fieldset-contianer">
             <fieldset className="front-page-tag-container">
                 <p>Tags: &nbsp;</p> 
                 {story.story_tags.map((tag) => {
@@ -20,6 +21,8 @@ export const FrontPageStory = ({props}) => {
                     )
                 })}
             </fieldset>
+            </div>
+
         </div>
     )
 };

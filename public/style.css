@@ -49,11 +49,17 @@
     margin-right: 6px;
 }
 
+.front-page-fieldset-contianer {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .front-page-story-container .front-page-tag-container {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    float:right;
 }
 
 .front-page-story-container .front-page-tag-container > a {

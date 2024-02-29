@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { fetchAllAuthors } from "../api";
 import { useEffect } from "react";
 
-export const CreateAuthor = () => {
+export const AuthorPage = () => {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("");
     const [everyone, setEveryone] = useState([]);
+    const [newAuthorBool, setNewAuthorBool] = useState(false)
 
     const fetchEveryAuthor = async() => {
         const everyone = await fetchAllAuthors();
-        console.log('everyone', everyone);
         setEveryone(everyone);
     };
 
@@ -22,6 +22,7 @@ export const CreateAuthor = () => {
     // }, [])
 
     const clearFields = () => {
+        setNewAuthorBool(false);
         setFirstName("");
         setLastName("");
         setEmail("");
@@ -29,8 +30,27 @@ export const CreateAuthor = () => {
     };
 
     return (
-        <div className="create-author-container">
-            <Link to="/" onClick={()  => clearFields()}><button>Cancel</button></Link>
+        <div className="author-page-container">
+            <div className="current-authors-container">
+                <h4>Current authors:</h4>
+                <button onClick={() => {fetchEveryAuthor()}}>fetch all</button>
+                {everyone.map((author) => {
+                    return(
+                        <fieldset className="author-container" value={author.author_id}>
+                        <p>{author.author_first} {author.author_last}</p>
+                        <p>{author.author_email}</p>
+                        <p>Role: {author.author_role}</p>
+                        </fieldset>
+                    )
+                })}
+            </div>
+            {!newAuthorBool ? 
+                <button className="new-author-button" onClick={() => {setNewAuthorBool(true)}}>Create New Author</button> 
+                : 
+                null
+            }
+            {!newAuthorBool ? null :
+            <div className="create-author-container">
             <fieldset>
                 <label htmlFor="first-name-input" >First Name:</label>
                 <input type="text" className="first-name-input" required value={firstName} onChange={(event) => setFirstName(event.target.value)}></input>
@@ -46,20 +66,10 @@ export const CreateAuthor = () => {
                 </select>
             </fieldset>
             <button onClick={() => submitNewWriter()}>Submit</button>
-        <div className="current-authors-container">
-            <h4>Current authors:</h4>
-            <button onClick={() => {fetchEveryAuthor()}}>fetch all</button>
-            {everyone.map((author) => {
-                console.log(author)
-                return(
-                    <fieldset className="author-container" value={author.author_id}>
-                       <p>{author.author_first} {author.author_last}</p>
-                       <p>{author.author_email}</p>
-                       <p>Role: {author.author_role}</p>
-                    </fieldset>
-                )
-            })}
-        </div>
+            <button onClick={()  => clearFields()}>Cancel</button>
+            </div>
+            }
+
         </div>
     );
 };

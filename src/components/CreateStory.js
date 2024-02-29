@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { submitNewStory } from "../api";
+import { fetchAllAuthors } from "../api"
 
 export const CreateStory = () => {
 
@@ -12,8 +13,9 @@ export const CreateStory = () => {
     const [author, setAuthor] = useState("");
     const [slug, setSlug] = useState("");
     const [led, setLed] = useState("");
+    const [allAuthors, setAllAuthors] = useState([]);
 
-
+    // image loading function that doesn't work. still need image hosting
     window.addEventListener('load', function() {
         document.querySelector('input[type="file"]').addEventListener('change', function() {
             if (this.files && this.files[0]) {
@@ -35,8 +37,16 @@ export const CreateStory = () => {
       const validateSlug = async () => {
             const cleanSlug = slug.toLowerCase().replace(" ", "-");
             const valid = await checkSlug(cleanSlug);
-
       }
+
+      const loadPage = async () => {
+        const authors = await fetchAllAuthors();
+        setAllAuthors(authors);
+      }
+
+      useState(() => {
+        loadPage();
+      }, []);
 
       const clearFields = () => {
         setTitle("");
@@ -58,13 +68,26 @@ export const CreateStory = () => {
                 <label htmlFor="title-input">title:</label>
                 <input className="title-input" value={title} onChange={(event) => setTitle(event.target.value)}></input>
                 <label htmlFor="author-dropdown">Author:</label>
-                <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
+                <select>
+                {!allAuthors 
+                ? null 
+                : 
+                    allAuthors.map((author) => {
+                        return (
+                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id}>{author.author_first} {author.author_last}</option>
+                        )
+                    })
+
+                }
+                </select>
+
+                {/* <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
                     <option>Author A</option>
                     <option>Author B</option>
                     <option>Author C</option>
                     <option>Author D</option>
                     <option>Author E</option>
-                </select>
+                </select> */}
                 <label htmlFor="subhead-input">Subhead:</label>
                 <input className="subhead-input" value={subhead} onChange={(event) => setSubhead(event.target.value)}></input>
                 

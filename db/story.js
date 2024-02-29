@@ -57,9 +57,10 @@ const addPageView = async (storyId) => {
 
 const createNewStory = async (storyInfo) => {
     try {
-        const originalCreateDate = new Date(); 
+        console.log('storyinfo db', storyInfo)
+        const originalCreateDate = Date.now(); 
         const {rows: story} = await client.query(`
-        INSERT INTO storys (story_head, story_deck, story_led, story_text, story_author, story_tags, create_date)
+        INSERT INTO storys (story_head, story_deck, story_led, story_text, story_author, story_tags, original_create_date)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *
         ;
@@ -73,7 +74,7 @@ const createNewStory = async (storyInfo) => {
 
         return story;
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         console.log('there was an error submitting a new story: ', error);
         throw error;
     }

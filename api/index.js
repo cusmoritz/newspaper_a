@@ -111,20 +111,21 @@ server.use((request, response, next) => {
 //     }
 // });
 
-// server.post('/api/story/submitnewstory', async (request, response, next) => {
-//     try {
-//         const {story} = request.body;
-//         const newStory = await createNewStory(story)
-//         if (newStory) {
-//             response.send(newStory).status(200);
-//         } else {
-//             response.send().status(500);
-//         }
-//     } catch (error) {
-//         logEverything(error);
-//         throw error;
-//     }
-// });
+server.post('/api/admin/story/submitnewstory', async (request, response, next) => {
+    try {
+        const {story} = request.body;
+        console.log('story in api', story)
+        const newStory = await createNewStory(story)
+        if (newStory) {
+            response.send(newStory).status(200);
+        } else {
+            response.send().status(500);
+        }
+    } catch (error) {
+        //logEverything(error);
+        throw error;
+    }
+});
 
 // server.post('/api/admin/story/checkslug', async (request, response, next) => {
 //     try {

@@ -12,11 +12,6 @@ export const AuthorPage = () => {
     const [everyone, setEveryone] = useState([]);
     const [newAuthorBool, setNewAuthorBool] = useState(false)
 
-    const fetchEveryAuthor = async() => {
-        const everyone = await fetchAllAuthors();
-        setEveryone(everyone);
-    };
-
     // useEffect(() => {
     //     fetchEveryAuthor();
     // }, [])

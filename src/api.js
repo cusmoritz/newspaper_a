@@ -56,7 +56,7 @@ export const fetchAllAuthors = async () => {
 
 export const submitNewStory = async (storyObj) => {
     try {
-
+        console.log('story front end', storyObj)
         const request = await fetch(`${BASE_URL}/api/admin/story/submitnewstory`, {
             method: "POST",
             headers: {

@@ -8,7 +8,8 @@ export const AuthorPage = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
-    const [role, setRole] = useState("");
+    const [publicRole, setPublicRole] = useState("");
+    const [internalRole, setInternalRole] = useState(3);
     const [everyone, setEveryone] = useState([]);
     const [newAuthorBool, setNewAuthorBool] = useState(false)
 
@@ -31,7 +32,8 @@ export const AuthorPage = () => {
         setFirstName("");
         setLastName("");
         setEmail("");
-        setRole("");
+        setPublicRole("");
+        setInternalRole(0);
     };
 
     return (
@@ -50,8 +52,10 @@ export const AuthorPage = () => {
                     <input type="text" className="last-name-input" required value={lastName} onChange={(event) => setLastName(event.target.value)}></input>
                     <label htmlFor="email-input">Email:</label>
                     <input type="text" className="email-input" required value={email} onChange={(event) => setEmail(event.target.value)}></input>
-                    <label htmlFor="role-input">Internal Role:</label>
-                    <select className="role-input" required value={role} onChange={(event) => setRole(event.target.value)}>
+                    <label htmlFor="public-role-input">Public Role (Business Writer, Intern, etc...)</label>
+                    <input className="public-role-input" placeholder="Music Critic" onChange={(event) => setPublicRole(event.target.value)}></input>
+                    <label htmlFor="internal-role-input">Internal Role:</label>
+                    <select className="internal-role-input" required value={internalRole} onChange={(event) => setInternalRole(event.target.value)}>
                         <option value={3}>Other</option>
                         <option value={2}>Writer</option>
                         <option value={1}>Editor</option>

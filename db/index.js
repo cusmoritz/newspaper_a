@@ -31,7 +31,7 @@ const createDatabase = async() => {
             firstN VARCHAR(100) NOT NULL,
             lastN VARCHAR(100) NOT NULL,
             email VARCHAR(200) NOT NULL,
-            public_role VARCHAR(20) NOT NULL,
+            public_role VARCHAR(50) NOT NULL,
             internal_role SMALLINT NOT NULL DEFAULT 3
         );
 

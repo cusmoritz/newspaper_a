@@ -39,6 +39,38 @@
     padding-right: 15px;
 }
 
+.create-author-container {
+    color: var(--lightGrey);
+    display: flex;
+    flex-direction: column;
+}
+
+.create-author-container fieldset {
+    padding-left: 20%;
+    padding-right: 20%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.create-author-container fieldset input {
+    width: 100%;
+}
+
+.create-author-container fieldset label {
+    width: 100%;
+}
+
+.create-author-container fieldset select {
+    width: 50%;
+}
+
+/* .creat-author-container fieldset input,
+.create-author-container fieldset label {
+    width: 100%;
+} */
+
 
 /* #################  IMAGES #################### */
 

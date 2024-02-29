@@ -28,10 +28,11 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS authors (
             author_id SERIAL PRIMARY KEY,
-            author_first VARCHAR(100) NOT NULL,
-            author_last VARCHAR(100) NOT NULL,
-            author_email VARCHAR(200) NOT NULL,
-            author_role VARCHAR(20) NOT NULL
+            firstN VARCHAR(100) NOT NULL,
+            lastN VARCHAR(100) NOT NULL,
+            email VARCHAR(200) NOT NULL,
+            public_role VARCHAR(20) NOT NULL,
+            internal_role SMALLINT NOT NULL DEFAULT 3
         );
 
         CREATE TABLE IF NOT EXISTS image_table (
@@ -86,14 +87,14 @@ const destroyDatabase = async () => {
     }
 }
 
-const authors = [
-    {first: "marcus", last: "moritz", email: "marcus@thetooth.com", role: "editor"},
-    {first: "john", last: "laconte", email: "john@thetooth.com", role: "writer"},
-    {first: "ross", last: "leonhart", email: "ross@thetooth.com", role: "assistant editor"},
-    {first: "jaron", last: "jaron", email: "jaron@thetooth.com", role: "intern"},
-    {first: "scott", last: "miller", email: "scott@thetooth.com", role: "business writer"},
-    {first: "ricky", last: "martinez", email: "ricky@thetooth.com", role: "music writer"}
-]
+// const authors = [
+//     {first: "marcus", last: "moritz", email: "marcus@thetooth.com", role: "editor"},
+//     {first: "john", last: "laconte", email: "john@thetooth.com", role: "writer"},
+//     {first: "ross", last: "leonhart", email: "ross@thetooth.com", role: "assistant editor"},
+//     {first: "jaron", last: "jaron", email: "jaron@thetooth.com", role: "intern"},
+//     {first: "scott", last: "miller", email: "scott@thetooth.com", role: "business writer"},
+//     {first: "ricky", last: "martinez", email: "ricky@thetooth.com", role: "music writer"}
+// ]
 
 destroyDatabase();
 createDatabase();

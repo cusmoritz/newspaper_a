@@ -6,11 +6,11 @@ const {logEverything} = require('./errors');
 const createAuthor = async (values) => {
     try {
         await client.query(`
-            INSERT INTO authors (author_first, author_last, author_email, author_role)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO authors (firstN, lastN, email, public_role, internal_role)
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING *
             ;
-        `, [values.first, values.last, values.email, values.role])
+        `, [values.first, values.last, values.email, values.public_role, values.internal_role])
     } catch (error) {
         //logEverything(error);
         console.log('there was an error creating a new author: ', error);
@@ -48,13 +48,13 @@ const fetchAllAuthors = async() => {
     };
 };
 
-const authors = [
-    {first: "marcus", last: "moritz", email: "marcus@thetooth.com", role: "editor"},
-    {first: "john", last: "laconte", email: "john@thetooth.com", role: "writer"},
-    {first: "ross", last: "leonhart", email: "ross@thetooth.com", role: "assistant editor"},
-    {first: "jaron", last: "jaron", email: "jaron@thetooth.com", role: "intern"},
-    {first: "scott", last: "miller", email: "scott@thetooth.com", role: "business writer"},
-    {first: "ricky", last: "martinez", email: "ricky@thetooth.com", role: "music writer"}
+const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
+    {firstN: "marcus", lastN: "moritz", email: "marcus@thetooth.com", public_role: "editor", internal_role: 1},
+    {firstN: "john", lastN: "laconte", email: "john@thetooth.com", public_role: "writer", internal_role: 2},
+    {firstN: "ross", lastN: "leonhart", email: "ross@thetooth.com", public_role: "assistant editor", internal_role: 1},
+    {firstN: "jaron", lastN: "jaron", email: "jaron@thetooth.com", public_role: "intern", internal_role: 3},
+    {firstN: "scott", lastN: "miller", email: "scott@thetooth.com", public_role: "business writer", internal_role: 2},
+    {firstN: "ricky", lastN: "martinez", email: "ricky@thetooth.com", public_role: "music writer", internal_role: 2}
 ]
 
 const insertAuthors = (array) => {

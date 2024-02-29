@@ -16,6 +16,29 @@
 }
 
 
+/* ################### AUTHOR PAGE ##################### */
+
+.author-page-container {
+    background-color: var(--darkBlue);
+}
+.current-authors-container{
+    padding-left: 5%;
+    padding-right: 5%;
+    color: var(--lightGrey);
+}
+
+.author-container {
+    border: 2px var(--lightGrey);
+    border-style: dashed;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.author-container legend {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 
 /* #################  IMAGES #################### */
 

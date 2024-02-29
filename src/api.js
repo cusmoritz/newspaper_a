@@ -40,6 +40,7 @@ export const addPageView = async (storyId) => {
 
 export const fetchAllAuthors = async () => {
     try {
+        console.log('yup')
         const request = await fetch(`${BASE_URL}/api/admin/author/allauthors`, {
             method: "GET",
             headers: {

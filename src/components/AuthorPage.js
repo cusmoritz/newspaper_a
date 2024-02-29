@@ -7,11 +7,18 @@ import { CreateAuthorComponent } from "./CreateAuthorComponent";
 export const AuthorPage = () => {
 
     const [everyone, setEveryone] = useState([]);
-    const [newAuthorBool, setNewAuthorBool] = useState(false)
+    const [newAuthorBool, setNewAuthorBool] = useState(false);
 
-    // useEffect(() => {
-    //     fetchEveryAuthor();
-    // }, [])
+    const loadPage = async () => {
+        const writers = await fetchAllAuthors();
+        if (writers) {
+            setEveryone(writers);
+        }
+    }
+
+    useEffect(() => {
+        loadPage();
+    }, [])
 
     const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
     // here for testing
@@ -34,11 +41,12 @@ export const AuthorPage = () => {
             <div className="current-authors-container">
                 <h4>Current authors:</h4>
                 <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>
-                <button onClick={() => {fetchEveryAuthor()}}>fetch all</button>
+                <button onClick={() => {fetchAllAuthors()}}>fetch all</button>
                 {everyone.map((author) => {
+                    console.log(author)
                     return(
                         <fieldset key={author.author_id} className="author-container" value={author.author_id}>
-                        <legend>{author.firstN} {author.lastN}</legend>
+                        <legend>{author.first_name} {author.last_name}</legend>
                         
                         <p>Email: {author.email}</p>
                         <p>Public role: {author.public_role}</p>

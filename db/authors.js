@@ -6,11 +6,11 @@ const {logEverything} = require('./errors');
 const createAuthor = async (values) => {
     try {
         await client.query(`
-            INSERT INTO authors (firstN, lastN, email, public_role, internal_role)
+            INSERT INTO authors (first_name, last_name, email, public_role, internal_role)
             VALUES ($1, $2, $3, $4, $5)
             RETURNING *
             ;
-        `, [values.first, values.last, values.email, values.public_role, values.internal_role])
+        `, [values.firstN, values.lastN, values.email, values.public_role, values.internal_role])
     } catch (error) {
         //logEverything(error);
         console.log('there was an error creating a new author: ', error);

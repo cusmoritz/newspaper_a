@@ -6,28 +6,6 @@ const client = new Client({
     ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : undefined,
 });
 
-//client.connect();
-
-// story metadata:
-// original create date
-// updated date
-// update author
-
-const createAuthor = async (values) => {
-    try {
-        await client.query(`
-            INSERT INTO authors (author_first, author_last, author_email, author_role)
-            VALUES ($1, $2, $3, $4)
-            RETURNING *
-            ;
-        `, [values.first, values.last, values.email, values.role])
-    } catch (error) {
-        logEverything(error);
-        console.log('there was an error creating a new author: ', error);
-        throw error;
-    }
-}
-
 const createDatabase = async() => {
     try {
         console.log('Creating database...')
@@ -80,7 +58,7 @@ const createDatabase = async() => {
             error_text TEXT NOT NULL
         );
 
-        CREATE INDEX idx_pagination ON storys(original_create_date) USING btree DESC;
+        
 
         `, [])
         console.log('Done creating database...')
@@ -89,6 +67,8 @@ const createDatabase = async() => {
         throw error;
     }
 };
+
+// CREATE INDEX idx_pagination ON storys(original_create_date) USING btree DESC;
 
 const destroyDatabase = async () => {
     try {
@@ -115,18 +95,10 @@ const authors = [
     {first: "ricky", last: "martinez", email: "ricky@thetooth.com", role: "music writer"}
 ]
 
-const insertAuthors = (array) => {
-    array.forEach(writer => {
-        createAuthor(writer);
-        console.log('writer', writer)
-    });
-}
-
 destroyDatabase();
 createDatabase();
 //insertAuthors(authors);
 
 module.exports = {
-    createAuthor,
     client,
 }

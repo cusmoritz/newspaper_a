@@ -1,6 +1,6 @@
 // front-end server calls
 
-const {REACT_APP_BASE_URL = 'http://localhost:3000'} = process.env; // wherever the db is hosted
+const {REACT_APP_BASE_URL = 'http://localhost:3001'} = process.env; // wherever the db is hosted
 const BASE_URL = REACT_APP_BASE_URL;
 
 
@@ -40,16 +40,13 @@ export const addPageView = async (storyId) => {
 
 export const fetchAllAuthors = async () => {
     try {
-        console.log('yes')
-        console.log('werewrewrew', process.env)
         const request = await fetch(`${BASE_URL}/api/admin/author/allauthors`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
             },
         });
-        console.log('request', request)
-        const allAuthors = request.json();
+        const allAuthors = await request.json();
         return allAuthors;
     } catch (error) {
         console.log('there was an error fetching all authors: ', error);
@@ -145,9 +142,7 @@ export const health = async () => {
                 'Content-Type': 'application/json',
             },
         });
-        console.log('result 1', response)
         const result = await response.json();
-        console.log('result 2', result)
         return result;
     } catch (error) {
         console.log('There was an error in health user', error);

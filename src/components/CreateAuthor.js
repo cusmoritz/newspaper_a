@@ -5,19 +5,21 @@ import { useEffect } from "react";
 
 export const CreateAuthor = () => {
 
-    // useEffect(() => {
-    //     fetchEveryAuthor();
-    // }, [])
-
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("");
+    const [everyone, setEveryone] = useState([]);
 
     const fetchEveryAuthor = async() => {
         const everyone = await fetchAllAuthors();
         console.log('everyone', everyone);
+        setEveryone(everyone);
     };
+
+    // useEffect(() => {
+    //     fetchEveryAuthor();
+    // }, [])
 
     const clearFields = () => {
         setFirstName("");
@@ -46,7 +48,17 @@ export const CreateAuthor = () => {
             <button onClick={() => submitNewWriter()}>Submit</button>
         <div className="current-authors-container">
             <h4>Current authors:</h4>
-            <button onClick={() => fetchEveryAuthor()}>fetch all</button>
+            <button onClick={() => {fetchEveryAuthor()}}>fetch all</button>
+            {everyone.map((author) => {
+                console.log(author)
+                return(
+                    <fieldset className="author-container" value={author.author_id}>
+                       <p>{author.author_first} {author.author_last}</p>
+                       <p>{author.author_email}</p>
+                       <p>Role: {author.author_role}</p>
+                    </fieldset>
+                )
+            })}
         </div>
         </div>
     );

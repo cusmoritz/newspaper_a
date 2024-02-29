@@ -12,7 +12,7 @@ const createAuthor = async (values) => {
             ;
         `, [values.first, values.last, values.email, values.role])
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         console.log('there was an error creating a new author: ', error);
         throw error;
     }
@@ -70,5 +70,4 @@ module.exports = {
     fetchAllAuthors,
     fetchOneAuthor,
     createAuthor,
-    
 }

@@ -2,7 +2,7 @@
 
 const express = require('express');
 const cors = require('cors');
-// const path = require('path');
+const path = require('path');
 
 const server = express();
 const port = 3001;
@@ -10,16 +10,19 @@ const port = 3001;
 server.use(express.json());
 server.use(cors());
 
-// server.use(express.static(path.join(__dirname, 'build')));
+//server.use(express.static(path.join(__dirname, 'build')));
 // server.get("*", (req, res) => { 
 // res.sendFile(path.join(__dirname, "build", "index.html")) });
+
+server.use(express.static(path.join(__dirname, "public")));
 
 const {client} = require('../db/index');
 client.connect();
 
 server.listen(port, () => {
   console.log(`listening on port ${port}`);
-})
+});
+
 
 const {fetchAllAuthors} = require('../db/authors');
 const {createNewStory, fetchPage} = require('../db/story');
@@ -88,16 +91,15 @@ server.use((request, response, next) => {
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
-// server.get('/api/admin/author/allauthors', async (request, response, next) => {
-//     try {
-//         console.log('yes here')
-//         const authors = await fetchAllAuthors();
-//         response.send(authors)
-//     } catch (error) {
-//         console.log('there was an error at server author/allauthors: ', error);
-//         throw error;
-//     }
-// });
+ server.get('/api/admin/author/allauthors', async (request, response, next) => {
+     try {
+         const authors = await fetchAllAuthors();
+         response.send(authors).status(200);
+     } catch (error) {
+         console.log('there was an error at server author/allauthors: ', error);
+         throw error;
+     }
+ });
 
 // server.get('/api/admin/story/stats/allstorystats', async (request, response, next) => {
 //     try {
@@ -158,16 +160,16 @@ server.use((request, response, next) => {
 
 
 
-// server.get('/api/health', async (request, response, next) => {
-//     try {
-//         // console.log('here')
-//         // createDatabase();
-//         response.send('All good!')
-//     } catch (error) {
-//         console.log('there was an error in server health: ', error)
-//         throw error;
-//     }
-// });
+server.get('/api/health', async (request, response, next) => {
+    try {
+        // console.log('here')
+        // createDatabase();
+        response.send('All good!')
+    } catch (error) {
+        console.log('there was an error in server health: ', error)
+        throw error;
+    }
+});
 
 
 

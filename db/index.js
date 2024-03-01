@@ -12,15 +12,15 @@ const createDatabase = async() => {
         await client.query(`
         CREATE TABLE IF NOT EXISTS storys (
             story_id SERIAL PRIMARY KEY,
-            story_head TEXT UNIQUE NOT NULL,
-            story_deck TEXT NOT NULL,
+            story_title TEXT UNIQUE NOT NULL,
+            story_subhead TEXT NOT NULL,
             story_led TEXT NOT NULL,
             story_text TEXT NOT NULL,
             story_author INT NOT NULL,
             story_tags TEXT,
             story_slug TEXT NOT NULL,
             story_active_flag BOOLEAN DEFAULT true,
-            original_create_date DATE NOT NULL,
+            original_create_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_update_author INT,
             most_recent_update DATE,
             page_views INT DEFAULT 0

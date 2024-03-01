@@ -58,19 +58,18 @@ const addPageView = async (storyId) => {
 const createNewStory = async (storyInfo) => {
     try {
         console.log('storyinfo db', storyInfo)
-        const originalCreateDate = Date.now(); 
         const {rows: story} = await client.query(`
-        INSERT INTO storys (story_head, story_deck, story_led, story_text, story_author, story_tags, original_create_date)
+        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_tags, story_slug)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *
         ;
-        `, [storyInfo.head, storyInfo.deck, storyInfo.led, storyInfo.text, storyInfo.author, storyInfo.tags, originalCreateDate]);
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.tags, storyInfo.slug]);
 
-        const {rows: metaInit} = await client.query(`
-            INSERT INTO story_meta (story_meta_id, story_original_creator, story_meta_original_publish_date)
-            VALUES ($1, $2, $3)
-            ;
-        `, [story.story_id, story.story_author, story.create_date]);
+        // const {rows: metaInit} = await client.query(`
+        //     INSERT INTO story_meta (story_meta_id, story_original_creator, story_meta_original_publish_date)
+        //     VALUES ($1, $2, $3)
+        //     ;
+        // `, [story.story_id, story.story_author, story.create_date]);
 
         return story;
     } catch (error) {
@@ -144,7 +143,7 @@ const fetchFrontPage = async () => {
 
     // if (pageNumber === 1) {
     //     const {rows: page} = await client.query(`
-    //         SELECT (story_id, story_head, story_deck, story_led, story_author, story_tags) FROM storys
+    //         SELECT (story_id, story_title, story_subhead, story_led, story_author, story_tags) FROM storys
     //         WHERE orignal_create_date < $1
     //         ORDER BY DESC
     //         LIMIT 10
@@ -153,23 +152,48 @@ const fetchFrontPage = async () => {
     // } else {
     //     const offset = pageNumber * 10;
     //     const {rows: page} = await client.query(`
-    //     SELECT (story_id, story_head, story_deck, story_led, story_author, story_tags) FROM storys
+    //     SELECT (story_id, story_title, story_subhead, story_led, story_author, story_tags) FROM storys
     //     WHERE orignal_create_date < $1
     //     ORDER BY DESC
     //     LIMIT 10 OFFSET $2
     //     ;
     // `, [now, offset])
 
-            // story_id SERIAL PRIMARY KEY,
-            // story_head TEXT UNIQUE NOT NULL,
-            // story_deck TEXT NOT NULL,
-            // story_led TEXT NOT NULL,
-            // story_text TEXT NOT NULL,
-            // story_author INT NOT NULL,
-            // story_tags TEXT,
 }
 
+const fakeStorys = [
+    {
+        title: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
+        subhead: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
+        story: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
+          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. \n" +
+          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
+          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
+          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
+          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
+          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n",
+        tags: [ 'story', 'first', 'another story', 'a good one' ],
+        author: '4',
+        led: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
+        slug: 'first-story-goes-here'
+      },
+      {
+        title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
+        subhead: "The Shift Bike program allows residents and guests to rent e-bikes by the minute from Vail to Edwards",
+        story: "The Shift Bike program allows individuals to rent e-bikes from stations throughout these communities on a pay-as-you-go model. \n The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 stations. \n The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions. Single-occupancy vehicles account for around 40% of the county's emissions, so the idea was that providing an alternative mobility option would reduce the number of these vehicle trips in the region. \n The first summer saw a total of 7,393 trips for a total of 21,735.4 miles, with the average ride being 2.94 miles for around 30 minutes.  \n Ninety percent of the trips were under 60 minutes long. Reportedly, the program was responsible for the reduction of 8.68 metric tons of greenhouse gas emissions — the equivalent of 1,000 gallons of gasoline — in 2022.",
+        tags: ['news', 'vail', 'edwards', 'scooters'],
+        author: '5',
+        led: "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions.",
+        slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer'
+      }
+]
 
+const insertFakeStorys = ()=> {
+    fakeStorys.forEach((story) => {
+        createNewStory(story);
+    })
+}
+insertFakeStorys(fakeStorys);
 
 module.exports = {
     createNewStory,

@@ -115,12 +115,14 @@ server.post('/api/admin/story/submitnewstory', async (request, response, next) =
     try {
         const {story} = request.body;
         console.log('story in api', story)
-        const newStory = await createNewStory(story)
-        if (newStory) {
+        if (story) {
+          const newStory = await createNewStory(story);
+          if (newStory) {
             response.send(newStory).status(200);
         } else {
             response.send().status(500);
         }
+      }
     } catch (error) {
         //logEverything(error);
         throw error;

@@ -10,7 +10,7 @@ export const CreateStory = () => {
     const [subhead, setSubhead] = useState("");
     const [story, setStory] = useState("");
     const [tags, setTags] = useState("");
-    const [author, setAuthor] = useState("");
+    const [author, setAuthor] = useState(0);
     const [slug, setSlug] = useState("");
     const [led, setLed] = useState("");
     const [allAuthors, setAllAuthors] = useState([]);
@@ -34,7 +34,7 @@ export const CreateStory = () => {
       });
 
       const submitStory = async () => {
-        const result = await submitNewStory({title, subhead, story, tags, author, led});
+        const result = await submitNewStory({title, subhead, story, tags, author, led, slug});
         return result;
       }
 
@@ -119,11 +119,11 @@ export const CreateStory = () => {
                 </select> */}
 
                 <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
-                    <option>Author A</option>
-                    <option>Author B</option>
-                    <option>Author C</option>
-                    <option>Author D</option>
-                    <option>Author E</option>
+                    <option value="5">Author A</option>
+                    <option value="4">Author B</option>
+                    <option value="3">Author C</option>
+                    <option value="2">Author D</option>
+                    <option value="1">Author E</option>
                 </select>
 
                 <label htmlFor="title-input">Title:</label>

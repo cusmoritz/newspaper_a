@@ -90,12 +90,11 @@ export const CreateStory = () => {
         // split the tags
         const words = tagValue.split(",");
         let tagArray = [];
-        // for (let i = 0; words.length; i++) {
-        //     console.log('here', tagArray);
-        //     tagArray.push(words[0].trim());
-        // }
+        for (let i = 0; i < words.length; i++) {
+            tagArray.push(words[i].trim())
+        }
         setTags(tagArray);
-        console.log('tag array', tagArray);
+        console.log('words', tagArray)
       }
 
     return (
@@ -144,9 +143,8 @@ export const CreateStory = () => {
                 <div className="character-counter">Character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
                 
                 <label htmlFor="tag-input">Add tags to this story. To add multiple tags, serparate tags with a comma.</label>
-                <input className="tag-input" value={tags} onChange={(event) => setTagEvent(event.target.value)}></input>
-                <div className="character-counter">Character limit: {tags}</div>
-
+                <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>
+                <button onClick={() => setTagEvent(tags)}> Submit tags</button>
 
                 <label htmlFor="slug-input">Add a potential SEO URL slug for this story: </label>
                 <input onChange={((event) => setSlug(event.target.value))} className="slug-input" />

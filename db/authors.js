@@ -10,7 +10,7 @@ const createAuthor = async (values) => {
             VALUES ($1, $2, $3, $4, $5)
             RETURNING *
             ;
-        `, [values.firstN, values.lastN, values.email, values.public_role, values.internal_role])
+        `, [values.first_name, values.last_name, values.email, values.public_role, values.internal_role])
     } catch (error) {
         //logEverything(error);
         console.log('there was an error creating a new author: ', error);
@@ -49,12 +49,12 @@ const fetchAllAuthors = async() => {
 };
 
 const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
-    {firstN: "marcus", lastN: "moritz", email: "marcus@thetooth.com", public_role: "editor", internal_role: 1},
-    {firstN: "john", lastN: "laconte", email: "john@thetooth.com", public_role: "writer", internal_role: 2},
-    {firstN: "ross", lastN: "leonhart", email: "ross@thetooth.com", public_role: "assistant editor", internal_role: 1},
-    {firstN: "jaron", lastN: "jaron", email: "jaron@thetooth.com", public_role: "intern", internal_role: 3},
-    {firstN: "scott", lastN: "miller", email: "scott@thetooth.com", public_role: "business writer", internal_role: 2},
-    {firstN: "ricky", lastN: "martinez", email: "ricky@thetooth.com", public_role: "music writer", internal_role: 2}
+    {first_name: "marcus", last_name: "moritz", email: "marcus@thetooth.com", public_role: "editor", internal_role: 1},
+    {first_name: "john", last_name: "laconte", email: "john@thetooth.com", public_role: "writer", internal_role: 2},
+    {first_name: "ross", last_name: "leonhart", email: "ross@thetooth.com", public_role: "assistant editor", internal_role: 1},
+    {first_name: "jaron", last_name: "jaron", email: "jaron@thetooth.com", public_role: "intern", internal_role: 3},
+    {first_name: "scott", last_name: "miller", email: "scott@thetooth.com", public_role: "business writer", internal_role: 2},
+    {first_name: "ricky", last_name: "martinez", email: "ricky@thetooth.com", public_role: "music writer", internal_role: 2}
 ]
 
 const insertAuthors = (array) => {

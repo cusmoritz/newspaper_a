@@ -28,8 +28,8 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS authors (
             author_id SERIAL PRIMARY KEY,
-            firstN VARCHAR(100) NOT NULL,
-            lastN VARCHAR(100) NOT NULL,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
             email VARCHAR(200) NOT NULL,
             public_role VARCHAR(50) NOT NULL,
             internal_role SMALLINT NOT NULL DEFAULT 3
@@ -39,7 +39,7 @@ const createDatabase = async() => {
             image_id SERIAL PRIMARY KEY,
             file_string VARCHAR(300) NOT NULL,
             original_story INT NOT NULL,
-            orig_photog INT NOT NULL,
+            orig_photog INT NOT NULL
         );
 
         CREATE TABLE IF NOT EXISTS story_meta (
@@ -60,7 +60,7 @@ const createDatabase = async() => {
 
         
 
-        `, [])
+        `, []);
         console.log('Done creating database...')
     } catch (error) {
         console.log('There was an error creating the database.');

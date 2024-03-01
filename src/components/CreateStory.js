@@ -14,6 +14,10 @@ export const CreateStory = () => {
     const [slug, setSlug] = useState("");
     const [led, setLed] = useState("");
     const [allAuthors, setAllAuthors] = useState([]);
+    const [titleChar, setTitleChar] = useState(0);
+    const [subheadChar, setSubheadChar] = useState(0);
+    const [ledChar, setLedChar] = useState(0);
+    const [storyChar, setStoryChar] = useState(0);
 
     // image loading function that doesn't work. still need image hosting
     window.addEventListener('load', function() {
@@ -40,8 +44,9 @@ export const CreateStory = () => {
       }
 
       const loadPage = async () => {
-        const authors = await fetchAllAuthors();
-        setAllAuthors(authors);
+        //const authors = await fetchAllAuthors();
+        //setAllAuthors(authors);
+        console.log('Page loaded.')
       }
 
       useState(() => {
@@ -56,19 +61,52 @@ export const CreateStory = () => {
         setAuthor("");
         setSlug("");
         setLed("");
+        setTitleChar(0);
+        setSubheadChar(0);
+        setLedChar(0);
+      }
+
+      const setTitleEvent = (targetValue) => {
+        setTitle(targetValue);
+        setTitleChar(targetValue.length);
+      };
+
+      const setSubheadEvent = (subheadValue) => {
+        setSubhead(subheadValue);
+        setSubheadChar(subheadValue.length);
+      };
+
+      const setLedEvent = (ledValue) => {
+        setLed(ledValue);
+        setLedChar(ledValue.length);
+      };
+
+      const setStoryEvent = (storyValue) => {
+        setStory(storyValue);
+        setStoryChar(storyValue.length);
+      }
+
+      const setTagEvent = (tagValue) => {
+        // split the tags
+        const words = tagValue.split(",");
+        let tagArray = [];
+        // for (let i = 0; words.length; i++) {
+        //     console.log('here', tagArray);
+        //     tagArray.push(words[0].trim());
+        // }
+        setTags(tagArray);
+        console.log('tag array', tagArray);
       }
 
     return (
         <div className="create-story-container">
             <h3>Create a story by populating the fields below.</h3>
             <Link to="/" onClick={() => clearFields()}><button>Cancel</button></Link>
-            <label>New story fields:</label>
-            <fieldset>
-                
-                <label htmlFor="title-input">title:</label>
-                <input className="title-input" value={title} onChange={(event) => setTitle(event.target.value)}></input>
-                <label htmlFor="author-dropdown">Author:</label>
-                <select>
+
+            <fieldset className="story-fieldset">
+            <legend>New story fields:</legend>
+            <label htmlFor="author-dropdown" className="author-dropdown">Author:</label>
+                {/* <select className="author-dropdown">
                 {!allAuthors 
                 ? null 
                 : 
@@ -79,33 +117,45 @@ export const CreateStory = () => {
                     })
 
                 }
-                </select>
+                </select> */}
 
-                {/* <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
+                <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
                     <option>Author A</option>
                     <option>Author B</option>
                     <option>Author C</option>
                     <option>Author D</option>
                     <option>Author E</option>
-                </select> */}
+                </select>
+
+                <label htmlFor="title-input">Title:</label>
+                <input className="title-input" maxLength="150" value={title} onChange={(event) => setTitleEvent(event.target.value)}></input>
+                <div className="character-counter">Character limit: {titleChar}/150</div>
+
                 <label htmlFor="subhead-input">Subhead:</label>
-                <input className="subhead-input" value={subhead} onChange={(event) => setSubhead(event.target.value)}></input>
-                
+                <input className="subhead-input" maxLength="150" value={subhead} onChange={(event) => setSubheadEvent(event.target.value)}></input>
+                <div className="character-counter">Character limit: {subheadChar}/150</div>
+
                 <label htmlFor="led-input">Led:</label>
-                <textarea className="led-input" onChange={(event) => {setLed(event.target.value)}}></textarea>
+                <textarea className="led-input" maxLength="150" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="Your best, catchiest sentence. This will be displayed on the front page of the website."></textarea>
+                <div className="character-counter">Character limit: {ledChar}/250</div>
 
                 <label htmlFor="story-input">Story:</label>
-                <textarea value={story} onChange={(event) => setStory(event.target.value)}></textarea>
+                <textarea maxLength="10000" value={story} onChange={(event) => setStoryEvent(event.target.value)}></textarea>
+                <div className="character-counter">Character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
                 
                 <label htmlFor="tag-input">Add tags to this story. To add multiple tags, serparate tags with a comma.</label>
-                <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>
+                <input className="tag-input" value={tags} onChange={(event) => setTagEvent(event.target.value)}></input>
+                <div className="character-counter">Character limit: {tags}</div>
+
 
                 <label htmlFor="slug-input">Add a potential SEO URL slug for this story: </label>
                 <input onChange={((event) => setSlug(event.target.value))} className="slug-input" />
                 <button onClick={(() => console.log('loaded'))}>Check Slug</button>
+
+                {/* TODO: Add ability to add urls inside of story */}
                 
             </fieldset>
-            <fieldset>
+            <fieldset className="photo-fieldset">
                 <label htmlFor="feature-image-input" id="feature-upload">Feature image:</label>
                 <input type="file" className="feature-image-input"></input>
                 <label htmlFor="additional-image-input">Additional images:</label>
@@ -116,6 +166,7 @@ export const CreateStory = () => {
             <div>
 
                 {/* TODO: add photo search feature */}
+                {/* TODO: Add Photo alt / photoographer fields */}
 
             </div>
             <button onClick={() => submitStory()}>Submit new story</button>

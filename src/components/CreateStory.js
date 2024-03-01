@@ -163,7 +163,7 @@ export const CreateStory = () => {
             </fieldset>
             <div>
 
-                {/* TODO: add photo search feature */}
+                {/* TODO: add photo slug search feature?????? */}
                 {/* TODO: Add Photo alt / photoographer fields */}
 
             </div>

@@ -37,10 +37,9 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS image_table (
             image_id SERIAL PRIMARY KEY,
-            image_file_string VARCHAR(150) NOT NULL,
-            image_original_story INT NOT NULL,
-            image_orig_author INT NOT NULL,
-            image_story_attatched INT
+            file_string VARCHAR(300) NOT NULL,
+            original_story INT NOT NULL,
+            orig_photog INT NOT NULL,
         );
 
         CREATE TABLE IF NOT EXISTS story_meta (

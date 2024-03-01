@@ -185,6 +185,96 @@ const fakeStorys = [
         author: '5',
         led: "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions.",
         slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer'
+      },
+      {
+        title: "What happened to the lost, barking dog in East Vail?",
+        subhead: "After nearly three weeks, search continues for elusive pooch, despite limited leads",
+        story: "A dog had been heard barking incessantly high up on one of the hiking trails in East Vail, near the Gore Creek Trail, on the Deluge Lake side. It did not seem to respond to whistling or calling, and it would not stop barking. \n As with most cases of missing pets, the issue was quickly taken to the Pets of Eagle County Facebook page. Kate Hawthorne and Evelyn Pinney, who run the Eagle County Lost Pets team, started the page to allow people to communicate more easily about missing pets. \n Immediately, rumors abounded: A large brown dog had been spotted running through the campground; the dog belonged to one of the East Vail residents and had escaped; it was coyotes barking, not a dog; the dog's owner was in trouble up the trail, and the dog was trying to draw help. \n The Eagle County Lost Pets team considered all of these options. Hawthorne and Pinney launched into communications efforts, trying to discover the identity of the dog's owner, or at least find some background on the dog.",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '1',
+        led: "On Feb. 8, a post appeared in the Eagle County Classifieds Facebook group: Was anyone in East Vail missing a dog?",
+        slug: 'what-happened-to-the-barking-dog-in-east-vail'
+      },
+      {
+        title: "Electric Avenue: The '80s MTV Experience comes to Beaver Creek Saturday",
+        subhead: "Yacht Rock",
+        story: "But the band doesn't just rely on technical gadgets. The musicians all have been session players for so many top artists, it'd be a column of alphabet soup to name, but it includes the likes of Lionel Richie, Paul Simon, Emmy Lou Harris, B-52s, Tracy Chapman, Boston, Collective Soul, Boyz II Men and many more. As such, they've all contributed to gold and platinum records. \n Their talent, and meticulous playing, compel them to recreate the ’80s note by note with every nuance in every sound — every time. \n Electric Avenue began more than 10 years ago as a one-off, with a group of musicians gathering to perform '80s tunes. But as the music world began changing first with Napster and then with Apple iTunes and other downloads, album sales no longer supported musicians like they once did, said lead vocalist and Electric Avenue co-founder Kevin Spencer. Pat Benatar was key to supporting Electric Avenue after she heard '80s music before taking the stage and was sure it was the radio, but after three more songs, she realized the band had fooled her ears with their live music. \n So, they decided to continue with the tribute band and do it well — unlike the majority of '80s bands out there that are more concerned with their costumes than the chords, he said.",
+        tags: ['music', '80s', 'Beaver Creek', 'Avon'],
+        author: '2',
+        led: "Just like Yacht Rock made soft rock cool and breezy again, Electric Avenue brings the electronic magic of the 1980s back — complete with its personal stash of vintage synthesizers, drum machines and rare signal processors.",
+        slug: 'electric-avenue-the-80s-mtv-experience-comes-to-beaver-creek-saturday'
+      },
+      {
+        title: "Transportation authority is an opportunity to build for the future",
+        subhead: "Daily Editorial",
+        story: "However, as identified by local business owners, economic councils and municipal leaders in 2020, public transit has been failing to meet a lot of the Eagle River Valley’s most pressing needs for a while. \n This is why a regional effort sprung up in 2021 to see how a new transportation authority could solve not only a large workforce challenge but bring an improved experience for residents and guests alike. This effort combined stakeholders from eight local governments, numerous employers (big and small) across the valley, existing transit agencies in the county, and community organizations — all working toward a singular goal. \n The end result: a ballot question in front of voters this November asking them to form the Eagle Valley Regional Transportation Authority. \n Voters in the towns of Avon, Eagle, Gypsum, Minturn, Red Cliff and Vail as well as the Beaver Creek Metro District and unincorporated parts of Eagle County will individually decide whether or not they want to be a part of the proposed RTA.",
+        tags: ['opinion', 'editorial', 'transportation'],
+        author: '3',
+        led: "Whether you’re a local employee trying to get to work on time (and back home by a reasonable hour), a visitor looking for easy ways to navigate to and from local resorts and businesses, or you’re looking for a more climate-friendly option for transit, public transportation should be a service that makes life easier, not harder.",
+        slug: 'our-view-transportation-authority-is-an-opportunity-to-build-for-the-future'
+      },
+      {
+        title: "Court appearance for prominent Vail real estate broker continued",
+        subhead: "Stockton appeared Tuesday — his second court appearance — alongside his attorney, Jesse Wiens.",
+        story: "Stockton has not yet had a preliminary hearing on the matter or entered a plea; his court appearance on Tuesday was listed as a preliminary demand, where the defendant either demands to have a preliminary hearing or waives the preliminary hearing, and that appearance was continued to March 26. \n Stockton, on Tuesday, was granted permission to travel by Judge Inga Causey. His March 26 continuation was set for 11 a.m. Stockton, who lives in Vail, received the stalking charge on Dec. 27 as a result of an incident in which he is accused of placing an air tag tracking device in the vehicle of the alleged victim, according to arrest records. \n Stockton was booked at the Eagle County Detention Facility on Dec. 27 and was released on Dec. 28 after posting a $2,500 bond.",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '4',
+        led: "Tye Stockton returned to the Eagle County Justice Center on Tuesday for a brief court appearance on an accusation of stalking, a domestic violence charge that the Vail real estate giant received in December.",
+        slug: 'court-appearance-for-prominent-vail-real-estate-broker-continued'
+      },
+      {
+        title: "",
+        subhead: "",
+        story: "",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '1',
+        led: "",
+        slug: ''
+      },
+      {
+        title: "",
+        subhead: "",
+        story: "",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '1',
+        led: "",
+        slug: ''
+      },
+      {
+        title: "",
+        subhead: "",
+        story: "",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '1',
+        led: "",
+        slug: ''
+      },
+      {
+        title: "",
+        subhead: "",
+        story: "",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '1',
+        led: "",
+        slug: ''
+      },
+      {
+        title: "",
+        subhead: "",
+        story: "",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '1',
+        led: "",
+        slug: ''
+      },
+      {
+        title: "",
+        subhead: "",
+        story: "",
+        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
+        author: '1',
+        led: "",
+        slug: ''
       }
 ]
 

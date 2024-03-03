@@ -223,58 +223,13 @@ const fakeStorys = [
         slug: 'court-appearance-for-prominent-vail-real-estate-broker-continued'
       },
       {
-        title: "",
-        subhead: "",
-        story: "",
+        title: "Frisco’s Jay Irwin shares harrowing backcountry experience to inspire adventurers to do good",
+        subhead: "Some people’s lives forever change",
+        story: "For longtime Summit County resident Jay Irwin, his life was changed by the latter, when he was caught in an avalanche on Vail Pass back in 2008. Feautured  as the second speaker in the Friends of the Dillon Ranger District’s adventure speaker series, which Irwin co-founded, Irwin stood in front of dozens of people inside Keystone’s Warren Station on Wednesday, Feb. 28, and told the crowd about how his misadventure in the backcountry gave him an extra chance at life. \n In the talk, Irwin detailed the avalanche in extensive detail. Alongside his adventure friend Bill Petersen, Irwin traveled to the top of Ptarmigan Hill on Vail Pass in the waning afternoon hours of a late-December day. \n Once reaching their designated drop-in spot, the duo completed a game of rock, paper, scissors to determine who would get the honor of dropping into the velvety layers of fresh snow and who would be tasked with circling back around to the bottom of the route with the snowmobile.",
         tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
-        author: '1',
-        led: "",
-        slug: ''
-      },
-      {
-        title: "",
-        subhead: "",
-        story: "",
-        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
-        author: '1',
-        led: "",
-        slug: ''
-      },
-      {
-        title: "",
-        subhead: "",
-        story: "",
-        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
-        author: '1',
-        led: "",
-        slug: ''
-      },
-      {
-        title: "",
-        subhead: "",
-        story: "",
-        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
-        author: '1',
-        led: "",
-        slug: ''
-      },
-      {
-        title: "",
-        subhead: "",
-        story: "",
-        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
-        author: '1',
-        led: "",
-        slug: ''
-      },
-      {
-        title: "",
-        subhead: "",
-        story: "",
-        tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
-        author: '1',
-        led: "",
-        slug: ''
+        author: '2',
+        led: "There are many events in life that can shape and change a person. Some people’s lives forever change after getting married or having a child, while others are transformed by a harrowing and traumatic event.",
+        slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good'
       }
 ]
 

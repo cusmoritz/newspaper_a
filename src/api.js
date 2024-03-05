@@ -14,7 +14,8 @@ export const fetchFrontPage = async () => {
                 'Content-Type': 'application/json'
             }
         });
-        const frontPage = request.json();
+        const frontPage = await request.json();
+        console.log('FP user api', frontPage)
         return frontPage;
     } catch (error) {
         throw error;

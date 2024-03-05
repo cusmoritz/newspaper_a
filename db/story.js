@@ -10,7 +10,7 @@ const returnAllActiveStorys = async () => {
         const {rows: activeStorys} = await client.query(`
         SELECT * FROM storys
         WHERE story_active_flag = true
-        ORDER BY original_create_date DESC
+        ORDER BY original_publish_date DESC
         ;
         `);
         console.log('all storys db: ', activeStorys);
@@ -24,9 +24,15 @@ const returnAllActiveStorys = async () => {
 
 const returnStoryFromDate = async (date) => {
     try {
+
+        // SELECT * FROM storys
+        // WHERE original_create_date = '2024-03-04'
+        // ORDER BY original_create_date DESC
+        // LIMIT 10
+        // ;
         const {rows: storyFromDate} = await client.query(`
             SELECT * FROM storys
-            WHERE original_create_date = $1 OR 
+            WHERE original_publish_date = $1 
             ;
         `, [date]);
         return storyFromDate;
@@ -55,16 +61,33 @@ const addPageView = async (storyId) => {
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
+const createTag = async (storyId, tag) => {
+    console.log('id and tag', storyId, tag)
+    const {rows: tags} = await client.query(`
+    INSERT INTO story_tags (story_tag_id, tag)
+    VALUES ($1, $2)
+    RETURNING *
+    ;
+    `, [storyId, tag]);
+    console.log('tags in db', tags);
+    return tags;
+};
+
 const createNewStory = async (storyInfo) => {
     try {
-        console.log('storyinfo db', storyInfo)
+        //console.log('storyinfo db', storyInfo)
         const {rows: story} = await client.query(`
-        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_tags, story_slug)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *
         ;
-        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.tags, storyInfo.slug]);
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug]);
+        console.log('after input', story[0]); //story.story_id <= from db
 
+        // storyInfo.tags.forEach((tag) => {
+        //     console.log('tag, ', story)
+        //     createTag(story.story_id, tag);
+        // })
         // const {rows: metaInit} = await client.query(`
         //     INSERT INTO story_meta (story_meta_id, story_original_creator, story_meta_original_publish_date)
         //     VALUES ($1, $2, $3)
@@ -100,7 +123,7 @@ const returnEveryStoryAdmin = async () => {
         `, []);
         return everyStory;
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         console.log('there was an error fetching every story', error);
         throw error;
     }
@@ -116,7 +139,7 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
         `, [storyId]);
         return stats;
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         throw error;
     }
 };
@@ -124,18 +147,20 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
 const fetchFrontPage = async () => {
     try {
         const now = new Date();
-        const {rows: frontPage} = await clientquery(`
-            SELECT (story_id, story_head, storydeck, story_led, story_author, story_tags) FROM storys
-            WHERE original_create_date < $1
-            ORDER DESC
+        console.log('now? ', now)
+        const {rows: frontPage} = await client.query(`
+            SELECT story_id, story_title, story_subhead, story_led, story_author, original_publish_date, story_active_flag 
+            FROM storys
+            WHERE original_publish_date <= CURRENT_DATE AND story_active_flag = TRUE
+            ORDER BY original_publish_date DESC
             LIMIT 10
             ;
-        `, [now]);
-
+        `, []);
+        console.log('front page db', frontPage)
         return frontPage;
 
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         throw error;
     }
 

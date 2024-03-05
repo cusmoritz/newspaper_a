@@ -17,10 +17,9 @@ const createDatabase = async() => {
             story_led TEXT NOT NULL,
             story_text TEXT NOT NULL,
             story_author INT NOT NULL,
-            story_tags TEXT,
             story_slug TEXT NOT NULL,
             story_active_flag BOOLEAN DEFAULT true,
-            original_create_date DATE NOT NULL DEFAULT CURRENT_DATE,
+            original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_update_author INT,
             most_recent_update DATE,
             page_views INT DEFAULT 0
@@ -58,6 +57,12 @@ const createDatabase = async() => {
             error_text TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS story_tags (
+            tag_id SERIAL PRIMARY KEY,
+            story_tag_id INTEGER REFERENCES storys(story_id) NOT NULL,
+            tag TEXT NOT NULL
+        );
+
         
 
         `, []);
@@ -74,6 +79,7 @@ const destroyDatabase = async () => {
     try {
         console.log('destroying db...');
         await client.query(`
+        DROP TABLE IF EXISTS story_tags;
         DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS image_table;
         DROP TABLE IF EXISTS authors;

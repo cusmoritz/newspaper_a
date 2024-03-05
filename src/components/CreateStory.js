@@ -9,7 +9,7 @@ export const CreateStory = () => {
     const [title, setTitle] = useState("");
     const [subhead, setSubhead] = useState("");
     const [story, setStory] = useState("");
-    const [tags, setTags] = useState("");
+    const [tags, setTags] = useState([]);
     const [author, setAuthor] = useState(0);
     const [slug, setSlug] = useState("");
     const [led, setLed] = useState("");
@@ -165,6 +165,7 @@ export const CreateStory = () => {
 
                 {/* TODO: add photo slug search feature?????? */}
                 {/* TODO: Add Photo alt / photoographer fields */}
+                {/* TODO: Add ability to publish later */}
 
             </div>
             <button onClick={() => submitStory()}>Submit new story</button>

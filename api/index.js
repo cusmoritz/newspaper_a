@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors} = require('../db/authors');
-const {createNewStory, fetchPage} = require('../db/story');
+const {createNewStory, fetchFrontPage} = require('../db/story');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);
@@ -37,21 +37,21 @@ server.use((request, response, next) => {
 
 /////////////// FRONT END FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
-// server.get('/api/story/frontpage', async (request, response, next) => {
-//     try {
-//         // const pageNumber = request.params;
-//         const frontPage = await fetchFrontPage();
+server.get('/api/story/frontpage', async (request, response, next) => {
+    try {
+        // const pageNumber = request.params;
+        const frontPage = await fetchFrontPage();
 
-//         if (frontPage) {
-//             response.send(frontPage).status(200);
-//         } else {
-//             response.send({Error: "Problem fetching front page."}).status(500);
-//         }
-//     } catch (error) {
-//         logEverything(error);
-//         throw error;
-//     }
-// });
+        if (frontPage) {
+            response.send(frontPage).status(200);
+        } else {
+            response.send({Error: "Problem fetching front page."}).status(500);
+        }
+    } catch (error) {
+        //logEverything(error);
+        throw error;
+    }
+});
 
 // server.get('/api/story/pageview/:storyId', async (request, response, next) => {
 //     try {

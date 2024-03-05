@@ -5,13 +5,15 @@ import { FrontPageStory } from "./components/FrontPageStory";
 
 export const Home = () => {
 
-    const [frontPage, setFrontPage] = useState({});
+    const [frontPage, setFrontPage] = useState([]);
 
-    const fetchFrontPage = async() => {
-        const fPStorys = await fetchFrontPage();
-        if (fPStorys) {
-            setFrontPage(fpStorys);
-        }
+
+
+    const loadPage = async () => {
+            const fPStorys = await fetchFrontPage();
+            if (fPStorys) {
+                setFrontPage(fPStorys);
+            }
     };
 
 
@@ -124,20 +126,20 @@ export const Home = () => {
         }
     ];
 
-    // useEffect(() => {
-    //     fetchFrontPage();
-    // }, []);
+    useEffect(() => {
+        loadPage();
+    }, []);
 
     return (
         <div className="main-content-container">
             <div>Home</div>
             <h4>Top Stories of the day:</h4>
-            {fakeStories.map((story) => {
-                console.log('here?', story)
+            {!frontPage ? null : frontPage.map((story) => {
                 return (
                     <FrontPageStory props={story} />
                 )
             })}
+
         </div>
     );
 };

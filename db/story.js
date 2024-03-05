@@ -29,6 +29,7 @@ const fetchStoriesFromTag = async (tag) => {
         JOIN storys ON storys.story_id = story_tags.story_tag_id 
         WHERE story_tags.tag = ($1)
         AND storys.story_active_flag = true 
+        ORDER BY original_publish_date DESC
         LIMIT 10
         ;
         `, [tag]);

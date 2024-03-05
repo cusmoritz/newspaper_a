@@ -10,21 +10,6 @@ const createDatabase = async() => {
     try {
         console.log('Creating database...')
         await client.query(`
-        CREATE TABLE IF NOT EXISTS storys (
-            story_id SERIAL PRIMARY KEY,
-            story_title TEXT UNIQUE NOT NULL,
-            story_subhead TEXT NOT NULL,
-            story_led TEXT NOT NULL,
-            story_text TEXT NOT NULL,
-            story_author INT NOT NULL,
-            story_slug TEXT NOT NULL,
-            story_active_flag BOOLEAN DEFAULT true,
-            original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
-            story_update_author INT,
-            most_recent_update DATE,
-            image_flag BOOLEAN NOT NULL DEFAULT false,
-            page_views INT DEFAULT 0
-        );     
 
         CREATE TABLE IF NOT EXISTS authors (
             author_id SERIAL PRIMARY KEY,
@@ -34,6 +19,22 @@ const createDatabase = async() => {
             public_role VARCHAR(50) NOT NULL,
             internal_role SMALLINT NOT NULL DEFAULT 3
         );
+
+        CREATE TABLE IF NOT EXISTS storys (
+            story_id SERIAL PRIMARY KEY,
+            story_title TEXT UNIQUE NOT NULL,
+            story_subhead TEXT NOT NULL,
+            story_led TEXT NOT NULL,
+            story_text TEXT NOT NULL,
+            story_author INTEGER REFERENCES authors(author_id) NOT NULL,
+            story_slug TEXT NOT NULL,
+            story_active_flag BOOLEAN DEFAULT true,
+            original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
+            story_update_author INT,
+            most_recent_update DATE,
+            image_flag BOOLEAN NOT NULL DEFAULT false,
+            page_views INT DEFAULT 0
+        );  
 
         CREATE TABLE IF NOT EXISTS image_table (
             image_id SERIAL PRIMARY KEY,
@@ -82,9 +83,10 @@ const destroyDatabase = async () => {
         await client.query(`
         DROP TABLE IF EXISTS story_tags;
         DROP TABLE IF EXISTS image_table;
-        DROP TABLE IF EXISTS authors;
+
         DROP TABLE IF EXISTS story_meta;
         DROP TABLE IF EXISTS storys;
+        DROP TABLE IF EXISTS authors;
         `, [])
         console.log('done destroying db...');
     } catch (error) {

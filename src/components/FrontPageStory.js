@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export const FrontPageStory = ({props}) => {
     const story = props;
-    console.log('story front page', story)
     return (
         <div className="front-page-story-container">
             <div>

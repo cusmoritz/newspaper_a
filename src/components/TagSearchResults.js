@@ -12,29 +12,38 @@ export const TagSearchResults = () => {
     const findStoriesWithTag = async (tag) => {
         const results = await fetchStoriesWithTag(tag);
         if (results) {
-            console.log('results front', results);
             setSearchResults(results);
         }
     };
+
+    const loadPage = async () => {
+        await findStoriesWithTag(tag);
+    }
+
+    useState(() => {
+        loadPage();
+    })
 
     return (
         <div className="search-results-container">
             <h2>Stories with the tag #{tag}:</h2>
             {!searchResults ? 
-            null 
+            <div>There are no stories with that tag.</div> 
             :   
             searchResults.map((story) => {
                 return (
-                <div className="individual-search-story">
-                        <fieldset key={story.story_id}>
-
+                <div key={story.story_id} className="individual-search-story">
+                        <fieldset>
+                            <h2>{story.story_title}</h2>
+                            <h3>{story.story_subhead}</h3>
+                            <p>{story.story_led}</p>
+                            <p>Original publish date: {story.original_publish_date.slice(0,10)}</p>
                         </fieldset>
                 </div>
                 )
             })
             }
         <button onClick={() => findStoriesWithTag(cleanTag)}>FIND EM</button>
-        {!searchResults ? null : <>There were search results.</>}
         </div>
     )
 };

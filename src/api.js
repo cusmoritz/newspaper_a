@@ -30,8 +30,25 @@ export const addPageView = async (storyId) => {
                 'Content-Type': 'application/json'
             }
         });
-        return request;
+        //const searchResults = await request.json();
+        return searchResults;
     } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchStoriesWithTag = async (tag) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/search/${tag}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const searchResults = await request.json();
+        return searchResults;
+    } catch (error) {
+        console.log('there was an error fetching stories by tag.');
         throw error;
     }
 }

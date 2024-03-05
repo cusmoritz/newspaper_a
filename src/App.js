@@ -10,6 +10,7 @@ import { AdminHome } from './components/AdminHome';
 import { CreateStory } from './components/CreateStory';
 import { StoryStats } from './components/StoryStats';
 import { AuthorPage } from './components/AuthorPage';
+import { TagSearchResults } from './components/TagSearchResults';
 
 
 const App = () => {
@@ -54,8 +55,9 @@ const App = () => {
                 <div className="App">
                     <Header />
                     <Routes>
+                    <Route path="/search/:tag" element={<TagSearchResults />} />
                     <Route exact path="/" element={<Home/>} />
-                    {/* <Route path="/story/:slug" element={<Story />} /> */}
+                    
                     </Routes>
                     <Footer />
                 </div>

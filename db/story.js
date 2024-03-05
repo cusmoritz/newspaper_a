@@ -22,6 +22,23 @@ const returnAllActiveStorys = async () => {
     }
 };
 
+const fetchStoriesFromTag = async (tag) => {
+    try {
+        const {rows: searchResults} = await client.query(`
+        SELECT * FROM story_tags 
+        JOIN storys ON storys.story_id = story_tags.story_tag_id 
+        WHERE story_tags.tag = ($1)
+        AND storys.story_active_flag = true 
+        LIMIT 10
+        ;
+        `, [tag]);
+        return searchResults;
+    } catch (error) {
+        console.log('there was a database error fetching stories with tags.');
+        throw error;
+    }
+}
+
 const returnStoryFromDate = async (date) => {
     try {
 
@@ -76,6 +93,7 @@ const retreiveTags = async (storyId) => {
         SELECT (tag)
         FROM story_tags
         WHERE story_tag_id = $1
+        ORDER BY tag_id ASC
         ;
     `, [storyId]);
     //console.log('tags get', tags);
@@ -95,6 +113,14 @@ const createNewStory = async (storyInfo) => {
             createTag(story[0].story_id, tag);
         });
 
+        const {rows: meta} = await client.query(`
+        INSERT INTO story_meta (story_main_id, story_original_author)
+        VALUES ($1, $2)
+        RETURNING *
+        ;
+        `, [story[0].story_id, story[0].story_author]);
+
+        //console.log('story here', story[0])
         return story;
     } catch (error) {
         //logEverything(error);
@@ -158,21 +184,13 @@ const fetchFrontPage = async () => {
         `, []);
         // JOIN story_tags ON story_id = story_tags.story_tag_id
 
-        frontPageStorys.map( async (story) => {
-            const oneStoryTags = await retreiveTags(story.story_id);
-
-            story.tags = [oneStoryTags];
-            console.log('actually', story)
-            //console.log('story? ', story)
-
-            // oneStoryTags.forEach( async (tag) => {
-            //     //console.log('just one tag', tag)
-            //     story.tags.push(tag.tag)
-            // })
-            // console.log('story? ', story)
-            // return story;
-        });
-        console.log('front page db after tags', frontPageStorys)
+        for (let i = 0; i < frontPageStorys.length; i++) {
+            frontPageStorys[i].tags = [];
+            const oneStoryTags = await retreiveTags(frontPageStorys[i].story_id);
+            oneStoryTags.forEach((tag) => {
+                frontPageStorys[i].tags.push(tag.tag);
+            })
+        }
 
         return frontPageStorys;
 
@@ -288,4 +306,6 @@ module.exports = {
     returnStoryFromDate,
     returnEveryStoryAdmin,
     fetchFrontPage,
+    retreiveTags,
+    fetchStoriesFromTag,
 }

@@ -16,14 +16,6 @@ export const Home = () => {
             }
     };
 
-
-                // story_id SERIAL PRIMARY KEY,
-            // story_head TEXT UNIQUE NOT NULL,
-            // story_deck TEXT NOT NULL,
-            // story_led TEXT NOT NULL,
-            // story_text TEXT NOT NULL,
-            // story_author INT NOT NULL,
-            // story_tags TEXT,
     const fakeStories = [
         {
             "story_id": 1,

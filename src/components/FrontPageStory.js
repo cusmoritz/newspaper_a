@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const FrontPageStory = ({props}) => {
     const story = props;
@@ -18,11 +19,11 @@ export const FrontPageStory = ({props}) => {
             <div className="front-page-fieldset-contianer">
             <fieldset className="front-page-tag-container">
                 <p>Tags: &nbsp;</p> 
-                {/* {story.story_tags.map((tag) => {
+                {story.tags.map((tag) => {
                     return (
-                        <a>#{tag}</a>
+                        <Link to={`search/${tag}`}><a>#{tag}</a></Link>
                     )
-                })} */}
+                })}
             </fieldset>
             </div>
 

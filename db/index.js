@@ -22,6 +22,7 @@ const createDatabase = async() => {
             original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_update_author INT,
             most_recent_update DATE,
+            image_flag BOOLEAN NOT NULL DEFAULT false,
             page_views INT DEFAULT 0
         );     
 
@@ -43,10 +44,10 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS story_meta (
             story_meta_id SERIAL PRIMARY KEY,
-            story_main_id INT NOT NULL,
+            story_main_id INTEGER REFERENCES storys(story_id) NOT NULL,
             story_views INT,
-            story_original_creator INT NOT NULL,
-            story_meta_original_publish_date DATE NOT NULL,
+            story_original_author INT NOT NULL,
+            story_meta_original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_updated_by INT,
             story_update_date DATE
         );
@@ -73,17 +74,17 @@ const createDatabase = async() => {
     }
 };
 
-// CREATE INDEX idx_pagination ON storys(original_create_date) USING btree DESC;
+// CREATE INDEX IF NOT EXISTS idx_pagination ON storys(original_publish_date) USING btree DESC;
 
 const destroyDatabase = async () => {
     try {
         console.log('destroying db...');
         await client.query(`
         DROP TABLE IF EXISTS story_tags;
-        DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS image_table;
         DROP TABLE IF EXISTS authors;
         DROP TABLE IF EXISTS story_meta;
+        DROP TABLE IF EXISTS storys;
         `, [])
         console.log('done destroying db...');
     } catch (error) {

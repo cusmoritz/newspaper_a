@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors} = require('../db/authors');
-const {createNewStory, fetchFrontPage} = require('../db/story');
+const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag} = require('../db/story');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);
@@ -41,17 +41,33 @@ server.get('/api/story/frontpage', async (request, response, next) => {
     try {
         // const pageNumber = request.params;
         const frontPage = await fetchFrontPage();
-
         if (frontPage) {
-            response.send(frontPage).status(200);
+          response.send(frontPage).status(200);
         } else {
-            response.send({Error: "Problem fetching front page."}).status(500);
+          response.send({Error: "There was a problem fetching the front page"}).status(500);
         }
+
     } catch (error) {
         //logEverything(error);
+        console.log('there was an error fetching the front page.')
         throw error;
     }
 });
+
+server.get('/api/search/:tag', async (request, response, next) => {
+  try {
+    const { tag } = request.params;
+    const searchResults = await fetchStoriesFromTag(tag);
+    if (searchResults) {
+      response.send(searchResults).status(200);
+    } else {
+      response.send({Error: "There was a problem getting stories from this tag search"}).status(500);
+    }
+  } catch (error) {
+    console.log('there was an error getting stories by tag.');
+    throw error;
+  }
+})
 
 // server.get('/api/story/pageview/:storyId', async (request, response, next) => {
 //     try {

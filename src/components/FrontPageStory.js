@@ -2,7 +2,7 @@ import React from "react";
 
 export const FrontPageStory = ({props}) => {
     const story = props;
-    console.log('story', story)
+    console.log('story front page', story)
     return (
         <div className="front-page-story-container">
             <div>
@@ -18,11 +18,11 @@ export const FrontPageStory = ({props}) => {
             <div className="front-page-fieldset-contianer">
             <fieldset className="front-page-tag-container">
                 <p>Tags: &nbsp;</p> 
-                {story.story_tags.map((tag) => {
+                {/* {story.story_tags.map((tag) => {
                     return (
                         <a>#{tag}</a>
                     )
-                })}
+                })} */}
             </fieldset>
             </div>
 

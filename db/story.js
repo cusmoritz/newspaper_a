@@ -71,6 +71,17 @@ const createTag = async (storyId, tag) => {
     return tags;
 };
 
+const retreiveTags = async (storyId) => {
+    const {rows: tags} = await client.query(`
+        SELECT (tag)
+        FROM story_tags
+        WHERE story_tag_id = $1
+        ;
+    `, [storyId]);
+    //console.log('tags get', tags);
+    return tags;
+}
+
 const createNewStory = async (storyInfo) => {
     try {
         const {rows: story} = await client.query(`
@@ -136,9 +147,8 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
 
 const fetchFrontPage = async () => {
     try {
-        const now = new Date();
-        console.log('now? ', now)
-        const {rows: frontPage} = await client.query(`
+        
+        const {rows: frontPageStorys} = await client.query(`
             SELECT story_id, story_title, story_subhead, story_led, story_author, original_publish_date, story_active_flag 
             FROM storys
             WHERE original_publish_date <= CURRENT_DATE AND story_active_flag = TRUE
@@ -146,8 +156,25 @@ const fetchFrontPage = async () => {
             LIMIT 10
             ;
         `, []);
-        console.log('front page db', frontPage)
-        return frontPage;
+        // JOIN story_tags ON story_id = story_tags.story_tag_id
+
+        frontPageStorys.map( async (story) => {
+            const oneStoryTags = await retreiveTags(story.story_id);
+
+            story.tags = [oneStoryTags];
+            console.log('actually', story)
+            //console.log('story? ', story)
+
+            // oneStoryTags.forEach( async (tag) => {
+            //     //console.log('just one tag', tag)
+            //     story.tags.push(tag.tag)
+            // })
+            // console.log('story? ', story)
+            // return story;
+        });
+        console.log('front page db after tags', frontPageStorys)
+
+        return frontPageStorys;
 
     } catch (error) {
         //logEverything(error);

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export const FrontPageStory = ({props}) => {
     const story = props;
+    console.log('one story in FrontPageStory', story)
     return (
         <div className="front-page-story-container">
             <div>
@@ -16,14 +17,14 @@ export const FrontPageStory = ({props}) => {
             </div>
             <p className="front-page-story-led">{story.story_led} {story.story_led}</p>
             <div className="front-page-fieldset-contianer">
-            <fieldset className="front-page-tag-container">
-                <p>Tags: &nbsp;</p> 
-                {story.tags.map((tag) => {
-                    return (
-                        <Link to={`search/${tag}`}><a>#{tag}</a></Link>
-                    )
-                })}
-            </fieldset>
+                <fieldset className="front-page-tag-container">
+                    <p>Tags: &nbsp;</p> 
+                    {story.tags.map((tag) => {
+                        return (
+                            <Link to={`search/${tag}`} key={tag}>#{tag}</Link>
+                        )
+                    })}
+                </fieldset>
             </div>
 
         </div>

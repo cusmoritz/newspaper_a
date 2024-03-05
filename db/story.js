@@ -176,8 +176,8 @@ const fetchFrontPage = async () => {
     try {
         
         const {rows: frontPageStorys} = await client.query(`
-            SELECT story_id, story_title, story_subhead, story_led, story_author, original_publish_date, story_active_flag 
-            FROM storys
+            SELECT * FROM storys 
+            JOIN authors ON storys.story_author = authors.author_id
             WHERE original_publish_date <= CURRENT_DATE AND story_active_flag = TRUE
             ORDER BY original_publish_date DESC
             LIMIT 10

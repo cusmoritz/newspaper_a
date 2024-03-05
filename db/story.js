@@ -62,37 +62,27 @@ const addPageView = async (storyId) => {
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
 const createTag = async (storyId, tag) => {
-    console.log('id and tag', storyId, tag)
     const {rows: tags} = await client.query(`
     INSERT INTO story_tags (story_tag_id, tag)
     VALUES ($1, $2)
     RETURNING *
     ;
     `, [storyId, tag]);
-    console.log('tags in db', tags);
     return tags;
 };
 
 const createNewStory = async (storyInfo) => {
     try {
-        //console.log('storyinfo db', storyInfo)
         const {rows: story} = await client.query(`
         INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug)
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *
         ;
         `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug]);
-        console.log('after input', story[0]); //story.story_id <= from db
 
-        // storyInfo.tags.forEach((tag) => {
-        //     console.log('tag, ', story)
-        //     createTag(story.story_id, tag);
-        // })
-        // const {rows: metaInit} = await client.query(`
-        //     INSERT INTO story_meta (story_meta_id, story_original_creator, story_meta_original_publish_date)
-        //     VALUES ($1, $2, $3)
-        //     ;
-        // `, [story.story_id, story.story_author, story.create_date]);
+        storyInfo.tags.forEach((tag) => { // this is ugly
+            createTag(story[0].story_id, tag);
+        });
 
         return story;
     } catch (error) {
@@ -117,8 +107,8 @@ const createNewStory = async (storyInfo) => {
 const returnEveryStoryAdmin = async () => {
     try {
         const {rows: everyStory} = await client.query(`
-        SELECT (story_head, story_active_flag, story_author, original_create_date) FROM storys
-        ORDER BY original_create_date DESC
+        SELECT (story_head, story_active_flag, story_author, original_publish_date) FROM storys
+        ORDER BY original_publish_date DESC
         ;
         `, []);
         return everyStory;

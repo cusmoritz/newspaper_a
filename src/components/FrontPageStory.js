@@ -12,8 +12,11 @@ export const FrontPageStory = ({props}) => {
             <h2 className="front-page-headline" value={story.story_id}>{story.story_title}</h2>
             <h3 className="front-page-story-deck">{story.story_subhead}</h3>
             <div className="front-page-author-container">
-                <p className="front-page-author-name">By {story.story_author.author_name}</p>
-                <p className="front-page-author-email">{story.story_author.author_email}</p>
+                <p className="front-page-author-name" 
+                value={story.author_id}>
+                    By <Link to={`search/author/${story.author_id}`}>{story.first_name} {story.last_name}</Link> | {story.public_role}
+                </p>
+                <p className="front-page-author-email">{story.email}</p>
             </div>
             <p className="front-page-story-led">{story.story_led} {story.story_led}</p>
             <div className="front-page-fieldset-contianer">
@@ -21,7 +24,7 @@ export const FrontPageStory = ({props}) => {
                     <p>Tags: &nbsp;</p> 
                     {story.tags.map((tag) => {
                         return (
-                            <Link to={`search/${tag}`} key={tag}>#{tag}</Link>
+                            <Link to={`search/tag/${tag}`} key={tag}>#{tag}</Link>
                         )
                     })}
                 </fieldset>

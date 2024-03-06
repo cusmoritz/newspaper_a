@@ -11,6 +11,7 @@ import { CreateStory } from './components/CreateStory';
 import { StoryStats } from './components/StoryStats';
 import { AuthorPage } from './components/AuthorPage';
 import { TagSearchResults } from './components/TagSearchResults';
+import { AuthorSearchResults } from './components/AuthorSearchResults';
 
 
 const App = () => {
@@ -55,9 +56,11 @@ const App = () => {
                 <div className="App">
                     <Header />
                     <Routes>
-                    <Route path="/search/:tag" element={<TagSearchResults />} />
+                    {/* /search/author should be all authors */}
+                    <Route path="/search/tag/:tag" element={<TagSearchResults />} />
+                    <Route path="/search/author/:id" element={<AuthorSearchResults />} />
+
                     <Route exact path="/" element={<Home/>} />
-                    
                     </Routes>
                     <Footer />
                 </div>

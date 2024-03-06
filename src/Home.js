@@ -7,14 +7,16 @@ export const Home = () => {
 
     const [frontPage, setFrontPage] = useState([]);
 
-
-
     const loadPage = async () => {
             const fPStorys = await fetchFrontPage();
             if (fPStorys) {
                 setFrontPage(fPStorys);
             }
     };
+
+    const searchForAuthorStories = (authorId) => {
+        console.log('author id', authorId);
+    }
 
     const fakeStories = [
         {

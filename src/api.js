@@ -38,7 +38,7 @@ export const addPageView = async (storyId) => {
 
 export const fetchStoriesWithTag = async (tag) => {
     try {
-        const request = await fetch(`${BASE_URL}/api/search/${tag}`, {
+        const request = await fetch(`${BASE_URL}/api/search/tag/${tag}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
@@ -48,6 +48,22 @@ export const fetchStoriesWithTag = async (tag) => {
         return searchResults;
     } catch (error) {
         console.log('there was an error fetching stories by tag.');
+        throw error;
+    }
+};
+
+export const fetchStoriesByAuthorId = async (authorId) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/search/author/${authorId}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const results = request.json();
+        return results;
+    } catch (error) {
+        console.log('there was an error fetching stories by this author');
         throw error;
     }
 }

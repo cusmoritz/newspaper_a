@@ -100,7 +100,7 @@ export const CreateStory = () => {
     return (
         <div className="create-story-container">
             <h3>Create a story by populating the fields below.</h3>
-            <Link to="/" onClick={() => clearFields()}><button>Cancel</button></Link>
+            <Link to="/" onClick={() => clearFields}><button>Cancel</button></Link>
 
             <fieldset className="story-fieldset">
             <legend>New story fields:</legend>

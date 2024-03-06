@@ -48,13 +48,30 @@ const fetchAllAuthors = async() => {
     };
 };
 
+const fetchStoriesByAuthorId = async (authorId) => {
+    try {
+        const {rows: searchResults} = await client.query(`
+        SELECT * 
+        FROM storys 
+        JOIN authors ON storys.story_author = authors.author_id 
+        WHERE storys.story_author = $1 AND storys.story_active_flag = TRUE
+        ;
+        `, [authorId]);
+        console.log('search results db', searchResults);
+        return searchResults;
+    } catch (error) {
+        console.log('there was a database error fetching stories by author.');
+        throw error;
+    }
+}
+
 const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
-    {first_name: "marcus", last_name: "moritz", email: "marcus@thetooth.com", public_role: "editor", internal_role: 1},
-    {first_name: "john", last_name: "laconte", email: "john@thetooth.com", public_role: "writer", internal_role: 2},
-    {first_name: "ross", last_name: "leonhart", email: "ross@thetooth.com", public_role: "assistant editor", internal_role: 1},
-    {first_name: "jaron", last_name: "jaron", email: "jaron@thetooth.com", public_role: "intern", internal_role: 3},
-    {first_name: "scott", last_name: "miller", email: "scott@thetooth.com", public_role: "business writer", internal_role: 2},
-    {first_name: "ricky", last_name: "martinez", email: "ricky@thetooth.com", public_role: "music writer", internal_role: 2}
+    {first_name: "Marcus", last_name: "Moritz", email: "marcus@thetooth.com", public_role: "Editor", internal_role: 1},
+    {first_name: "John", last_name: "LaConte", email: "john@thetooth.com", public_role: "Writer", internal_role: 2},
+    {first_name: "Ross", last_name: "Leonhart", email: "ross@thetooth.com", public_role: "Assistant Editor", internal_role: 1},
+    {first_name: "Jaron", last_name: "Jaron", email: "jaron@thetooth.com", public_role: "Intern", internal_role: 3},
+    {first_name: "Scott", last_name: "Miller", email: "scott@thetooth.com", public_role: "Business Editor", internal_role: 2},
+    {first_name: "Ricky", last_name: "Martinez", email: "ricky@thetooth.com", public_role: "Music Writer", internal_role: 2}
 ]
 
 const insertAuthors = (array) => {
@@ -70,4 +87,5 @@ module.exports = {
     fetchAllAuthors,
     fetchOneAuthor,
     createAuthor,
+    fetchStoriesByAuthorId,
 }

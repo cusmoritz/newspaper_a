@@ -24,8 +24,9 @@ server.listen(port, () => {
 });
 
 
-const {fetchAllAuthors} = require('../db/authors');
+const {fetchAllAuthors, fetchStoriesByAuthorId} = require('../db/authors');
 const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag} = require('../db/story');
+// const { fetchStoriesByAuthorId } = require('../src/api');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);
@@ -54,7 +55,7 @@ server.get('/api/story/frontpage', async (request, response, next) => {
     }
 });
 
-server.get('/api/search/:tag', async (request, response, next) => {
+server.get('/api/search/tag/:tag', async (request, response, next) => {
   try {
     const { tag } = request.params;
     const searchResults = await fetchStoriesFromTag(tag);
@@ -65,6 +66,22 @@ server.get('/api/search/:tag', async (request, response, next) => {
     }
   } catch (error) {
     console.log('there was an error getting stories by tag.');
+    throw error;
+  }
+});
+
+server.get('/api/search/author/:authorId', async (request, response, next) => {
+  try {
+    const { authorId } = request.params;
+    console.log('authorId in api', authorId);
+    const searchResults = await fetchStoriesByAuthorId(authorId);
+    if (searchResults) {
+      response.send(searchResults).status(200);
+    } else {
+      response.send({Error: "There was a problem fetching stories by this author."});
+    }
+  } catch (error) {
+    console.log('there was an error fetching author stories in the api');
     throw error;
   }
 })

@@ -137,3 +137,15 @@ export const Home = () => {
         </div>
     );
 };
+
+// export const Modal = (inputText) => {
+
+//     return (
+//         <div id="modal-container">
+//             <button className="modal-close">X</button>
+//             <div className="modal-text-container">
+//                 {inputText}
+//             </div>
+//         </div>
+//     )
+// };

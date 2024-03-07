@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { submitNewStory } from "../api";
-import { fetchAllAuthors } from "../api"
+import { fetchAllAuthors } from "../api";
+import { Modal } from "./Modal";
 
 export const CreateStory = () => {
 
@@ -47,6 +48,17 @@ export const CreateStory = () => {
         const authors = await fetchAllAuthors();
         setAllAuthors(authors);
         console.log('Page loaded.')
+      };
+
+      const createStoryText = "There is text in here."
+
+      const openModal = () => {
+        const modal = document.getElementById("modal-container");
+        modal.style.display = inline;
+        return (
+            <Modal inputText={createStoryText}/>
+        )
+
       }
 
       useState(() => {
@@ -111,7 +123,7 @@ export const CreateStory = () => {
                 : 
                     allAuthors.map((author) => {
                         return (
-                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id}>{author.first_name} {author.last_name}</option>
+                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id}>{author.first_name} {author.last_name} | {author.public_role}</option>
                         )
                     })
 
@@ -127,20 +139,22 @@ export const CreateStory = () => {
                 </select> */}
 
                 <label htmlFor="title-input">Title:</label>
-                <input className="title-input" maxLength="150" value={title} onChange={(event) => setTitleEvent(event.target.value)}></input>
-                <div className="character-counter">Character limit: {titleChar}/150</div>
+                <input className="title-input" maxLength="150" placeholder="Get to the point, but be accurate and truthful." value={title} onChange={(event) => setTitleEvent(event.target.value)}></input>
+                <div className="character-counter">Title character limit: {titleChar}/150</div>
 
                 <label htmlFor="subhead-input">Subhead:</label>
-                <input className="subhead-input" maxLength="150" value={subhead} onChange={(event) => setSubheadEvent(event.target.value)}></input>
-                <div className="character-counter">Character limit: {subheadChar}/150</div>
+                <input className="subhead-input" maxLength="150" placeholder="This will be the secondary header after the title." value={subhead} onChange={(event) => setSubheadEvent(event.target.value)}></input>
+                <div className="character-counter">Subhead character limit: {subheadChar}/150</div>
 
                 <label htmlFor="led-input">Led:</label>
                 <textarea className="led-input" maxLength="150" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="Your best, catchiest sentence. This will be displayed on the front page of the website."></textarea>
-                <div className="character-counter">Character limit: {ledChar}/250</div>
+                <div className="character-counter">Led character limit: {ledChar}/250</div>
 
                 <label htmlFor="story-input">Story:</label>
-                <textarea maxLength="10000" value={story} onChange={(event) => setStoryEvent(event.target.value)}></textarea>
-                <div className="character-counter">Character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
+                <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." value={story} onChange={(event) => setStoryEvent(event.target.value)}></textarea>
+                <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
+
+                <button className="story-format-tips" onClick={() => {openModal}}>Format tips</button>
                 
                 <label htmlFor="tag-input">Add tags to this story. To add multiple tags, serparate tags with a comma.</label>
                 <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>

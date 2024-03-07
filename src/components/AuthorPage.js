@@ -43,7 +43,6 @@ export const AuthorPage = () => {
                 <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>
                 <button onClick={() => {fetchAllAuthors()}}>fetch all</button>
                 {everyone.map((author) => {
-                    console.log(author)
                     return(
                         <fieldset key={author.author_id} className="author-container" value={author.author_id}>
                         <legend>{author.first_name} {author.last_name}</legend>

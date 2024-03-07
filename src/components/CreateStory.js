@@ -44,8 +44,8 @@ export const CreateStory = () => {
       }
 
       const loadPage = async () => {
-        //const authors = await fetchAllAuthors();
-        //setAllAuthors(authors);
+        const authors = await fetchAllAuthors();
+        setAllAuthors(authors);
         console.log('Page loaded.')
       }
 
@@ -105,26 +105,26 @@ export const CreateStory = () => {
             <fieldset className="story-fieldset">
             <legend>New story fields:</legend>
             <label htmlFor="author-dropdown" className="author-dropdown">Author:</label>
-                {/* <select className="author-dropdown">
+                <select className="author-dropdown">
                 {!allAuthors 
                 ? null 
                 : 
                     allAuthors.map((author) => {
                         return (
-                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id}>{author.author_first} {author.author_last}</option>
+                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id}>{author.first_name} {author.last_name}</option>
                         )
                     })
 
                 }
-                </select> */}
+                </select>
 
-                <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
+                {/* <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
                     <option value="5">Author A</option>
                     <option value="4">Author B</option>
                     <option value="3">Author C</option>
                     <option value="2">Author D</option>
                     <option value="1">Author E</option>
-                </select>
+                </select> */}
 
                 <label htmlFor="title-input">Title:</label>
                 <input className="title-input" maxLength="150" value={title} onChange={(event) => setTitleEvent(event.target.value)}></input>

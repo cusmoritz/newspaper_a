@@ -115,11 +115,11 @@ const createNewStory = async (storyInfo) => {
         });
 
         const {rows: meta} = await client.query(`
-        INSERT INTO story_meta (story_main_id, story_original_author)
-        VALUES ($1, $2)
+        INSERT INTO story_meta (story_main_id, story_original_author, primary_cat, secondary_cat)
+        VALUES ($1, $2, $3, $4)
         RETURNING *
         ;
-        `, [story[0].story_id, story[0].story_author]);
+        `, [story[0].story_id, story[0].story_author, storyInfo.primary, storyInfo.secondary]);
 
         //console.log('story here', story[0])
         return story;
@@ -220,7 +220,31 @@ const fetchFrontPage = async () => {
     //     ;
     // `, [now, offset])
 
-}
+};
+
+const createPrimary = async (catText) => {
+    const {rows: PrimaryCats} = await client.query(`
+        INSERT INTO primary_catagories (primary_catagory_name)
+        VALUES ($1)
+        RETURNING *
+        ;
+    `, [catText])
+    return PrimaryCats;
+};
+
+const createSecondary = async (subCat, primary) => {
+    const {rows: secondary} = await client.query(`
+        INSERT INTO secondary_catagories (secondary_catagory_name, secondary_parent_id)
+        VALUES ($1, $2)
+        RETURNING *
+        ;
+    `, [subCat, primary]);
+    return secondary;
+};
+
+const fakePrimaries = ["news", "opinion", "colorado", "sports", "outdoors", "entertainment"];
+
+const fakeSecondary = [{name: "colorado", parent: 1}, {name: "crime", parent: 1}, {name: "obit", parent: 1}, {name: "regional", parent: 1}, {name: "noco", parent: 3}, {name: "denver", parent: 3}, {name: "editorial", parent: 2}, {name: "letters", parent: 2}, {name: "columns", parent: 2}, {name: "events", parent: 6}, {name: "food", parent: 6}, {name: "football", parent: 4}, {name: "hockey", parent: 4}, {name: "baseball", parent: 4}, {name: "soccer", parent: 4}, {name: "hiking", parent: 5}, {name: "public lands", parent: 5}, {name: "camping", parent: 5}, {name: "backpacking", parent: 5},];
 
 const fakeStorys = [
     {
@@ -236,7 +260,9 @@ const fakeStorys = [
         tags: [ 'story', 'first', 'another story', 'a good one' ],
         author: '4',
         led: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
-        slug: 'first-story-goes-here'
+        slug: 'first-story-goes-here',
+        primary: 1,
+        secondary: 1,
       },
       {
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
@@ -245,7 +271,9 @@ const fakeStorys = [
         tags: ['news', 'vail', 'edwards', 'scooters'],
         author: '5',
         led: "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions.",
-        slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer'
+        slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer',
+        primary: 2,
+        secondary: 2,
       },
       {
         title: "What happened to the lost, barking dog in East Vail?",
@@ -254,7 +282,9 @@ const fakeStorys = [
         tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
         author: '1',
         led: "On Feb. 8, a post appeared in the Eagle County Classifieds Facebook group: Was anyone in East Vail missing a dog?",
-        slug: 'what-happened-to-the-barking-dog-in-east-vail'
+        slug: 'what-happened-to-the-barking-dog-in-east-vail',
+        primary: 3,
+        secondary: 1,
       },
       {
         title: "Electric Avenue: The '80s MTV Experience comes to Beaver Creek Saturday",
@@ -263,7 +293,9 @@ const fakeStorys = [
         tags: ['music', '80s', 'Beaver Creek', 'Avon'],
         author: '2',
         led: "Just like Yacht Rock made soft rock cool and breezy again, Electric Avenue brings the electronic magic of the 1980s back — complete with its personal stash of vintage synthesizers, drum machines and rare signal processors.",
-        slug: 'electric-avenue-the-80s-mtv-experience-comes-to-beaver-creek-saturday'
+        slug: 'electric-avenue-the-80s-mtv-experience-comes-to-beaver-creek-saturday',
+        primary: 2,
+        secondary: 3,
       },
       {
         title: "Transportation authority is an opportunity to build for the future",
@@ -272,7 +304,9 @@ const fakeStorys = [
         tags: ['opinion', 'editorial', 'transportation'],
         author: '3',
         led: "Whether you’re a local employee trying to get to work on time (and back home by a reasonable hour), a visitor looking for easy ways to navigate to and from local resorts and businesses, or you’re looking for a more climate-friendly option for transit, public transportation should be a service that makes life easier, not harder.",
-        slug: 'our-view-transportation-authority-is-an-opportunity-to-build-for-the-future'
+        slug: 'our-view-transportation-authority-is-an-opportunity-to-build-for-the-future',
+        primary: 1,
+        secondary: 1,
       },
       {
         title: "Court appearance for prominent Vail real estate broker continued",
@@ -281,7 +315,9 @@ const fakeStorys = [
         tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
         author: '4',
         led: "Tye Stockton returned to the Eagle County Justice Center on Tuesday for a brief court appearance on an accusation of stalking, a domestic violence charge that the Vail real estate giant received in December.",
-        slug: 'court-appearance-for-prominent-vail-real-estate-broker-continued'
+        slug: 'court-appearance-for-prominent-vail-real-estate-broker-continued',
+        primary: 3,
+        secondary: 2,
       },
       {
         title: "Frisco’s Jay Irwin shares harrowing backcountry experience to inspire adventurers to do good",
@@ -290,16 +326,33 @@ const fakeStorys = [
         tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
         author: '2',
         led: "There are many events in life that can shape and change a person. Some people’s lives forever change after getting married or having a child, while others are transformed by a harrowing and traumatic event.",
-        slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good'
+        slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good',
+        primary: 2,
+        secondary: 2,
       }
 ]
+
+const insertFakePrimarys = () => {
+    fakePrimaries.forEach((cat) => {
+        createPrimary(cat);
+    })
+};
+
+const insertFakeSecondarys = () => {
+    fakeSecondary.forEach((subCat) => {
+        createSecondary(subCat.name, subCat.parent);
+    })
+}
+
+insertFakePrimarys();
+insertFakeSecondarys();
 
 const insertFakeStorys = ()=> {
     fakeStorys.forEach((story) => {
         createNewStory(story);
     })
 }
-insertFakeStorys(fakeStorys);
+//insertFakeStorys(fakeStorys);
 
 module.exports = {
     createNewStory,

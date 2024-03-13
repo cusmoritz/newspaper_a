@@ -130,7 +130,9 @@ export const Home = () => {
             <h4>Top Stories of the day:</h4>
             {!frontPage ? null : frontPage.map((story) => {
                 return (
+                    <div >
                     <FrontPageStory props={story} key={story.story_id}/>
+                    </div>
                 )
             })}
 

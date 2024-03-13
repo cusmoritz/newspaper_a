@@ -20,6 +20,17 @@ const createDatabase = async() => {
             internal_role SMALLINT NOT NULL DEFAULT 3
         );
 
+        CREATE TABLE IF NOT EXISTS primary_catagories (
+            primary_catagory_id SERIAL PRIMARY KEY,
+            primary_catagory_name TEXT UNIQUE NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS secondary_catagories (
+            secondary_catagory_id SERIAL PRIMARY KEY,
+            secondary_parent_id INTEGER REFERENCES primary_catagories(primary_catagory_id),
+            secondary_catagory_name TEXT UNIQUE NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS storys (
             story_id SERIAL PRIMARY KEY,
             story_title TEXT UNIQUE NOT NULL,
@@ -50,7 +61,9 @@ const createDatabase = async() => {
             story_original_author INT NOT NULL,
             story_meta_original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_updated_by INT,
-            story_update_date DATE
+            story_update_date DATE,
+            primary_cat INTEGER REFERENCES primary_catagories(primary_catagory_id) NOT NULL DEFAULT 0,
+            secondary_cat INTEGER REFERENCES secondary_catagories(secondary_catagory_id) DEFAULT NULL
         );
 
         CREATE TABLE IF NOT EXISTS error_log (
@@ -87,6 +100,9 @@ const destroyDatabase = async () => {
         DROP TABLE IF EXISTS story_meta;
         DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS authors;
+        DROP TABLE IF EXISTS secondary_catagories;
+        DROP TABLE IF EXISTS primary_catagories;
+
         `, [])
         console.log('done destroying db...');
     } catch (error) {

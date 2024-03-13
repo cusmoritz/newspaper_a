@@ -13,7 +13,6 @@ import { AuthorPage } from './components/AuthorPage';
 import { TagSearchResults } from './components/TagSearchResults';
 import { AuthorSearchResults } from './components/AuthorSearchResults';
 
-
 const App = () => {
 
     // TODO:
@@ -49,6 +48,7 @@ const App = () => {
                     <Footer />
                 </div>
             </BrowserRouter>
+
         )
     } else {
         return (

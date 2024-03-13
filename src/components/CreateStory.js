@@ -19,6 +19,7 @@ export const CreateStory = () => {
     const [subheadChar, setSubheadChar] = useState(0);
     const [ledChar, setLedChar] = useState(0);
     const [storyChar, setStoryChar] = useState(0);
+    const [showModal, setShowModal] = useState("none");
 
     // image loading function that doesn't work. still need image hosting
     window.addEventListener('load', function() {
@@ -56,7 +57,8 @@ export const CreateStory = () => {
         const modal = document.getElementById("modal-container");
         modal.style.display = inline;
         return (
-            <Modal inputText={createStoryText}/>
+          <></>
+            //<ReactModal inputText={createStoryText}/>
         )
 
       }
@@ -154,7 +156,9 @@ export const CreateStory = () => {
                 <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." value={story} onChange={(event) => setStoryEvent(event.target.value)}></textarea>
                 <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
 
-                <button className="story-format-tips" onClick={() => {openModal}}>Format tips</button>
+                <button className="story-format-tips" onClick={() => setShowModal('block')}>Format tips</button>
+                {/* <Modal state={showModal}/> */}
+
                 
                 <label htmlFor="tag-input">Add tags to this story. To add multiple tags, serparate tags with a comma.</label>
                 <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>

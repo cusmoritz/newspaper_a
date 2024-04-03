@@ -204,20 +204,21 @@ const fetchAllPrimaryAndSecondary = async () => {
     try {
         const {rows: everyPrimaryCatagory} = await client.query(`
         SELECT * FROM primary_catagories
+        LEFT JOIN secondary_catagories ON secondary_catagories.secondary_parent_id = primary_catagories.primary_catagory_id
         ;
         `, []);
 
-        everyPrimaryCatagory.forEach( async (primary) => {
-            const {rows: secondary} = await client.query(`
-            SELECT * FROM secondary_catagories
-            WHERE secondary_parent_id = $1
-            ;
-            `, [primary.primary_catagory_id]);
-            primary.secondary = secondary;
-            console.log('what the heck', primary)
-        });
- 
-        //return everyPrimaryCatagory;
+        // everyPrimaryCatagory.forEach( async (primary) => {
+        //     const {rows: secondary} = await client.query(`
+        //     SELECT * FROM secondary_catagories
+        //     WHERE secondary_parent_id = $1
+        //     ;
+        //     `, [primary.primary_catagory_id]);
+        //     primary.secondary = secondary;
+        //     console.log('what the heck', primary)
+        // });
+        console.log('every primary db', everyPrimaryCatagory)
+        return everyPrimaryCatagory;
     } catch (error) {
         console.log('there was an error fetching all catagories.');
         throw error;

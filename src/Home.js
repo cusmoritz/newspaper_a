@@ -3,6 +3,8 @@ import { Story } from "./components/Story";
 import { fetchFrontPage } from "./api"
 import { FrontPageStory } from "./components/FrontPageStory";
 import { fetchFrontPageCatsSubcats } from "./api";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 export const Home = () => {
 
@@ -14,11 +16,10 @@ export const Home = () => {
             if (fPStorys) {
                 setFrontPage(fPStorys);
             }
-            const catagorys = await fetchFrontPageCatsSubcats();
-            if (catagorys) {
-                console.log('catagories front', catagorys);
-                setCatagories(catagorys);
-            }
+            // const allCatagories = await fetchFrontPageCatsSubcats();
+            // if (allCatagories) {
+            //     setCatagories(allCatagories);
+            // }
     };
 
     const searchForAuthorStories = (authorId) => {
@@ -133,6 +134,7 @@ export const Home = () => {
 
     return (
         <div className="main-content-container">
+            <Header />
             <div>Home</div>
             <h4>Top Stories of the day:</h4>
             {!frontPage ? null : frontPage.map((story) => {
@@ -142,7 +144,7 @@ export const Home = () => {
                     </div>
                 )
             })}
-
+            <Footer />
         </div>
     );
 };

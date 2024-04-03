@@ -39,14 +39,12 @@ const App = () => {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <Header />
                     <Routes>
                         <Route exact path="/" element={<AdminHome/>} />
                         <Route path="/createstory" element={<CreateStory/>} />
                         <Route path="/storystats" element={<StoryStats/>} />
                         <Route path="/authorpage" element={<AuthorPage/>} />
                     </Routes>
-                    <Footer />
                 </div>
             </BrowserRouter>
 
@@ -55,7 +53,6 @@ const App = () => {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <Header />
                     <Routes>
                     {/* /search/author should be all authors */}
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />
@@ -63,7 +60,6 @@ const App = () => {
                     <Route path="/:primaryCat" element={<PrimaryCatPage />} />
                     <Route exact path="/" element={<Home/>} />
                     </Routes>
-                    <Footer />
                 </div>
             </BrowserRouter>
             );

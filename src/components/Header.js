@@ -1,4 +1,5 @@
 import React from "react";
+import { NavBar } from "./NavBar";
 
 export const Header = () => {
     return (
@@ -8,6 +9,7 @@ export const Header = () => {
             <h2>The source.</h2>
             <div>This is the header</div>
             <hr></hr>
+            <NavBar />
         </div>
     );
 };

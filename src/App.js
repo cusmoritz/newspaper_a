@@ -12,6 +12,7 @@ import { StoryStats } from './components/StoryStats';
 import { AuthorPage } from './components/AuthorPage';
 import { TagSearchResults } from './components/TagSearchResults';
 import { AuthorSearchResults } from './components/AuthorSearchResults';
+import {PrimaryCatPage} from './components/PrimaryCatPage';
 
 const App = () => {
 
@@ -59,7 +60,7 @@ const App = () => {
                     {/* /search/author should be all authors */}
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />
                     <Route path="/search/author/:id" element={<AuthorSearchResults />} />
-
+                    <Route path="/:primaryCat" element={<PrimaryCatPage />} />
                     <Route exact path="/" element={<Home/>} />
                     </Routes>
                     <Footer />

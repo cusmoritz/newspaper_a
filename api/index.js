@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId} = require('../db/authors');
-const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag} = require('../db/story');
+const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary} = require('../db/story');
 // const { fetchStoriesByAuthorId } = require('../src/api');
 
 server.use((request, response, next) => {
@@ -43,9 +43,9 @@ server.get('/api/story/frontpage', async (request, response, next) => {
         // const pageNumber = request.params;
         const frontPage = await fetchFrontPage();
         if (frontPage) {
-          response.send(frontPage).status(200);
+          response.status(200).send(frontPage);
         } else {
-          response.send({Error: "There was a problem fetching the front page"}).status(500);
+          response.status(500).send({Error: "There was a problem fetching the front page"});
         }
 
     } catch (error) {
@@ -54,6 +54,42 @@ server.get('/api/story/frontpage', async (request, response, next) => {
         throw error;
     }
 });
+
+server.get('/api/all-catagories', async (request, response, next) => {
+  try {
+    const allCatagories = await fetchAllPrimaryCatagories();
+    
+    // const attachPrimarySecond = async (primaryId) => {
+    //   const secondarys = await fetchSecondaryCatsForPrimary(primaryId);
+    //   return secondarys;
+    // };
+    // primaryCats.forEach(async (catagory) => {
+    //   catagory.secondary = await attachPrimarySecond(catagory.primary_catagory_id);
+    //   console.log('we got secondary', catagory.secondary)
+    //   //catagory.secondary = secondary;
+    //   return catagory;
+    // });
+
+    allCatagories.forEach( async (catagory) => {
+      console.log(catagory.secondary = await fetchSecondaryCatsForPrimary(catagory.primary_catagory_id))
+      const secondary = await fetchSecondaryCatsForPrimary(catagory.primary_catagory_id);
+      //const secondaryCat = await fetchSecondaryCatsForPrimary(catagory.primary_catagory_id)
+      //catagory.secondary = secondaryCat;
+      //console.log('cat not ', catagory)
+      console.log(catagory.secondary = {secondary: 'balls'})
+    })
+    //console.log('all catagories', tryAgain);
+
+    if (allCatagories) {
+      response.status(200).send(allCatagories);
+    } else  {
+      response.status(500).send({Error: "There was a problem fetching all primary catagories."});
+    }
+  } catch (error) {
+    console.log('error fetching all catagories');
+    throw error;
+  }
+})
 
 server.get('/api/search/tag/:tag', async (request, response, next) => {
   try {

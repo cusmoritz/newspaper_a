@@ -172,12 +172,65 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
     }
 };
 
+const fetchAllPrimaryCatagories = async () => {
+    try {
+        const {rows: primaryCats} = await client.query(`
+        SELECT * FROM primary_catagories
+        ORDER BY primary_catagory_id ASC
+        ;
+        `, []);
+        return primaryCats;
+    } catch (error) {
+        console.log('error fetching primary catagories');
+        throw error;
+    }
+};
+
+const fetchSecondaryCatsForPrimary = async(primaryCatId) => {
+    try {
+        const {rows: secondary} = await client.query(`
+        SELECT * FROM secondary_catagories
+        WHERE secondary_parent_id = $1
+        ;
+        `, [primaryCatId]);
+        return secondary;
+    } catch (error) {
+        console.log('there was an error fetching secondary catagories');
+        throw error;
+    }
+};
+
+const fetchAllPrimaryAndSecondary = async () => {
+    try {
+        const {rows: everyPrimaryCatagory} = await client.query(`
+        SELECT * FROM primary_catagories
+        ;
+        `, []);
+
+        everyPrimaryCatagory.forEach( async (primary) => {
+            const {rows: secondary} = await client.query(`
+            SELECT * FROM secondary_catagories
+            WHERE secondary_parent_id = $1
+            ;
+            `, [primary.primary_catagory_id]);
+            primary.secondary = secondary;
+            console.log('what the heck', primary)
+        });
+ 
+        //return everyPrimaryCatagory;
+    } catch (error) {
+        console.log('there was an error fetching all catagories.');
+        throw error;
+    }
+}
+
 const fetchFrontPage = async () => {
     try {
         
         const {rows: frontPageStorys} = await client.query(`
             SELECT * FROM storys 
             JOIN authors ON storys.story_author = authors.author_id
+            JOIN story_meta ON storys.story_id = story_meta.story_main_id
             WHERE original_publish_date <= CURRENT_DATE AND story_active_flag = TRUE
             ORDER BY original_publish_date DESC
             LIMIT 10
@@ -352,7 +405,7 @@ const insertFakeStorys = ()=> {
         createNewStory(story);
     })
 }
-//insertFakeStorys(fakeStorys);
+insertFakeStorys(fakeStorys);
 
 module.exports = {
     createNewStory,
@@ -362,4 +415,8 @@ module.exports = {
     fetchFrontPage,
     retreiveTags,
     fetchStoriesFromTag,
+    fetchAllPrimaryCatagories,
+    fetchSecondaryCatsForPrimary,
+    fetchAllPrimaryAndSecondary,
+
 }

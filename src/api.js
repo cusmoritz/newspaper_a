@@ -14,12 +14,30 @@ export const fetchFrontPage = async () => {
                 'Content-Type': 'application/json'
             }
         });
+
         const frontPage = await request.json();
+        console.log('front page', frontPage)
         return frontPage;
     } catch (error) {
         throw error;
     }
 };
+
+export const fetchFrontPageCatsSubcats = async () => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/all-catagories`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const allCats = await request.json();
+        return allCats;
+    } catch (error) {
+        console.log('there was an error fetching all catagories');
+        throw error;
+    }
+}
 
 export const addPageView = async (storyId) => {
     try {

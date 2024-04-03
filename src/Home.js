@@ -2,15 +2,22 @@ import React, {useState, useEffect} from "react";
 import { Story } from "./components/Story";
 import { fetchFrontPage } from "./api"
 import { FrontPageStory } from "./components/FrontPageStory";
+import { fetchFrontPageCatsSubcats } from "./api";
 
 export const Home = () => {
 
     const [frontPage, setFrontPage] = useState([]);
+    const [catagories, setCatagories] = useState({});
 
     const loadPage = async () => {
             const fPStorys = await fetchFrontPage();
             if (fPStorys) {
                 setFrontPage(fPStorys);
+            }
+            const catagorys = await fetchFrontPageCatsSubcats();
+            if (catagorys) {
+                console.log('catagories front', catagorys);
+                setCatagories(catagorys);
             }
     };
 
@@ -130,8 +137,8 @@ export const Home = () => {
             <h4>Top Stories of the day:</h4>
             {!frontPage ? null : frontPage.map((story) => {
                 return (
-                    <div >
-                    <FrontPageStory props={story} key={story.story_id}/>
+                    <div key={story.story_id}>
+                    <FrontPageStory props={story} />
                     </div>
                 )
             })}

@@ -39,6 +39,22 @@ export const fetchFrontPageCatsSubcats = async () => {
     }
 }
 
+export const fetchPrimaryCatStories = async (catagory) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/catagories/${catagory}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const catagoryStories = await request.json();
+        return catagoryStories;
+    } catch (error) {
+        console.log(`there was an error fetching stories with catagory ${catagory}`);
+        throw error;
+    }
+}
+
 export const addPageView = async (storyId) => {
     try {
         const request = await fetch(`${BASE_URL}/api/story/pageview/:storyId`, {

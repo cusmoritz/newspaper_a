@@ -20,17 +20,20 @@ export const NavBar = () => {
 
     return (
         <nav className="nav-bar-container">
-            <div className="primary-catagory-container">Home</div>
+            <Link to="/"><div className="primary-catagory-container">Home</div></Link>
         {catagories.map((mainCat) => {
             return (
             <div className="primary-catagory-container" key={mainCat.primary_catagory_id}>
-                <Link to={`/${mainCat.primary_catagory_name.toLowerCase()}`}><div className="primary-catagory" value={mainCat.primary_catagory_id}>{mainCat.primary_catagory_name}      
-                </div></Link>
+                <Link to={`/${mainCat.primary_catagory_name.toLowerCase()}`}>
+                    <div className="primary-catagory" value={mainCat.primary_catagory_id}>{mainCat.primary_catagory_name}      
+                    </div>
+                </Link>
                 <div className="secondary-catagory-container">
                     {mainCat.secondary.map((secondary) => {
+                        let adjustedParam = secondary.secondary_catagory_name.replace(" ","-").toLowerCase();
                         return (
                             <Link 
-                                to={`/${mainCat.primary_catagory_name.toLowerCase()}/${secondary.secondary_catagory_name.toLowerCase()}`}>
+                                to={`/${mainCat.primary_catagory_name.toLowerCase()}/${adjustedParam}`}>
                                 <p key={secondary.secondary_catagory_id} className="secondary-catagory">{secondary.secondary_catagory_name}</p>
                             </Link>
                         )

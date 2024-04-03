@@ -73,6 +73,16 @@ server.get('/api/all-catagories', async (request, response, next) => {
     console.log('error fetching all catagories');
     throw error;
   }
+});
+
+server.get('/api/catagories/:catagory', async (request, response, next) => {
+  try {
+    const {catagory} = request.params;
+
+    
+  } catch (error) {
+    console.log(`error in server fetching stories for catagory ${catagory}`)
+  }
 })
 
 server.get('/api/search/tag/:tag', async (request, response, next) => {

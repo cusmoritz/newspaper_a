@@ -135,7 +135,6 @@ export const Home = () => {
     return (
         <div className="main-content-container">
             <Header />
-            <div>Home</div>
             <h4>Top Stories of the day:</h4>
             {!frontPage ? null : frontPage.map((story) => {
                 return (

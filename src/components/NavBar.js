@@ -19,15 +19,16 @@ export const NavBar = () => {
 
     return (
         <nav className="nav-bar-container">
+            <div className="primary-catagory-container">Home</div>
         {catagories.map((mainCat) => {
             return (
-            <div>
-                <div key={mainCat.primary_catagory_id} value={mainCat.primary_catagory_id}>{mainCat.primary_catagory_name}      
+            <div className="primary-catagory-container" key={mainCat.primary_catagory_id}>
+                <div className="primary-catagory" value={mainCat.primary_catagory_id}>{mainCat.primary_catagory_name}      
                 </div>                   
-                <div>
+                <div className="secondary-catagory-container">
                     {mainCat.secondary.map((secondary) => {
                         return (
-                            <p>{secondary.secondary_catagory_name}</p>
+                            <p key={secondary.secondary_catagory_id} className="secondary-catagory">{secondary.secondary_catagory_name}</p>
                         )
                     })}
                 </div>

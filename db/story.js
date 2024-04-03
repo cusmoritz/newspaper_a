@@ -296,9 +296,9 @@ const createSecondary = async (subCat, primary) => {
     return secondary;
 };
 
-const fakePrimaries = ["news", "opinion", "colorado", "sports", "outdoors", "entertainment"];
+const fakePrimaries = ["News", "Opinion", "Colorado", "Sports", "Outdoors", "Entertainment"];
 
-const fakeSecondary = [{name: "colorado", parent: 1}, {name: "crime", parent: 1}, {name: "obit", parent: 1}, {name: "regional", parent: 1}, {name: "noco", parent: 3}, {name: "denver", parent: 3}, {name: "editorial", parent: 2}, {name: "letters", parent: 2}, {name: "columns", parent: 2}, {name: "events", parent: 6}, {name: "food", parent: 6}, {name: "football", parent: 4}, {name: "hockey", parent: 4}, {name: "baseball", parent: 4}, {name: "soccer", parent: 4}, {name: "hiking", parent: 5}, {name: "public lands", parent: 5}, {name: "camping", parent: 5}, {name: "backpacking", parent: 5},];
+const fakeSecondary = [{name: "Colorado", parent: 1}, {name: "Crime", parent: 1}, {name: "Obit", parent: 1}, {name: "Regional", parent: 1}, {name: "NoCo", parent: 3}, {name: "Denver", parent: 3}, {name: "Editorial", parent: 2}, {name: "Letters", parent: 2}, {name: "Columns", parent: 2}, {name: "Events", parent: 6}, {name: "Food", parent: 6}, {name: "Football", parent: 4}, {name: "Hockey", parent: 4}, {name: "Baseball", parent: 4}, {name: "Soccer", parent: 4}, {name: "Hiking", parent: 5}, {name: "Public Lands", parent: 5}, {name: "Camping", parent: 5}, {name: "Backpacking", parent: 5},];
 
 const fakeStorys = [
     {

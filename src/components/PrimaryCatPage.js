@@ -15,9 +15,10 @@ export const PrimaryCatPage = () => {
 
     const fetchPrimaryStories = async () => {
         console.log('fetching ... ')
-        const catStories = await fetchPrimaryCatStories(primary);
+        const catStories = await fetchPrimaryCatStories(primaryCat);
         if (catStories) {
             setStories(catStories)
+            console.log('stories front', catStories)
         }
     };
     
@@ -26,11 +27,12 @@ export const PrimaryCatPage = () => {
     };
 
     useEffect(() => {
-        // loadPage();
+        loadPage();
     }, []);
     return (
         <div className="primary-catagory-page-container">
             <h3 className="primary-catagory-header">{primary}</h3>
+            {}
         </div>
     )
 }

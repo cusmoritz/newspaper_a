@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId} = require('../db/authors');
-const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary} = require('../db/story');
+const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory} = require('../db/story');
 // const { fetchStoriesByAuthorId } = require('../src/api');
 
 server.use((request, response, next) => {
@@ -78,10 +78,15 @@ server.get('/api/all-catagories', async (request, response, next) => {
 server.get('/api/catagories/:catagory', async (request, response, next) => {
   try {
     const {catagory} = request.params;
-
-    
+    const catagoryStorys = await fetchStoriesByPrimaryCatagory(catagory);
+    if (catagoryStorys) {
+      response.send(catagoryStorys).status(200);
+    } else {
+      response.send({Error: "There was a problem getting stories from this catagory"}).status(500);
+    }
   } catch (error) {
-    console.log(`error in server fetching stories for catagory ${catagory}`)
+    console.log(`error in server fetching stories for this catagory`);
+    throw error;
   }
 })
 

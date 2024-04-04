@@ -208,15 +208,6 @@ const fetchAllPrimaryAndSecondary = async () => {
         ;
         `, []);
 
-        // everyPrimaryCatagory.forEach( async (primary) => {
-        //     const {rows: secondary} = await client.query(`
-        //     SELECT * FROM secondary_catagories
-        //     WHERE secondary_parent_id = $1
-        //     ;
-        //     `, [primary.primary_catagory_id]);
-        //     primary.secondary = secondary;
-        //     console.log('what the heck', primary)
-        // });
         console.log('every primary db', everyPrimaryCatagory)
         return everyPrimaryCatagory;
     } catch (error) {
@@ -276,27 +267,61 @@ const fetchFrontPage = async () => {
 
 };
 
+const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a string 'news' etc
+    const catagorySearch = catagory.toUpperCase();
+
+    try {
+        console.log('catagory', catagorySearch)
+        const {rows: primaryCatagory} = await client.query(`
+        SELECT * FROM primary_catagories
+        WHERE primary_catagory_name = $1
+        ;
+        `, [catagorySearch]);
+
+        // catagory = primary_catagory_id && primary_catagory_name
+
+        const {rows: stories} = await client.query(`
+        SELECT * FROM storys
+        JOIN story_meta ON story_meta.story_main_id = storys.story_id
+        JOIN authors ON authors.author_id = storys.story_author
+        WHERE story_meta.primary_cat = $1 
+        AND original_publish_date <= CURRENT_DATE 
+        AND story_active_flag = TRUE
+        ORDER BY original_publish_date DESC
+        LIMIT 10
+        ;
+        `, [primaryCatagory.primary_catagory_id])
+
+        return stories;
+    } catch (error) {
+        console.log('there was a database error fetching by catagory');
+        throw error;
+    }
+}
+
 const createPrimary = async (catText) => {
+    const newCatagory = catText.toUpperCase();
     const {rows: PrimaryCats} = await client.query(`
         INSERT INTO primary_catagories (primary_catagory_name)
         VALUES ($1)
         RETURNING *
         ;
-    `, [catText])
+    `, [newCatagory])
     return PrimaryCats;
 };
 
 const createSecondary = async (subCat, primary) => {
+    const newSubCatagory = subCat.toUpperCase();
     const {rows: secondary} = await client.query(`
         INSERT INTO secondary_catagories (secondary_catagory_name, secondary_parent_id)
         VALUES ($1, $2)
         RETURNING *
         ;
-    `, [subCat, primary]);
+    `, [newSubCatagory, primary]);
     return secondary;
 };
 
-const fakePrimaries = ["News", "Opinion", "Colorado", "Sports", "Outdoors", "Entertainment"];
+const fakePrimaries = ["NEWS", "OPINION", "COLORADO", "SPORTS", "OUTDOORS", "ENTERTAINMENT"];
 
 const fakeSecondary = [{name: "Colorado", parent: 1}, {name: "Crime", parent: 1}, {name: "Obit", parent: 1}, {name: "Regional", parent: 1}, {name: "NoCo", parent: 3}, {name: "Denver", parent: 3}, {name: "Editorial", parent: 2}, {name: "Letters", parent: 2}, {name: "Columns", parent: 2}, {name: "Events", parent: 6}, {name: "Food", parent: 6}, {name: "Football", parent: 4}, {name: "Hockey", parent: 4}, {name: "Baseball", parent: 4}, {name: "Soccer", parent: 4}, {name: "Hiking", parent: 5}, {name: "Public Lands", parent: 5}, {name: "Camping", parent: 5}, {name: "Backpacking", parent: 5},];
 
@@ -419,5 +444,5 @@ module.exports = {
     fetchAllPrimaryCatagories,
     fetchSecondaryCatsForPrimary,
     fetchAllPrimaryAndSecondary,
-
+    fetchStoriesByPrimaryCatagory,
 }

@@ -21,7 +21,7 @@ export const NavBar = () => {
     return (
         <nav className="nav-bar-container">
             <Link to="/"><div className="primary-catagory-container">Home</div></Link>
-        {catagories.map((mainCat) => {
+        {!catagories ? null : catagories.map((mainCat) => {
             return (
             <div className="primary-catagory-container" key={mainCat.primary_catagory_id}>
                 <Link to={`/${mainCat.primary_catagory_name.toLowerCase()}`}>

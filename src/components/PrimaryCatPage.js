@@ -8,22 +8,21 @@ export const PrimaryCatPage = () => {
 
     const {primaryCat} = useParams();
     const primary = primaryCat.toUpperCase();
-    console.log(primaryCat)
+
     const [stories, setStories] = useState([]);
 
     const breadcrumbs = [];
 
     const fetchPrimaryStories = async () => {
-        console.log('fetching ... ')
         const catStories = await fetchPrimaryCatStories(primaryCat);
         if (catStories) {
             setStories(catStories)
-            console.log('stories front', catStories)
-        }
+        };
+        // console.log('stories front', stories)
     };
     
     const loadPage = async () => {
-        await fetchPrimaryStories();
+        fetchPrimaryStories();
     };
 
     useEffect(() => {
@@ -32,7 +31,15 @@ export const PrimaryCatPage = () => {
     return (
         <div className="primary-catagory-page-container">
             <h3 className="primary-catagory-header">{primary}</h3>
-            {}
+            {!stories ? null : 
+            stories.map((story) => {
+                return (
+                    <div>
+                        {story.story_title}
+                    </div>
+                )
+            })
+            }
         </div>
     )
 }

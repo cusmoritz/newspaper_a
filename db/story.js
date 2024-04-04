@@ -271,7 +271,6 @@ const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a stri
     const catagorySearch = catagory.toUpperCase();
 
     try {
-        console.log('catagory', catagorySearch)
         const {rows: primaryCatagory} = await client.query(`
         SELECT * FROM primary_catagories
         WHERE primary_catagory_name = $1
@@ -279,7 +278,7 @@ const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a stri
         `, [catagorySearch]);
 
         // catagory = primary_catagory_id && primary_catagory_name
-
+        const id = primaryCatagory[0].primary_catagory_id;
         const {rows: stories} = await client.query(`
         SELECT * FROM storys
         JOIN story_meta ON story_meta.story_main_id = storys.story_id
@@ -290,7 +289,7 @@ const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a stri
         ORDER BY original_publish_date DESC
         LIMIT 10
         ;
-        `, [primaryCatagory.primary_catagory_id])
+        `, [id]);
 
         return stories;
     } catch (error) {

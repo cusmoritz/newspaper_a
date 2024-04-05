@@ -211,16 +211,22 @@
     padding-bottom: 20px;
 }
 
-.primary-catagory-container{
+.primary-catagory-container {
     background-color: var(--darkBlue);
     color: var(--lightGrey);
     /* display: flex; this works but bugles the secondary container
     align-items: center; */
 }
 
-.primary-catagory-container::after {
-    content: url("../src/images/icons8-arrow-96.png");
+.primary-catagory-container > a {
+    background-color: var(--darkBlue);
+    color: var(--lightGrey);
+    text-decoration: none;
 }
+
+/* .primary-catagory-container::after {
+    content: url("../src/images/icons8-arrow-96.png");
+} */
 
 .primary-catagory-container:hover .secondary-catagory-container{
     display: inline-block;

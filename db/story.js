@@ -271,13 +271,14 @@ const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a stri
     const catagorySearch = catagory.toUpperCase();
 
     try {
+        // get catagory
         const {rows: primaryCatagory} = await client.query(`
         SELECT * FROM primary_catagories
         WHERE primary_catagory_name = $1
         ;
         `, [catagorySearch]);
 
-        // catagory = primary_catagory_id && primary_catagory_name
+        // get stories for catagory
         const id = primaryCatagory[0].primary_catagory_id;
         const {rows: stories} = await client.query(`
         SELECT * FROM storys
@@ -291,6 +292,11 @@ const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a stri
         ;
         `, [id]);
 
+        // get tags for story
+        for (let i = 0; i < stories.length; i++){
+            stories[i].tags = await retreiveTags(stories[i].story_id);
+        }
+        // console.log(stories)
         return stories;
     } catch (error) {
         console.log('there was a database error fetching by catagory');

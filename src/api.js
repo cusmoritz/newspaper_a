@@ -16,7 +16,6 @@ export const fetchFrontPage = async () => {
         });
 
         const frontPage = await request.json();
-        console.log('front page', frontPage)
         return frontPage;
     } catch (error) {
         throw error;
@@ -48,7 +47,6 @@ export const fetchPrimaryCatStories = async (catagory) => {
             }
         });
         const catagoryStories = await request.json();
-        console.log('stories', catagoryStories)
         return catagoryStories;
     } catch (error) {
         console.log(`there was an error fetching stories with catagory ${catagory}`);

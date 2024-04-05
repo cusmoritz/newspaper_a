@@ -27,7 +27,8 @@ export const PrimaryCatPage = () => {
 
     useEffect(() => {
         loadPage();
-    }, []);
+    }, [primary]);
+    
     return (
         <div className="primary-catagory-page-container">
             <h3 className="primary-catagory-header">{primary}</h3>

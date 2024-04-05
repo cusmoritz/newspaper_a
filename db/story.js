@@ -302,7 +302,64 @@ const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a stri
         console.log('there was a database error fetching by catagory');
         throw error;
     }
-}
+};
+
+const fetchStoriesBySecondaryCatagory = async (primaryCat, secondaryCat) => {
+    const primary = primaryCat.toUpperCase();
+    const secondary = secondaryCat.toUpperCase();
+    try {
+        // const {rows: primaryCatagory} = await client.query(`
+        // SELECT * FROM primary_catagories
+        // WHERE primary_catagory_name = $1
+        // ;
+        // `, [primary]);
+
+        const {rows: secondaryCatagory} = await client.query(`
+        SELECT * FROM secondary_catagories
+        /* JOIN primary_catagories ON primary_catagories.primary_catagory_id = secondary_catagories.secondary_parent_id */
+        WHERE secondary_catagory_name = $1
+        ;
+        `, [secondary])
+        // now we have 1 objects with IDs
+        // sec_id   sec_parent  sec_cat_name    prim_cat    prim_cat_name
+        // 4	    1	        REGIONAL	    1	        NEWS
+        console.log('what we got', secondaryCatagory)
+        // {
+        //     secondary_catagory_id: 2,
+        //     secondary_parent_id: 1,
+        //     secondary_catagory_name: 'CRIME',
+
+        //     primary_catagory_id: 1,
+        //     primary_catagory_name: 'NEWS'
+        //   }
+
+
+
+        // fetch stories
+        const {rows: stories} = await client.query(`
+        SELECT * FROM storys
+        JOIN story_meta ON story_meta.story_main_id = storys.story_id
+        JOIN authors ON authors.author_id = storys.story_author
+        WHERE story_meta.primary_cat = $1
+        AND story_meta.secondary_cat = $2 
+        AND original_publish_date <= CURRENT_DATE 
+        AND story_active_flag = TRUE
+        ORDER BY original_publish_date DESC
+        LIMIT 10
+        ;
+        `, [secondaryCatagory[0].secondary_parent_id, secondaryCatagory[0].secondary_catagory_id]);
+
+        // get tags
+        // for (i = 0; i < stories.length; i++) {
+        //     stories[i].tags = await retreiveTags(stories[i].story_id);
+        // }
+        console.log('stories db', stories);
+        return stories;
+    } catch (error) {
+        console.log('there was a database error fetching stories by secondary catagory');
+        throw error;
+    }
+};
 
 const createPrimary = async (catText) => {
     const newCatagory = catText.toUpperCase();
@@ -450,4 +507,6 @@ module.exports = {
     fetchSecondaryCatsForPrimary,
     fetchAllPrimaryAndSecondary,
     fetchStoriesByPrimaryCatagory,
+    fetchStoriesBySecondaryCatagory,
+
 }

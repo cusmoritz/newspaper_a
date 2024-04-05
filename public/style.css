@@ -241,6 +241,9 @@
 
 .secondary-catagory {
     padding: 10px 20px 10px 20px;
+    color: var(--lightGrey);
+    background-color: var(--darkBlue);
+    text-decoration: none;
 }
 
 /* ############## END NAV BAR #################### */

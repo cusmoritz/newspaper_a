@@ -52,6 +52,22 @@ export const fetchPrimaryCatStories = async (catagory) => {
         console.log(`there was an error fetching stories with catagory ${catagory}`);
         throw error;
     }
+};
+
+export const fetchSecondaryCatStories = async (primary, secondary) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/catagories/${primary}/${secondary}`, {
+            method: "GET",
+            header: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const secondaryStories = request.json();
+        return secondaryStories;
+    } catch (error) {
+        console.log('there was an error fetching stories for those catagories');
+        throw error;
+    }
 }
 
 export const addPageView = async (storyId) => {

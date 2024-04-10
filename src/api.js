@@ -62,7 +62,8 @@ export const fetchSecondaryCatStories = async (primary, secondary) => {
                 'Content-Type': 'application/json'
             }
         });
-        const secondaryStories = request.json();
+        const secondaryStories = await request.json();
+        console.log('front here', secondaryStories)
         return secondaryStories;
     } catch (error) {
         console.log('there was an error fetching stories for those catagories');
@@ -139,7 +140,9 @@ export const fetchAllAuthors = async () => {
 
 export const submitNewStory = async (storyObj) => {
     try {
+        storyObj.author = 2;
         console.log('story front end', storyObj)
+
         const request = await fetch(`${BASE_URL}/api/admin/story/submitnewstory`, {
             method: "POST",
             headers: {

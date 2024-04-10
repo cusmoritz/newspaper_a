@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { submitNewStory } from "../api";
 import { fetchAllAuthors } from "../api";
 import { Modal } from "./Modal";
+import { fetchFrontPageCatsSubcats } from "../api";
 
 export const CreateStory = () => {
 
@@ -20,6 +21,10 @@ export const CreateStory = () => {
     const [ledChar, setLedChar] = useState(0);
     const [storyChar, setStoryChar] = useState(0);
     const [showModal, setShowModal] = useState("none");
+    const [primary, setPrimary] = useState([]);
+    const [secondary, setSecondary] = useState([]);
+    const [allPrimaryCats, setPrimaryCats] = useState([]);
+    const [allSecondaryCats, setSecondaryCats] = useState([]);
 
     // image loading function that doesn't work. still need image hosting
     window.addEventListener('load', function() {
@@ -35,8 +40,17 @@ export const CreateStory = () => {
         });
       });
 
+      const fetchAllCatagories = async () => {
+        const primaryCats = await fetchFrontPageCatsSubcats();
+        console.log('all?', primaryCats)
+        if (primaryCats) {
+          setPrimaryCats(primaryCats);
+          setSecondaryCats(primaryCats[0].secondary)
+        }
+      }
+
       const submitStory = async () => {
-        const result = await submitNewStory({title, subhead, story, tags, author, led, slug});
+        const result = await submitNewStory({title, subhead, story, tags, author: '2', led, slug, primary, secondary});
         return result;
       }
 
@@ -48,7 +62,8 @@ export const CreateStory = () => {
       const loadPage = async () => {
         const authors = await fetchAllAuthors();
         setAllAuthors(authors);
-        console.log('Page loaded.')
+        fetchAllCatagories();
+        console.log('Page loaded.', authors)
       };
 
       const createStoryText = "There is text in here."
@@ -78,6 +93,8 @@ export const CreateStory = () => {
         setTitleChar(0);
         setSubheadChar(0);
         setLedChar(0);
+        setPrimary([]);
+        setSecondary([]);
       }
 
       const setTitleEvent = (targetValue) => {
@@ -101,6 +118,9 @@ export const CreateStory = () => {
       }
 
       const setTagEvent = (tagValue) => {
+        if (tagValue.length < 1) {
+          return;
+        }
         // split the tags
         const words = tagValue.split(",");
         let tagArray = [];
@@ -109,7 +129,13 @@ export const CreateStory = () => {
         }
         setTags(tagArray);
         console.log('words', tagArray)
-      }
+      };
+
+      const submitPrimaryCatagory = (primary) => { // just a number
+        setPrimary(primary)
+        let arr = primary - 1;
+        setSecondaryCats(allPrimaryCats[arr].secondary)
+      };
 
     return (
         <div className="create-story-container">
@@ -125,7 +151,7 @@ export const CreateStory = () => {
                 : 
                     allAuthors.map((author) => {
                         return (
-                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id}>{author.first_name} {author.last_name} | {author.public_role}</option>
+                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id} value={author.author_id}>{author.first_name} {author.last_name} | {author.public_role}</option>
                         )
                     })
 
@@ -169,6 +195,37 @@ export const CreateStory = () => {
                 <button onClick={(() => console.log('loaded'))}>Check Slug</button>
 
                 {/* TODO: Add ability to add urls inside of story */}
+
+                <label htmlFor="catagory-input">Add a primarycatagory.</label>
+                <select 
+                  className="catagory-input" 
+                  onChange={(event) => {submitPrimaryCatagory(event.target.value)}}>
+                {!allPrimaryCats ? null : 
+                  allPrimaryCats.map((primary) => {
+                    return (
+                      <option value={primary.primary_catagory_id} key={primary.primary_catagory_id}>
+                        {primary.primary_catagory_name}
+                      </option>
+                      )
+                  })
+                }       
+                </select>
+
+            <label htmlFor="catagory-input">Add a secondary catagory.</label>
+            <select onChange={(event) => setSecondary(event.target.value)}>
+            {!allSecondaryCats ? null : 
+              allSecondaryCats.map((secondary) => {
+                return (
+                  <option 
+                    value={secondary.secondary_catagory_id} 
+                    key={secondary.secondary_catagory_id}>
+                    {secondary.secondary_catagory_name}
+                  </option>
+                )
+              })
+            }    
+            </select>
+                {/* <button onClick={submitPrimaryCatagory()}>Submit</button> */}
                 
             </fieldset>
             <fieldset className="photo-fieldset">
@@ -182,7 +239,7 @@ export const CreateStory = () => {
             <div>
 
                 {/* TODO: add photo slug search feature?????? */}
-                {/* TODO: Add Photo alt / photoographer fields */}
+                {/* TODO: Add Photo alt / photographer fields */}
                 {/* TODO: Add ability to publish later */}
 
             </div>

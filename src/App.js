@@ -40,12 +40,14 @@ const App = () => {
         return (
             <BrowserRouter>
                 <div className="App">
+                <Header />
                     <Routes>
                         <Route exact path="/" element={<AdminHome/>} />
                         <Route path="/createstory" element={<CreateStory/>} />
                         <Route path="/storystats" element={<StoryStats/>} />
                         <Route path="/authorpage" element={<AuthorPage/>} />
                     </Routes>
+                <Footer />
                 </div>
             </BrowserRouter>
 

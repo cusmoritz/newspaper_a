@@ -102,6 +102,7 @@ const retreiveTags = async (storyId) => {
 }
 
 const createNewStory = async (storyInfo) => {
+    console.log('story info db', storyInfo)
     try {
         const {rows: story} = await client.query(`
         INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug)
@@ -350,9 +351,9 @@ const fetchStoriesBySecondaryCatagory = async (primaryCat, secondaryCat) => {
         `, [secondaryCatagory[0].secondary_parent_id, secondaryCatagory[0].secondary_catagory_id]);
 
         // get tags
-        // for (i = 0; i < stories.length; i++) {
-        //     stories[i].tags = await retreiveTags(stories[i].story_id);
-        // }
+        for (i = 0; i < stories.length; i++) {
+            stories[i].tags = await retreiveTags(stories[i].story_id);
+        }
         console.log('stories db', stories);
         return stories;
     } catch (error) {
@@ -470,6 +471,31 @@ const fakeStorys = [
         slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good',
         primary: 2,
         secondary: 2,
+      },
+      {
+        title: '‘Lost Boy’ Marty Koether returns for 60th anniversary of incident',
+        subhead: 'Event made him a legend in Vail',
+        story: 'Koether shared those dreams and more in an emotional trip to the Colorado Snowsports Museum on April 2. The visit coincided with the 60-year anniversary of Koether’s fateful night alone on Vail Mountain, in which he slept in a tree well after making a wrong turn into Game Creek Bowl, which had not yet been developed for skiing.\n' +
+          '\n' +
+          'By the summer of 1969, when Game Creek Bowl was being developed, mountain managers had already come up with a name for several of the runs, including Lost Boy.\n' +
+          'Koether said he can’t remember exactly when he learned there was a run being named after him and his experience, but it was decades before he became fully aware of how renowned the run was on Vail Mountain.\n' +
+          '\n' +
+          '“I’ve had so many experiences in life beyond the Lost Boy, that this just didn’t seem that monumental to me,” he said, adding that he hoped the statement didn’t come across as egotistical.\n' +
+          '“It was just something that happened,” he said of being lost on Vail Mountain. “I lived through it, it was great, and I pretty much just put it in the back closet after that. But now that I’m here, I never realized how many people liked the story.”\n' +
+          'Koether was invited to town by John D’Angelo, general manager of The Sebastian, who developed an interest in the Lost Boy story after learning to ski last year.\n' +
+          '\n' +
+          'D’Angelo said the effort to bring Koether to town started with a question.\n' +
+          '\n' +
+          '“I know Riva Ridge, and I know Pepi’s Face — a lot of these have stories behind them. What is the story behind the Lost Boy?” he said.\n' +
+          '\n' +
+          'After learning the story, he found Koether on Facebook and began developing a relationship with him.\n' +
+          '\n',
+        tags: [ 'vail', 'skiing', 'incident', 'mountain', 'Marty' ],
+        author: 2,
+        led: 'For Marty Koether, the namesake for Vail Mountain’s “Lost Boy” run, his dreams from April 1, 1964, are still vivid.',
+        slug: 'lost-boy-marty-koether-returns-for-60th-anniversary',
+        primary: '5',
+        secondary: '19'
       }
 ]
 

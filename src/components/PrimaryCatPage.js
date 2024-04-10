@@ -28,13 +28,13 @@ export const PrimaryCatPage = () => {
     useEffect(() => {
         loadPage();
     }, [primary]);
-    
+
     return (
         <div className="primary-catagory-page-container">
             <h3 className="primary-catagory-header">{primary}</h3>
             {!stories ? null : 
             stories.map((story) => {
-                console.log('story', story)
+                // console.log('story', story)
                 return (
                     <fieldset className="catagory-page-story-container" key={story.story_id}>
                         <h3>{story.story_title}</h3>

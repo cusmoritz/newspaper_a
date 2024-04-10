@@ -77,7 +77,7 @@ const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
 const insertAuthors = (array) => {
     array.forEach(writer => {
         createAuthor(writer);
-        console.log('writer', writer)
+        //console.log('writer', writer)
     });
 }
 

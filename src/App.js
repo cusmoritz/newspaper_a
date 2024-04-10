@@ -32,7 +32,7 @@ const App = () => {
 
     // there's probably a safer and better way to do this?
     const domain = /:\/\/([^\/]+)/.exec(window.location.href)[1];
-    console.log('view', domain)
+    // console.log('view', domain)
     const subdomain = domain.split('.')[0];
     console.log('subdomain', subdomain)
 
@@ -64,6 +64,7 @@ const App = () => {
                     <Route path="/:primaryCat/:secondaryCat" element={<SecondaryCatPage />} />
                     <Route path="/:primaryCat" element={<PrimaryCatPage />} />
                     <Route exact path="/" element={<Home/>} />
+                    {/* how do we build this out to include primary cactegory, subcategory, story slug and story id? */}
                     </Routes>
                 <Footer />
                 </div>

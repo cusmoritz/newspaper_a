@@ -140,7 +140,6 @@ export const fetchAllAuthors = async () => {
 
 export const submitNewStory = async (storyObj) => {
     try {
-        storyObj.author = 2;
         console.log('story front end', storyObj)
 
         const request = await fetch(`${BASE_URL}/api/admin/story/submitnewstory`, {

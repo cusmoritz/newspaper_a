@@ -102,7 +102,7 @@ const retreiveTags = async (storyId) => {
 }
 
 const createNewStory = async (storyInfo) => {
-    console.log('story info db', storyInfo)
+    //console.log('story info db', storyInfo)
     try {
         const {rows: story} = await client.query(`
         INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug)
@@ -496,7 +496,36 @@ const fakeStorys = [
         slug: 'lost-boy-marty-koether-returns-for-60th-anniversary',
         primary: '5',
         secondary: '19'
-      }
+      },
+      {
+        title: 'Ur-Fascism',
+        subhead: 'The New York Review of Books',
+        story: 'I elaborated with rhetorical skill on the subject “Should we die for the glory of Mussolini and the immortal destiny of Italy?” My answer was positive. I was a smart boy.\n' +
+            '\n' +
+            'I spent two of my early years among the SS, Fascists, Republicans, and partisans shooting at one another, and I learned how to dodge bullets. It was good exercise.\n' +
+            '\n' +
+            'In April 1945, the partisans took over in Milan. Two days later they arrived in the small town where I was living at the time. It was a moment of joy. The main square was crowded with people singing and waving flags, calling in loud voices for Mimo, the partisan leader of that area. A former maresciallo of the Carabinieri, Mimo joined the supporters of General Badoglio, Mussolini’s successor, and lost a leg during one of the first clashes with Mussolini’s remaining forces. Mimo showed up on the balcony of the city hall, pale, leaning on his crutch, and with one hand tried to calm the crowd. I was waiting for his speech because my whole childhood had been marked by the great historic speeches of Mussolini, whose most significant passages we memorized in school. Silence. Mimo spoke in a hoarse voice, barely audible. He said: “Citizens, friends. After so many painful sacrifices … here we are. Glory to those who have fallen for freedom.” And that was it. He went back inside. The crowd yelled, the partisans raised their guns and fired festive volleys. We kids hurried to pick up the shells, precious items, but I had also learned that freedom of speech means freedom from rhetoric.\n' +
+            '\n' +
+            'A few days later I saw the first American soldiers. They were African Americans. The first Yankee I met was a black man, Joseph, who introduced me to the marvels of Dick Tracy and Li’l Abner. His comic books were brightly colored and smelled good.\n' +
+            '\n' +
+            'One of the officers (Major or Captain Muddy) was a guest in the villa of a family whose two daughters were my schoolmates. I met him in their garden where some ladies, surrounding Captain Muddy, talked in tentative French. Captain Muddy knew some French, too. My first image of American liberators was thus — after so many palefaces in black shirts — that of a cultivated black man in a yellow-green uniform saying: “Oui, merci beaucoup, Madame, moi aussi j’aime le champagne …” Unfortunately there was no champagne, but Captain Muddy gave me my first piece of Wrigley’s Spearmint and I started chewing all day long. At night I put my wad in a water glass, so it would be fresh for the next day.\n' +
+            '\n' +
+            'In May we heard that the war was over. Peace gave me a curious sensation. I had been told that permanent warfare was the normal condition for a young Italian. In the following months I discovered that the Resistance was not only a local phenomenon but a European one. I learned new, exciting words like réseau, maquis, armée secrète, Rote Kapelle, Warsaw ghetto. I saw the first photographs of the Holocaust, thus understanding the meaning before knowing the word. I realized what we were liberated from.\n' +
+            '\n' +
+            'In my country today there are people who are wondering if the Resistance had a real military impact on the course of the war. For my generation this question is irrelevant: we immediately understood the moral and psychological meaning of the Resistance. For us it was a point of pride to know that we Europeans did not wait passively for liberation. And for the young Americans who were paying with their blood for our restored freedom it meant something to know that behind the firing lines there were Europeans paying their own debt in advance.\n' +
+            '\n' +
+            'In my country today there are those who are saying that the myth of the Resistance was a Communist lie. It is true that the Communists exploited the Resistance as if it were their personal property, since they played a prime role in it; but I remember partisans with kerchiefs of different colors. Sticking close to the radio, I spent my nights — the windows closed, the blackout making the small space around the set a lone luminous halo — listening to the messages sent by the Voice of London to the partisans. They were cryptic and poetic at the same time (The sun also rises, The roses will bloom) and most of them were “messaggi per la Franchi.” Somebody whispered to me that Franchi was the leader of the most powerful clandestine network in northwestern Italy, a man of legendary courage. Franchi became my hero. Franchi (whose real name was Edgardo Sogno) was a monarchist, so strongly anti-Communist that after the war he joined very right-wing groups, and was charged with collaborating in a project for a reactionary coup d’état. Who cares? Sogno still remains the dream hero of my childhood. Liberation was a common deed for people of different colors.\n' +
+            '\n' +
+            'In my country today there are some who say that the War of Liberation was a tragic period of division, and that all we need is national reconciliation. The memory of those terrible years should be repressed, refoulée, verdrängt. But Verdrängung causes neurosis. If reconciliation means compassion and respect for all those who fought their own war in good faith, to forgive does not mean to forget. I can even admit that Eichmann sincerely believed in his mission, but I cannot say, “OK, come back and do it again.” We are here to remember what happened and solemnly say that “They” must not do it again.\n' +
+            '\n' +
+            'But who are They?',
+        tags: [ 'fascism', 'anarchy', 'italy', 'Umberto', 'Umberto Eco' ],
+        author: 2,
+        led: 'In 1942, at the age of ten, I received the First Provincial Award of Ludi Juveniles (a voluntary, compulsory competition for young Italian Fascists — that is, for every young Italian).',
+        slug: 'umberto-eco-ur-fascism',
+        primary: '2',
+        secondary: '9'
+    }
 ]
 
 const insertFakePrimarys = () => {

@@ -15,7 +15,7 @@ export const FrontPageStory = ({props}) => {
             <div className="front-page-author-container">
                 <p className="front-page-author-name" 
                 value={story.author_id}>
-                    By <Link to={`search/author/${story.author_id}`}>{story.first_name} {story.last_name}</Link> | {story.public_role}
+                    By <Link to={`/search/author/${story.author_id}`}>{story.first_name} {story.last_name}</Link> | {story.public_role}
                 </p>
                 <p className="front-page-author-email">{story.email}</p>
             </div>
@@ -25,7 +25,7 @@ export const FrontPageStory = ({props}) => {
                     <p>Tags: &nbsp;</p> 
                     {story.tags.map((tag) => {
                         return (
-                            <Link to={`search/tag/${tag}`} key={tag}>#{tag}</Link>
+                            <Link to={`/search/tag/${tag}`} key={tag}>#{tag}</Link>
                         )
                     })}
                 </fieldset>

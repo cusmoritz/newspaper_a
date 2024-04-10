@@ -175,7 +175,7 @@ export const CreateStory = () => {
                 <div className="character-counter">Subhead character limit: {subheadChar}/150</div>
 
                 <label htmlFor="led-input">Led:</label>
-                <textarea className="led-input" maxLength="150" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="Your best, catchiest sentence. This will be displayed on the front page of the website."></textarea>
+                <textarea className="led-input" maxLength="250" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="Your best, catchiest sentence. This will be displayed on the front page of the website."></textarea>
                 <div className="character-counter">Led character limit: {ledChar}/250</div>
 
                 <label htmlFor="story-input">Story:</label>

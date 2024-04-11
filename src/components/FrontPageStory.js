@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 
 export const FrontPageStory = ({props}) => {
     const story = props;
-    // console.log('one story in FrontPageStory', story)
+     console.log('one story in FrontPageStory', story)
     return (
         <div className="front-page-story-container" id={story.story_id}>
             <div>
                 {/* <a href={`http://localhost.com/3000/${story.story_title}`}>#</a> */}
                 <img src="https://placehold.jp/150x150.png" className="logo" alt="The Tooth logo"/>
             </div>
-            <h2 className="front-page-headline" value={story.story_id}>{story.story_title}</h2>
+            <h2 className="front-page-headline" value={story.story_id}>
+                <Link to={`/${story.primary_cat}/${story.secondary_cat}/${story.story_slug}/${story.story_id}`}>{story.story_title}</Link>
+                {/* :primary/:secondary/:slug/:storyId */}
+            </h2>
             <h3 className="front-page-story-deck">{story.story_subhead}</h3>
             <div className="front-page-author-container">
                 <p className="front-page-author-name" 

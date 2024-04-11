@@ -11,6 +11,7 @@ export const PrimaryCatPage = () => {
     const primary = primaryCat.toUpperCase();
 
     const [stories, setStories] = useState([]);
+    const [domain, setDomain] = useState("");
 
     const breadcrumbs = [];
 
@@ -23,6 +24,8 @@ export const PrimaryCatPage = () => {
     
     const loadPage = async () => {
         fetchPrimaryStories();
+        const domain = window.location.origin;
+        setDomain(domain);
     };
 
     useEffect(() => {
@@ -40,7 +43,7 @@ export const PrimaryCatPage = () => {
                         <h3>{story.story_title}</h3>
                         <h4>{story.story_subhead}</h4>
                         <div className="story-author-box">
-                            <p className="story-author">{story.first_name} {story.last_name} | {story.email}</p>
+                            <p className="story-author"><Link to={`${domain}/search/author/${story.story_author}`}>{story.first_name} {story.last_name}</Link> | {story.email}</p>
                             <p className="story-author-role">{story.public_role}</p>
                         </div>
                         <p>{story.story_led}</p>
@@ -49,7 +52,7 @@ export const PrimaryCatPage = () => {
                                 <p>Tags: &nbsp;</p> 
                                 {story.tags.map((tag) => {
                                 return (
-                                    <Link to={`search/tag/${tag.tag}`} key={tag.tag}>
+                                    <Link to={`${domain}/search/tag/${tag.tag}`} key={tag.tag}>
                                         #{tag.tag}
                                     </Link>
                                 )

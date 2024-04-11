@@ -22,9 +22,9 @@ export const Home = () => {
             // }
     };
 
-    const searchForAuthorStories = (authorId) => {
-        console.log('author id', authorId);
-    }
+    // const searchForAuthorStories = (authorId) => {
+    //     console.log('author id', authorId);
+    // }
 
     const fakeStories = [
         {

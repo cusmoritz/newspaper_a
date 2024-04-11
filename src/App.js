@@ -14,6 +14,7 @@ import { TagSearchResults } from './components/TagSearchResults';
 import { AuthorSearchResults } from './components/AuthorSearchResults';
 import {PrimaryCatPage} from './components/PrimaryCatPage';
 import { SecondaryCatPage } from './components/SecondaryCatPage';
+import { SingleStoryPage } from './components/SingleStoryPage';
 
 const App = () => {
 
@@ -35,6 +36,9 @@ const App = () => {
     // console.log('view', domain)
     const subdomain = domain.split('.')[0];
     console.log('subdomain', subdomain)
+
+    // const fullDomain = /:\/\/([^\/]+)/.exec(window.location.href)
+    // console.log('full Domain', fullDomain)
 
     if (subdomain === "admin") {
         return (
@@ -61,6 +65,9 @@ const App = () => {
                     {/* /search/author should be all authors */}
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />
                     <Route path="/search/author/:id" element={<AuthorSearchResults />} />
+                    <Route exact path="/:primary/:secondary/:slug/:storyId" 
+                        element={<SingleStoryPage /> } />
+{/* TODO:               <Route exact path="/search/" element={<SearchPage />} /> */}
                     <Route path="/:primaryCat/:secondaryCat" element={<SecondaryCatPage />} />
                     <Route path="/:primaryCat" element={<PrimaryCatPage />} />
                     <Route exact path="/" element={<Home/>} />

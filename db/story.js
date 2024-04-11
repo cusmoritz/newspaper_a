@@ -268,6 +268,29 @@ const fetchFrontPage = async () => {
 
 };
 
+const fetchSinglePageStory = async (storyId) => {
+    try {
+        const {rows: story} = await client.query(`
+        SELECT * FROM storys
+        JOIN story_meta ON story_meta.story_main_id = storys.story_id
+        JOIN authors ON authors.author_id = storys.story_author
+        WHERE storys.story_id = $1
+        AND original_publish_date <= CURRENT_DATE 
+        AND story_active_flag = TRUE
+        ;
+        `, [storyId]);
+
+        // get tags
+        story[0].tags = await retreiveTags(storyId);
+        console.log('story db  tags', story);
+        return story;
+        return;
+    } catch (error) {
+        console.log('there was a database error fetching that story');
+        throw error;
+    }
+}
+
 const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a string 'news' etc
     const catagorySearch = catagory.toUpperCase();
 
@@ -563,5 +586,6 @@ module.exports = {
     fetchAllPrimaryAndSecondary,
     fetchStoriesByPrimaryCatagory,
     fetchStoriesBySecondaryCatagory,
+    fetchSinglePageStory,
 
 }

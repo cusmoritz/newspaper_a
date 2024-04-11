@@ -25,8 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId} = require('../db/authors');
-const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory} = require('../db/story');
-// const { fetchStoriesByAuthorId } = require('../src/api');
+const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory} = require('../db/story');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);
@@ -53,6 +52,23 @@ server.get('/api/story/frontpage', async (request, response, next) => {
         console.log('there was an error fetching the front page.')
         throw error;
     }
+});
+
+server.get('/api/story/:storyId', async (request, response, next) => {
+  const {storyId} = request.params;
+  try {
+    
+    const request = await fetchSinglePageStory(storyId);
+    console.log('server request', request)
+    if (request) {
+      response.status(200).send(request);
+    } else {
+      response.status(500).send({Error: "There was an error fetching that story."});
+    }
+  } catch (error) {
+    console.log('there was a server error fetching that story.');
+    throw error;
+  }
 });
 
 server.get('/api/all-catagories', async (request, response, next) => {

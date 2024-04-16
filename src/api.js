@@ -48,7 +48,7 @@ export const fetchSinglePageStory = async (storyId) => {
         });
         const story = await request.json();
         console.log('story front', story)
-        return story[0];
+        return story;
     } catch (error) {
         console.log('there was an error fetching that story.');
         throw error;

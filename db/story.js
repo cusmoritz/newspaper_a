@@ -13,7 +13,7 @@ const returnAllActiveStorys = async () => {
         ORDER BY original_publish_date DESC
         ;
         `);
-        console.log('all storys db: ', activeStorys);
+        //console.log('all storys db: ', activeStorys);
         return activeStorys;
     } catch (error) {
         logEverything(error);
@@ -215,6 +215,28 @@ const fetchAllPrimaryAndSecondary = async () => {
         console.log('there was an error fetching all catagories.');
         throw error;
     }
+};
+
+const getCatSubCatForStoryMeta = async (storyMainId) => {
+    try {
+        const {rows: query} = await client.query(`
+        SELECT * FROM story_meta
+        JOIN primary_catagories ON story_meta.primary_cat = primary_catagories.primary_catagory_id
+        JOIN secondary_catagories ON story_meta.secondary_cat = secondary_catagories.secondary_catagory_id
+        WHERE story_meta.story_main_id = $1
+        ;
+        `, [storyMainId])
+        //console.log('did we do it', query[0]);
+        const building = {primary: {id: null, name: null}, secondary: {id: null, name: null}};
+        building.primary.id = query[0].primary_catagory_id;
+        building.primary.name = query[0].primary_catagory_name;
+        building.secondary.id = query[0].secondary_catagory_id;
+        building.secondary.name = query[0].secondary_catagory_name;
+        return building;
+    } catch (error) {
+        console.log('there was a database error fetching catagories for this story.');
+        throw error;
+    }
 }
 
 const fetchFrontPage = async () => {
@@ -229,7 +251,14 @@ const fetchFrontPage = async () => {
             LIMIT 10
             ;
         `, []);
+        //console.log('front page', frontPageStorys)
         // JOIN story_tags ON story_id = story_tags.story_tag_id
+        // get catagories
+        for (let i = 0; i < frontPageStorys.length; i++) {
+            const cats = await getCatSubCatForStoryMeta(frontPageStorys[i].story_main_id);
+            frontPageStorys[i].category = cats;
+            //console.log('cats?', cats)
+        }
 
         for (let i = 0; i < frontPageStorys.length; i++) {
             frontPageStorys[i].tags = [];
@@ -268,6 +297,29 @@ const fetchFrontPage = async () => {
 
 };
 
+const fetchSingleStoryCatSubCat  = async (primaryId, secondaryId) => {
+    try {
+        const {rows: primary} = await client.query(`
+        SELECT * FROM primary_catagories
+        WHERE primary_catagory_id = $1
+        ;
+        `, [primaryId]);
+
+        const {rows: secondary} = await client.query(`
+        SELECT * FROM secondary_catagories
+        WHERE secondary_catagory_id = $1
+        ;
+        `, [secondaryId]);
+        const building = {};
+        building.primary = primary[0];
+        building.secondary = secondary[0];
+        return building;
+    } catch (error) {
+        console.log('there was a database error fetching catagories for one story.');
+        throw error;
+    }
+}
+
 const fetchSinglePageStory = async (storyId) => {
     try {
         const {rows: story} = await client.query(`
@@ -282,9 +334,10 @@ const fetchSinglePageStory = async (storyId) => {
 
         // get tags
         story[0].tags = await retreiveTags(storyId);
-        console.log('story db  tags', story);
-        return story;
-        return;
+        story[0].category = await fetchSingleStoryCatSubCat(story[0].primary_cat, story[0].secondary_cat);
+        //console.log('story db  tags', story[0]);
+        return story[0];
+
     } catch (error) {
         console.log('there was a database error fetching that story');
         throw error;

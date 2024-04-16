@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchSinglePageStory } from "../api";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const SingleStoryPage = () => {
 
     const {primary, secondary, slug, storyId} = useParams();
+
+    const [story, setStory] = useState([]);
+    const [breadcrumbs, setBreadcrumbs] = useState({});
 
     // /:primary/:secondary/:slug/:storyId
 
@@ -12,7 +17,12 @@ export const SingleStoryPage = () => {
         if (!storyId || !slug || !primary || !secondary) {
             return false;
         } else {
-            await fetchSinglePageStory(storyId);
+            const req = await fetchSinglePageStory(storyId);
+            if (req){
+                console.log('story', req)
+                setStory(req);
+                setBreadcrumbs(req.category)
+            }
         }
     }
 
@@ -27,15 +37,42 @@ export const SingleStoryPage = () => {
 
     const loadPage = async () => {
         await fetchStory();
+        console.log(breadcrumbs)
     };
 
     useEffect(() => {
         loadPage()
+
     }, []);
 
     return (
         <>
-        
+        {!story.category ? null : 
+            <div className="breadcrumb-container">
+                <p className="breadcrumb-1"><Link to={`/${story.category.primary.primary_catagory_name}`}>{story.category.primary.primary_catagory_name}</Link></p>
+                <p className="breadcrumb-2"><Link to={`/${story.category.primary.primary_catagory_name}/${story.category.secondary.secondary_catagory_name}`}>{story.category.secondary.secondary_catagory_name}</Link></p>
+            </div>
+        }
+        <h3 className="title">{story.story_title}</h3>
+        <h4 className="subhead">{story.story_subhead}</h4>
+        {!story.image_flag ? null : <img />}
+        <fieldset className="author-box">
+            <p value={story.author_id}>By <Link to={`/search/author/${story.author_id}`}>{story.first_name} {story.last_name}</Link> | {story.public_role}</p>
+            <p>{story.email}</p>
+        </fieldset>
+        {/* <p className="public-date">Published {story.original_publish_date.slice(0, 10)}</p> */}
+        <p className="story-led">{story.story_led}</p>
+        <p className="story-text">{story.story_text}</p>
+        {!story.tags ? null :         
+        <fieldset className="story-tag-container">
+                    <p>Tags: &nbsp;</p> 
+                    {story.tags.map((tag) => {
+                        return (
+                            <Link to={`/search/tag/${tag.tag}`} key={tag.tag}>#{tag.tag}</Link>
+                        )
+                    })}
+        </fieldset>}
+
         </>
     )
 };

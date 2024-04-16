@@ -59,7 +59,7 @@ server.get('/api/story/:storyId', async (request, response, next) => {
   try {
     
     const request = await fetchSinglePageStory(storyId);
-    console.log('server request', request)
+    //console.log('server request', request)
     if (request) {
       response.status(200).send(request);
     } else {

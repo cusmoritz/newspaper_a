@@ -40,16 +40,27 @@ export const AuthorPage = () => {
             {!newAuthorBool ? null : <CreateAuthorComponent setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
             <div className="current-authors-container">
                 <h4>Current authors:</h4>
-                <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>
-                <button onClick={() => {fetchAllAuthors()}}>fetch all</button>
+                {/* <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>
+                <button onClick={() => {fetchAllAuthors()}}>fetch all</button> */}
                 {everyone.map((author) => {
+                    let role;
+                    if (author.internal_role == 0) {
+                        role = "Admin";
+                    } else if (author.internal_role == 1) {
+                        role = "Editor";
+                    } else if (author.internal_role == 2) {
+                        role = "Writer";
+                    } else {
+                        role = "Other";
+                    }
                     return(
                         <fieldset key={author.author_id} className="author-container" value={author.author_id}>
                         <legend>{author.first_name} {author.last_name}</legend>
                         
                         <p>Email: {author.email}</p>
                         <p>Public role: {author.public_role}</p>
-                        <p>Internal role: {author.internal_role}</p>
+                        <p>Internal role: {role}</p>
+                        
                         </fieldset>
                     )
                 })}

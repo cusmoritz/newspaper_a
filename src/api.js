@@ -180,6 +180,24 @@ export const submitNewStory = async (storyObj) => {
     }
 };
 
+export const submitNewAuthor = async (authorObj) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/admin/author/new`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                author: authorObj
+            })
+        });
+        return request;
+    } catch (error) {
+        console.log('There was an error submitting a new author.');
+        throw error;
+    }
+}
+
 export const checkSlug = async (slug) => {
     try {
         const checkIt = await fetch(`${BASE_URL}/api/admin/story/checkslug`, {

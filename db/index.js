@@ -17,7 +17,11 @@ const createDatabase = async() => {
             last_name VARCHAR(100) NOT NULL,
             email VARCHAR(200) NOT NULL,
             public_role VARCHAR(50) NOT NULL,
-            internal_role SMALLINT NOT NULL DEFAULT 3
+            internal_role SMALLINT NOT NULL DEFAULT 3,
+            twitter_profile VARCHAR(250),
+            facebook_profile VARCHAR(250),
+            other_profile VARCHAR(250),
+            author_blurb TEXT
         );
 
         CREATE TABLE IF NOT EXISTS primary_catagories (

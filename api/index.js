@@ -24,7 +24,7 @@ server.listen(port, () => {
 });
 
 
-const {fetchAllAuthors, fetchStoriesByAuthorId} = require('../db/authors');
+const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor} = require('../db/authors');
 const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory} = require('../db/story');
 
 server.use((request, response, next) => {
@@ -210,6 +210,23 @@ server.get('/api/search/author/:authorId', async (request, response, next) => {
 //         throw error;
 //     }
 // });
+
+server.post('/api/admin/author/new', async (request, response, next) => {
+  try {
+    const {author} = request.body;
+    if (author) {
+      const newAuthor = await createAuthor(author);
+      if (newAuthor) {
+        response.status(200).send(newAuthor);
+      } else {
+        response.status(500).send({Error: "There was an issue creating a new author."});
+      }
+    }
+  } catch (error) {
+    console.log('There was a server error creating a new author.');
+    throw error;
+  }
+})
 
 server.post('/api/admin/story/submitnewstory', async (request, response, next) => {
     try {

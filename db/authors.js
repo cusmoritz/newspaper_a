@@ -4,19 +4,21 @@ const {client} = require('./index');
 const {logEverything} = require('./errors');
 
 const createAuthor = async (values) => {
+    console.log('author values db', values)
     try {
-        await client.query(`
-            INSERT INTO authors (first_name, last_name, email, public_role, internal_role)
-            VALUES ($1, $2, $3, $4, $5)
+        const {rows: author} = await client.query(`
+            INSERT INTO authors (first_name, last_name, email, public_role, internal_role, twitter_profile, facebook_profile, other_profile, author_blurb)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING *
             ;
-        `, [values.first_name, values.last_name, values.email, values.public_role, values.internal_role])
+        `, [values.firstName, values.lastName, values.email, values.publicRole, values.internalRole, values.twitterProfile, values.facebookProfile, values.otherProfile, values.authorBlurb]);
+        return author;
     } catch (error) {
         //logEverything(error);
         console.log('there was an error creating a new author: ', error);
         throw error;
     }
-}
+};
 
 // can fetch any author by any value?
 const fetchOneAuthor = async(value) => {
@@ -66,12 +68,12 @@ const fetchStoriesByAuthorId = async (authorId) => {
 }
 
 const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
-    {first_name: "Marcus", last_name: "Moritz", email: "marcus@thetooth.com", public_role: "Editor", internal_role: 1},
-    {first_name: "John", last_name: "LaConte", email: "john@thetooth.com", public_role: "Writer", internal_role: 2},
-    {first_name: "Ross", last_name: "Leonhart", email: "ross@thetooth.com", public_role: "Assistant Editor", internal_role: 1},
-    {first_name: "Jaron", last_name: "Jaron", email: "jaron@thetooth.com", public_role: "Intern", internal_role: 3},
-    {first_name: "Scott", last_name: "Miller", email: "scott@thetooth.com", public_role: "Business Editor", internal_role: 2},
-    {first_name: "Ricky", last_name: "Martinez", email: "ricky@thetooth.com", public_role: "Music Writer", internal_role: 2}
+    {firstName: "Marcus", lastName: "Moritz", email: "marcus@thetooth.com", publicRole: "Editor", internalRole: 1},
+    {firstName: "John", lastName: "LaConte", email: "john@thetooth.com", publicRole: "Writer", internalRole: 2},
+    {firstName: "Ross", lastName: "Leonhart", email: "ross@thetooth.com", publicRole: "Assistant Editor", internalRole: 1},
+    {firstName: "Jaron", lastName: "Jaron", email: "jaron@thetooth.com", publicRole: "Intern", internalRole: 3},
+    {firstName: "Scott", lastName: "Miller", email: "scott@thetooth.com", publicRole: "Business Editor", internalRole: 2},
+    {firstName: "Ricky", lastName: "Martinez", email: "ricky@thetooth.com", publicRole: "Music Writer", internalRole: 2}
 ]
 
 const insertAuthors = (array) => {

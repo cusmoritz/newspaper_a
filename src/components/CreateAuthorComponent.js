@@ -1,5 +1,6 @@
 import react from "react";
 import { useState } from "react";
+import { submitNewAuthor } from "../api";
 
 export const CreateAuthorComponent = ({setNewAuthorBool, newAuthorBool}) => {
     
@@ -9,14 +10,27 @@ export const CreateAuthorComponent = ({setNewAuthorBool, newAuthorBool}) => {
         setEmail("");
         setPublicRole("");
         setInternalRole(0);
+        setTwitterProfile("");
+        setFacebookProfile("");
+        setOtherProfile("");
+        setAuthorBlurb("");
         setNewAuthorBool(!newAuthorBool);
     };
+
+    const submitNewWriter = async () => {
+        const result = await submitNewAuthor({firstName, lastName, email, publicRole, internalRole, twitterProfile, facebookProfile, otherProfile, authorBlurb});
+        return result;
+    }
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [publicRole, setPublicRole] = useState("");
     const [internalRole, setInternalRole] = useState(3);
+    const [twitterProfile, setTwitterProfile] = useState("");
+    const [facebookProfile, setFacebookProfile] = useState("");
+    const [otherProfile, setOtherProfile] = useState("");
+    const [authorBlurb, setAuthorBlurb] = useState("");
 
     return (
         <div className="create-author-container">
@@ -36,6 +50,14 @@ export const CreateAuthorComponent = ({setNewAuthorBool, newAuthorBool}) => {
                     <option value={1}>Editor</option>
                     <option value={0}>Admin</option>
                 </select>
+                <label htmlFor="twitter-profile-input">Twitter Profile?</label>
+                <input className="twitter-profile-input" onChange={(event) => setTwitterProfile(event.target.value)}></input>
+                <label htmlFor="facebook-profile-input">Facebook Profile?</label>
+                <input className="facebook-profile-input" onChange={(event) => setFacebookProfile(event.target.value)}></input>
+                <label htmlFor="other-profile-input">Other Profile or Website?</label>
+                <input className="other-profile-input" onChange={(event) => setOtherProfile(event.target.value)}></input>
+                <lable htmlFor="author-blurb-input">What would you like the people to know?</lable>
+                <textarea className="author-blurb-input" onChange={(event) => setAuthorBlurb(event.target.value)} placeholder="Limit your blurb to 300 words." maxlength="300"></textarea>
             </fieldset>
             <button onClick={() => submitNewWriter()}>Submit</button>
             <button onClick={()  => clearFields()}>Cancel</button>

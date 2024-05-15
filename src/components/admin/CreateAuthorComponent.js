@@ -1,6 +1,6 @@
 import react from "react";
 import { useState } from "react";
-import { submitNewAuthor } from "../api";
+import { submitNewAuthor } from "../../api";
 
 export const CreateAuthorComponent = ({setNewAuthorBool, newAuthorBool}) => {
     
@@ -56,8 +56,8 @@ export const CreateAuthorComponent = ({setNewAuthorBool, newAuthorBool}) => {
                 <input className="facebook-profile-input" onChange={(event) => setFacebookProfile(event.target.value)}></input>
                 <label htmlFor="other-profile-input">Other Profile or Website?</label>
                 <input className="other-profile-input" onChange={(event) => setOtherProfile(event.target.value)}></input>
-                <lable htmlFor="author-blurb-input">What would you like the people to know?</lable>
-                <textarea className="author-blurb-input" onChange={(event) => setAuthorBlurb(event.target.value)} placeholder="Limit your blurb to 300 words." maxlength="300"></textarea>
+                <label htmlFor="author-blurb-input">What would you like the people to know?</label>
+                <textarea className="author-blurb-input" onChange={(event) => setAuthorBlurb(event.target.value)} placeholder="Limit your blurb to 300 words." maxLength="300"></textarea>
             </fieldset>
             <button onClick={() => submitNewWriter()}>Submit</button>
             <button onClick={()  => clearFields()}>Cancel</button>

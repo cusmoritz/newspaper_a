@@ -4,7 +4,7 @@ const {client} = require('./index');
 const {logEverything} = require('./errors');
 
 const createAuthor = async (values) => {
-    console.log('author values db', values)
+    // console.log('author values db', values)
     try {
         const {rows: author} = await client.query(`
             INSERT INTO authors (first_name, last_name, email, public_role, internal_role, twitter_profile, facebook_profile, other_profile, author_blurb)
@@ -68,12 +68,12 @@ const fetchStoriesByAuthorId = async (authorId) => {
 }
 
 const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
-    {firstName: "Marcus", lastName: "Moritz", email: "marcus@thetooth.com", publicRole: "Editor", internalRole: 1},
-    {firstName: "John", lastName: "LaConte", email: "john@thetooth.com", publicRole: "Writer", internalRole: 2},
-    {firstName: "Ross", lastName: "Leonhart", email: "ross@thetooth.com", publicRole: "Assistant Editor", internalRole: 1},
-    {firstName: "Jaron", lastName: "Jaron", email: "jaron@thetooth.com", publicRole: "Intern", internalRole: 3},
-    {firstName: "Scott", lastName: "Miller", email: "scott@thetooth.com", publicRole: "Business Editor", internalRole: 2},
-    {firstName: "Ricky", lastName: "Martinez", email: "ricky@thetooth.com", publicRole: "Music Writer", internalRole: 2}
+    {firstName: "Marcus", lastName: "Moritz", email: "marcus@thetooth.com", publicRole: "Editor", internalRole: 1, twitterProfile: "", facebookProfile: "facebook.com/user", otherProfile: "bandcamp.com/band/tooth", authorBlurb: "the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th."},
+    {firstName: "John", lastName: "LaConte", email: "john@thetooth.com", publicRole: "Writer", internalRole: 2, twitterProfile: "", facebookProfile: "facebook.com/user", otherProfile: "bandcamp.com/band/tooth", authorBlurb: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+    {firstName: "Ross", lastName: "Leonhart", email: "ross@thetooth.com", publicRole: "Assistant Editor", internalRole: 1, twitterProfile: "", facebookProfile: "facebook.com/user", otherProfile: "bandcamp.com/band/tooth", authorBlurb: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries."},
+    {firstName: "Jaron", lastName: "Jaron", email: "jaron@thetooth.com", publicRole: "Intern", internalRole: 3, twitterProfile: "", facebookProfile: "facebook.com/user", otherProfile: "bandcamp.com/band/tooth", authorBlurb: "It has survived not only five centuries."},
+    {firstName: "Scott", lastName: "Miller", email: "scott@thetooth.com", publicRole: "Business Editor", internalRole: 2, twitterProfile: "", facebookProfile: "facebook.com/user", otherProfile: "bandcamp.com/band/tooth", authorBlurb: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text."},
+    {firstName: "Ricky", lastName: "Martinez", email: "ricky@thetooth.com", publicRole: "Music Writer", internalRole: 2, twitterProfile: "", facebookProfile: "facebook.com/user", otherProfile: "bandcamp.com/band/tooth", authorBlurb: "Lorem Ipsum is simply dummy text. It has survived not only five centuries."}
 ]
 
 const insertAuthors = (array) => {

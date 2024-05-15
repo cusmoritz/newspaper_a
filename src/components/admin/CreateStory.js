@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { submitNewStory } from "../api";
-import { fetchAllAuthors } from "../api";
-import { Modal } from "./Modal";
-import { fetchFrontPageCatsSubcats } from "../api";
+import { submitNewStory } from "../../api";
+import { fetchAllAuthors } from "../../api";
+// import { Modal } from "./Modal";
+import { fetchFrontPageCatsSubcats } from "../../api";
 
 export const CreateStory = () => {
 

@@ -6,16 +6,16 @@ import { Home } from './Home';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
-import { AdminHome } from './components/AdminHome';
-import { CreateStory } from './components/CreateStory';
+import { AdminHome } from './components/admin/AdminHome';
+import { CreateStory } from './components/admin/CreateStory';
 import { StoryStats } from './components/StoryStats';
-import { AuthorPage } from './components/AuthorPage';
+import { AuthorPage } from './components/admin/AuthorPage';
 import { TagSearchResults } from './components/TagSearchResults';
 import { AuthorSearchResults } from './components/AuthorSearchResults';
 import {PrimaryCatPage} from './components/PrimaryCatPage';
 import { SecondaryCatPage } from './components/SecondaryCatPage';
 import { SingleStoryPage } from './components/SingleStoryPage';
-import {ImageUpload} from './components/ImageUpload';
+import {ImageUpload} from './components/admin/ImageUpload';
 
 const App = () => {
 

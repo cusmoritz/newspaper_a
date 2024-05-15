@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchAllAuthors } from "../api";
+import { fetchAllAuthors } from "../../api";
 import { useEffect } from "react";
 import { CreateAuthorComponent } from "./CreateAuthorComponent";
+import { EditAuthorComponent } from "./EditAuthorComponent";
 
 export const AuthorPage = () => {
 
     const [everyone, setEveryone] = useState([]);
     const [newAuthorBool, setNewAuthorBool] = useState(false);
+    const [editAuthorBool, setEditAuthorBool] = useState(false);
+    const [editAuthoObj, setEditoAuthorObj] = useState({});
 
     const loadPage = async () => {
         const writers = await fetchAllAuthors();
         if (writers) {
             setEveryone(writers);
+            //console.log(writers)
         }
+    };
+
+    const editAuthorAction = (authorObj) => {
+        setEditAuthorBool(true);
+        setEditoAuthorObj(authorObj);
     }
 
     useEffect(() => {
@@ -38,6 +47,7 @@ export const AuthorPage = () => {
                 null
             }
             {!newAuthorBool ? null : <CreateAuthorComponent setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
+            {!editAuthorBool ? null : <EditAuthorComponent editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} /> }
             <div className="current-authors-container">
                 <h4>Current authors:</h4>
                 {/* <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>
@@ -56,11 +66,14 @@ export const AuthorPage = () => {
                     return(
                         <fieldset key={author.author_id} className="author-container" value={author.author_id}>
                         <legend>{author.first_name} {author.last_name}</legend>
-                        
+                        <button className="edit-author-button" onClick={() => editAuthorAction(author)}>Edit Author</button>
                         <p>Email: {author.email}</p>
                         <p>Public role: {author.public_role}</p>
                         <p>Internal role: {role}</p>
-                        
+                        <p className="twitter-profile">Twitter profile: {author.twitter_profile}</p>
+                        <p>Facebook profile: {author.facebook_profile}</p>
+                        <p>Other profile / website: {author.other_profile}</p>
+                        <p>Author blurb: {author.author_blurb}</p>
                         </fieldset>
                     )
                 })}

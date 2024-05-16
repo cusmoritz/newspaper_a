@@ -72,7 +72,11 @@ export const SingleStoryPage = () => {
                         )
                     })}
         </fieldset>}
-
+        <fieldset className="author-bio-story-bottom">
+            <p value={story.author_id}><Link to={`/search/author/${story.author_id}`}>{story.first_name} {story.last_name}</Link> | {story.public_role} | {story.email}</p>
+            <p>{story.author_blurb}</p>
+            <p>You can learn more at {story.twitter_profile}, {story.facebook_profile}, {story.other_profile}</p>
+        </fieldset>
         </>
     )
 };

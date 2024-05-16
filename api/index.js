@@ -24,7 +24,7 @@ server.listen(port, () => {
 });
 
 
-const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor} = require('../db/authors');
+const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
 const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory} = require('../db/story');
 
 server.use((request, response, next) => {
@@ -219,11 +219,29 @@ server.post('/api/admin/author/new', async (request, response, next) => {
       if (newAuthor) {
         response.status(200).send(newAuthor);
       } else {
-        response.status(500).send({Error: "There was an issue creating a new author."});
+        response.status(500).send({Error: "There was a database issue creating a new author."});
       }
     }
   } catch (error) {
     console.log('There was a server error creating a new author.');
+    throw error;
+  }
+});
+
+server.put('/api/admin/author/edit', async (request, response, next) => {
+  try {
+    const {author} = request.body;
+
+    if (author) {
+      const authorEdits = await editAuthorProfile(author);
+      if (authorEdits) {
+        response.status(200).send(authorEdits);
+      } else {
+        response.status(500).send({Error: "There was a database issue editing an author."});
+      }
+    }
+  } catch (error) {
+    console.log('There was a server error editing an author.');
     throw error;
   }
 })

@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { editAuthorProfile } from "../../api";
 
-export const EditAuthorComponent = ({editAuthorBool, setEditAuthorBool, authorObj}) => {
+export const EditAuthorComponent = ({editAuthorBool, setEditAuthorBool, authorObj, loadPage}) => {
     const clearFields = () => {
         setFirstName("");
         setLastName("");
@@ -21,6 +22,16 @@ export const EditAuthorComponent = ({editAuthorBool, setEditAuthorBool, authorOb
         console.log('Are you sure you want to delete this author?')
     }
 
+    const editAuthorEvent = async () => {
+        const results = await editAuthorProfile({firstName, lastName, email, publicRole, internalRole, twitterProfile, facebookProfile, otherProfile, authorBlurb, authorId});
+        if (results) {
+            // alert to say update works
+            setEditAuthorBool(!editAuthorBool);
+            loadPage();
+        }
+        return results;
+    }
+
     const [firstName, setFirstName] = useState(authorObj.first_name);
     const [lastName, setLastName] = useState(authorObj.last_name);
     const [email, setEmail] = useState(authorObj.email);
@@ -30,6 +41,7 @@ export const EditAuthorComponent = ({editAuthorBool, setEditAuthorBool, authorOb
     const [facebookProfile, setFacebookProfile] = useState(authorObj.facebook_profile);
     const [otherProfile, setOtherProfile] = useState(authorObj.other_profile);
     const [authorBlurb, setAuthorBlurb] = useState(authorObj.author_blurb);
+    const [authorId, setAuthorId] = useState(authorObj.author_id);
     
     return (
         <>
@@ -59,9 +71,9 @@ export const EditAuthorComponent = ({editAuthorBool, setEditAuthorBool, authorOb
                 <label htmlFor="author-blurb-input">What would you like the people to know?</label>
                 <textarea className="author-blurb-input" onChange={(event) => setAuthorBlurb(event.target.value)} placeholder="Limit your blurb to 300 words." maxLength="300" value={authorBlurb}></textarea>
             </fieldset>
-            <button onClick={() => submitNewWriter()}>Confirm Edits</button>
+            <button onClick={() => editAuthorEvent()}>Confirm Edits</button>
             <button onClick={()  => clearFields()}>Cancel Edits</button>
-            <button onClick={() => deleteAuthorEvent()}>Delete Author</button>
+            <button className="delete-author" onClick={() => deleteAuthorEvent()}>Delete Author</button>
         </div>
         </>
     )

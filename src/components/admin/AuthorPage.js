@@ -47,7 +47,7 @@ export const AuthorPage = () => {
                 null
             }
             {!newAuthorBool ? null : <CreateAuthorComponent setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
-            {!editAuthorBool ? null : <EditAuthorComponent editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} /> }
+            {!editAuthorBool ? null : <EditAuthorComponent editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} loadPage={loadPage}/> }
             <div className="current-authors-container">
                 <h4>Current authors:</h4>
                 {/* <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>

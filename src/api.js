@@ -196,6 +196,24 @@ export const submitNewAuthor = async (authorObj) => {
         console.log('There was an error submitting a new author.');
         throw error;
     }
+};
+
+export const editAuthorProfile = async (authorObj) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/admin/author/edit`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                author: authorObj
+            })
+        })
+        return request;
+    } catch (error) {
+        console.log('There was an error editing the author.');
+        throw error;
+    }
 }
 
 export const checkSlug = async (slug) => {

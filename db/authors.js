@@ -20,6 +20,23 @@ const createAuthor = async (values) => {
     }
 };
 
+const editAuthorProfile = async (authorObj) => {
+    try {
+        const {rows: [authorEdits]} = await client.query(`
+        UPDATE authors
+        SET first_name = $1, last_name = $2, email = $3, public_role = $4, internal_role = $5, twitter_profile = $6, facebook_profile = $7, other_profile = $8, author_blurb = $9
+        WHERE author_id = $10
+        RETURNING *
+        ;
+        `, [authorObj.firstName, authorObj.lastName, authorObj.email, authorObj.publicRole, authorObj.internalRole, authorObj.twitterProfile, authorObj.facebookProfile, authorObj.otherProfile, authorObj.authorBlurb, authorObj.authorId]);
+
+        return authorEdits;
+    } catch (error) {
+        console.log('There was a database error editing an author.');
+        throw error;
+    }
+}
+
 // can fetch any author by any value?
 const fetchOneAuthor = async(value) => {
     try {
@@ -90,4 +107,6 @@ module.exports = {
     fetchOneAuthor,
     createAuthor,
     fetchStoriesByAuthorId,
+    editAuthorProfile,
+
 }

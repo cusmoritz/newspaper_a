@@ -15,8 +15,8 @@ export const AuthorPage = () => {
     const loadPage = async () => {
         const writers = await fetchAllAuthors();
         if (writers) {
+            writers.sort((writer) => {writer.author_id});
             setEveryone(writers);
-            //console.log(writers)
         }
     };
 
@@ -39,45 +39,52 @@ export const AuthorPage = () => {
     {firstN: "ricky", lastN: "martinez", email: "ricky@thetooth.com", public_role: "music writer", internal_role: 2}
 ]
 
-    return (
-        <div className="author-page-container">
-            {!newAuthorBool ? 
-                <button className="new-author-button" onClick={() => {setNewAuthorBool(true)}}>Create New Author</button> 
-                : 
-                null
-            }
-            {!newAuthorBool ? null : <CreateAuthorComponent setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
-            {!editAuthorBool ? null : <EditAuthorComponent editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} loadPage={loadPage}/> }
+return (
+    <div className="author-page-container">
+        {!newAuthorBool ? 
+            <button className="new-author-button" 
+            onClick={() => {setNewAuthorBool(true)}}>
+                Create New Author
+            </button> 
+            : 
+            null
+        }
+        {!newAuthorBool ? null : <CreateAuthorComponent setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
+        {!editAuthorBool ? null : <EditAuthorComponent editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} loadPage={loadPage}/> }
+        {(newAuthorBool == false && editAuthorBool == false) ?
             <div className="current-authors-container">
-                <h4>Current authors:</h4>
-                {/* <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>
-                <button onClick={() => {fetchAllAuthors()}}>fetch all</button> */}
-                {everyone.map((author) => {
-                    let role;
-                    if (author.internal_role == 0) {
-                        role = "Admin";
-                    } else if (author.internal_role == 1) {
-                        role = "Editor";
-                    } else if (author.internal_role == 2) {
-                        role = "Writer";
-                    } else {
-                        role = "Other";
-                    }
-                    return(
-                        <fieldset key={author.author_id} className="author-container" value={author.author_id}>
-                        <legend>{author.first_name} {author.last_name}</legend>
-                        <button className="edit-author-button" onClick={() => editAuthorAction(author)}>Edit Author</button>
-                        <p>Email: {author.email}</p>
-                        <p>Public role: {author.public_role}</p>
-                        <p>Internal role: {role}</p>
-                        <p className="twitter-profile">Twitter profile: {author.twitter_profile}</p>
-                        <p>Facebook profile: {author.facebook_profile}</p>
-                        <p>Other profile / website: {author.other_profile}</p>
-                        <p>Author blurb: {author.author_blurb}</p>
-                        </fieldset>
-                    )
-                })}
-            </div>
-        </div>
-    );
+            <h4>Current authors:</h4>
+            {/* <button onClick={() => {setEveryone(authors)}}>Fetch all local</button>
+            <button onClick={() => {fetchAllAuthors()}}>fetch all</button> */}
+            {everyone.map((author) => {
+                let role;
+                if (author.internal_role == 0) {
+                    role = "Admin";
+                } else if (author.internal_role == 1) {
+                    role = "Editor";
+                } else if (author.internal_role == 2) {
+                    role = "Writer";
+                } else {
+                    role = "Other";
+                }
+                return(
+                    <fieldset key={author.author_id} className="author-container" value={author.author_id}>
+                    <legend>{author.first_name} {author.last_name}</legend>
+                    <button className="edit-author-button" onClick={() => editAuthorAction(author)}>Edit Author</button>
+                    <p>Email: {author.email}</p>
+                    <p>Public role: {author.public_role}</p>
+                    <p>Internal role: {role}</p>
+                    <p className="twitter-profile">Twitter profile: {author.twitter_profile}</p>
+                    <p>Facebook profile: {author.facebook_profile}</p>
+                    <p>Other profile / website: {author.other_profile}</p>
+                    <p>Author blurb: {author.author_blurb}</p>
+                    </fieldset>
+                )
+            })}
+            </div> 
+            : null
+        }
+        
+    </div>
+);
 };

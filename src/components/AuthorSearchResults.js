@@ -11,7 +11,7 @@ export const AuthorSearchResults = () => {
 
     const findStoriesByAuthorId = async (id) => {
         const results = await fetchStoriesByAuthorId(id);
-        //console.log('results front', results);
+        console.log('results front', results);
         if (results) {
             setSerachResults(results);
         }
@@ -30,7 +30,7 @@ export const AuthorSearchResults = () => {
         {!searchResults[0] ? 
         null 
         : 
-         <h2>Stories written by {searchResults[0].first_name} {searchResults[0].last_name} | {searchResults[0].public_role}</h2>
+         <h2>Stories written by {searchResults[0].first_name} {searchResults[0].last_name}</h2>
         }
 
         {!searchResults ? 
@@ -38,12 +38,24 @@ export const AuthorSearchResults = () => {
         : 
         searchResults.map((story) => {
             return (
+                <>
+                <fieldset className="author-bio-search-results">
+                    <h3>
+                        {searchResults[0].first_name} {searchResults[0].last_name} | {searchResults[0].public_role}
+                    </h3>
+                    <p>{searchResults[0].email}</p>
+                    <p>{searchResults[0].author_blurb}</p>
+                    <p>{searchResults[0].facebook_profile}</p>
+                    <p>{searchResults[0].twitter_profile}</p>
+                    <p>{searchResults[0].other_profile}</p>
+                </fieldset>
                 <fieldset key={story.story_id}>
                     <h3>{story.story_title}</h3>
                     <h4>{story.story_subhead}</h4>
                     <p>{story.story_led}</p>
                     <p>Original publication date: {story.original_publish_date.slice(0,10)}</p>
                 </fieldset>
+                </>
             )
         })
         }

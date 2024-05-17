@@ -48,7 +48,9 @@ const createDatabase = async() => {
             story_update_author INT,
             most_recent_update DATE,
             image_flag BOOLEAN NOT NULL DEFAULT false,
-            page_views INT DEFAULT 0
+            page_views INT DEFAULT 0,
+            breaking_news_flag BOOLEAN DEFAULT false,
+            breaking_news_banner_headline TEXT DEFAULT NULL
         );  
 
         CREATE TABLE IF NOT EXISTS image_table (

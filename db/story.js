@@ -65,10 +65,11 @@ const addPageView = async (storyId) => {
     try {
         const {rows: pageView} = await client.query(`
             UPDATE storys
-            SET story_views = story_views + 1
-            WHERE story_main_id = $1
+            SET page_views = page_views + 1
+            WHERE story_id = $1
             ;
         `, [storyId]);
+        console.log('pageView HERE', pageView)
         return pageView;
     } catch (error) {
         logEverything(error);
@@ -102,14 +103,14 @@ const retreiveTags = async (storyId) => {
 }
 
 const createNewStory = async (storyInfo) => {
-    //console.log('story info db', storyInfo)
+    console.log('story info db', storyInfo)
     try {
         const {rows: story} = await client.query(`
-        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *
         ;
-        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug]);
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline]);
 
         storyInfo.tags.forEach((tag) => { // this is ugly
             createTag(story[0].story_id, tag);
@@ -601,6 +602,34 @@ const fakeStorys = [
         slug: 'umberto-eco-ur-fascism',
         primary: '2',
         secondary: '9'
+    },
+    {
+        title: 'Glizzys, Glam, and Gargantuan Gonads',
+        subhead: 'Chicago remains unbeaten in its quest for hotdog dominance',
+        story: `With 3 million residents and millions more who visit during the course of a year, free hotdogs for everyone sounds like a daunting task. "I know it sounds like a lot of hotdogs," Mayor Doug Dibbenow said. "But the reality of the situation is that free hotdogs for everyone would drastically increase city revenue, improve food availability for those who don't have a secure meal every day, and make good use of the city's already healthy meat industry."\n` +
+        'How will free hotdogs improve city revenue?\n' +
+        `"It's one hotdog, Michael. What could it cost, ten dollars?" Dibbenow said, smirking as he referenced an oft-used quip from the TV show "Arrested Development" which is usually reserved to imply the reach are out of touch with reality and the cost of things.\n` +
+        `"But no, for real," he said, "hotdogs aren't that expensive; plus the city spends millions of dollars on other things, so why not give the people something fun for once."\n` +
+        "What 'other things' the city spends millions of dollars on, Dibbenow listed the police force (which currently costs the city $1.3 billion a year).\n" +
+        `"They aren't going to like it, but I'm going to take 10 percent of their annual spend, and instead give it back to the people," Dibbenow said.\n` +
+        'Ten percent would yield $130 million dollars a year, for the math-averse. That could potentially buy a lot of hotdogs. Taking the Jewel-Osco price of a ten-pack of Oscar Meyer weiners, $130 million would get you 21,666,666 packages. Twenty-one million packages of hotdogs times ten hotdogs a piece is 216,666,666 million hotdogs. Three-hundred and sixty five days in a year with 216 million hotdogs at your disposal evens out to 593,607 hot dogs per day.\n' +
+        "Half a million hotdogs for 3 million people, per day? The math just doesn't add up.\n" +
+        `"The thing is, not everyone wants a hotdog a day," the mayor said. "Sometimes you are full, sometimes you're busy, sometimes you brown-bagged your own lunch in the park. This isn't supposed to be the end-all, be all for everyone. It's for people who maybe can't afford food every day of the week. It's for the British tourists who really want to experience Chicago the Chicago way."\n` +
+        'When asked about distribution, the mayor said he already had a plan in place.\n' +
+        `"There's people out there right now slingin' dogs," he said. "We are going to hire them, make them full-time city employees, give them health insurance, give them PTO, and ask them to help feed the nation."\n` +
+        'A hotdog on every corner? What about vegans?\n' +
+        `"I didn't even consider vegans," the mayor said.\n` +
+        'A vegan pack of hotdogs runs a bit higher than an all-beef Frank you see on store shelves.\n' +
+        `"But again," the mayor continued, "this isn't supposed to be for everyone. This is supposed to be an additional safety net. It just happens to be in the shape of a hotdog."\n` +
+        "Glizzy Nation? It's still to early to tell. The mayor's ordinance goes up for vote November 2024, just in time for re-election season.",
+        tags: [ 'hotdog', 'glizzy', 'chicago', 'ordinance 482', 'mayor Dibbenow' ],
+        author: '7',
+        led: "On Monday, the mayor of Chicago said the city was unveiling a new plan for increasing city tourism: 'free hotdogs for everyone.'",
+        slug: 'chicago-mayor-hotdogs-for-everyone',
+        primary: '6',
+        secondary: '11',
+        breakingFlag: true,
+        breakingHeadline: 'Hotdogs for everyone?'
     }
 ]
 
@@ -640,5 +669,6 @@ module.exports = {
     fetchStoriesByPrimaryCatagory,
     fetchStoriesBySecondaryCatagory,
     fetchSinglePageStory,
+    addPageView,
 
 }

@@ -25,6 +25,8 @@ export const CreateStory = () => {
     const [secondary, setSecondary] = useState([]);
     const [allPrimaryCats, setPrimaryCats] = useState([]);
     const [allSecondaryCats, setSecondaryCats] = useState([]);
+    const [breakingFlag, setBreakingFlag] = useState(false);
+    const [breakingHeadline, setBreakingHeadline] = useState("");
 
     // image loading function that doesn't work. still need image hosting
     window.addEventListener('load', function() {
@@ -45,12 +47,12 @@ export const CreateStory = () => {
         console.log('all?', primaryCats)
         if (primaryCats) {
           setPrimaryCats(primaryCats);
-          setSecondaryCats(primaryCats[0].secondary)
+          setSecondaryCats(primaryCats[0].secondary);
         }
       }
 
       const submitStory = async () => {
-        const result = await submitNewStory({title, subhead, story, tags, author: '2', led, slug, primary, secondary});
+        const result = await submitNewStory({title, subhead, story, tags, author, led, slug, primary, secondary, breakingFlag, breakingHeadline});
         return result;
       }
 
@@ -95,6 +97,8 @@ export const CreateStory = () => {
         setLedChar(0);
         setPrimary([]);
         setSecondary([]);
+        setBreakingFlag(false);
+        setBreakingHeadline("");
       }
 
       const setTitleEvent = (targetValue) => {
@@ -130,6 +134,15 @@ export const CreateStory = () => {
         setTags(tagArray);
         console.log('words', tagArray)
       };
+
+      const setBreakingEvent = () => {
+        if (!breakingFlag) {
+          setBreakingFlag(true);
+        } else {
+          setBreakingFlag(false);
+          setBreakingHeadline("");
+        }
+      }
 
       const submitPrimaryCatagory = (primary) => { // just a number
         setPrimary(primary)
@@ -196,7 +209,7 @@ export const CreateStory = () => {
 
                 {/* TODO: Add ability to add urls inside of story */}
 
-                <label htmlFor="catagory-input">Add a primarycatagory.</label>
+                <label htmlFor="catagory-input">Add a primary catagory.</label>
                 <select 
                   className="catagory-input" 
                   onChange={(event) => {submitPrimaryCatagory(event.target.value)}}>
@@ -226,7 +239,15 @@ export const CreateStory = () => {
             }    
             </select>
                 {/* <button onClick={submitPrimaryCatagory()}>Submit</button> */}
-                
+            <label htmlFor="breaking-news-flag">Is this Breaking News?</label>
+            <input className="breaking-news-flag" type="checkbox" onChange={() => setBreakingEvent()} />
+            {!breakingFlag ? null :
+            <>
+            <label htmlFor="breaking-headline">Write a brief (about 15 words) headline.</label>
+            <input className="breaking-headline" onChange={(event) => setBreakingHeadline(event.target.value)}></input>
+            </>
+            }
+
             </fieldset>
             <fieldset className="photo-fieldset">
                 <label htmlFor="feature-image-input" id="feature-upload">Feature image:</label>

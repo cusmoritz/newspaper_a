@@ -6,7 +6,7 @@ import { fetchFrontPageCatsSubcats } from "./api";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 
-export const Home = () => {
+export const Home = ({setGlobalBreakingBool, setGlobalBreakingHeadline, setGlobalBreakingNewsPath}) => {
 
     const [frontPage, setFrontPage] = useState([]);
     const [catagories, setCatagories] = useState({});
@@ -14,6 +14,16 @@ export const Home = () => {
     const loadPage = async () => {
             const fPStorys = await fetchFrontPage();
             if (fPStorys) {
+                //console.log('FP', fPStorys)
+                fPStorys.map((story) => {
+                    if (story.breaking_news_flag === true && 
+                        story.breaking_news_banner_headline != null) {
+                            setGlobalBreakingBool(true);
+                            setGlobalBreakingHeadline(story.breaking_news_banner_headline);
+                            setGlobalBreakingNewsPath({primary: story.primary_cat, secondary: story.secondary_cat, slug: story.story_slug, id: story.story_id})
+                            // primary_cat secondary_cat story_slug story_id
+                    }
+                })
                 setFrontPage(fPStorys);
             }
             // const allCatagories = await fetchFrontPageCatsSubcats();

@@ -90,14 +90,14 @@ export const fetchSecondaryCatStories = async (primary, secondary) => {
 
 export const addPageView = async (storyId) => {
     try {
-        const request = await fetch(`${BASE_URL}/api/story/pageview/:storyId`, {
-            method: "GET",
+        const request = await fetch(`${BASE_URL}/api/story/pageview/${storyId}`, {
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             }
         });
         //const searchResults = await request.json();
-        return searchResults;
+        return request;
     } catch (error) {
         throw error;
     }

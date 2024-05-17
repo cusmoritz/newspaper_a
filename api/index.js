@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
-const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory} = require('../db/story');
+const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory, addPageView} = require('../db/story');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);
@@ -153,20 +153,21 @@ server.get('/api/search/author/:authorId', async (request, response, next) => {
   }
 })
 
-// server.get('/api/story/pageview/:storyId', async (request, response, next) => {
-//     try {
-//         const storyId = request.params;
-//         const viewUpdate = await addPageView(storyId);
-//         if (viewUpdate) {
-//             response.send(viewUpdate).status(200);
-//         } else {
-//             response.send({"Error": "Could not update page views"}).status(500);
-//         };
-//     } catch (error) {
-//         logEverything(error);
-//         throw error;
-//     }
-// })
+server.get('/api/story/pageview/:storyId', async (request, response, next) => {
+    try {
+        const storyId = request.params;
+        console.log('storyid', storyId)
+        const viewUpdate = await addPageView(storyId);
+        if (viewUpdate) {
+            response.send(viewUpdate).status(200);
+        } else {
+            response.send({Error: "Could not update page views"}).status(500);
+        };
+    } catch (error) {
+        logEverything(error);
+        throw error;
+    }
+})
 
 // server.get('/api/:tag/:pageNumber', async (request, response, next) => {
 //     try {

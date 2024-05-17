@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchSinglePageStory } from "../api";
+import { addPageView, fetchSinglePageStory } from "../api";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,15 +13,25 @@ export const SingleStoryPage = () => {
 
     // /:primary/:secondary/:slug/:storyId
 
+    const updatePageViewsOnLoad = async () => {
+        let pageViews = 0;
+        if (story) {
+            //console.log('story here', story)
+            pageViews = await addPageView(story.story_id);
+        }
+        return pageViews;
+    }
+
     const fetchStory = async () => {
         if (!storyId || !slug || !primary || !secondary) {
             return false;
         } else {
             const req = await fetchSinglePageStory(storyId);
             if (req){
-                console.log('story', req)
+                // console.log('story', req)
                 setStory(req);
-                setBreadcrumbs(req.category)
+                setBreadcrumbs(req.category);
+
             }
         }
     }
@@ -36,8 +46,11 @@ export const SingleStoryPage = () => {
     // profit?
 
     const loadPage = async () => {
-        await fetchStory();
+        const whatSNext = await fetchStory();
         console.log(breadcrumbs)
+        if (whatSNext){
+            await updatePageViewsOnLoad();
+        }
     };
 
     useEffect(() => {

@@ -18,7 +18,7 @@ export const FrontPageStory = ({props}) => {
             <div className="front-page-author-container">
                 <p className="front-page-author-name" 
                 value={story.author_id}>
-                    By <Link to={`/search/author/${story.author_id}`}>{story.first_name} {story.last_name}</Link> | {story.public_role}
+                    By <Link to={`/search/author/${story.author_id}`}>{story.first_name} {story.last_name}</Link> | 
                 </p>
                 <p className="front-page-author-email">{story.email}</p>
             </div>

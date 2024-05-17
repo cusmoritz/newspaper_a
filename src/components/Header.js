@@ -8,9 +8,9 @@ export const Header = ({globalBreakingBool, globalBreakingHeadline, globalBreaki
     return (
         <div className="header-container">
             {!globalBreakingBool ? null :
-            <div className="breaking-news-banner-container">
-                <h3 className="breaking-news-headline"><Link to={`/${globalBreakingNewsPath.primary}/${globalBreakingNewsPath.secondary}/${globalBreakingNewsPath.slug}/${globalBreakingNewsPath.id}`}>Breaking News: {globalBreakingHeadline}</Link></h3>
-                <p className="breaking-news-read-more"><Link>Click to read more.</Link></p>
+            <div id="breaking-news-banner-container">
+                <h3 id="breaking-news-headline"><Link to={`/${globalBreakingNewsPath.primary}/${globalBreakingNewsPath.secondary}/${globalBreakingNewsPath.slug}/${globalBreakingNewsPath.id}`}>BREAKING NEWS: {globalBreakingHeadline.toUpperCase()}</Link></h3>
+                
                 
             </div>
             }

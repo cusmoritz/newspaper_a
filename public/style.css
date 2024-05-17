@@ -201,6 +201,24 @@
 }
 /* ################### END FRONT PAGE ################# */
 
+/* ################## BREAKING NEWS BANNER ############### */
+#breaking-news-banner-container {
+    width: 100vw;
+    background-color: #B60125;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#breaking-news-headline > a{ 
+    color: black;
+    text-decoration: none;
+    /* text-shadow: -1px 0 var(--lightGrey), 0 1px var(--lightGrey), 1px 0 var(--darkBlue), 0 -1px var(--darkBlue); */
+    font-family: sans-serif;
+}
+
 /* ############## NAV BAR #################### */
 
 .nav-bar-container {

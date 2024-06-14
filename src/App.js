@@ -16,6 +16,8 @@ import {PrimaryCatPage} from './components/PrimaryCatPage';
 import { SecondaryCatPage } from './components/SecondaryCatPage';
 import { SingleStoryPage } from './components/SingleStoryPage';
 import {ImageUpload} from './components/admin/ImageUpload';
+import { ShopHeader } from './components/shop/ShopHeader';
+import { ShopHome } from './components/shop/ShopHome';
 
 const App = () => {
 
@@ -57,6 +59,23 @@ const App = () => {
                         <Route path="/storystats" element={<StoryStats/>} />
                         <Route path="/authorpage" element={<AuthorPage/>} />
                         <Route path="/image-upload" element={<ImageUpload />} />
+                    </Routes>
+                <Footer />
+                </div>
+            </BrowserRouter>
+
+        )
+    } else if (subdomain === "shop") {
+        return (
+            <BrowserRouter>
+                <div className="App">
+                <ShopHeader />
+                    <Routes>
+                        <Route exact path="/" element={<ShopHome />} />
+                        {/* <Route path="/createstory" element={<CreateStory/>} />
+                        <Route path="/storystats" element={<StoryStats/>} />
+                        <Route path="/authorpage" element={<AuthorPage/>} />
+                        <Route path="/image-upload" element={<ImageUpload />} /> */}
                     </Routes>
                 <Footer />
                 </div>

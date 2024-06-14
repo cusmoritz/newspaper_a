@@ -153,18 +153,19 @@ server.get('/api/search/author/:authorId', async (request, response, next) => {
   }
 })
 
-server.get('/api/story/pageview/:storyId', async (request, response, next) => {
+server.put('/api/story/pageview/:storyId', async (request, response, next) => {
     try {
-        const storyId = request.params;
+        const {storyId} = request.params;
         console.log('storyid', storyId)
         const viewUpdate = await addPageView(storyId);
+        console.log('update server', viewUpdate)
         if (viewUpdate) {
-            response.send(viewUpdate).status(200);
+          response.sendStatus(200);
         } else {
             response.send({Error: "Could not update page views"}).status(500);
         };
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         throw error;
     }
 })

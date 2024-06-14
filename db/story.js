@@ -16,7 +16,7 @@ const returnAllActiveStorys = async () => {
         //console.log('all storys db: ', activeStorys);
         return activeStorys;
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         console.log('there was an error fetching active storys: ', error);
         throw error;
     }
@@ -55,24 +55,26 @@ const returnStoryFromDate = async (date) => {
         `, [date]);
         return storyFromDate;
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         console.log('there was an error fetching storys by date: ', error);
         throw error;
     }
 };
 
 const addPageView = async (storyId) => {
+    console.log('storyid db', storyId)
     try {
-        const {rows: pageView} = await client.query(`
+        const {rows: [response]} = await client.query(`
             UPDATE storys
             SET page_views = page_views + 1
             WHERE story_id = $1
+            RETURNING page_views
             ;
         `, [storyId]);
-        console.log('pageView HERE', pageView)
-        return pageView;
+        console.log('pageView HERE', response.page_views)
+        return response.page_views;
     } catch (error) {
-        logEverything(error);
+        //logEverything(error);
         throw error;
     }
 }
@@ -103,7 +105,7 @@ const retreiveTags = async (storyId) => {
 }
 
 const createNewStory = async (storyInfo) => {
-    console.log('story info db', storyInfo)
+    //console.log('story info db', storyInfo)
     try {
         const {rows: story} = await client.query(`
         INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline)
@@ -210,7 +212,7 @@ const fetchAllPrimaryAndSecondary = async () => {
         ;
         `, []);
 
-        console.log('every primary db', everyPrimaryCatagory)
+        //console.log('every primary db', everyPrimaryCatagory)
         return everyPrimaryCatagory;
     } catch (error) {
         console.log('there was an error fetching all catagories.');
@@ -431,7 +433,7 @@ const fetchStoriesBySecondaryCatagory = async (primaryCat, secondaryCat) => {
         for (i = 0; i < stories.length; i++) {
             stories[i].tags = await retreiveTags(stories[i].story_id);
         }
-        console.log('stories db', stories);
+        //console.log('stories db', stories);
         return stories;
     } catch (error) {
         console.log('there was a database error fetching stories by secondary catagory');

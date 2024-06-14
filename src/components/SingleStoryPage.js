@@ -6,37 +6,33 @@ import { Link } from "react-router-dom";
 
 export const SingleStoryPage = () => {
 
+    // /:primary/:secondary/:slug/:storyId
     const {primary, secondary, slug, storyId} = useParams();
 
-    const [story, setStory] = useState([]);
+    const [story, setStory] = useState({});
+    const [pageView, setPageView] = useState(0);
     const [breadcrumbs, setBreadcrumbs] = useState({});
 
-    // /:primary/:secondary/:slug/:storyId
-
-    const updatePageViewsOnLoad = async () => {
-        let pageViews = 0;
-        if (story) {
-            //console.log('story here', story)
-            pageViews = await addPageView(story.story_id);
-        }
-        return pageViews;
+    const updatePageViewsOnLoad = async (id) => {
+        await addPageView(id);
+        return;
     }
 
-    const parseText = (storyText) => {
-        console.log(storyText.length);
-        // find urls hidden in the text.
-        //let what = storyText.match("[");
-        var regex = /^[]/;
-        const begin = new RegExp(/\[\[/);
-        const end = new RegExp(/\]\]/);
+    // const parseText = (storyText) => {
+    //     console.log(storyText.length);
+    //     // find urls hidden in the text.
+    //     //let what = storyText.match("[");
+    //     var regex = /^[]/;
+    //     const begin = new RegExp(/\[\[/);
+    //     const end = new RegExp(/\]\]/);
 
-        console.log(begin, end)
-        let index1 = storyText.match(begin).index;
-        let index2 = storyText.match(end).index;
-        console.log(index1, index2)
-        let string = storyText.slice(index1, index2);
-        console.log(string)
-    }
+    //     console.log(begin, end)
+    //     let index1 = storyText.match(begin).index;
+    //     let index2 = storyText.match(end).index;
+    //     console.log(index1, index2)
+    //     let string = storyText.slice(index1, index2);
+    //     console.log(string)
+    // } we need to move this to the backend and parse it there before we save it
 
     const fetchStory = async () => {
         if (!storyId || !slug || !primary || !secondary) {
@@ -44,12 +40,15 @@ export const SingleStoryPage = () => {
         } else {
             const req = await fetchSinglePageStory(storyId);
             if (req){
-                //console.log('story', req.story_text)
+                console.log('story', req)
                 setStory(req);
                 setBreadcrumbs(req.category);
-                parseText(req.story_text)
+                setPageView(req.page_views)
+                //parseText(req.story_text)
+                updatePageViewsOnLoad(req.story_id);
             }
         }
+        return;
     }
 
     // slug is the story slug, but call is to database from storyId?
@@ -61,12 +60,9 @@ export const SingleStoryPage = () => {
     // return .com/:primary/:secondary/:slug/:storyId
     // profit?
 
-    const loadPage = async () => {
-        const whatSNext = await fetchStory();
-        //console.log(breadcrumbs)
-        if (whatSNext){
-            await updatePageViewsOnLoad();
-        }
+    const loadPage = () => {
+        fetchStory();
+        return;
     };
 
     useEffect(() => {
@@ -105,6 +101,9 @@ export const SingleStoryPage = () => {
             <p>{story.author_blurb}</p>
             <p>You can learn more at {story.twitter_profile}, {story.facebook_profile}, {story.other_profile}</p>
         </fieldset>
+        <div className="pageview-container">
+            <p>This story has been viewed {pageView} time{pageView > 1 ? "s" : null}</p>
+        </div>
         </>
     )
 };

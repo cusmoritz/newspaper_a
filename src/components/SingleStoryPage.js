@@ -22,16 +22,32 @@ export const SingleStoryPage = () => {
         return pageViews;
     }
 
+    const parseText = (storyText) => {
+        console.log(storyText.length);
+        // find urls hidden in the text.
+        //let what = storyText.match("[");
+        var regex = /^[]/;
+        const begin = new RegExp(/\[\[/);
+        const end = new RegExp(/\]\]/);
+
+        console.log(begin, end)
+        let index1 = storyText.match(begin).index;
+        let index2 = storyText.match(end).index;
+        console.log(index1, index2)
+        let string = storyText.slice(index1, index2);
+        console.log(string)
+    }
+
     const fetchStory = async () => {
         if (!storyId || !slug || !primary || !secondary) {
             return false;
         } else {
             const req = await fetchSinglePageStory(storyId);
             if (req){
-                // console.log('story', req)
+                //console.log('story', req.story_text)
                 setStory(req);
                 setBreadcrumbs(req.category);
-
+                parseText(req.story_text)
             }
         }
     }
@@ -47,7 +63,7 @@ export const SingleStoryPage = () => {
 
     const loadPage = async () => {
         const whatSNext = await fetchStory();
-        console.log(breadcrumbs)
+        //console.log(breadcrumbs)
         if (whatSNext){
             await updatePageViewsOnLoad();
         }
@@ -55,8 +71,7 @@ export const SingleStoryPage = () => {
 
     useEffect(() => {
         loadPage()
-
-    }, []);
+    }, [primary, secondary, slug, storyId]);
 
     return (
         <>

@@ -43,7 +43,6 @@ const App = () => {
     const [globalBreakingNewsPath, setGlobalBreakingNewsPath] = useState({});
 
     // const fullDomain = /:\/\/([^\/]+)/.exec(window.location.href)
-    // console.log('full Domain', fullDomain)
 
     if (subdomain === "admin") {
         return (
@@ -51,7 +50,9 @@ const App = () => {
                 <div className="App">
                 <Header />
                     <Routes>
-                        <Route exact path="/" element={<AdminHome/>} />
+                        <Route exact path="/" element={<AdminHome 
+                            globalBreakingBool={globalBreakingBool} 
+                            setGlobalBreakingBool={setGlobalBreakingBool}/>} />
                         <Route path="/createstory" element={<CreateStory/>} />
                         <Route path="/storystats" element={<StoryStats/>} />
                         <Route path="/authorpage" element={<AuthorPage/>} />

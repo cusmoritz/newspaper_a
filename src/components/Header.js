@@ -3,7 +3,7 @@ import { NavBar } from "./NavBar";
 import { Link } from "react-router-dom";
 
 export const Header = ({globalBreakingBool, globalBreakingHeadline, globalBreakingNewsPath}) => {
-    // console.log(globalBreakingBool, globalBreakingHeadline, globalBreakingNewsPath)
+    //console.log(globalBreakingBool, globalBreakingHeadline, globalBreakingNewsPath)
     ///:primary/:secondary/:slug/:storyId
     return (
         <div className="header-container">

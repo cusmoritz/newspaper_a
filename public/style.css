@@ -4,6 +4,7 @@
     
 }
 
+/* #################### GLOBAL ########################### */
 @font-face {
     font-family: 'Catull';
     font-style: normal;
@@ -15,6 +16,45 @@
     background-color: var(--darkBlue);
 }
 
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: var(--lightGrey);
+    color: black;
+    z-index: 1;
+    /* top: -10%; */
+    /* left: 100%; */
+    margin-left: -60px; /* half of the width */
+    bottom: 100%;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 10px;
+    position: absolute;
+ }
+
+ .tooltip {
+    position: relative;
+    display: inline-block;
+ }
+ .tooltip::after {
+    background-image:url("../src/images/tooltip.png") no-repeat;
+    /* width: 10px;
+    height: 10px; */
+ }
+ .tooltip:hover .tooltiptext {
+     visibility: visible;
+ }
+ .tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--lightGrey) transparent transparent transparent;
+  }
+/* ##################### END GLOBAL ########################### */
 
 /* ################### ADMIN AUTHOR PAGE ##################### */
 

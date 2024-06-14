@@ -15,6 +15,7 @@ export const FrontPageStory = ({props}) => {
                 {/* :primary/:secondary/:slug/:storyId */}
             </h2>
             <h3 className="front-page-story-deck">{story.story_subhead}</h3>
+            <p className="front-page-story-led">{story.story_led} {story.story_led}</p>
             <div className="front-page-author-container">
                 <p className="front-page-author-name" 
                 value={story.author_id}>
@@ -22,7 +23,6 @@ export const FrontPageStory = ({props}) => {
                 </p>
                 <p className="front-page-author-email">{story.email}</p>
             </div>
-            <p className="front-page-story-led">{story.story_led} {story.story_led}</p>
             <div className="front-page-fieldset-contianer">
                 <fieldset className="front-page-tag-container">
                     <p>Tags: &nbsp;</p> 

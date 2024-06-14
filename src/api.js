@@ -6,6 +6,19 @@ const BASE_URL = REACT_APP_BASE_URL;
 
 /////////////// FRONT END FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
+export let globalBreakingBoolAPI = false;
+export let globalBreakingStoryObj = {};
+
+export const globalBreakingFlip = (breakingBool) => {
+    globalBreakingBoolAPI = breakingBool;
+    return globalBreakingBoolAPI;
+}
+// might need to rethink how breaking news would work.
+// create story with breaking news,
+// flips a flag in the database, so it's not dependant on the story itself?
+// then tie the breaking flag to the story? 
+// that would fix it being outside the top 10 stories as well
+
 export const fetchFrontPage = async () => {
     try {
         const request = await fetch(`${BASE_URL}/api/story/frontpage`, {
@@ -47,7 +60,7 @@ export const fetchSinglePageStory = async (storyId) => {
             }
         });
         const story = await request.json();
-        console.log('story front', story)
+        // console.log('story front', story)
         return story;
     } catch (error) {
         console.log('there was an error fetching that story.');

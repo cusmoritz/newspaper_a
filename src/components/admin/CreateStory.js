@@ -27,6 +27,8 @@ export const CreateStory = () => {
     const [allSecondaryCats, setSecondaryCats] = useState([]);
     const [breakingFlag, setBreakingFlag] = useState(false);
     const [breakingHeadline, setBreakingHeadline] = useState("");
+    const [footnotes, setFootnotes] = useState(["www.google.com"]);
+    const [footnoteNum, setFootnoteNum] = useState(3);
 
     // image loading function that doesn't work. still need image hosting
     window.addEventListener('load', function() {
@@ -99,6 +101,7 @@ export const CreateStory = () => {
         setSecondary([]);
         setBreakingFlag(false);
         setBreakingHeadline("");
+        setFootnotes([]);
       }
 
       const setTitleEvent = (targetValue) => {
@@ -142,13 +145,21 @@ export const CreateStory = () => {
           setBreakingFlag(false);
           setBreakingHeadline("");
         }
-      }
+      };
 
       const submitPrimaryCatagory = (primary) => { // just a number
         setPrimary(primary)
         let arr = primary - 1;
         setSecondaryCats(allPrimaryCats[arr].secondary)
       };
+
+      const Footnotes = () => {
+        for (let i = 0; i <= footnoteNum; i++){
+          return(
+            <input></input>
+          )
+        }
+      }
 
     return (
         <div className="create-story-container">
@@ -187,7 +198,12 @@ export const CreateStory = () => {
                 <input className="subhead-input" maxLength="150" placeholder="This will be the secondary header after the title." value={subhead} onChange={(event) => setSubheadEvent(event.target.value)}></input>
                 <div className="character-counter">Subhead character limit: {subheadChar}/150</div>
 
-                <label htmlFor="led-input">Led:</label>
+                <label htmlFor="led-input" className="tooltip">
+                  Led:                    
+                  <span className="tooltiptext">This will show up on the front page as well as most search pages before people read the whole story.
+                  </span>
+                </label>
+
                 <textarea className="led-input" maxLength="250" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="Your best, catchiest sentence. This will be displayed on the front page of the website."></textarea>
                 <div className="character-counter">Led character limit: {ledChar}/250</div>
 
@@ -198,6 +214,11 @@ export const CreateStory = () => {
                 <button className="story-format-tips" onClick={() => setShowModal('block')}>Format tips</button>
                 {/* <Modal state={showModal}/> */}
 
+                <label htmlFor="footnotes-input">Footnotes:</label>
+                {footnoteNum > 0 ? <Footnotes /> : null}
+
+
+                <button>Add Footnote</button>
                 
                 <label htmlFor="tag-input">Add tags to this story. To add multiple tags, serparate tags with a comma.</label>
                 <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>

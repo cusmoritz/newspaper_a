@@ -614,14 +614,14 @@ const fakeStorys = [
         `"They aren't going to like it, but I'm going to take 10 percent of their annual spend, and instead give it back to the people," Dibbenow said.\n` +
         'Ten percent would yield $130 million dollars a year, for the math-averse. That could potentially buy a lot of hotdogs. Taking the Jewel-Osco price of a ten-pack of Oscar Meyer weiners, $130 million would get you 21,666,666 packages. Twenty-one million packages of hotdogs times ten hotdogs a piece is 216,666,666 million hotdogs. Three-hundred and sixty five days in a year with 216 million hotdogs at your disposal evens out to 593,607 hot dogs per day.\n' +
         "Half a million hotdogs for 3 million people, per day? The math just doesn't add up.\n" +
-        `"The thing is, not everyone wants a hotdog a day," the mayor said. "Sometimes you are full, sometimes you're busy, sometimes you brown-bagged your own lunch in the park. This isn't supposed to be the end-all, be all for everyone. It's for people who maybe can't afford food every day of the week. It's for the British tourists who really want to experience Chicago the Chicago way."\n` +
+        `"The thing is, not everyone wants a hotdog a day," the mayor said. "Sometimes you are full, sometimes you're busy, sometimes you brown-bagged your own lunch in the park. This isn't supposed to be the end-all, be all for everyone. It's for people who maybe can't afford food every day of the week. It's for the British tourists who really want to experience Chicago the [[Chicago]] way."\n` +
         'When asked about distribution, the mayor said he already had a plan in place.\n' +
         `"There's people out there right now slingin' dogs," he said. "We are going to hire them, make them full-time city employees, give them health insurance, give them PTO, and ask them to help feed the nation."\n` +
-        'A hotdog on every corner? What about vegans?\n' +
+        'A hotdog on every corner? [[What about vegans | www./example/]]?\n' +
         `"I didn't even consider vegans," the mayor said.\n` +
         'A vegan pack of hotdogs runs a bit higher than an all-beef Frank you see on store shelves.\n' +
         `"But again," the mayor continued, "this isn't supposed to be for everyone. This is supposed to be an additional safety net. It just happens to be in the shape of a hotdog."\n` +
-        "Glizzy Nation? It's still to early to tell. The mayor's ordinance goes up for vote November 2024, just in time for re-election season.",
+        "Glizzy Nation? It's still to early to tell. The mayor's ordinance goes up for vote November 2024, just in time for [[re-election]] season.",
         tags: [ 'hotdog', 'glizzy', 'chicago', 'ordinance 482', 'mayor Dibbenow' ],
         author: '7',
         led: "On Monday, the mayor of Chicago said the city was unveiling a new plan for increasing city tourism: 'free hotdogs for everyone.'",

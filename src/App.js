@@ -25,10 +25,6 @@ const App = () => {
     // Make sure users can't load /createstory or /authorpage without the subdomain / being logged in
     // Make RSS Feed
 
-    const updatePageViews = async (storyId) => {
-        const success = await addPageView(storyId);
-        return success;
-    }
 
     // useEffect(() => {
     //     health();

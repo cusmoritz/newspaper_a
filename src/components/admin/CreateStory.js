@@ -44,9 +44,22 @@ export const CreateStory = () => {
         });
       });
 
+      const parseStoryText = (storyText) => {
+        // wrap the whole thing in single quotes?
+        // remove line breaks, replace with {{ ' + CHAR(13) + ' }} for SQL
+        // find all bracket words, store in array
+        // strip brackets from words, replace words in story
+        // send story text?
+        const brackets = RegExp(/\[(.*?)\]/g);
+        const lineBreaks = RegExp();
+        const noBreaks = storyText.replace(/(\r\n|\n|\r)/gm, "' + CHAR(13) + ''");
+        //const what = storyText.match(brackets);
+        console.log('what', noBreaks)
+      }
+
       const fetchAllCatagories = async () => {
         const primaryCats = await fetchFrontPageCatsSubcats();
-        console.log('all?', primaryCats)
+        //console.log('all?', primaryCats)
         if (primaryCats) {
           setPrimaryCats(primaryCats);
           setSecondaryCats(primaryCats[0].secondary);
@@ -67,10 +80,8 @@ export const CreateStory = () => {
         const authors = await fetchAllAuthors();
         setAllAuthors(authors);
         fetchAllCatagories();
-        console.log('Page loaded.', authors)
+        //console.log('Page loaded.', authors)
       };
-
-      const createStoryText = "There is text in here."
 
       const openModal = () => {
         const modal = document.getElementById("modal-container");
@@ -207,14 +218,20 @@ export const CreateStory = () => {
                 <textarea className="led-input" maxLength="250" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="Your best, catchiest sentence. This will be displayed on the front page of the website."></textarea>
                 <div className="character-counter">Led character limit: {ledChar}/250</div>
 
-                <label htmlFor="story-input">Story:</label>
+                <label htmlFor="story-input" className="tooltip">Story:
+                  <span className="tooltiptext">To link a footnote URL to a word, wrap the word in square brackets. [Like] this.
+                  </span>
+                </label>
                 <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." value={story} onChange={(event) => setStoryEvent(event.target.value)}></textarea>
                 <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
 
                 <button className="story-format-tips" onClick={() => setShowModal('block')}>Format tips</button>
                 {/* <Modal state={showModal}/> */}
 
-                <label htmlFor="footnotes-input">Footnotes:</label>
+                <label htmlFor="footnotes-input" className="tooltip">Footnotes:
+                  <span className="tooltiptext">To add a new footnote input, click the button. These are automatically linked -- IN ORDER -- to the link tags in your story.
+                  </span>
+                </label>
                 {footnoteNum > 0 ? <Footnotes /> : null}
 
 
@@ -285,7 +302,7 @@ export const CreateStory = () => {
                 {/* TODO: Add ability to publish later */}
 
             </div>
-            <button onClick={() => submitStory()}>Submit new story</button>
+            <button onClick={() => parseStoryText(story)}>Submit new story</button>
         </div>
     );
 };

@@ -10,7 +10,7 @@ export const CreateStory = () => {
 
     const [title, setTitle] = useState("");
     const [subhead, setSubhead] = useState("");
-    const [story, setStory] = useState("");
+    const [story, setStory] = useState([]);
     const [tags, setTags] = useState([]);
     const [author, setAuthor] = useState(0);
     const [slug, setSlug] = useState("");
@@ -57,6 +57,8 @@ export const CreateStory = () => {
             paragraphs.push(paragraph[i]);
           }
         }
+        setStory(paragraphs)
+        console.log('storyParse', paragraphs)
         // might be easier to check each paragraph for footnotes? instead of the whole story at once.
 
         // wrap the whole thing in single quotes?
@@ -64,13 +66,26 @@ export const CreateStory = () => {
         // find all bracket words, store in array
         // strip brackets from words, replace words in story
         // send story text?
-        const brackets = RegExp(/\[(.*?)\]/g);
-        const lineBreaks = RegExp();
-        const noBreaks = storyText.replace(/(\r\n|\n|\r)/gm, "" + '<p></p>' + "");
-        const bracketsOut = storyText.match(/\[(.*?)\]/g);
-        console.log('what', noBreaks)
+        //const brackets = RegExp(/\[(.*?)\]/g);
+        let hyperlinkWord = [];
+        //const noBreaks = storyText.replace(/(\r\n|\n|\r)/gm, "" + '<p></p>' + "");
+        paragraphs.forEach(function(paragraph, index) {
+          const hyperlink = paragraph.match(/\[(.*?)\]/g);
+          console.log('hyperlink', hyperlink, index)
+
+          if (hyperlink) {
+            hyperlink.flat(); 
+            hyperlinkWord.push({word: hyperlink, paragraph: index})
+          }
+        });
+        console.log('array of arrays?', hyperlinkWord)
+        console.log('still story text', paragraphs)
+        setFootnoteWords(hyperlinkWord)
+        
+        //const bracketsOut = storyText.match(/\[(.*?)\]/g);
+        //console.log('what', noBreaks)
         //console.log('urls?', bracketsOut)
-        setFootnoteWords(bracketsOut);
+        //setFootnoteWords(bracketsOut);
 
         // const serializeEditorValueAsString = value => {
         //   value
@@ -257,7 +272,7 @@ export const CreateStory = () => {
                   <span className="tooltiptext">To link a footnote URL to a word, wrap the word in square brackets. [Like] this.
                   </span>
                 </label>
-                <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." value={story} onChange={(event) => setStoryEvent(event.target.value)}></textarea>
+                <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." onChange={(event) => setStoryEvent(event.target.value)}></textarea>
                 <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
 
                 <button className="story-format-tips" onClick={() => parseStoryText(story)}>Format tips</button>

@@ -86,7 +86,7 @@ export const SingleStoryPage = () => {
         <p className="story-led">{story.story_led}</p>
 
         {!story.story_text ? null : story.story_text.map((paragraph, index) => {
-            return (<p key={index}>{paragraph}</p>)
+            return (<p key={index} className="story-paragraph">{paragraph}</p>)
         })}
         {!story.tags ? null :         
         <fieldset className="story-tag-container">

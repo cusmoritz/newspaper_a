@@ -471,13 +471,16 @@ const fakeStorys = [
     {
         title: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
         subhead: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
-        story: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
-          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. \n" +
-          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
-          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
-          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
-          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n" +
-          "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\n",
+        story: 
+          [
+            "\"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\\n\" +",
+            "          \"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. \\n\" +",
+            "          \"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\\n\" +",
+            "          \"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\\n\" +",
+            "          \"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\\n\" +",
+            "          \"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\\n\" +",
+            "          \"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\\n\""
+        ],
         tags: [ 'story', 'first', 'another story', 'a good one' ],
         author: '4',
         led: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
@@ -486,9 +489,40 @@ const fakeStorys = [
         secondary: 1,
       },
       {
+        title: "Fearing for his life, Gypsum man kills troublesome bear that had eluded wildlife officials",
+        subhead: "The killing was legally justified, according to an investigation by Colorado Parks and Wildlife",
+        story: [
+            "Bear 935 first appeared in Eagle County last year, when it was relocated to near LEDE Reservoir in Gypsum after being identified as a nuisance bear in the Kremmling area.",
+            "“It was loitering near town, near residential areas. They attempted hazing. It wasn’t leaving the area. They wanted to get rid of it, get it out of that area, into suitable habitat before it became too comfortable,” said Matt Yamashita, Colorado Parks and Wildlife area wildlife manager.",
+            "Bear 935 did not remain in isolation for long.",
+            "“It traveled through miles and miles of appropriate habitat to seek refuge near Vail,” Yamashita said.",
+            "In Vail, the bear again “started developing bad habits,” Yamashita said. ",
+            "The bear showed too much comfort existing near humans, including entering houses.",
+            "“Our plan at that time was to, if we caught it, to euthanize it,” Yamashita said. “At that point, it, for our agency, the way we see that is a human health and safety issue.”",
+            "Colorado Parks and Wildlife officers set traps for the bear, intending to euthanize it when caught. But the traps never caught the bear. “And then it just vanished,” Yamashita said.",
+            "In late July, Colorado Parks & Wildlife stopped receiving calls about Bear 935.",
+            "“I don’t know where it went, what it did, how it stayed out of trouble, or why it decided to do that, but it changed its behavior,” Yamashita said.",
+            "The next time the bear resurfaced was when it emerged from hibernation in spring 2024. “The first knowledge we have of it was back again in the Vail area, and it was kind of replicating some of the same behaviors,” Yamashita said. “We were trying to keep tabs on it, figuring out where it was going to be, how we could catch up with it, and then it disappeared.”",
+            "The next time Bear 935 was seen was about a week later, when it showed up on Scott’s property, after traversing many miles along the Eagle River corridor."
+        ],
+        tags: ['bears', 'Gypsum', 'wildlife', 'human-wildlife interactions', 'CPW'],
+        author: '3',
+        led: "Blake Scott was moving water on his family’s property in Gypsum on the evening of Monday, June 10, when he heard his mother screaming.",
+        slug: 'man-kills-bear-gypsum',
+        primary: 3,
+        secondary: 17,
+      },
+      {
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
         subhead: "The Shift Bike program allows residents and guests to rent e-bikes by the minute from Vail to Edwards",
-        story: "The Shift Bike program allows individuals to rent e-bikes from stations throughout these communities on a pay-as-you-go model. \n The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 stations. \n The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions. Single-occupancy vehicles account for around 40% of the county's emissions, so the idea was that providing an alternative mobility option would reduce the number of these vehicle trips in the region. \n The first summer saw a total of 7,393 trips for a total of 21,735.4 miles, with the average ride being 2.94 miles for around 30 minutes.  \n Ninety percent of the trips were under 60 minutes long. Reportedly, the program was responsible for the reduction of 8.68 metric tons of greenhouse gas emissions — the equivalent of 1,000 gallons of gasoline — in 2022.",
+        story: [
+            "\"The Shift Bike program allows individuals to rent e-bikes from stations throughout these communities on a pay-as-you-go model. ",
+            "The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 stations. ",
+            "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions. ",
+            "Single-occupancy vehicles account for around 40% of the county's emissions, so the idea was that providing an alternative mobility option would reduce the number of these vehicle trips in the region.",
+            " The first summer saw a total of 7,393 trips for a total of 21,735.4 miles, with the average ride being 2.94 miles for around 30 minutes.",
+            " Ninety percent of the trips were under 60 minutes long. Reportedly, the program was responsible for the reduction of 8.68 metric tons of greenhouse gas emissions — the equivalent of 1,000 gallons of gasoline — in 2022."
+        ],
         tags: ['news', 'vail', 'edwards', 'scooters'],
         author: '5',
         led: "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions.",
@@ -499,7 +533,14 @@ const fakeStorys = [
       {
         title: "What happened to the lost, barking dog in East Vail?",
         subhead: "After nearly three weeks, search continues for elusive pooch, despite limited leads",
-        story: "A dog had been heard barking incessantly high up on one of the hiking trails in East Vail, near the Gore Creek Trail, on the Deluge Lake side. It did not seem to respond to whistling or calling, and it would not stop barking. \n As with most cases of missing pets, the issue was quickly taken to the Pets of Eagle County Facebook page. Kate Hawthorne and Evelyn Pinney, who run the Eagle County Lost Pets team, started the page to allow people to communicate more easily about missing pets. \n Immediately, rumors abounded: A large brown dog had been spotted running through the campground; the dog belonged to one of the East Vail residents and had escaped; it was coyotes barking, not a dog; the dog's owner was in trouble up the trail, and the dog was trying to draw help. \n The Eagle County Lost Pets team considered all of these options. Hawthorne and Pinney launched into communications efforts, trying to discover the identity of the dog's owner, or at least find some background on the dog.",
+        story: [
+            "A dog had been heard barking incessantly high up on one of the hiking trails in East Vail, near the Gore Creek Trail, on the Deluge Lake side. ",
+            "It did not seem to respond to whistling or calling, and it would not stop barking. ",
+            "As with most cases of missing pets, the issue was quickly taken to the Pets of Eagle County Facebook page. ",
+            "Kate Hawthorne and Evelyn Pinney, who run the Eagle County Lost Pets team, started the page to allow people to communicate more easily about missing pets. ",
+            "Immediately, rumors abounded: A large brown dog had been spotted running through the campground; the dog belonged to one of the East Vail residents and had escaped; it was coyotes barking, not a dog; the dog's owner was in trouble up the trail, and the dog was trying to draw help.",
+            "The Eagle County Lost Pets team considered all of these options. Hawthorne and Pinney launched into communications efforts, trying to discover the identity of the dog's owner, or at least find some background on the dog."
+        ],
         tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
         author: '1',
         led: "On Feb. 8, a post appeared in the Eagle County Classifieds Facebook group: Was anyone in East Vail missing a dog?",
@@ -510,7 +551,14 @@ const fakeStorys = [
       {
         title: "Electric Avenue: The '80s MTV Experience comes to Beaver Creek Saturday",
         subhead: "Yacht Rock",
-        story: "But the band doesn't just rely on technical gadgets. The musicians all have been session players for so many top artists, it'd be a column of alphabet soup to name, but it includes the likes of Lionel Richie, Paul Simon, Emmy Lou Harris, B-52s, Tracy Chapman, Boston, Collective Soul, Boyz II Men and many more. As such, they've all contributed to gold and platinum records. \n Their talent, and meticulous playing, compel them to recreate the ’80s note by note with every nuance in every sound — every time. \n Electric Avenue began more than 10 years ago as a one-off, with a group of musicians gathering to perform '80s tunes. But as the music world began changing first with Napster and then with Apple iTunes and other downloads, album sales no longer supported musicians like they once did, said lead vocalist and Electric Avenue co-founder Kevin Spencer. Pat Benatar was key to supporting Electric Avenue after she heard '80s music before taking the stage and was sure it was the radio, but after three more songs, she realized the band had fooled her ears with their live music. \n So, they decided to continue with the tribute band and do it well — unlike the majority of '80s bands out there that are more concerned with their costumes than the chords, he said.",
+        story: [
+            "\"But the band doesn't just rely on technical gadgets. The musicians all have been session players for so many top artists, it'd be a column of alphabet soup to name, but it includes the likes of Lionel Richie, Paul Simon, Emmy Lou Harris, B-52s, Tracy Chapman, Boston, Collective Soul, Boyz II Men and many more. ",
+            "As such, they've all contributed to gold and platinum records.",
+            " Their talent, and meticulous playing, compel them to recreate the ’80s note by note with every nuance in every sound — every time. ",
+            "Electric Avenue began more than 10 years ago as a one-off, with a group of musicians gathering to perform '80s tunes. But as the music world began changing first with Napster and then with Apple iTunes and other downloads, album sales no longer supported musicians like they once did, said lead vocalist and Electric Avenue co-founder Kevin Spencer. ",
+            "Pat Benatar was key to supporting Electric Avenue after she heard '80s music before taking the stage and was sure it was the radio, but after three more songs, she realized the band had fooled her ears with their live music. ",
+            "So, they decided to continue with the tribute band and do it well — unlike the majority of '80s bands out there that are more concerned with their costumes than the chords, he said.\""
+        ],
         tags: ['music', '80s', 'Beaver Creek', 'Avon'],
         author: '2',
         led: "Just like Yacht Rock made soft rock cool and breezy again, Electric Avenue brings the electronic magic of the 1980s back — complete with its personal stash of vintage synthesizers, drum machines and rare signal processors.",
@@ -521,7 +569,13 @@ const fakeStorys = [
       {
         title: "Transportation authority is an opportunity to build for the future",
         subhead: "Daily Editorial",
-        story: "However, as identified by local business owners, economic councils and municipal leaders in 2020, public transit has been failing to meet a lot of the Eagle River Valley’s most pressing needs for a while. \n This is why a regional effort sprung up in 2021 to see how a new transportation authority could solve not only a large workforce challenge but bring an improved experience for residents and guests alike. This effort combined stakeholders from eight local governments, numerous employers (big and small) across the valley, existing transit agencies in the county, and community organizations — all working toward a singular goal. \n The end result: a ballot question in front of voters this November asking them to form the Eagle Valley Regional Transportation Authority. \n Voters in the towns of Avon, Eagle, Gypsum, Minturn, Red Cliff and Vail as well as the Beaver Creek Metro District and unincorporated parts of Eagle County will individually decide whether or not they want to be a part of the proposed RTA.",
+        story: [
+            "However, as identified by local business owners, economic councils and municipal leaders in 2020, public transit has been failing to meet a lot of the Eagle River Valley’s most pressing needs for a while.",
+            " This is why a regional effort sprung up in 2021 to see how a new transportation authority could solve not only a large workforce challenge but bring an improved experience for residents and guests alike. ",
+            "This effort combined stakeholders from eight local governments, numerous employers (big and small) across the valley, existing transit agencies in the county, and community organizations — all working toward a singular goal. ",
+            "The end result: a ballot question in front of voters this November asking them to form the Eagle Valley Regional Transportation Authority. ",
+            "Voters in the towns of Avon, Eagle, Gypsum, Minturn, Red Cliff and Vail as well as the Beaver Creek Metro District and unincorporated parts of Eagle County will individually decide whether or not they want to be a part of the proposed RTA."
+        ],
         tags: ['opinion', 'editorial', 'transportation'],
         author: '3',
         led: "Whether you’re a local employee trying to get to work on time (and back home by a reasonable hour), a visitor looking for easy ways to navigate to and from local resorts and businesses, or you’re looking for a more climate-friendly option for transit, public transportation should be a service that makes life easier, not harder.",
@@ -532,7 +586,12 @@ const fakeStorys = [
       {
         title: "Court appearance for prominent Vail real estate broker continued",
         subhead: "Stockton appeared Tuesday — his second court appearance — alongside his attorney, Jesse Wiens.",
-        story: "Stockton has not yet had a preliminary hearing on the matter or entered a plea; his court appearance on Tuesday was listed as a preliminary demand, where the defendant either demands to have a preliminary hearing or waives the preliminary hearing, and that appearance was continued to March 26. \n Stockton, on Tuesday, was granted permission to travel by Judge Inga Causey. His March 26 continuation was set for 11 a.m. Stockton, who lives in Vail, received the stalking charge on Dec. 27 as a result of an incident in which he is accused of placing an air tag tracking device in the vehicle of the alleged victim, according to arrest records. \n Stockton was booked at the Eagle County Detention Facility on Dec. 27 and was released on Dec. 28 after posting a $2,500 bond.",
+        story: [
+            "Stockton has not yet had a preliminary hearing on the matter or entered a plea; his court appearance on Tuesday was listed as a preliminary demand, where the defendant either demands to have a preliminary hearing or waives the preliminary hearing, and that appearance was continued to March 26.",
+            " Stockton, on Tuesday, was granted permission to travel by Judge Inga Causey. ",
+            "His March 26 continuation was set for 11 a.m. Stockton, who lives in Vail, received the stalking charge on Dec. 27 as a result of an incident in which he is accused of placing an air tag tracking device in the vehicle of the alleged victim, according to arrest records.",
+            " Stockton was booked at the Eagle County Detention Facility on Dec. 27 and was released on Dec. 28 after posting a $2,500 bond."
+        ],
         tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
         author: '4',
         led: "Tye Stockton returned to the Eagle County Justice Center on Tuesday for a brief court appearance on an accusation of stalking, a domestic violence charge that the Vail real estate giant received in December.",
@@ -543,7 +602,13 @@ const fakeStorys = [
       {
         title: "Frisco’s Jay Irwin shares harrowing backcountry experience to inspire adventurers to do good",
         subhead: "Some people’s lives forever change",
-        story: "For longtime Summit County resident Jay Irwin, his life was changed by the latter, when he was caught in an avalanche on Vail Pass back in 2008. Feautured  as the second speaker in the Friends of the Dillon Ranger District’s adventure speaker series, which Irwin co-founded, Irwin stood in front of dozens of people inside Keystone’s Warren Station on Wednesday, Feb. 28, and told the crowd about how his misadventure in the backcountry gave him an extra chance at life. \n In the talk, Irwin detailed the avalanche in extensive detail. Alongside his adventure friend Bill Petersen, Irwin traveled to the top of Ptarmigan Hill on Vail Pass in the waning afternoon hours of a late-December day. \n Once reaching their designated drop-in spot, the duo completed a game of rock, paper, scissors to determine who would get the honor of dropping into the velvety layers of fresh snow and who would be tasked with circling back around to the bottom of the route with the snowmobile.",
+        story: [
+            "For longtime Summit County resident Jay Irwin, his life was changed by the latter, when he was caught in an avalanche on Vail Pass back in 2008. ",
+            "Feautured  as the second speaker in the Friends of the Dillon Ranger District’s adventure speaker series, which Irwin co-founded, Irwin stood in front of dozens of people inside Keystone’s Warren Station on Wednesday, Feb. 28, and told the crowd about how his misadventure in the backcountry gave him an extra chance at life.",
+            " In the talk, Irwin detailed the avalanche in extensive detail. ",
+            "Alongside his adventure friend Bill Petersen, Irwin traveled to the top of Ptarmigan Hill on Vail Pass in the waning afternoon hours of a late-December day. ",
+            "Once reaching their designated drop-in spot, the duo completed a game of rock, paper, scissors to determine who would get the honor of dropping into the velvety layers of fresh snow and who would be tasked with circling back around to the bottom of the route with the snowmobile."
+        ],
         tags: ['local', 'missing', 'eagle vail', 'dog', 'vail'],
         author: '2',
         led: "There are many events in life that can shape and change a person. Some people’s lives forever change after getting married or having a child, while others are transformed by a harrowing and traumatic event.",
@@ -554,21 +619,18 @@ const fakeStorys = [
       {
         title: '‘Lost Boy’ Marty Koether returns for 60th anniversary of incident',
         subhead: 'Event made him a legend in Vail',
-        story: 'Koether shared those dreams and more in an emotional trip to the Colorado Snowsports Museum on April 2. The visit coincided with the 60-year anniversary of Koether’s fateful night alone on Vail Mountain, in which he slept in a tree well after making a wrong turn into Game Creek Bowl, which had not yet been developed for skiing.\n' +
-          '\n' +
-          'By the summer of 1969, when Game Creek Bowl was being developed, mountain managers had already come up with a name for several of the runs, including Lost Boy.\n' +
-          'Koether said he can’t remember exactly when he learned there was a run being named after him and his experience, but it was decades before he became fully aware of how renowned the run was on Vail Mountain.\n' +
-          '\n' +
-          '“I’ve had so many experiences in life beyond the Lost Boy, that this just didn’t seem that monumental to me,” he said, adding that he hoped the statement didn’t come across as egotistical.\n' +
-          '“It was just something that happened,” he said of being lost on Vail Mountain. “I lived through it, it was great, and I pretty much just put it in the back closet after that. But now that I’m here, I never realized how many people liked the story.”\n' +
-          'Koether was invited to town by John D’Angelo, general manager of The Sebastian, who developed an interest in the Lost Boy story after learning to ski last year.\n' +
-          '\n' +
-          'D’Angelo said the effort to bring Koether to town started with a question.\n' +
-          '\n' +
-          '“I know Riva Ridge, and I know Pepi’s Face — a lot of these have stories behind them. What is the story behind the Lost Boy?” he said.\n' +
-          '\n' +
-          'After learning the story, he found Koether on Facebook and began developing a relationship with him.\n' +
-          '\n',
+        story: [
+            "Koether shared those dreams and more in an emotional trip to the Colorado Snowsports Museum on April 2. ",
+            "The visit coincided with the 60-year anniversary of Koether’s fateful night alone on Vail Mountain, in which he slept in a tree well after making a wrong turn into Game Creek Bowl, which had not yet been developed for skiing.",
+            "By the summer of 1969, when Game Creek Bowl was being developed, mountain managers had already come up with a name for several of the runs, including Lost Boy.",
+            "Koether said he can’t remember exactly when he learned there was a run being named after him and his experience, but it was decades before he became fully aware of how renowned the run was on Vail Mountain.",
+            "“I’ve had so many experiences in life beyond the Lost Boy, that this just didn’t seem that monumental to me,” he said, adding that he hoped the statement didn’t come across as egotistical.",
+            "“It was just something that happened,” he said of being lost on Vail Mountain. “I lived through it, it was great, and I pretty much just put it in the back closet after that. But now that I’m here, I never realized how many people liked the story.”",
+            "Koether was invited to town by John D’Angelo, general manager of The Sebastian, who developed an interest in the Lost Boy story after learning to ski last year.",
+            "D’Angelo said the effort to bring Koether to town started with a question.",
+            "“I know Riva Ridge, and I know Pepi’s Face — a lot of these have stories behind them. What is the story behind the Lost Boy?” he said.",
+            "After learning the story, he found Koether on Facebook and began developing a relationship with him.",
+        ],
         tags: [ 'vail', 'skiing', 'incident', 'mountain', 'Marty' ],
         author: 2,
         led: 'For Marty Koether, the namesake for Vail Mountain’s “Lost Boy” run, his dreams from April 1, 1964, are still vivid.',
@@ -579,25 +641,18 @@ const fakeStorys = [
       {
         title: 'Ur-Fascism',
         subhead: 'The New York Review of Books',
-        story: 'I elaborated with rhetorical skill on the subject “Should we die for the glory of Mussolini and the immortal destiny of Italy?” My answer was positive. I was a smart boy.\n' +
-            '\n' +
-            'I spent two of my early years among the SS, Fascists, Republicans, and partisans shooting at one another, and I learned how to dodge bullets. It was good exercise.\n' +
-            '\n' +
-            'In April 1945, the partisans took over in Milan. Two days later they arrived in the small town where I was living at the time. It was a moment of joy. The main square was crowded with people singing and waving flags, calling in loud voices for Mimo, the partisan leader of that area. A former maresciallo of the Carabinieri, Mimo joined the supporters of General Badoglio, Mussolini’s successor, and lost a leg during one of the first clashes with Mussolini’s remaining forces. Mimo showed up on the balcony of the city hall, pale, leaning on his crutch, and with one hand tried to calm the crowd. I was waiting for his speech because my whole childhood had been marked by the great historic speeches of Mussolini, whose most significant passages we memorized in school. Silence. Mimo spoke in a hoarse voice, barely audible. He said: “Citizens, friends. After so many painful sacrifices … here we are. Glory to those who have fallen for freedom.” And that was it. He went back inside. The crowd yelled, the partisans raised their guns and fired festive volleys. We kids hurried to pick up the shells, precious items, but I had also learned that freedom of speech means freedom from rhetoric.\n' +
-            '\n' +
-            'A few days later I saw the first American soldiers. They were African Americans. The first Yankee I met was a black man, Joseph, who introduced me to the marvels of Dick Tracy and Li’l Abner. His comic books were brightly colored and smelled good.\n' +
-            '\n' +
-            'One of the officers (Major or Captain Muddy) was a guest in the villa of a family whose two daughters were my schoolmates. I met him in their garden where some ladies, surrounding Captain Muddy, talked in tentative French. Captain Muddy knew some French, too. My first image of American liberators was thus — after so many palefaces in black shirts — that of a cultivated black man in a yellow-green uniform saying: “Oui, merci beaucoup, Madame, moi aussi j’aime le champagne …” Unfortunately there was no champagne, but Captain Muddy gave me my first piece of Wrigley’s Spearmint and I started chewing all day long. At night I put my wad in a water glass, so it would be fresh for the next day.\n' +
-            '\n' +
-            'In May we heard that the war was over. Peace gave me a curious sensation. I had been told that permanent warfare was the normal condition for a young Italian. In the following months I discovered that the Resistance was not only a local phenomenon but a European one. I learned new, exciting words like réseau, maquis, armée secrète, Rote Kapelle, Warsaw ghetto. I saw the first photographs of the Holocaust, thus understanding the meaning before knowing the word. I realized what we were liberated from.\n' +
-            '\n' +
-            'In my country today there are people who are wondering if the Resistance had a real military impact on the course of the war. For my generation this question is irrelevant: we immediately understood the moral and psychological meaning of the Resistance. For us it was a point of pride to know that we Europeans did not wait passively for liberation. And for the young Americans who were paying with their blood for our restored freedom it meant something to know that behind the firing lines there were Europeans paying their own debt in advance.\n' +
-            '\n' +
-            'In my country today there are those who are saying that the myth of the Resistance was a Communist lie. It is true that the Communists exploited the Resistance as if it were their personal property, since they played a prime role in it; but I remember partisans with kerchiefs of different colors. Sticking close to the radio, I spent my nights — the windows closed, the blackout making the small space around the set a lone luminous halo — listening to the messages sent by the Voice of London to the partisans. They were cryptic and poetic at the same time (The sun also rises, The roses will bloom) and most of them were “messaggi per la Franchi.” Somebody whispered to me that Franchi was the leader of the most powerful clandestine network in northwestern Italy, a man of legendary courage. Franchi became my hero. Franchi (whose real name was Edgardo Sogno) was a monarchist, so strongly anti-Communist that after the war he joined very right-wing groups, and was charged with collaborating in a project for a reactionary coup d’état. Who cares? Sogno still remains the dream hero of my childhood. Liberation was a common deed for people of different colors.\n' +
-            '\n' +
-            'In my country today there are some who say that the War of Liberation was a tragic period of division, and that all we need is national reconciliation. The memory of those terrible years should be repressed, refoulée, verdrängt. But Verdrängung causes neurosis. If reconciliation means compassion and respect for all those who fought their own war in good faith, to forgive does not mean to forget. I can even admit that Eichmann sincerely believed in his mission, but I cannot say, “OK, come back and do it again.” We are here to remember what happened and solemnly say that “They” must not do it again.\n' +
-            '\n' +
-            'But who are They?',
+        story: [
+            "I elaborated with rhetorical skill on the subject “Should we die for the glory of Mussolini and the immortal destiny of Italy?” My answer was positive. I was a smart boy.",
+            "'I spent two of my early years among the SS, Fascists, Republicans, and partisans shooting at one another, and I learned how to dodge bullets. It was good exercise.",
+            "'In April 1945, the partisans took over in Milan. Two days later they arrived in the small town where I was living at the time. It was a moment of joy. The main square was crowded with people singing and waving flags, calling in loud voices for Mimo, the partisan leader of that area. A former maresciallo of the Carabinieri, Mimo joined the supporters of General Badoglio, Mussolini’s successor, and lost a leg during one of the first clashes with Mussolini’s remaining forces. Mimo showed up on the balcony of the city hall, pale, leaning on his crutch, and with one hand tried to calm the crowd. I was waiting for his speech because my whole childhood had been marked by the great historic speeches of Mussolini, whose most significant passages we memorized in school. Silence. Mimo spoke in a hoarse voice, barely audible. He said: “Citizens, friends. After so many painful sacrifices … here we are. Glory to those who have fallen for freedom.” And that was it. He went back inside. The crowd yelled, the partisans raised their guns and fired festive volleys. We kids hurried to pick up the shells, precious items, but I had also learned that freedom of speech means freedom from rhetoric.",
+            "'A few days later I saw the first American soldiers. They were African Americans. The first Yankee I met was a black man, Joseph, who introduced me to the marvels of Dick Tracy and Li’l Abner. His comic books were brightly colored and smelled good.",
+            "'One of the officers (Major or Captain Muddy) was a guest in the villa of a family whose two daughters were my schoolmates. I met him in their garden where some ladies, surrounding Captain Muddy, talked in tentative French. Captain Muddy knew some French, too. My first image of American liberators was thus — after so many palefaces in black shirts — that of a cultivated black man in a yellow-green uniform saying: “Oui, merci beaucoup, Madame, moi aussi j’aime le champagne …” Unfortunately there was no champagne, but Captain Muddy gave me my first piece of Wrigley’s Spearmint and I started chewing all day long. At night I put my wad in a water glass, so it would be fresh for the next day.",
+            "'In May we heard that the war was over. Peace gave me a curious sensation. I had been told that permanent warfare was the normal condition for a young Italian. In the following months I discovered that the Resistance was not only a local phenomenon but a European one. I learned new, exciting words like réseau, maquis, armée secrète, Rote Kapelle, Warsaw ghetto. I saw the first photographs of the Holocaust, thus understanding the meaning before knowing the word. I realized what we were liberated from.",
+            " 'In my country today there are people who are wondering if the Resistance had a real military impact on the course of the war. For my generation this question is irrelevant: we immediately understood the moral and psychological meaning of the Resistance. For us it was a point of pride to know that we Europeans did not wait passively for liberation. And for the young Americans who were paying with their blood for our restored freedom it meant something to know that behind the firing lines there were Europeans paying their own debt in advance.",
+            "'In my country today there are those who are saying that the myth of the Resistance was a Communist lie. It is true that the Communists exploited the Resistance as if it were their personal property, since they played a prime role in it; but I remember partisans with kerchiefs of different colors. Sticking close to the radio, I spent my nights — the windows closed, the blackout making the small space around the set a lone luminous halo — listening to the messages sent by the Voice of London to the partisans. They were cryptic and poetic at the same time (The sun also rises, The roses will bloom) and most of them were “messaggi per la Franchi.” Somebody whispered to me that Franchi was the leader of the most powerful clandestine network in northwestern Italy, a man of legendary courage. Franchi became my hero. Franchi (whose real name was Edgardo Sogno) was a monarchist, so strongly anti-Communist that after the war he joined very right-wing groups, and was charged with collaborating in a project for a reactionary coup d’état. Who cares? Sogno still remains the dream hero of my childhood. Liberation was a common deed for people of different colors.",
+            "'In my country today there are some who say that the War of Liberation was a tragic period of division, and that all we need is national reconciliation. The memory of those terrible years should be repressed, refoulée, verdrängt. But Verdrängung causes neurosis. If reconciliation means compassion and respect for all those who fought their own war in good faith, to forgive does not mean to forget. I can even admit that Eichmann sincerely believed in his mission, but I cannot say, “OK, come back and do it again.” We are here to remember what happened and solemnly say that “They” must not do it again.",
+            "'But who are They?'"
+        ],
         tags: [ 'fascism', 'anarchy', 'italy', 'Umberto', 'Umberto Eco' ],
         author: 2,
         led: 'In 1942, at the age of ten, I received the First Provincial Award of Ludi Juveniles (a voluntary, compulsory competition for young Italian Fascists — that is, for every young Italian).',
@@ -608,22 +663,24 @@ const fakeStorys = [
     {
         title: 'Glizzys, Glam, and Gargantuan Gonads',
         subhead: 'Chicago remains unbeaten in its quest for hotdog dominance',
-        story: `With 3 million residents and millions more who visit during the course of a year, free hotdogs for everyone sounds like a daunting task. "I know it sounds like a lot of hotdogs," Mayor Doug Dibbenow said. "But the reality of the situation is that free hotdogs for everyone would drastically increase city revenue, improve food availability for those who don't have a secure meal every day, and make good use of the city's already healthy meat industry."\n` +
-        'How will free hotdogs improve city revenue?\n' +
-        `"It's one hotdog, Michael. What could it cost, ten dollars?" Dibbenow said, smirking as he referenced an oft-used quip from the TV show "Arrested Development" which is usually reserved to imply the reach are out of touch with reality and the cost of things.\n` +
-        `"But no, for real," he said, "hotdogs aren't that expensive; plus the city spends millions of dollars on other things, so why not give the people something fun for once."\n` +
-        "What 'other things' the city spends millions of dollars on, Dibbenow listed the police force (which currently costs the city $1.3 billion a year).\n" +
-        `"They aren't going to like it, but I'm going to take 10 percent of their annual spend, and instead give it back to the people," Dibbenow said.\n` +
-        'Ten percent would yield $130 million dollars a year, for the math-averse. That could potentially buy a lot of hotdogs. Taking the Jewel-Osco price of a ten-pack of Oscar Meyer weiners, $130 million would get you 21,666,666 packages. Twenty-one million packages of hotdogs times ten hotdogs a piece is 216,666,666 million hotdogs. Three-hundred and sixty five days in a year with 216 million hotdogs at your disposal evens out to 593,607 hot dogs per day.\n' +
-        "Half a million hotdogs for 3 million people, per day? The math just doesn't add up.\n" +
-        `"The thing is, not everyone wants a hotdog a day," the mayor said. "Sometimes you are full, sometimes you're busy, sometimes you brown-bagged your own lunch in the park. This isn't supposed to be the end-all, be all for everyone. It's for people who maybe can't afford food every day of the week. It's for the British tourists who really want to experience Chicago the [[Chicago]] way."\n` +
-        'When asked about distribution, the mayor said he already had a plan in place.\n' +
-        `"There's people out there right now slingin' dogs," he said. "We are going to hire them, make them full-time city employees, give them health insurance, give them PTO, and ask them to help feed the nation."\n` +
-        'A hotdog on every corner? [[What about vegans | www./example/]]?\n' +
-        `"I didn't even consider vegans," the mayor said.\n` +
-        'A vegan pack of hotdogs runs a bit higher than an all-beef Frank you see on store shelves.\n' +
-        `"But again," the mayor continued, "this isn't supposed to be for everyone. This is supposed to be an additional safety net. It just happens to be in the shape of a hotdog."\n` +
-        "Glizzy Nation? It's still to early to tell. The mayor's ordinance goes up for vote November 2024, just in time for [[re-election]] season.",
+        story: [
+            "With 3 million residents and millions more who visit during the course of a year, free hotdogs for everyone sounds like a daunting task. \"I know it sounds like a lot of hotdogs,\" Mayor Doug Dibbenow said. \"But the reality of the situation is that free hotdogs for everyone would drastically increase city revenue, improve food availability for those who don't have a secure meal every day, and make good use of the city's already healthy meat industry.\"",
+            "        'How will free hotdogs improve city revenue?",
+            "        `\"It's one hotdog, Michael. What could it cost, ten dollars?\" Dibbenow said, smirking as he referenced an oft-used quip from the TV show \"Arrested Development\" which is usually reserved to imply the reach are out of touch with reality and the cost of things.",
+            "        `\"But no, for real,\" he said, \"hotdogs aren't that expensive; plus the city spends millions of dollars on other things, so why not give the people something fun for once.\"",
+            "        \"What 'other things' the city spends millions of dollars on, Dibbenow listed the police force (which currently costs the city $1.3 billion a year).",
+            "        `\"They aren't going to like it, but I'm going to take 10 percent of their annual spend, and instead give it back to the people,\" Dibbenow said.\"",
+            "        'Ten percent would yield $130 million dollars a year, for the math-averse. That could potentially buy a lot of hotdogs. Taking the Jewel-Osco price of a ten-pack of Oscar Meyer weiners, $130 million would get you 21,666,666 packages. Twenty-one million packages of hotdogs times ten hotdogs a piece is 216,666,666 million hotdogs. Three-hundred and sixty five days in a year with 216 million hotdogs at your disposal evens out to 593,607 hot dogs per day.\"",
+            "        \"Half a million hotdogs for 3 million people, per day? The math just doesn't add up.\"",
+            "        `\"The thing is, not everyone wants a hotdog a day,\" the mayor said. \"Sometimes you are full, sometimes you're busy, sometimes you brown-bagged your own lunch in the park. This isn't supposed to be the end-all, be all for everyone. It's for people who maybe can't afford food every day of the week. It's for the British tourists who really want to experience Chicago the [[Chicago]] way.\"`",
+            "        'When asked about distribution, the mayor said he already had a plan in place.",
+            "        `\"There's people out there right now slingin' dogs,\" he said. \"We are going to hire them, make them full-time city employees, give them health insurance, give them PTO, and ask them to help feed the nation.\"",
+            "        'A hotdog on every corner? [[What about vegans | www./example/]]?'",
+            "        `\"I didn't even consider vegans,' the mayor said.\"",
+            "        'A vegan pack of hotdogs runs a bit higher than an all-beef Frank you see on store shelves.",
+            "        `\"But again,\" the mayor continued, \"this isn't supposed to be for everyone. This is supposed to be an additional safety net. It just happens to be in the shape of a hotdog.\"",
+            "        \"Glizzy Nation? It's still to early to tell. The mayor's ordinance goes up for vote November 2024, just in time for [[re-election]] season.\""
+        ],
         tags: [ 'hotdog', 'glizzy', 'chicago', 'ordinance 482', 'mayor Dibbenow' ],
         author: '7',
         led: "On Monday, the mayor of Chicago said the city was unveiling a new plan for increasing city tourism: 'free hotdogs for everyone.'",

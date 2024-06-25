@@ -40,11 +40,9 @@ export const SingleStoryPage = () => {
         } else {
             const req = await fetchSinglePageStory(storyId);
             if (req){
-                console.log('story', req)
                 setStory(req);
                 setBreadcrumbs(req.category);
                 setPageView(req.page_views)
-                //parseText(req.story_text)
                 updatePageViewsOnLoad(req.story_id);
             }
         }
@@ -86,7 +84,10 @@ export const SingleStoryPage = () => {
         </fieldset>
         {/* <p className="public-date">Published {story.original_publish_date.slice(0, 10)}</p> */}
         <p className="story-led">{story.story_led}</p>
-        <p className="story-text">{story.story_text}</p>
+
+        {!story.story_text ? null : story.story_text.map((paragraph, index) => {
+            return (<p key={index}>{paragraph}</p>)
+        })}
         {!story.tags ? null :         
         <fieldset className="story-tag-container">
                     <p>Tags: &nbsp;</p> 

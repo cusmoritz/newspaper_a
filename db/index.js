@@ -40,7 +40,7 @@ const createDatabase = async() => {
             story_title TEXT UNIQUE NOT NULL,
             story_subhead TEXT NOT NULL,
             story_led TEXT NOT NULL,
-            story_text TEXT NOT NULL,
+            story_text TEXT[] NOT NULL,
             story_author INTEGER REFERENCES authors(author_id) NOT NULL,
             story_slug TEXT NOT NULL,
             story_active_flag BOOLEAN DEFAULT true,

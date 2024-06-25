@@ -27,24 +27,38 @@ export const CreateStory = () => {
     const [allSecondaryCats, setSecondaryCats] = useState([]);
     const [breakingFlag, setBreakingFlag] = useState(false);
     const [breakingHeadline, setBreakingHeadline] = useState("");
-    const [footnotes, setFootnotes] = useState(["www.google.com"]);
-    const [footnoteNum, setFootnoteNum] = useState(3);
+    const [footnotes, setFootnotes] = useState([]);
+    const [footnoteUrl, setFootnoteURL] = useState("");
+    const [footnoteWords, setFootnoteWords] = useState([]);
 
     // image loading function that doesn't work. still need image hosting
-    window.addEventListener('load', function() {
-        document.querySelector('input[type="file"]').addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                var img = document.querySelector('#myImg');
-                img.onload = () => {
-                    URL.revokeObjectURL(img.src);  // no longer needed, free memory
-                }
+    // window.addEventListener('load', function() {
+    //     document.querySelector('input[type="file"]').addEventListener('change', function() {
+    //         if (this.files && this.files[0]) {
+    //             var img = document.querySelector('#myImg');
+    //             img.onload = () => {
+    //                 URL.revokeObjectURL(img.src);  // no longer needed, free memory
+    //             }
       
-                img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-            }
-        });
-      });
+    //             img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+    //         }
+    //     });
+    //   });
 
       const parseStoryText = (storyText) => {
+        const paragraphs = [];
+        const paragraph = storyText.split(/(\r\n|\n|\r)/gm);
+        //paragraphs.push(paragraph);
+        for (let i = 0; i < paragraph.length; i++) {
+          if (paragraph[i].length < 1 || paragraph[i] === "\n" || paragraph[i] === "\r" || paragraph[i] === "\r\n") {
+            // do nothing
+          } else {
+            paragraph[i].trim();
+            paragraphs.push(paragraph[i]);
+          }
+        }
+        // might be easier to check each paragraph for footnotes? instead of the whole story at once.
+
         // wrap the whole thing in single quotes?
         // remove line breaks, replace with {{ ' + CHAR(13) + ' }} for SQL
         // find all bracket words, store in array
@@ -52,9 +66,20 @@ export const CreateStory = () => {
         // send story text?
         const brackets = RegExp(/\[(.*?)\]/g);
         const lineBreaks = RegExp();
-        const noBreaks = storyText.replace(/(\r\n|\n|\r)/gm, "' + CHAR(13) + ''");
-        //const what = storyText.match(brackets);
+        const noBreaks = storyText.replace(/(\r\n|\n|\r)/gm, "" + '<p></p>' + "");
+        const bracketsOut = storyText.match(/\[(.*?)\]/g);
         console.log('what', noBreaks)
+        //console.log('urls?', bracketsOut)
+        setFootnoteWords(bracketsOut);
+
+        // const serializeEditorValueAsString = value => {
+        //   value
+        //   //Return the string content of each paragraph in the value's children
+        //   .map(n => Node.toString(n))//slate node? 31:03 https://www.youtube.com/watch?v=kMpLh2XCWqM
+        //   // join them all with line breaks denoting paragraphs
+        //   .join('\n')// he's saving the text as a string and the body_data as a json object
+        // }
+        // serializeEditorValueAsString(storyText)
       }
 
       const fetchAllCatagories = async () => {
@@ -164,13 +189,23 @@ export const CreateStory = () => {
         setSecondaryCats(allPrimaryCats[arr].secondary)
       };
 
-      const Footnotes = () => {
-        for (let i = 0; i <= footnoteNum; i++){
-          return(
-            <input></input>
-          )
-        }
-      }
+      // const addNewFootnote = () => {
+      //   let current = footnotes;
+      //   let anotherFootnote = [];
+      //   let length = footnotes.length;
+      //   console.log(current, length)
+      //   setFootnotes(...footnotes, anotherFootnote)
+      // }
+
+      // const Footnotes = () => {
+      //   for (let i = 0; i <= footnotes.length; i++){
+      //     console.log('footnote', footnotes[i].value)
+      //     return (
+      //       <input onChange={(e) => console.log('e', e)}></input>
+      //     )
+      //   }
+
+      // }
 
     return (
         <div className="create-story-container">
@@ -225,17 +260,33 @@ export const CreateStory = () => {
                 <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." value={story} onChange={(event) => setStoryEvent(event.target.value)}></textarea>
                 <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
 
-                <button className="story-format-tips" onClick={() => setShowModal('block')}>Format tips</button>
+                <button className="story-format-tips" onClick={() => parseStoryText(story)}>Format tips</button>
                 {/* <Modal state={showModal}/> */}
 
                 <label htmlFor="footnotes-input" className="tooltip">Footnotes:
                   <span className="tooltiptext">To add a new footnote input, click the button. These are automatically linked -- IN ORDER -- to the link tags in your story.
                   </span>
                 </label>
-                {footnoteNum > 0 ? <Footnotes /> : null}
+                {/* {footnotes.map((footnote) => {
+                  return (
+                    <input key={footnote} onChange={(e) => footnote = e.target.value}></input>
+                  )
+                })} */}
+                <input value={footnoteUrl} onChange={(e) => setFootnoteURL(e.target.value)}></input>
 
 
-                <button>Add Footnote</button>
+                <button onClick={() => setFootnotes([...footnotes, footnoteUrl])}>Add Footnote</button>
+                <div>
+                  {footnotes.length > 0 ? <h3>Entered footnotes: </h3> : null}
+                  {footnotes.map((footnote, index) => {
+                    //console.log(footnotes)
+                    return (
+                      <>
+                      <p key={footnote.index}>{index + 1}: {footnote}</p><button>Delete</button>
+                      </>
+                    )
+                  })}
+                </div>
                 
                 <label htmlFor="tag-input">Add tags to this story. To add multiple tags, serparate tags with a comma.</label>
                 <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>

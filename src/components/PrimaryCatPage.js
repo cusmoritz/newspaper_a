@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { fetchPrimaryCatStories } from "../api";
 import { Link } from "react-router-dom";
+import { ElectionCategoryPage } from "./ElectionCategoryPage";
 
 export const PrimaryCatPage = () => {
 
@@ -16,10 +17,16 @@ export const PrimaryCatPage = () => {
     const breadcrumbs = [];
 
     const fetchPrimaryStories = async () => {
-        const catStories = await fetchPrimaryCatStories(primaryCat);
-        if (catStories) {
-            setStories(catStories)
-        };
+        if (primary === "elections" || primary === "ELECTIONS"){
+            // return a seperate Elections element, we want to treat that differently.
+            console.log('elections page')
+            return;
+        } else {
+            const catStories = await fetchPrimaryCatStories(primaryCat);
+            if (catStories) {
+                setStories(catStories)
+            };
+        }
     };
     
     const loadPage = async () => {
@@ -32,7 +39,12 @@ export const PrimaryCatPage = () => {
         loadPage();
     }, [primary]);
 
-    return (
+    {primary == "elections" || primary == "ELECTIONS" ? 
+    (
+        <ElectionCategoryPage />
+    )
+    : 
+    (
         <div className="primary-catagory-page-container">
             <h3 className="primary-catagory-header">{primary}</h3>
             {!stories ? null : 
@@ -65,4 +77,6 @@ export const PrimaryCatPage = () => {
             }
         </div>
     )
+    }
+    
 }

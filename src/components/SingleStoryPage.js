@@ -18,6 +18,70 @@ export const SingleStoryPage = () => {
         return;
     }
 
+    const parseFootnoteWords = (storyObj) => {
+        let storyText = storyObj.story_text;
+        console.log('story obj', storyText)
+        storyObj.footnote_words.forEach((para) => { // words and paragraph obj
+            console.log('each obj', para) // words will look like "['word here']"
+            // clean up the word
+            para.word.forEach((thing) => {
+                const recursion = "";
+                console.log('thing here', thing)
+                //let wordTrim = thing.trim();
+                let wordReplace = thing.replace(/[\[\]']+/g,'').trim(); // remove square brackets and single quotes
+                console.log('word', wordReplace)
+                // match the word to the paragraph placement in footnoteObj
+                console.log(storyText[para.paragraph])
+                let newPara = storyText[para.paragraph].replace(thing, wordReplace);
+                console.log('new parap', newPara)
+
+                // do we allow footnotes in the first paragraph? (ie Led); will have to account for that.
+
+                //storyText[para] = newPara;
+                //console.log('story text changed', storyText[para])
+            })
+        })
+    }
+
+    const parseFoonotesRecursive = (storyTextPara, footnoteArr) => { // i can just send the paragraph text, not the whole array
+        if (footnoteArr.length <= 0) {
+            return;
+        }
+        let newParagraph = "";
+        for (let i = 0; i < footnoteArr.length; i++) {
+            let word = footnoteArr[i].word
+            let wordReplace = word.replace(/[\[\]']+/g,'').trim(); // remove square brackets and single quotes
+            // match the word to the paragraph placement in footnoteObj
+            let editedParagraph = storyTextPara.replace(word, wordReplace);
+            newParagraph = editedParagraph;
+            parseFootnotesRecursive(newParagraph, footnoteArr[i++].word)
+        }
+        return newParagraph;
+    }
+
+    // working with a string as StoryObj and an array of words
+    // const parseFoonotesRecursive = (storyTextPara, footnoteArr) => { // i can just send the paragraph text, not the whole array
+    //     console.log('1', storyTextPara, footnoteArr)
+    //     let length = footnoteArr.length;
+    //         if (length < 0) {
+    //             return;
+    //         }
+            
+    //         let newParagraph = "";
+    //         //for (let i = 0; i < footnoteArr.length; i++) {
+    //             let word = footnoteArr[0];
+    //             console.log('2', word)
+    //             let regex = (/[\[\]']+/g);
+    //             let wordReplace = word.replace(/[\[\]']+/g,'').trim(); // remove square brackets and single quotes
+    //             // match the word to the paragraph placement in footnoteObj
+    //             let editedParagraph = storyTextPara.replace(word, wordReplace);
+    //             newParagraph = editedParagraph;
+    //             footnoteArr.shift();
+    //             parseFoonotesRecursive(newParagraph, footnoteArr)
+    //         //}
+    //         return newParagraph;
+    //     }
+
     // const parseText = (storyText) => {
     //     console.log(storyText.length);
     //     // find urls hidden in the text.
@@ -40,11 +104,13 @@ export const SingleStoryPage = () => {
         } else {
             const req = await fetchSinglePageStory(storyId);
             if (req){
-                setStory(req);
-                console.log('story', req)
+
+                //console.log('story', req)
                 setBreadcrumbs(req.category);
                 setPageView(req.page_views)
                 updatePageViewsOnLoad(req.story_id);
+                parseFootnoteWords(req);
+                setStory(req);
             }
         }
         return;

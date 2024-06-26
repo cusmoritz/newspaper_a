@@ -18,6 +18,7 @@ import { SingleStoryPage } from './components/SingleStoryPage';
 import {ImageUpload} from './components/admin/ImageUpload';
 import { ShopHeader } from './components/shop/ShopHeader';
 import { ShopHome } from './components/shop/ShopHome';
+import { ElectionCategoryPage } from './components/ElectionCategoryPage';
 
 const App = () => {
 
@@ -94,6 +95,7 @@ const App = () => {
                         element={<SingleStoryPage /> } />
 {/* TODO:               <Route exact path="/search/" element={<SearchPage />} /> */}
                     <Route path="/:primaryCat/:secondaryCat" element={<SecondaryCatPage />} />
+                    <Route exact path="/elections" element={<ElectionCategoryPage />} />
                     <Route path="/:primaryCat" element={<PrimaryCatPage />} />
                     <Route exact path="/" 
                         element={<Home 

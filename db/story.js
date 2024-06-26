@@ -466,9 +466,9 @@ const createSecondary = async (subCat, primary) => {
     return secondary;
 };
 
-const fakePrimaries = ["NEWS", "OPINION", "COLORADO", "SPORTS", "OUTDOORS", "ENTERTAINMENT"];
+const fakePrimaries = ["NEWS", "ELECTIONS", "OPINION", "COLORADO", "SPORTS", "OUTDOORS", "ENTERTAINMENT"];
 
-const fakeSecondary = [{name: "Colorado", parent: 1}, {name: "Crime", parent: 1}, {name: "Obit", parent: 1}, {name: "Regional", parent: 1}, {name: "NoCo", parent: 3}, {name: "Denver", parent: 3}, {name: "Editorial", parent: 2}, {name: "Letters", parent: 2}, {name: "Columns", parent: 2}, {name: "Events", parent: 6}, {name: "Food", parent: 6}, {name: "Football", parent: 4}, {name: "Hockey", parent: 4}, {name: "Baseball", parent: 4}, {name: "Soccer", parent: 4}, {name: "Hiking", parent: 5}, {name: "Public Lands", parent: 5}, {name: "Camping", parent: 5}, {name: "Backpacking", parent: 5},];
+const fakeSecondary = [{name: "Colorado", parent: 1}, {name: "Crime", parent: 1}, {name: "Obit", parent: 1}, {name: "Regional", parent: 1}, {name: "June 2024 Primaries", parent: 2}, {name: "November 2023 General", parent: 2}, {name: "NoCo", parent: 4}, {name: "Denver", parent: 4}, {name: "Editorial", parent: 3}, {name: "Letters", parent: 3}, {name: "Columns", parent: 3}, {name: "Events", parent: 7}, {name: "Food", parent: 7}, {name: "Football", parent: 5}, {name: "Hockey", parent: 5}, {name: "Baseball", parent: 5}, {name: "Soccer", parent: 5}, {name: "Hiking", parent: 6}, {name: "Public Lands", parent: 6}, {name: "Camping", parent: 6}, {name: "Backpacking", parent: 6},];
 
 const fakeStorys = [
     {
@@ -518,8 +518,8 @@ const fakeStorys = [
         author: '3',
         led: "Blake Scott was moving water on his family’s property in Gypsum on the evening of Monday, June 10, when he heard his mother screaming.",
         slug: 'man-kills-bear-gypsum',
-        primary: 3,
-        secondary: 17,
+        primary: 4,
+        secondary: 7,
         footnotes: [
             {
                 "word": [
@@ -550,37 +550,37 @@ const fakeStorys = [
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
         subhead: "The Shift Bike program allows residents and guests to rent e-bikes by the minute from Vail to Edwards",
         story: [
-            "\"The Shift Bike program allows individuals to rent e-bikes from stations throughout these communities on a pay-as-you-go model. ",
-            "The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 stations. ",
+            "The Shift Bike program allows individuals to [rent] e-bikes from stations throughout these communities on a pay-as-you-go model. ",
+            "The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 [stations]. ",
             "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions. ",
             "Single-occupancy vehicles account for around 40% of the county's emissions, so the idea was that providing an alternative mobility option would reduce the number of these vehicle trips in the region.",
             " The first summer saw a total of 7,393 trips for a total of 21,735.4 miles, with the average ride being 2.94 miles for around 30 minutes.",
-            " Ninety percent of the trips were under 60 minutes long. Reportedly, the program was responsible for the reduction of 8.68 metric tons of greenhouse gas emissions — the equivalent of 1,000 gallons of gasoline — in 2022."
+            " Ninety percent of the trips were under 60 minutes long. Reportedly, the program was responsible for the reduction of 8.68 metric tons of [greenhouse] gas emissions — the equivalent of 1,000 gallons of gasoline — in [2022]."
         ],
         tags: ['news', 'vail', 'edwards', 'scooters'],
         author: '5',
         led: "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions.",
         slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer',
-        primary: 2,
+        primary: 3,
         secondary: 2,
         footnotes: [
             {
                 "word": [
-                    "rent"
+                    "[rent]"
+                ],
+                "paragraph": 0
+            },
+            {
+                "word": [
+                    "[stations]", 
                 ],
                 "paragraph": 1
             },
             {
                 "word": [
-                    "stations", 
+                    "[2022]", "[greenhouse]"
                 ],
-                "paragraph": 6
-            },
-            {
-                "word": [
-                    "2022", "greenhouse"
-                ],
-                "paragraph": 10
+                "paragraph": 5
             }
         ],
         footnoteURLs: [
@@ -628,7 +628,7 @@ const fakeStorys = [
         author: '2',
         led: "Just like Yacht Rock made soft rock cool and breezy again, Electric Avenue brings the electronic magic of the 1980s back — complete with its personal stash of vintage synthesizers, drum machines and rare signal processors.",
         slug: 'electric-avenue-the-80s-mtv-experience-comes-to-beaver-creek-saturday',
-        primary: 2,
+        primary: 1,
         secondary: 3,
         footnotes: [],
         footnoteURLs: [
@@ -696,8 +696,8 @@ const fakeStorys = [
         author: '2',
         led: "There are many events in life that can shape and change a person. Some people’s lives forever change after getting married or having a child, while others are transformed by a harrowing and traumatic event.",
         slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good',
-        primary: 2,
-        secondary: 2,
+        primary: 3,
+        secondary: 9,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -752,8 +752,8 @@ const fakeStorys = [
         author: 2,
         led: 'In 1942, at the age of ten, I received the First Provincial Award of Ludi Juveniles (a voluntary, compulsory competition for young Italian Fascists — that is, for every young Italian).',
         slug: 'umberto-eco-ur-fascism',
-        primary: '2',
-        secondary: '9',
+        primary: '3',
+        secondary: '10',
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -786,8 +786,8 @@ const fakeStorys = [
         author: '7',
         led: "On Monday, the mayor of Chicago said the city was unveiling a new plan for increasing city tourism: 'free hotdogs for everyone.'",
         slug: 'chicago-mayor-hotdogs-for-everyone',
-        primary: '6',
-        secondary: '11',
+        primary: '7',
+        secondary: '13',
         breakingFlag: true,
         breakingHeadline: 'Hotdogs for everyone?',
         footnotes: [],

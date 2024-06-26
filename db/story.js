@@ -106,13 +106,16 @@ const retreiveTags = async (storyId) => {
 
 const createNewStory = async (storyInfo) => {
     //console.log('story info db', storyInfo)
+    // change the footnote words in JSON format for storing
+    let jsonFootnotes = JSON.stringify(storyInfo.footnotes);
+    storyInfo.footnotes = jsonFootnotes
     try {
         const {rows: story} = await client.query(`
-        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline, footnote_urls, footnote_words)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *
         ;
-        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline]);
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes]);
 
         storyInfo.tags.forEach((tag) => { // this is ugly
             createTag(story[0].story_id, tag);
@@ -487,20 +490,26 @@ const fakeStorys = [
         slug: 'first-story-goes-here',
         primary: 1,
         secondary: 1,
+        footnotes: {},
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: "Fearing for his life, Gypsum man kills troublesome bear that had eluded wildlife officials",
         subhead: "The killing was legally justified, according to an investigation by Colorado Parks and Wildlife",
         story: [
-            "Bear 935 first appeared in Eagle County last year, when it was relocated to near LEDE Reservoir in Gypsum after being identified as a nuisance bear in the Kremmling area.",
+            "Bear 935 first appeared in Eagle County last year, when it was [relocated] to near LEDE Reservoir in Gypsum after being identified as a nuisance bear in the Kremmling area.",
             "“It was loitering near town, near residential areas. They attempted hazing. It wasn’t leaving the area. They wanted to get rid of it, get it out of that area, into suitable habitat before it became too comfortable,” said Matt Yamashita, Colorado Parks and Wildlife area wildlife manager.",
             "Bear 935 did not remain in isolation for long.",
-            "“It traveled through miles and miles of appropriate habitat to seek refuge near Vail,” Yamashita said.",
+            "“It traveled through miles and miles of appropriate habitat to seek refuge near Vail,” [Yamashita] [said].",
             "In Vail, the bear again “started developing bad habits,” Yamashita said. ",
             "The bear showed too much comfort existing near humans, including entering houses.",
             "“Our plan at that time was to, if we caught it, to euthanize it,” Yamashita said. “At that point, it, for our agency, the way we see that is a human health and safety issue.”",
-            "Colorado Parks and Wildlife officers set traps for the bear, intending to euthanize it when caught. But the traps never caught the bear. “And then it just vanished,” Yamashita said.",
-            "In late July, Colorado Parks & Wildlife stopped receiving calls about Bear 935.",
+            "Colorado Parks and Wildlife officers set traps for the bear, intending to euthanize it when caught. But the [traps] never caught the bear. “And then it just vanished,” Yamashita said.",
+            "In late July, Colorado Parks & Wildlife stopped receiving calls about [Bear 935].",
             "“I don’t know where it went, what it did, how it stayed out of trouble, or why it decided to do that, but it changed its behavior,” Yamashita said.",
             "The next time the bear resurfaced was when it emerged from hibernation in spring 2024. “The first knowledge we have of it was back again in the Vail area, and it was kind of replicating some of the same behaviors,” Yamashita said. “We were trying to keep tabs on it, figuring out where it was going to be, how we could catch up with it, and then it disappeared.”",
             "The next time Bear 935 was seen was about a week later, when it showed up on Scott’s property, after traversing many miles along the Eagle River corridor."
@@ -511,6 +520,31 @@ const fakeStorys = [
         slug: 'man-kills-bear-gypsum',
         primary: 3,
         secondary: 17,
+        footnotes: [
+            {
+                "word": [
+                    "hazing"
+                ],
+                "paragraph": 1
+            },
+            {
+                "word": [
+                    "Yamashita"
+                ],
+                "paragraph": 3
+            },
+            {
+                "word": [
+                    "hibernation"
+                ],
+                "paragraph": 10
+            }
+        ],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
@@ -529,6 +563,31 @@ const fakeStorys = [
         slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer',
         primary: 2,
         secondary: 2,
+        footnotes: [
+            {
+                "word": [
+                    "rent"
+                ],
+                "paragraph": 1
+            },
+            {
+                "word": [
+                    "stations", 
+                ],
+                "paragraph": 6
+            },
+            {
+                "word": [
+                    "2022", "greenhouse"
+                ],
+                "paragraph": 10
+            }
+        ],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: "What happened to the lost, barking dog in East Vail?",
@@ -547,6 +606,12 @@ const fakeStorys = [
         slug: 'what-happened-to-the-barking-dog-in-east-vail',
         primary: 3,
         secondary: 1,
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: "Electric Avenue: The '80s MTV Experience comes to Beaver Creek Saturday",
@@ -565,6 +630,12 @@ const fakeStorys = [
         slug: 'electric-avenue-the-80s-mtv-experience-comes-to-beaver-creek-saturday',
         primary: 2,
         secondary: 3,
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: "Transportation authority is an opportunity to build for the future",
@@ -582,6 +653,12 @@ const fakeStorys = [
         slug: 'our-view-transportation-authority-is-an-opportunity-to-build-for-the-future',
         primary: 1,
         secondary: 1,
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: "Court appearance for prominent Vail real estate broker continued",
@@ -598,6 +675,12 @@ const fakeStorys = [
         slug: 'court-appearance-for-prominent-vail-real-estate-broker-continued',
         primary: 3,
         secondary: 2,
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: "Frisco’s Jay Irwin shares harrowing backcountry experience to inspire adventurers to do good",
@@ -615,6 +698,12 @@ const fakeStorys = [
         slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good',
         primary: 2,
         secondary: 2,
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: '‘Lost Boy’ Marty Koether returns for 60th anniversary of incident',
@@ -636,7 +725,13 @@ const fakeStorys = [
         led: 'For Marty Koether, the namesake for Vail Mountain’s “Lost Boy” run, his dreams from April 1, 1964, are still vivid.',
         slug: 'lost-boy-marty-koether-returns-for-60th-anniversary',
         primary: '5',
-        secondary: '19'
+        secondary: '19',
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
       },
       {
         title: 'Ur-Fascism',
@@ -658,7 +753,13 @@ const fakeStorys = [
         led: 'In 1942, at the age of ten, I received the First Provincial Award of Ludi Juveniles (a voluntary, compulsory competition for young Italian Fascists — that is, for every young Italian).',
         slug: 'umberto-eco-ur-fascism',
         primary: '2',
-        secondary: '9'
+        secondary: '9',
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
     },
     {
         title: 'Glizzys, Glam, and Gargantuan Gonads',
@@ -688,7 +789,13 @@ const fakeStorys = [
         primary: '6',
         secondary: '11',
         breakingFlag: true,
-        breakingHeadline: 'Hotdogs for everyone?'
+        breakingHeadline: 'Hotdogs for everyone?',
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
     }
 ]
 

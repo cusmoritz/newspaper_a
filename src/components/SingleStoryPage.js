@@ -41,6 +41,7 @@ export const SingleStoryPage = () => {
             const req = await fetchSinglePageStory(storyId);
             if (req){
                 setStory(req);
+                console.log('story', req)
                 setBreadcrumbs(req.category);
                 setPageView(req.page_views)
                 updatePageViewsOnLoad(req.story_id);

@@ -43,6 +43,8 @@ const createDatabase = async() => {
             story_text TEXT[] NOT NULL,
             story_author INTEGER REFERENCES authors(author_id) NOT NULL,
             story_slug TEXT NOT NULL,
+            footnote_urls TEXT[],
+            footnote_words JSON,
             story_active_flag BOOLEAN DEFAULT true,
             original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_update_author INT,

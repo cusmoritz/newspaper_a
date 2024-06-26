@@ -81,7 +81,7 @@ export const CreateStory = () => {
         console.log('array of arrays?', hyperlinkWord)
         console.log('still story text', paragraphs)
         setFootnoteWords(hyperlinkWord)
-        
+        console.log('footnotes? ', footnotes)
         //const bracketsOut = storyText.match(/\[(.*?)\]/g);
         //console.log('what', noBreaks)
         //console.log('urls?', bracketsOut)
@@ -212,14 +212,6 @@ export const CreateStory = () => {
       //   setFootnotes(...footnotes, anotherFootnote)
       // }
 
-      // const Footnotes = () => {
-      //   for (let i = 0; i <= footnotes.length; i++){
-      //     console.log('footnote', footnotes[i].value)
-      //     return (
-      //       <input onChange={(e) => console.log('e', e)}></input>
-      //     )
-      //   }
-
       // }
 
     return (
@@ -278,7 +270,7 @@ export const CreateStory = () => {
                 <button className="story-format-tips" onClick={() => parseStoryText(story)}>Format tips</button>
                 {/* <Modal state={showModal}/> */}
 
-                <label htmlFor="footnotes-input" className="tooltip">Footnotes:
+                <label htmlFor="footnotes-input" className="tooltip">Footnote URLs:
                   <span className="tooltiptext">To add a new footnote input, click the button. These are automatically linked -- IN ORDER -- to the link tags in your story.
                   </span>
                 </label>
@@ -290,7 +282,7 @@ export const CreateStory = () => {
                 <input value={footnoteUrl} onChange={(e) => setFootnoteURL(e.target.value)}></input>
 
 
-                <button onClick={() => setFootnotes([...footnotes, footnoteUrl])}>Add Footnote</button>
+                <button onClick={() => setFootnotes([...footnotes, footnoteUrl])}>Add Footnote URL</button>
                 <div>
                   {footnotes.length > 0 ? <h3>Entered footnotes: </h3> : null}
                   {footnotes.map((footnote, index) => {

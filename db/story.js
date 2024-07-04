@@ -100,7 +100,7 @@ const retreiveTags = async (storyId) => {
         ORDER BY tag_id ASC
         ;
     `, [storyId]);
-    //console.log('tags get', tags);
+    console.log('tags get', tags);
     return tags;
 }
 
@@ -790,6 +790,43 @@ const fakeStorys = [
         secondary: '13',
         breakingFlag: true,
         breakingHeadline: 'Hotdogs for everyone?',
+        footnotes: [],
+        footnoteURLs: [
+            "www.google.com",
+            "www.facebook.com",
+            "www.arstechnica.com"
+        ]
+    },
+    {
+        title: 'Election Summary Report 2023 Larimer County Coordinated Election',
+        subhead: 'Summary for: All Contests, All Districts, All Tabulators, All Counting Groups Official Results. November 7, 2023',
+        story: [
+            "City of Fort Collins Mayor",
+            "Candidate Party Total",
+            "Jeni Arndt 34,950",
+            "Total Votes 37,861",
+            "Total",
+            "Patricia K. Babbitt WRITE-IN 2,911",
+            "City of Loveland Mayor",
+            "Candidate Party Total",
+            "Jacki Marsh 14,132",
+            "Don Overcash 9,009",
+            "Janice Ververs 4,801",
+            "Total Votes 27,942",
+            "City of Fort Collins City Council - District 2",
+            "Candidate Party Total",
+            "Eric Hamrick 3,364",
+            "Julie Pignataro 4,229",
+            "Total Votes 7,593"
+        ],
+        tags: [ 'elections', '2023', 'mayor', 'general elections', 'election summary' ],
+        author: '2',
+        led: "Total votes counted in Larimer County is 125,341.'",
+        slug: "2023-election-summary",
+        primary: '2',
+        secondary: '6',
+        breakingFlag: false,
+        breakingHeadline: null,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",

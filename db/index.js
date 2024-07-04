@@ -71,13 +71,13 @@ const createDatabase = async() => {
             source_id SERIAL PRIMARY KEY,
             source_name VARCHAR(300),
             source_phone_num INT,
-            source_race INT, -- REFERENCES srouce_identity table
+            source_race INT, -- REFERENCES source_identity table
             source_age INT,
             source_elected_official BOOLEAN NOT NULL DEFAULT FALSE,
             source_occupation VARCHAR(300),
             source_original_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
             source_most_recent_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
-            cource_polic_office BOOLEAN NOT NULL DEFAULT FALSE
+            source_police_officer BOOLEAN NOT NULL DEFAULT FALSE
         );
 
         CREATE TABLE IF NOT EXISTS story_meta (
@@ -139,15 +139,19 @@ const destroyDatabase = async () => {
     }
 }
 
-const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
-// here for testing
-{firstN: "marcus", lastN: "moritz", email: "marcus@thetooth.com", public_role: "editor", internal_role: 0},
-{firstN: "john", lastN: "laconte", email: "john@thetooth.com", public_role: "writer", internal_role: 2},
-{firstN: "ross", lastN: "leonhart", email: "ross@thetooth.com", public_role: "assistant editor", internal_role: 0},
-{firstN: "jaron", lastN: "jaron", email: "jaron@thetooth.com", public_role: "intern", internal_role: 3},
-{firstN: "scott", lastN: "miller", email: "scott@thetooth.com", public_role: "business writer", internal_role: 2},
-{firstN: "ricky", lastN: "martinez", email: "ricky@thetooth.com", public_role: "music writer", internal_role: 2}
-]
+// const authors = [ //internal role: 0 = admin, 1 = editor, 2 = writer, 3 = other?
+// // here for testing
+// {firstN: "marcus", lastN: "moritz", email: "marcus@thetooth.com", public_role: "editor", internal_role: 0},
+// {firstN: "john", lastN: "laconte", email: "john@thetooth.com", public_role: "writer", internal_role: 2},
+// {firstN: "ross", lastN: "leonhart", email: "ross@thetooth.com", public_role: "assistant editor", internal_role: 0},
+// {firstN: "jaron", lastN: "jaron", email: "jaron@thetooth.com", public_role: "intern", internal_role: 3},
+// {firstN: "scott", lastN: "miller", email: "scott@thetooth.com", public_role: "business writer", internal_role: 2},
+// {firstN: "ricky", lastN: "martinez", email: "ricky@thetooth.com", public_role: "music writer", internal_role: 2}
+// ];
+
+// const fakeSources = [
+
+// ];
 
 destroyDatabase();
 createDatabase();

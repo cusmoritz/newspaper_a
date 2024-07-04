@@ -1,5 +1,5 @@
 const {client} = require('./index.js');
-console.log('client', client);
+
 ////////////////// SOURCE FUNCTIONS ////////////////
 
 const createNewSource = async (sourceObj) => {
@@ -35,15 +35,15 @@ const createNewSource = async (sourceObj) => {
         RETURNING *
         ;
         `, [sourceObj.sourceName, sourceObj.sourcePhone, sourceObj.sourceRace, sourceObj.sourceAge, sourceObj.sourceElectedBool, sourceObj.sourceOccupation, sourceObj.sourceOgContactDate, sourceObj.sourceMostRecentContactDate, sourceObj.sourcePoliceBool]);
-        console.log('input', input)
-        return sources;
+        //console.log('input', input)
+        return input;
     } catch (error) {
         console.log('there was a database error creating a new source.');
         throw error;
     }
 };
 
-const getOneSource = (sourceId) => {
+const getOneSource = async (sourceId) => {
     try {
         const {rows: source} = await client.query(`
             SELECT * FROM sources
@@ -57,7 +57,7 @@ const getOneSource = (sourceId) => {
     }
 };
 
-const getAllSources = () => {
+const getAllSources = async () => {
     try {
         const {rows: allSources} = await client.query(`
         SELECT * FROM sources
@@ -69,7 +69,7 @@ const getAllSources = () => {
     }
 };
 
-const updateSourceContactDate = (sourceId, date) => {
+const updateSourceContactDate = async (sourceId, date) => {
     try {
         const {rows: updatedSource} = await client.query(`
         UPDATE sources.source_most_recent_contact_date
@@ -85,7 +85,7 @@ const updateSourceContactDate = (sourceId, date) => {
     }
 };
 
-const updateSourcePhoneNumber = (sourceId, newPhone) => {
+const updateSourcePhoneNumber = async (sourceId, newPhone) => {
     try {
         const {rows: updatedSource} = await client.query(`
         UPDATE sources.source_phone_num
@@ -101,7 +101,7 @@ const updateSourcePhoneNumber = (sourceId, newPhone) => {
     }
 };
 
-const updateSourceOccupation = (sourceId, newOccupation) => {
+const updateSourceOccupation = async (sourceId, newOccupation) => {
     try {
         const {rows: updatedSource} = await client.query(`
         UPDATE sources
@@ -110,9 +110,9 @@ const updateSourceOccupation = (sourceId, newOccupation) => {
         RETURNING *
         ;
 
-        UPDATE sources.source_occupation
+        UPDATE sources
+        SET source_occupation = $2
         WHERE source_id = $1
-        VALUES ($2)
         RETURNING *
         ;
         `, [sourceId, newOccupation]);
@@ -121,20 +121,35 @@ const updateSourceOccupation = (sourceId, newOccupation) => {
         console.log('there was a database error updating a source occupation');
         throw error;
     }
-}
+};
+
+const updateSourceElectedOfficial = async (sourceId, bool) => {
+    try {
+        const {rows: updatedSource} = await client.query(`
+        UPDATE sources
+        SET source_elected_official = $2
+        WHERE source_id = $1
+        RETURNING *
+        ;
+        `, [sourceId, bool]);
+        return updatedSource;
+    } catch (error) {
+        console.log('there was a database error updating a source elected status');
+        throw error;
+    }
+};
 
 const fakeSources = [
-    {sourceName: "Phillip Jones", sourcePhone: "6302548974", sourceRace: 1, sourceAge: 45, sourceElectedBool: true, sourceOccupation: "City Manager", sourceOgContactDate: Date.now() - 8, sourceMostRecentContactDate: Date.now() - 4, sourcePoliceBool: false},
-    {sourceName: "Elizabeth Holmes", sourcePhone: "6305986548", sourceRace: 3, sourceAge: 27, sourceElectedBool: false, sourceOccupation: "Resident", sourceOgContactDate: Date.now() - 1, sourceMostRecentContactDate: Date.now(), sourcePoliceBool: false},
-    {sourceName: "Hernandez Smith", sourcePhone: "3016598521", sourceRace: 2, sourceAge: 19, sourceElectedBool: false, sourceOccupation: "Student", sourceOgContactDate: Date.now() - 101, sourceMostRecentContactDate: Date.now() - 1, sourcePoliceBool: false},
-    {sourceName: "Andrew Seymore-Hoffman", sourcePhone: "805321654", sourceRace: 1, sourceAge: 87, sourceElectedBool: true, sourceOccupation: "Opperations Manager", sourceOgContactDate: Date.now(), sourceMostRecentContactDate: Date.now(), sourcePoliceBool: true},
-    {sourceName: "Shaley Madison", sourcePhone: "6309584521", sourceRace: 4, sourceAge: 31, sourceElectedBool: true, sourceOccupation: "County Clerk", sourceOgContactDate: Date.now() - 10, sourceMostRecentContactDate: Date.now() - 10, sourcePoliceBool: false},
-    {sourceName: "Diane Huxley", sourcePhone: "9065687453", sourceRace: 1, sourceAge: 25, sourceElectedBool: false, sourceOccupation: "Business Manager", sourceOgContactDate: Date.now() - 4, sourceMostRecentContactDate: Date.now() - 1, sourcePoliceBool: true},
-
-]
+    {sourceName: "Phillip Jones", sourcePhone: "6302548974", sourceRace: 1, sourceAge: 45, sourceElectedBool: true, sourceOccupation: "City Manager", sourceOgContactDate: '2001-09-28', sourceMostRecentContactDate: '2024-09-28', sourcePoliceBool: false},
+    {sourceName: "Elizabeth Holmes", sourcePhone: "6305986548", sourceRace: 3, sourceAge: 27, sourceElectedBool: false, sourceOccupation: "Resident", sourceOgContactDate: '2024-05-15', sourceMostRecentContactDate: '2024-06-15', sourcePoliceBool: false},
+    {sourceName: "Hernandez Smith", sourcePhone: "3016598521", sourceRace: 2, sourceAge: 19, sourceElectedBool: false, sourceOccupation: "Student", sourceOgContactDate: '2024-06-15', sourceMostRecentContactDate: '2024-08-01', sourcePoliceBool: false},
+    {sourceName: "Andrew Seymore-Hoffman", sourcePhone: "805321654", sourceRace: 1, sourceAge: 87, sourceElectedBool: true, sourceOccupation: "Opperations Manager", sourceOgContactDate: '2024-08-01', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: true},
+    {sourceName: "Shaley Madison", sourcePhone: "6309584521", sourceRace: 4, sourceAge: 31, sourceElectedBool: true, sourceOccupation: "County Clerk", sourceOgContactDate: '2024-07-04', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: false},
+    {sourceName: "Diane Huxley", sourcePhone: "9065687453", sourceRace: 1, sourceAge: 25, sourceElectedBool: false, sourceOccupation: "Business Manager", sourceOgContactDate: '2024-07-04', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: true}
+];
 
 const createFakeSources = (sourceArray) => {
-    console.log('we are creating sources')
+    //console.log('we are creating sources')
     sourceArray.forEach(source => {
         createNewSource(source);
         //console.log('source', source)
@@ -150,6 +165,7 @@ module.exports = {
     updateSourceContactDate,
     updateSourcePhoneNumber,
     updateSourceOccupation,
+    updateSourceElectedOfficial,
     // createFakeSources,
     // fakeSources,
 };

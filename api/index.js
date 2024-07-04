@@ -26,6 +26,7 @@ server.listen(port, () => {
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
 const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory, addPageView} = require('../db/story');
+const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial} = require ('../db/sources');
 
 server.use((request, response, next) => {
     console.log('request.method: ', request.method);

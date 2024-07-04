@@ -43,11 +43,82 @@ const createNewSource = async (sourceObj) => {
     }
 };
 
-const getOneSource = () => {
+const getOneSource = (sourceId) => {
     try {
-        
+        const {rows: source} = await client.query(`
+            SELECT * FROM sources
+            WHERE source_id = $1
+            ;
+        `, [sourceId]);
+        return source;
     } catch (error) {
         console.log('there was a database error fetching one source');
+        throw error;
+    }
+};
+
+const getAllSources = () => {
+    try {
+        const {rows: allSources} = await client.query(`
+        SELECT * FROM sources
+        ;
+        `)
+    } catch (error) {
+        console.log('there was a database error fetching all sources');
+        throw error;
+    }
+};
+
+const updateSourceContactDate = (sourceId, date) => {
+    try {
+        const {rows: updatedSource} = await client.query(`
+        UPDATE sources.source_most_recent_contact_date
+        WHERE source_id = $1
+        VALUES ($2)
+        RETURNING *
+        ;
+        `, [sourceId, date]);
+        return updatedSource;
+    } catch (error) {
+        console.log('there was a database error updating a contact date');
+        throw error;
+    }
+};
+
+const updateSourcePhoneNumber = (sourceId, newPhone) => {
+    try {
+        const {rows: updatedSource} = await client.query(`
+        UPDATE sources.source_phone_num
+        WHERE source_id = $1
+        VALUES ($2)
+        RETURNING *
+        ;
+        `, [sourceId, newPhone]);
+        return updatedSource;
+    } catch (error) {
+        console.log('there was a datebase error updating a source phone number');
+        throw error;      
+    }
+};
+
+const updateSourceOccupation = (sourceId, newOccupation) => {
+    try {
+        const {rows: updatedSource} = await client.query(`
+        UPDATE sources
+        SET source_previous_occupation = array_append(source_previous_occupation, $2)
+        WHERE source_id = $1
+        RETURNING *
+        ;
+
+        UPDATE sources.source_occupation
+        WHERE source_id = $1
+        VALUES ($2)
+        RETURNING *
+        ;
+        `, [sourceId, newOccupation]);
+        return updatedSource;
+    } catch (error) {
+        console.log('there was a database error updating a source occupation');
         throw error;
     }
 }
@@ -74,6 +145,11 @@ createFakeSources(fakeSources);
 
 module.exports = {
     createNewSource,
+    getOneSource,
+    getAllSources,
+    updateSourceContactDate,
+    updateSourcePhoneNumber,
+    updateSourceOccupation,
     // createFakeSources,
     // fakeSources,
 };

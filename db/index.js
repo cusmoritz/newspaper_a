@@ -78,7 +78,8 @@ const createDatabase = async() => {
             source_occupation VARCHAR(300),
             source_original_contact_date DATE DEFAULT CURRENT_DATE,
             source_most_recent_contact_date DATE DEFAULT CURRENT_DATE,
-            source_police_officer BOOLEAN NOT NULL DEFAULT FALSE
+            source_police_officer BOOLEAN NOT NULL DEFAULT FALSE,
+            source_previous_occupation VARCHAR[]
         );
 
         CREATE TABLE IF NOT EXISTS story_meta (

@@ -62,6 +62,24 @@ const createDatabase = async() => {
             orig_photog INT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS source_ethnicity (
+            ethnicity_id SERIAL PRIMARY KEY,
+            ethnicity_name VARCHAR(200)
+        );
+
+        CREATE TABLE IF NOT EXISTS sources (
+            source_id SERIAL PRIMARY KEY,
+            source_name VARCHAR(300),
+            source_phone_num INT,
+            source_race INT, -- REFERENCES srouce_identity table
+            source_age INT,
+            source_elected_official BOOLEAN NOT NULL DEFAULT FALSE,
+            source_occupation VARCHAR(300),
+            source_original_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
+            source_most_recent_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
+            cource_polic_office BOOLEAN NOT NULL DEFAULT FALSE
+        );
+
         CREATE TABLE IF NOT EXISTS story_meta (
             story_meta_id SERIAL PRIMARY KEY,
             story_main_id INTEGER REFERENCES storys(story_id) NOT NULL,
@@ -71,7 +89,8 @@ const createDatabase = async() => {
             story_updated_by INT,
             story_update_date DATE,
             primary_cat INTEGER REFERENCES primary_catagories(primary_catagory_id) NOT NULL DEFAULT 0,
-            secondary_cat INTEGER REFERENCES secondary_catagories(secondary_catagory_id) DEFAULT NULL
+            secondary_cat INTEGER REFERENCES secondary_catagories(secondary_catagory_id) DEFAULT NULL,
+            source_list INT[]
         );
 
         CREATE TABLE IF NOT EXISTS error_log (
@@ -110,6 +129,7 @@ const destroyDatabase = async () => {
         DROP TABLE IF EXISTS authors;
         DROP TABLE IF EXISTS secondary_catagories;
         DROP TABLE IF EXISTS primary_catagories;
+        DROP TABLE IF EXISTS sources;
 
         `, [])
         console.log('done destroying db...');

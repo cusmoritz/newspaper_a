@@ -1,5 +1,6 @@
 const {Client} = require('pg');
 const { DATABASE_URL = 'postgres://localhost:5432' } = process.env;
+//const {createFakeSources, fakeSources} = require('./sources')
 // Create a client for connecting to the server.
 const client = new Client({
     connectionString: DATABASE_URL,
@@ -70,13 +71,13 @@ const createDatabase = async() => {
         CREATE TABLE IF NOT EXISTS sources (
             source_id SERIAL PRIMARY KEY,
             source_name VARCHAR(300),
-            source_phone_num INT,
+            source_phone_num VARCHAR(10),
             source_race INT, -- REFERENCES source_identity table
             source_age INT,
             source_elected_official BOOLEAN NOT NULL DEFAULT FALSE,
             source_occupation VARCHAR(300),
-            source_original_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
-            source_most_recent_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
+            source_original_contact_date DATE DEFAULT CURRENT_DATE,
+            source_most_recent_contact_date DATE DEFAULT CURRENT_DATE,
             source_police_officer BOOLEAN NOT NULL DEFAULT FALSE
         );
 
@@ -153,9 +154,20 @@ const destroyDatabase = async () => {
 
 // ];
 
+// const fakeSources = [
+//     {sourceName: "Phillip Jones", sourcePhone: "6302548974", sourceRace: 1, sourceAge: 45, sourceElectedBool: true, sourceOccupation: "City Manager", sourceOgContactDate: Date.now() - 8, sourceMostRecentContactDate: Date.now() - 4, sourcePoliceBool: false},
+//     {sourceName: "Elizabeth Holmes", sourcePhone: "6305986548", sourceRace: 3, sourceAge: 27, sourceElectedBool: false, sourceOccupation: "Resident", sourceOgContactDate: Date.now() - 1, sourceMostRecentContactDate: Date.now(), sourcePoliceBool: false},
+//     {sourceName: "Hernandez Smith", sourcePhone: "3016598521", sourceRace: 2, sourceAge: 19, sourceElectedBool: false, sourceOccupation: "Student", sourceOgContactDate: Date.now() - 101, sourceMostRecentContactDate: Date.now() - 1, sourcePoliceBool: false},
+//     {sourceName: "Andrew Seymore-Hoffman", sourcePhone: "805321654", sourceRace: 1, sourceAge: 87, sourceElectedBool: true, sourceOccupation: "Opperations Manager", sourceOgContactDate: Date.now(), sourceMostRecentContactDate: Date.now(), sourcePoliceBool: true},
+//     {sourceName: "Shaley Madison", sourcePhone: "6309584521", sourceRace: 4, sourceAge: 31, sourceElectedBool: true, sourceOccupation: "County Clerk", sourceOgContactDate: Date.now() - 10, sourceMostRecentContactDate: Date.now() - 10, sourcePoliceBool: false},
+//     {sourceName: "Diane Huxley", sourcePhone: "9065687453", sourceRace: 1, sourceAge: 25, sourceElectedBool: false, sourceOccupation: "Business Manager", sourceOgContactDate: Date.now() - 4, sourceMostRecentContactDate: Date.now() - 1, sourcePoliceBool: true},
+
+// ]
+
 destroyDatabase();
 createDatabase();
-//insertAuthors(authors);
+//insertAuthors(authors)
+//createFakeSources(fakeSources);
 
 module.exports = {
     client,

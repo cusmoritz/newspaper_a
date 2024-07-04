@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { fetchPrimaryCatStories } from "../api";
 import { useParams } from "react-router-dom";
+import { Story } from "./Story";
+import { FrontPageStory } from "./FrontPageStory";
 
 export const ElectionCategoryPage = () => {
     // we gotta go get stories for the elections page
@@ -20,6 +22,7 @@ export const ElectionCategoryPage = () => {
     const fetchPrimaryStories = async () => {
         const catStories = await fetchPrimaryCatStories(primary);
         if (catStories) {
+            console.log('election stories?', catStories)
             setStories(catStories)
         };
     };
@@ -37,6 +40,14 @@ export const ElectionCategoryPage = () => {
     return (
         <>
         <h1>This is the elections main page.</h1>
+        {!stories ? null : 
+        stories.map((story) => {
+            console.log('story', story)
+            return (
+                <FrontPageStory props={story}/>
+            )
+        })
+        }
         </>
     )
 };

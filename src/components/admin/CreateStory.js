@@ -360,7 +360,7 @@ export const CreateStory = () => {
                 {/* TODO: Add ability to publish later */}
 
             </div>
-            <button onClick={() => parseStoryText(story)}>Submit new story</button>
+            <button onClick={() => submitStory(story)}>Submit new story</button>
         </div>
     );
 };

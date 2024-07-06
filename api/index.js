@@ -299,7 +299,24 @@ server.post('/api/admin/story/submitnewstory', async (request, response, next) =
 //     }
 // });
 
-
+///////////////////// SOURCE FUNCTIONS ///////////////////////
+server.post(`/api/admin/source/newsource`, async (request, response, next) => {
+  try {
+    const sourceObj = request.body;
+    if (!sourceObj.sourceMostRecentContactDate) {
+      sourceObj.sourceMostRecentContactDate = Date.now();
+    }
+    if (sourceObj) {
+      const newSourceDb = await createNewSource(sourceObj);
+      response.send(newSourceDb).status(200);
+    } else {
+      response.send().status(500);
+    }
+  } catch (error) {
+    console.log('there was a server error creating a new source');
+    throw error;
+  }
+})
 
 server.get('/api/health', async (request, response, next) => {
     try {

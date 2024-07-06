@@ -282,6 +282,26 @@ export const fetchOneStoryStats = async(storyId) => {
     }
 };
 
+//////////////////////// ADMIN SOURCE FUNCTIONS ///////////////
+
+export const submitNewSource = async (newSource) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/admin/source/newsource`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sourceObj: newSource,
+            })
+        });
+        return request;
+    } catch (error) {
+        console.log('there was a client error submitting a new source');
+        throw error;
+    }
+}
+
 
 
 

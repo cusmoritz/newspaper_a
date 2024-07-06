@@ -19,6 +19,7 @@ import {ImageUpload} from './components/admin/ImageUpload';
 import { ShopHeader } from './components/shop/ShopHeader';
 import { ShopHome } from './components/shop/ShopHome';
 import { ElectionCategoryPage } from './components/ElectionCategoryPage';
+import { CreateSource } from './components/admin/CreateSource';
 
 const App = () => {
 
@@ -56,6 +57,7 @@ const App = () => {
                         <Route path="/storystats" element={<StoryStats/>} />
                         <Route path="/authorpage" element={<AuthorPage/>} />
                         <Route path="/image-upload" element={<ImageUpload />} />
+                        <Route path="/create-source" element={<CreateSource />}></Route>
                     </Routes>
                 <Footer />
                 </div>

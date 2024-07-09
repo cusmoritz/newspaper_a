@@ -299,8 +299,24 @@ export const submitNewSource = async (newSource) => {
     } catch (error) {
         console.log('there was a client error submitting a new source');
         throw error;
+    };
+};
+
+export const fetchCurrentSources = async () => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/admin/sources/all`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const sources = await request.json();
+        return sources;
+    } catch (error) {
+        console.log('there was a client error fetching current sources');
+        throw error;
     }
-}
+};
 
 
 

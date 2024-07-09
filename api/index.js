@@ -316,7 +316,22 @@ server.post(`/api/admin/source/newsource`, async (request, response, next) => {
     console.log('there was a server error creating a new source');
     throw error;
   }
-})
+});
+
+server.get('/api/admin/sources/all', async (request, response, next) => {
+  try {
+    const currentSources = await getAllSources();
+    if (currentSources) {
+      // const newSourceDb = await createNewSource(sourceObj);
+      response.send(currentSources).status(200);
+    } else {
+      response.send().status(500);
+    }
+  } catch (error) {
+    console.log('there was a server error fetching all sources');
+    throw error;
+  }
+});
 
 server.get('/api/health', async (request, response, next) => {
     try {

@@ -62,7 +62,8 @@ const getAllSources = async () => {
         const {rows: allSources} = await client.query(`
         SELECT * FROM sources
         ;
-        `)
+        `);
+        return allSources;
     } catch (error) {
         console.log('there was a database error fetching all sources');
         throw error;

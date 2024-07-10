@@ -15,10 +15,6 @@ const createNewSource = async (sourceObj) => {
     // source_police_officer BOOLEAN NOT NULL DEFAULT FALSE
 
     try {
-        if (!sourceObj.source_original_contact_date) {
-            sourceObj.source_original_contact_date = Date.now();
-        };
-
         const {rows: input} = await client.query(`
         INSERT INTO sources (
             source_name, 

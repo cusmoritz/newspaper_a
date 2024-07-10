@@ -302,9 +302,21 @@ server.post('/api/admin/story/submitnewstory', async (request, response, next) =
 ///////////////////// SOURCE FUNCTIONS ///////////////////////
 server.post(`/api/admin/source/newsource`, async (request, response, next) => {
   try {
-    const sourceObj = request.body;
+    const {sourceObj} = request.body;
+
     if (!sourceObj.sourceMostRecentContactDate) {
-      sourceObj.sourceMostRecentContactDate = Date.now();
+      let year = new Date().getFullYear().toString();
+      let month = new Date().getMonth().toString();
+      let day = new Date().getDate().toString();
+      let dateString = `${year}-${month}-${day}`;
+      sourceObj.sourceMostRecentContactDate = dateString;
+    }
+    if (!sourceObj.sourceOgContactDate) {
+      let year = new Date().getFullYear().toString();
+      let month = new Date().getMonth().toString();
+      let day = new Date().getDate().toString();
+      let dateString = `${year}-${month}-${day}`;
+      sourceObj.sourceOgContactDate = dateString;
     }
     if (sourceObj) {
       const newSourceDb = await createNewSource(sourceObj);

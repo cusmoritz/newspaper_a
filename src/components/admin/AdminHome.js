@@ -11,7 +11,6 @@ export const AdminHome = (props) => {
     //     checkForAdminPrivledge();
     // }, []);
 
-    console.log(props)
     return (
         <div className="admin-home-container">
             <h1>Admin page</h1>

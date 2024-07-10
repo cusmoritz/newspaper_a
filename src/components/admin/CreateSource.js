@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { fetchCurrentSources } from "../../api";
+import { EditSourceComponent } from "./EditSourceComponent";
+import { submitNewSource } from "../../api";
 
 export const CreateSource = () => {
     
@@ -13,13 +15,21 @@ export const CreateSource = () => {
     const [sourcePoliceBool, setOfficer] = useState(false);
     const [sourcePhone, setPhoneNum] = useState("");
     const [sourceOgContactDate, setOgContactDate] = useState("");
+    const [sourceRecentContactDate, setSourceRecentContactDate] = useState("");
     const [createBool, setCreateBool] = useState(false);
+    const [editBool, setEditBool] = useState(false);
     const [allSources, setAllSources] = useState([]);
+    const [sourceObj, setSourceObj] = useState({});
 
-    const submitNewSource = async () => {
+    const createNewSource = async () => {
         const sourceName = `${firstName} ${lastName}`;
-        const newSource = await createNewSource({sourceName, sourceOccupation, sourceRace, sourceAge, sourceElectedBool, sourcePoliceBool, sourcePhone});
+        const newSource = await submitNewSource({sourceName, sourceOccupation, sourceRace, sourceAge, sourceElectedBool, sourcePoliceBool, sourcePhone});
         return newSource;
+    };
+
+    const editSource = (sourceObj) => {
+        setEditBool(true)
+        setSourceObj(sourceObj);
     }
 
     const fetchAllCurrentSources = async () => {
@@ -29,8 +39,6 @@ export const CreateSource = () => {
             console.log('sources', currentSources);
         }
     };
-
-    //const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     
     const loadPage = async () => {
         fetchAllCurrentSources();
@@ -42,29 +50,37 @@ export const CreateSource = () => {
 
     return (
         <>
+        {editBool === false ? null : <EditSourceComponent sourceObj={sourceObj} editBool={editBool} setEditBool={setEditBool}/>}
         <h1>This is the create source page.</h1>
         <label>Create a new source</label>
-        <fieldset>
-            <label htmlFor="source-first-name">First name:</label>
-            <input className="source-first-name" value={firstName} onChange={(event) => {setFirstName(event.target.value)}}></input>
-            <label htmlFor="source-last-name">Last name:</label>
-            <input className="source-last-name" value={lastName} onChange={(event) => {setLastName(event.target.value)}}></input>
-            <label htmlFor="source-occupation">Occupation:</label>
-            <input className="source-occupation" value={sourceOccupation} onChange={(event) => {setOccuaption(event.target.value)}}></input>
-            {/* <label htmlFor="phone-number">Phone number</label>
-            <input className="phone-number"></input> */}
-            <label htmlFor="source-race">Race / Ethnicity</label>
-            <input className="source-race" value={sourceRace} onChange={(event) => {setRace(event.target.value)}}></input>
-            <label htmlFor="source-age">Age</label>
-            <input className="source-age" type="number" value={sourceAge} onChange={(event) => {setAge(event.target.value)}}></input>
-            <label htmlFor="source-elected">Elected Official</label>
-            <input className="source-elected" type="checkbox" value={sourceElectedBool} onChange={(event) => {setElected(event.target.value)}}></input>
-            <label htmlFor="source-police">Police Officer?</label>
-            <input className="source-police" type="checkbox" value={sourcePoliceBool} onChange={(event) => {setOfficer(event.target.value)}}></input>
-            <label htmlFor="source-phone">Phone number</label>
-            <input className="source-phone" type="number" value={sourcePhone} onChange={(event) => {setPhoneNum(event.target.value)}}></input>
-        </fieldset>
-        <button onClick={submitNewSource}>Submit Source</button>
+        {editBool === true ? null : 
+            <fieldset>
+                <label htmlFor="source-first-name">First name:</label>
+                <input className="source-first-name" value={firstName} onChange={(event) => {setFirstName(event.target.value)}}></input>
+                <label htmlFor="source-last-name">Last name:</label>
+                <input className="source-last-name" value={lastName} onChange={(event) => {setLastName(event.target.value)}}></input>
+                <label htmlFor="source-occupation">Occupation:</label>
+                <input className="source-occupation" value={sourceOccupation} onChange={(event) => {setOccuaption(event.target.value)}}></input>
+                {/* <label htmlFor="phone-number">Phone number</label>
+                <input className="phone-number"></input> */}
+                <label htmlFor="source-race">Race / Ethnicity</label>
+                <input className="source-race" value={sourceRace} onChange={(event) => {setRace(event.target.value)}}></input>
+                <label htmlFor="source-age">Age</label>
+                <input className="source-age" type="number" value={sourceAge} onChange={(event) => {setAge(event.target.value)}}></input>
+                <label htmlFor="source-elected">Elected Official</label>
+                <input className="source-elected" type="checkbox" value={sourceElectedBool} onChange={(event) => {setElected(event.target.value)}}></input>
+                <label htmlFor="source-police">Police Officer?</label>
+                <input className="source-police" type="checkbox" value={sourcePoliceBool} onChange={(event) => {setOfficer(event.target.value)}}></input>
+                <label htmlFor="source-phone">Phone number</label>
+                <input className="source-phone" type="number" value={sourcePhone} onChange={(event) => {setPhoneNum(event.target.value)}}></input>
+                <label htmlFor="most-recent-contact">Select the most recent contact date.</label>
+                <input type="date" className="most-recent-contact"/>
+                <label htmlFor="original-date-checkbox">Check this box if the 'Most Recent Contact Date' is also the first time this person has been contacted for a story.</label>
+                <input className="original-date-checkbox" type="checkbox"/>
+                <button onClick={createNewSource}>Submit Source</button>
+            </fieldset>
+        }
+
 
         {!allSources ? null : 
             allSources.map((source) => {
@@ -100,6 +116,7 @@ export const CreateSource = () => {
                 <div className="source-recent-date">{source.source_most_recent_contact_date}</div>
             <label htmlFor="source-original-date">Original Contact Date: </label>
                 <div className="source-original-date">{source.source_original_contact_date}</div>
+            <button onClick={(e) => {e.preventDefault(); editSource(source)}}>Edit Source</button>
             </fieldset>
             )
             })

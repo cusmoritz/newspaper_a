@@ -285,9 +285,10 @@ export const fetchOneStoryStats = async(storyId) => {
 //////////////////////// ADMIN SOURCE FUNCTIONS ///////////////
 
 export const submitNewSource = async (newSource) => {
+    console.log('new source', newSource)
     try {
         const request = await fetch(`${BASE_URL}/api/admin/source/newsource`, {
-            method: "GET",
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },

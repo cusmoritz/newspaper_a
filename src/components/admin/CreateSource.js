@@ -20,10 +20,11 @@ export const CreateSource = () => {
     const [editBool, setEditBool] = useState(false);
     const [allSources, setAllSources] = useState([]);
     const [sourceObj, setSourceObj] = useState({});
+    const [sourceLocation, setSourceLocation] = useState("");
 
     const createNewSource = async () => {
         const sourceName = `${firstName} ${lastName}`;
-        const newSource = await submitNewSource({sourceName, sourceOccupation, sourceRace, sourceAge, sourceElectedBool, sourcePoliceBool, sourcePhone});
+        const newSource = await submitNewSource({sourceName, sourceOccupation, sourceRace, sourceAge, sourceElectedBool, sourcePoliceBool, sourcePhone, sourceLocation});
         return newSource;
     };
 
@@ -73,6 +74,8 @@ export const CreateSource = () => {
                 <input className="source-police" type="checkbox" value={sourcePoliceBool} onChange={(event) => {setOfficer(event.target.value)}}></input>
                 <label htmlFor="source-phone">Phone number</label>
                 <input className="source-phone" type="number" value={sourcePhone} onChange={(event) => {setPhoneNum(event.target.value)}}></input>
+                <label htmlFor="source-location">Location (City, State):</label>
+                <input className="source-location" type="text" value={sourceLocation} onChange={(e) => {e.preventDefault(); setSourceLocation(e.target.value)}}></input>
                 <label htmlFor="most-recent-contact">Select the most recent contact date.</label>
                 <input type="date" className="most-recent-contact"/>
                 <label htmlFor="original-date-checkbox">Check this box if the 'Most Recent Contact Date' is also the first time this person has been contacted for a story.</label>

@@ -100,7 +100,7 @@ const retreiveTags = async (storyId) => {
         ORDER BY tag_id ASC
         ;
     `, [storyId]);
-    console.log('tags get', tags);
+    //console.log('tags get', tags);
     return tags;
 }
 
@@ -111,11 +111,11 @@ const createNewStory = async (storyInfo) => {
     storyInfo.footnotes = jsonFootnotes
     try {
         const {rows: story} = await client.query(`
-        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline, footnote_urls, footnote_words)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline, footnote_urls, footnote_words, sources_mentioned)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         RETURNING *
         ;
-        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes]);
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes, storyInfo.sourcesMentioned]);
 
         storyInfo.tags.forEach((tag) => { // this is ugly
             createTag(story[0].story_id, tag);
@@ -341,7 +341,8 @@ const fetchSinglePageStory = async (storyId) => {
         // get tags
         story[0].tags = await retreiveTags(storyId);
         story[0].category = await fetchSingleStoryCatSubCat(story[0].primary_cat, story[0].secondary_cat);
-        //console.log('story db  tags', story[0]);
+        story[0].sources = await fetchSourcesForOneStory(story[0].sources_mentioned)
+        //console.log('story db ', story[0]);
         return story[0];
 
     } catch (error) {
@@ -466,6 +467,29 @@ const createSecondary = async (subCat, primary) => {
     return secondary;
 };
 
+
+
+//////////////////////// SOURCE FUNCTIONS //////////////////
+const fetchSourcesForOneStory = async (sourceArray) => {
+    try {
+        //console.log('source array', sourceArray);
+        const sourceInfoArray = [];
+        for (let i = 0; i < sourceArray.length; i++) {
+            const {rows: [source]} = await client.query(`
+            SELECT * FROM sources
+            WHERE source_id = $1
+            ;
+            `,[sourceArray[i]]);
+            sourceInfoArray.push(source);
+        };
+        //console.log('source info array', sourceInfoArray)
+        return sourceInfoArray;
+    } catch (error) {
+        console.log('there was a database error fetching sources for that story');
+        throw error;
+    }
+}
+
 const fakePrimaries = ["NEWS", "ELECTIONS", "OPINION", "COLORADO", "SPORTS", "OUTDOORS", "ENTERTAINMENT"];
 
 const fakeSecondary = [{name: "Colorado", parent: 1}, {name: "Crime", parent: 1}, {name: "Obit", parent: 1}, {name: "Regional", parent: 1}, {name: "June 2024 Primaries", parent: 2}, {name: "November 2023 General", parent: 2}, {name: "NoCo", parent: 4}, {name: "Denver", parent: 4}, {name: "Editorial", parent: 3}, {name: "Letters", parent: 3}, {name: "Columns", parent: 3}, {name: "Events", parent: 7}, {name: "Food", parent: 7}, {name: "Football", parent: 5}, {name: "Hockey", parent: 5}, {name: "Baseball", parent: 5}, {name: "Soccer", parent: 5}, {name: "Hiking", parent: 6}, {name: "Public Lands", parent: 6}, {name: "Camping", parent: 6}, {name: "Backpacking", parent: 6},];
@@ -495,7 +519,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ], 
+        sourcesMentioned: [1,5]
       },
       {
         title: "Fearing for his life, Gypsum man kills troublesome bear that had eluded wildlife officials",
@@ -544,7 +569,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [3,5]
       },
       {
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
@@ -587,7 +613,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [6]
       },
       {
         title: "What happened to the lost, barking dog in East Vail?",
@@ -611,7 +638,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [1,2,3]
       },
       {
         title: "Electric Avenue: The '80s MTV Experience comes to Beaver Creek Saturday",
@@ -635,7 +663,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [6,1,5]
       },
       {
         title: "Transportation authority is an opportunity to build for the future",
@@ -658,7 +687,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [1,2,3,4,5,6]
       },
       {
         title: "Court appearance for prominent Vail real estate broker continued",
@@ -680,7 +710,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [6,3,4]
       },
       {
         title: "Frisco’s Jay Irwin shares harrowing backcountry experience to inspire adventurers to do good",
@@ -703,7 +734,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [4,2]
       },
       {
         title: '‘Lost Boy’ Marty Koether returns for 60th anniversary of incident',
@@ -731,7 +763,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [5]
       },
       {
         title: 'Ur-Fascism',
@@ -759,7 +792,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [4,6,2]
     },
     {
         title: 'Glizzys, Glam, and Gargantuan Gonads',
@@ -795,7 +829,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: []
     },
     {
         title: 'Election Summary Report 2023 Larimer County Coordinated Election',
@@ -832,7 +867,8 @@ const fakeStorys = [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
-        ]
+        ],
+        sourcesMentioned: [4]
     }
 ]
 

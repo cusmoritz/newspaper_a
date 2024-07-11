@@ -13,6 +13,7 @@ const createNewSource = async (sourceObj) => {
     // source_original_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
     // source_most_recent_contact_date DATE NOT NULL DEFAULT CURRENT_DATE,
     // source_police_officer BOOLEAN NOT NULL DEFAULT FALSE
+    // source_location VARCHAR NOT NULL
 
     try {
         const {rows: input} = await client.query(`
@@ -25,12 +26,13 @@ const createNewSource = async (sourceObj) => {
             source_occupation,
             source_original_contact_date,
             source_most_recent_contact_date,
-            source_police_officer
+            source_police_officer,
+            source_location
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *
         ;
-        `, [sourceObj.sourceName, sourceObj.sourcePhone, sourceObj.sourceRace, sourceObj.sourceAge, sourceObj.sourceElectedBool, sourceObj.sourceOccupation, sourceObj.sourceOgContactDate, sourceObj.sourceMostRecentContactDate, sourceObj.sourcePoliceBool]);
+        `, [sourceObj.sourceName, sourceObj.sourcePhone, sourceObj.sourceRace, sourceObj.sourceAge, sourceObj.sourceElectedBool, sourceObj.sourceOccupation, sourceObj.sourceOgContactDate, sourceObj.sourceMostRecentContactDate, sourceObj.sourcePoliceBool, sourceObj.sourceLocation]);
         //console.log('input', input)
         return input;
     } catch (error) {
@@ -137,12 +139,12 @@ const updateSourceElectedOfficial = async (sourceId, bool) => {
 };
 
 const fakeSources = [
-    {sourceName: "Phillip Jones", sourcePhone: "6302548974", sourceRace: 1, sourceAge: 45, sourceElectedBool: true, sourceOccupation: "City Manager", sourceOgContactDate: '2001-09-28', sourceMostRecentContactDate: '2024-09-28', sourcePoliceBool: false},
-    {sourceName: "Elizabeth Holmes", sourcePhone: "6305986548", sourceRace: 3, sourceAge: 27, sourceElectedBool: false, sourceOccupation: "Resident", sourceOgContactDate: '2024-05-15', sourceMostRecentContactDate: '2024-06-15', sourcePoliceBool: false},
-    {sourceName: "Hernandez Smith", sourcePhone: "3016598521", sourceRace: 2, sourceAge: 19, sourceElectedBool: false, sourceOccupation: "Student", sourceOgContactDate: '2024-06-15', sourceMostRecentContactDate: '2024-08-01', sourcePoliceBool: false},
-    {sourceName: "Andrew Seymore-Hoffman", sourcePhone: "805321654", sourceRace: 1, sourceAge: 87, sourceElectedBool: true, sourceOccupation: "Opperations Manager", sourceOgContactDate: '2024-08-01', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: true},
-    {sourceName: "Shaley Madison", sourcePhone: "6309584521", sourceRace: 4, sourceAge: 31, sourceElectedBool: true, sourceOccupation: "County Clerk", sourceOgContactDate: '2024-07-04', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: false},
-    {sourceName: "Diane Huxley", sourcePhone: "9065687453", sourceRace: 1, sourceAge: 25, sourceElectedBool: false, sourceOccupation: "Business Manager", sourceOgContactDate: '2024-07-04', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: true}
+    {sourceName: "Phillip Jones", sourcePhone: "6302548974", sourceRace: 1, sourceAge: 45, sourceElectedBool: true, sourceOccupation: "City Manager", sourceOgContactDate: '2001-09-28', sourceMostRecentContactDate: '2024-09-28', sourcePoliceBool: false, sourceLocation: "Oklahoma, MS"},
+    {sourceName: "Elizabeth Holmes", sourcePhone: "6305986548", sourceRace: 3, sourceAge: 27, sourceElectedBool: false, sourceOccupation: "Resident", sourceOgContactDate: '2024-05-15', sourceMostRecentContactDate: '2024-06-15', sourcePoliceBool: false, sourceLocation: "Boulder, CO"},
+    {sourceName: "Hernandez Smith", sourcePhone: "3016598521", sourceRace: 2, sourceAge: 19, sourceElectedBool: false, sourceOccupation: "Student", sourceOgContactDate: '2024-06-15', sourceMostRecentContactDate: '2024-08-01', sourcePoliceBool: false, sourceLocation: "Anckorage, AK"},
+    {sourceName: "Andrew Seymore-Hoffman", sourcePhone: "805321654", sourceRace: 1, sourceAge: 87, sourceElectedBool: true, sourceOccupation: "Opperations Manager", sourceOgContactDate: '2024-08-01', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: true, sourceLocation: "Milwaukee, MN"},
+    {sourceName: "Shaley Madison", sourcePhone: "6309584521", sourceRace: 4, sourceAge: 31, sourceElectedBool: true, sourceOccupation: "County Clerk", sourceOgContactDate: '2024-07-04', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: false, sourceLocation: "Springfield, KY"},
+    {sourceName: "Diane Huxley", sourcePhone: "9065687453", sourceRace: 1, sourceAge: 25, sourceElectedBool: false, sourceOccupation: "Business Manager", sourceOgContactDate: '2024-07-04', sourceMostRecentContactDate: '2024-07-04', sourcePoliceBool: true, sourceLocation: "Springfield, IL"}
 ];
 
 const createFakeSources = (sourceArray) => {

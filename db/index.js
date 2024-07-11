@@ -52,6 +52,7 @@ const createDatabase = async() => {
             most_recent_update DATE,
             image_flag BOOLEAN NOT NULL DEFAULT false,
             page_views INT DEFAULT 0,
+            sources_mentioned INT[],
             breaking_news_flag BOOLEAN DEFAULT false,
             breaking_news_banner_headline TEXT DEFAULT NULL
         );  
@@ -79,7 +80,9 @@ const createDatabase = async() => {
             source_original_contact_date DATE DEFAULT CURRENT_DATE,
             source_most_recent_contact_date DATE DEFAULT CURRENT_DATE,
             source_police_officer BOOLEAN NOT NULL DEFAULT FALSE,
-            source_previous_occupation VARCHAR[]
+            source_location VARCHAR NOT NULL,
+            source_previous_occupation VARCHAR[],
+            storys_mentioned INT[]
         );
 
         CREATE TABLE IF NOT EXISTS story_meta (
@@ -91,8 +94,7 @@ const createDatabase = async() => {
             story_updated_by INT,
             story_update_date DATE,
             primary_cat INTEGER REFERENCES primary_catagories(primary_catagory_id) NOT NULL DEFAULT 0,
-            secondary_cat INTEGER REFERENCES secondary_catagories(secondary_catagory_id) DEFAULT NULL,
-            source_list INT[]
+            secondary_cat INTEGER REFERENCES secondary_catagories(secondary_catagory_id) DEFAULT NULL
         );
 
         CREATE TABLE IF NOT EXISTS error_log (
@@ -106,8 +108,7 @@ const createDatabase = async() => {
             story_tag_id INTEGER REFERENCES storys(story_id) NOT NULL,
             tag TEXT NOT NULL
         );
-
-        
+       
 
         `, []);
         console.log('Done creating database...')
@@ -125,13 +126,12 @@ const destroyDatabase = async () => {
         await client.query(`
         DROP TABLE IF EXISTS story_tags;
         DROP TABLE IF EXISTS image_table;
-
+        DROP TABLE IF EXISTS sources;
         DROP TABLE IF EXISTS story_meta;
         DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS authors;
         DROP TABLE IF EXISTS secondary_catagories;
         DROP TABLE IF EXISTS primary_catagories;
-        DROP TABLE IF EXISTS sources;
 
         `, [])
         console.log('done destroying db...');

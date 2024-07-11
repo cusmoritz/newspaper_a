@@ -105,7 +105,7 @@ export const SingleStoryPage = () => {
             const req = await fetchSinglePageStory(storyId);
             if (req){
 
-                //console.log('story', req)
+                console.log('story', req)
                 setBreadcrumbs(req.category);
                 setPageView(req.page_views)
                 updatePageViewsOnLoad(req.story_id);
@@ -155,6 +155,20 @@ export const SingleStoryPage = () => {
         {!story.story_text ? null : story.story_text.map((paragraph, index) => {
             return (<p key={index} className="story-paragraph">{paragraph}</p>)
         })}
+        {!story.sources ? null :
+        <fieldset className="story-sources">
+            <legend>Sources:</legend>
+            {story.sources.map((source) => {
+                return (
+                    <div className="individual-source-container" key={source.source_id}>
+                        <p>{source.source_name}</p>
+                        <p>{source.source_occupation}</p>
+                        <p>{source.source_location}</p>
+                    </div>
+                )
+            })}
+        </fieldset>
+        }
         {!story.tags ? null :         
         <fieldset className="story-tag-container">
                     <p>Tags: &nbsp;</p> 

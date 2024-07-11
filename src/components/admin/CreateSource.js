@@ -107,9 +107,11 @@ export const CreateSource = () => {
                 <div className="source-age">{source.source_age}</div>
 
             <label htmlFor="source-age">Phone Number: </label>
-                <div>{source.source_phone_num}</div>
+                <div className="source-age">{source.source_phone_num}</div>
+            <label htmlForm="source-location">Location: </label>
+                <div className="source-location">{source.source_location}</div>
             <label htmlFor="source-race">Race: </label>
-                <div>{source.source_race}</div>
+                <div className="source-race">{source.source_race}</div>
             <label htmlFor="source-police-office">Police Officer: </label>
                 <div className="source-police-office">{source.source_police_officer.toString()}</div>
             <label htmlFor="source-elected-official">Elected Official: </label>

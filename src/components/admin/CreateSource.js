@@ -33,6 +33,10 @@ export const CreateSource = () => {
         setSourceObj(sourceObj);
     }
 
+    const createSourceEvent = () => {
+        setCreateBool(!createBool)
+    }
+
     const fetchAllCurrentSources = async () => {
         const currentSources = await fetchCurrentSources();
         if (currentSources) {
@@ -50,12 +54,13 @@ export const CreateSource = () => {
     },[]);
 
     return (
-        <>
+        <div className="admin-source-page-container">
         {editBool === false ? null : <EditSourceComponent sourceObj={sourceObj} editBool={editBool} setEditBool={setEditBool}/>}
         <h1>This is the create source page.</h1>
-        <label>Create a new source</label>
-        {editBool === true ? null : 
+        
+        {createBool === false ? <button onClick={createSourceEvent}>Create New Source</button> : 
             <fieldset>
+                <legend>Create New Source</legend>
                 <label htmlFor="source-first-name">First name:</label>
                 <input className="source-first-name" value={firstName} onChange={(event) => {setFirstName(event.target.value)}}></input>
                 <label htmlFor="source-last-name">Last name:</label>
@@ -81,14 +86,17 @@ export const CreateSource = () => {
                 <label htmlFor="original-date-checkbox">Check this box if the 'Most Recent Contact Date' is also the first time this person has been contacted for a story.</label>
                 <input className="original-date-checkbox" type="checkbox"/>
                 <button onClick={createNewSource}>Submit Source</button>
+                <button onClick={createSourceEvent}>Cancel</button>
             </fieldset>
         }
+        
 
-
+        <div className="current-source-container">
         {!allSources ? null : 
             allSources.map((source) => {
             return (
-            <fieldset key={source.id}>
+            <fieldset key={source.id} className="source-fieldset">
+            <legend>Source {source.source_id}</legend>
             <label htmlFor="source-name">Name: </label>
                 <div className="source-name">{source.source_name}</div>
             <label htmlFor="source-occupation">Occupation: </label>
@@ -108,7 +116,7 @@ export const CreateSource = () => {
 
             <label htmlFor="source-age">Phone Number: </label>
                 <div className="source-age">{source.source_phone_num}</div>
-            <label htmlForm="source-location">Location: </label>
+            <label htmlFor="source-location">Location: </label>
                 <div className="source-location">{source.source_location}</div>
             <label htmlFor="source-race">Race: </label>
                 <div className="source-race">{source.source_race}</div>
@@ -123,9 +131,11 @@ export const CreateSource = () => {
                 <div className="source-original-date">{source.source_original_contact_date}</div>
             <button onClick={(e) => {e.preventDefault(); editSource(source)}}>Edit Source</button>
             </fieldset>
+            
             )
             })
         }
-        </>
+        </div>
+    </div>
     )
 };

@@ -59,7 +59,7 @@ export const CreateSource = () => {
         <h1>This is the create source page.</h1>
         
         {createBool === false ? <button onClick={createSourceEvent}>Create New Source</button> : 
-            <fieldset>
+            <fieldset className="create-source-fieldset">
                 <legend>Create New Source</legend>
                 <label htmlFor="source-first-name">First name:</label>
                 <input className="source-first-name" value={firstName} onChange={(event) => {setFirstName(event.target.value)}}></input>

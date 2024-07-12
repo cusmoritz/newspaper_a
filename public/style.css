@@ -208,46 +208,14 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-/* .author-container {
-    border: 2px var(--lightGrey);
-    border-style: dashed;
-    border-radius: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-} */
-/* .author-container legend {
-    padding-left: 15px;
-    padding-right: 15px;
-} */
 
-/* .create-author-container {
+.create-source-fieldset {
     color: var(--lightGrey);
     display: flex;
     flex-direction: column;
-    margin: 20px;
-    padding: 20px;
-} */
-
-/* .source-fieldset fieldset {
-    padding-left: 20%;
-    padding-right: 20%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-} */
-
-/* .create-author-container fieldset input {
-    width: 100%;
+    width: 80%;
+    margin-left: 10%;
 }
-
-.create-author-container fieldset label {
-    width: 100%;
-}
-
-.create-author-container fieldset select {
-    width: 50%;
-} */
 
 /* ################## MODAL ######################## */
 .modal-container {

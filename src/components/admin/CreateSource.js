@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { fetchCurrentSources } from "../../api";
 import { EditSourceComponent } from "./EditSourceComponent";
 import { submitNewSource } from "../../api";
+import { Link } from "react-router-dom";
 
 export const CreateSource = () => {
     
@@ -89,7 +90,7 @@ export const CreateSource = () => {
                 <label htmlFor="original-date-checkbox">Check this box if the 'Most Recent Contact Date' is also the first time this person has been contacted for a story.</label>
                 <input className="original-date-checkbox" type="checkbox"/>
                 <button onClick={createNewSource}>Submit Source</button>
-                <button onClick={createSourceEvent}>Cancel</button>
+                <button onClick={createSourceEvent} key={index}>Cancel</button>
             </fieldset>
         }
         
@@ -132,7 +133,7 @@ export const CreateSource = () => {
                 <div className="source-recent-date">{source.source_most_recent_contact_date}</div>
             <label htmlFor="source-original-date">Original Contact Date: </label>
                 <div className="source-original-date">{source.source_original_contact_date}</div>
-            <button>See source-related stories</button>
+            <Link to={`/sources/related-stories/${source.source_id}`}><button>See source-related stories</button></Link>
             <button onClick={(e) => {e.preventDefault(); editSource(source)}}>Edit Source</button>
             </fieldset>
             

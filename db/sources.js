@@ -138,6 +138,31 @@ const updateSourceElectedOfficial = async (sourceId, bool) => {
     }
 };
 
+const getStorysForSingleSource = async (sourceId) => {
+    try {
+        const {rows: source} = await client.connect(`
+        SELECT * FROM sources
+        WHERE source_id = $1
+        ;
+        `, [sourceId]); // might as well get the source as well
+
+        let related = [];
+
+        for (let i = 0; i < source.length; i++) {
+            const {rows: [story]} = await client.query(`
+            SELECT * FROM storys
+            WHERE story_id = $1
+            ;
+            `, [source.storys_mentioned[i]]);
+            related.push(story)
+        }
+        console.log('related', related);
+    } catch (error) {
+        console.log('there was a database error fetching related stories for that source.');
+        throw error;
+    }
+}
+
 const fakeSources = [
     {sourceName: "Phillip Jones", sourcePhone: "6302548974", sourceRace: 1, sourceAge: 45, sourceElectedBool: true, sourceOccupation: "City Manager", sourceOgContactDate: '2001-09-28', sourceMostRecentContactDate: '2024-09-28', sourcePoliceBool: false, sourceLocation: "Oklahoma, MO"},
     {sourceName: "Elizabeth Holmes", sourcePhone: "6305986548", sourceRace: 3, sourceAge: 27, sourceElectedBool: false, sourceOccupation: "Resident", sourceOgContactDate: '2024-05-15', sourceMostRecentContactDate: '2024-06-15', sourcePoliceBool: false, sourceLocation: "Boulder, CO"},
@@ -165,6 +190,7 @@ module.exports = {
     updateSourcePhoneNumber,
     updateSourceOccupation,
     updateSourceElectedOfficial,
+    getStorysForSingleSource,
     // createFakeSources,
     // fakeSources,
 };

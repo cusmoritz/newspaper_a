@@ -102,7 +102,23 @@ const retreiveTags = async (storyId) => {
     `, [storyId]);
     //console.log('tags get', tags);
     return tags;
-}
+};
+
+const updateSourceTableWithStory = async (storyId, sourceId) => {
+    try {
+        await client.query(`
+        UPDATE sources
+        SET storys_mentioned = ARRAY_APPEND(storys_mentioned, $1)
+        WHERE source_id = $2
+        RETURNING *
+        ;
+        `, [storyId, sourceId]);
+        return;
+    } catch (error) {
+        console.log('there was a database error updating a source table with a story id');
+        throw error;
+    }
+};
 
 const createNewStory = async (storyInfo) => {
     //console.log('story info db', storyInfo)
@@ -117,11 +133,20 @@ const createNewStory = async (storyInfo) => {
         ;
         `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes, storyInfo.sourcesMentioned]);
 
+        // console.log('story after db', story[0])
         storyInfo.tags.forEach((tag) => { // this is ugly
             createTag(story[0].story_id, tag);
         });
 
-        const {rows: meta} = await client.query(`
+        // add story id to appropriate Source
+        if (story[0].sources_mentioned.length > 0) {
+            for (let i = 0; i < story[0].sources_mentioned.length; i++) {
+                await updateSourceTableWithStory(story[0].story_id, story[0].sources_mentioned[i]);
+                
+            }
+        }
+
+        await client.query(`
         INSERT INTO story_meta (story_main_id, story_original_author, primary_cat, secondary_cat)
         VALUES ($1, $2, $3, $4)
         RETURNING *

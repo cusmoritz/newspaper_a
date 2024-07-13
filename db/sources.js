@@ -140,15 +140,14 @@ const updateSourceElectedOfficial = async (sourceId, bool) => {
 
 const getStorysForSingleSource = async (sourceId) => {
     try {
-        const {rows: source} = await client.connect(`
+        const {rows: [source]} = await client.query(`
         SELECT * FROM sources
         WHERE source_id = $1
         ;
-        `, [sourceId]); // might as well get the source as well
-
+        `, [sourceId]); // might as well get the source
         let related = [];
 
-        for (let i = 0; i < source.length; i++) {
+        for (let i = 0; i < source.storys_mentioned.length; i++) {
             const {rows: [story]} = await client.query(`
             SELECT * FROM storys
             WHERE story_id = $1
@@ -156,7 +155,7 @@ const getStorysForSingleSource = async (sourceId) => {
             `, [source.storys_mentioned[i]]);
             related.push(story)
         }
-        console.log('related', related);
+        return {related, source};
     } catch (error) {
         console.log('there was a database error fetching related stories for that source.');
         throw error;

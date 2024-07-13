@@ -321,13 +321,14 @@ export const fetchCurrentSources = async () => {
 
 export const getStorysForOneSource = async (sourceId) => {
     try {
-        const request = fetch(`${BASE_URL}/api/admin/sources/related-stories/${sourceId}`, {
+        const request = await fetch(`${BASE_URL}/api/admin/sources/related-stories/${sourceId}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
             }
         });
         const relatedStorys = await request.json();
+
         return relatedStorys;
     } catch (error) {
         console.log('there was a client error fetching stories for that source.');

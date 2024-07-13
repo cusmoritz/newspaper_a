@@ -26,7 +26,7 @@ server.listen(port, () => {
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
 const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory, addPageView} = require('../db/story');
-const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial} = require ('../db/sources');
+const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const { useParams } = require('react-router-dom');
 
 server.use((request, response, next) => {
@@ -348,8 +348,9 @@ server.get('/api/admin/sources/all', async (request, response, next) => {
 
 server.get('/api/admin/sources/related-stories/:sourceId', async (request, response, next) => {
   try {
-    let {id} = useParams();
-    const related = await getStorysForSingleSource(id);
+    let {sourceId} = request.params;
+
+    const related = await getStorysForSingleSource(sourceId);
     if (related) {
       response.send(related).status(200);
     } else {

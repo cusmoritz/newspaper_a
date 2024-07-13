@@ -23,7 +23,7 @@ export const AdminHome = (props) => {
             <Link to="/storystats"><button>Story stats</button></Link>
             <Link to="/authorpage"><button>Author Page</button></Link>
             <Link to="/image-upload"><button>Image Upload</button></Link>
-            <Link to="/create-source"><button>Check Sources</button></Link>
+            <Link to="/sources"><button>Check Sources</button></Link>
         </div>
     );
 };

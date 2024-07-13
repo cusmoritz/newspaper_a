@@ -25,7 +25,10 @@ export const CreateSource = () => {
     const createNewSource = async () => {
         const sourceName = `${firstName} ${lastName}`;
         const newSource = await submitNewSource({sourceName, sourceOccupation, sourceRace, sourceAge, sourceElectedBool, sourcePoliceBool, sourcePhone, sourceLocation});
-        return newSource;
+        return newSource; 
+        // recall to get all sources after confirmation
+        // also close the createSource form
+        // also add a message field?
     };
 
     const editSource = (sourceObj) => {
@@ -129,6 +132,7 @@ export const CreateSource = () => {
                 <div className="source-recent-date">{source.source_most_recent_contact_date}</div>
             <label htmlFor="source-original-date">Original Contact Date: </label>
                 <div className="source-original-date">{source.source_original_contact_date}</div>
+            <button>See source-related stories</button>
             <button onClick={(e) => {e.preventDefault(); editSource(source)}}>Edit Source</button>
             </fieldset>
             

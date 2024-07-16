@@ -215,7 +215,74 @@
     flex-direction: column;
     width: 80%;
     margin-left: 10%;
+};
+
+
+/* .source-story-related {
+    background-color: var(--lightGrey);
+
+}; */
+
+/* ///////////////////// ADMIN SOURCFE PAGE STYLE ///////////////// */
+.admin-source-page-container{
+    background-color: ORANGE;
 }
+
+.source-story-related  {
+    background-color:var(--darkBlue);
+    display: flex;
+};
+
+.source-story-related .source-container {
+    background-color: purple;
+    /* border-style: dashed;
+    border-radius: 20px; */
+    /* border: 2px var(--lightGrey);
+    border-style: dashed;
+    border-radius: 20px; */
+}
+
+.source-container {
+    border: 1px solid red;
+    width: 25%;
+    align-self: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.source-container fieldset {
+    border-style: dashed;
+    border-radius: 20px;
+    color: var(--lightGrey);
+}
+
+.source-container legend {
+    color: var(--lightGrey);
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.right-column-stories {
+    width: 70%;
+    margin-right: 20px;
+}
+
+.right-column-stories fieldset {
+    display: flex;
+    flex-direction: column;
+    border-style: dashed;
+    border-radius: 20px;
+    color: var(--lightGrey);
+    flex-grow: 2;
+    justify-content: space-around;
+}
+
+.right-column-stories fieldset legend {
+    color: var(--lightGrey);
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 
 /* ################## MODAL ######################## */
 .modal-container {

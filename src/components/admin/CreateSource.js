@@ -90,7 +90,7 @@ export const CreateSource = () => {
                 <label htmlFor="original-date-checkbox">Check this box if the 'Most Recent Contact Date' is also the first time this person has been contacted for a story.</label>
                 <input className="original-date-checkbox" type="checkbox"/>
                 <button onClick={createNewSource}>Submit Source</button>
-                <button onClick={createSourceEvent} key={index}>Cancel</button>
+                <button onClick={createSourceEvent}>Cancel</button>
             </fieldset>
         }
         

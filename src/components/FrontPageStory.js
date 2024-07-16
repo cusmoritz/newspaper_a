@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const FrontPageStory = ({props}) => {
     const story = props;
-    console.log('one story in FrontPageStory', story)
+    //console.log('one story in FrontPageStory', story)
     return (
         <div className="front-page-story-container" id={story.story_id}>
             <div>

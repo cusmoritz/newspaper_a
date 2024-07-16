@@ -31,44 +31,50 @@ export const SourceRelatedStorysComponent = () => {
     }, [])
 
     return (
-        <>
-        <div className="left-column">
+        <div className="source-story-related">
+        <div className="source-container">
         {!source ? null : 
-            <div key={source.source_id}>
-                <p>{source.source_name}</p>
-                <p>{source.source_location}</p>
-                <p>{source.source_phone_num}</p>
-                <p>{source.source_occupation}</p>
+            <fieldset key={source.source_id}>
+                <legend>Source: </legend>
+                <p>Name: {source.source_name}</p>
+                <p>Location: {source.source_location}</p>
+                <p>Phone number: {source.source_phone_num}</p>
+                <p>Current Occupation: {source.source_occupation}</p>
                 {!source.source_previous_occupation ? null :
                     source.source_previous_occupation.map((prev, index) => {
                         <p key={index}>Previous Occupations: {prev}</p>
                     })
                 }
-                <p>{source.source_most_recent_contact_date}</p>
-                <p>{source.source_original_contact_date}</p>
+                <p>Most Recent Contact Date: {source.source_most_recent_contact_date}</p>
+                <p>Original Contact Date: {source.source_original_contact_date}</p>
                 {/* <p>{source.source_police_officer.toString()}</p>
                 <p>{source.source_elected_official.toString()}</p> */}
-                <p>{source.source_age}</p>
-                <p>{source.source_race}</p>
-            </div>
+                <p>Age: {source.source_age}</p>
+                <p>Race: {source.source_race}</p>
+            </fieldset>
         }
         </div>
-        <div className="right-column">
+        <div className="right-column-stories">
+        <fieldset>
+        <legend>Stories: </legend>
         {!storys ? null : 
-            storys.map((story) => {
-                console.log('stroy', story)
+            storys.map((story, index) => {
+                //console.log('length', storys.length)
+                //console.log('stroy', index)
                 return (
                 <div key={story.story_id}>
-                    <p>{story.story_title}</p>
-                    <p>{story.original_publish_date}</p>
-                    <p>{story.story_author}</p>
+                    <p>Title: {story.story_title}</p>
+                    <p>Original Publish Date: {story.original_publish_date}</p>
+                    <p>Author: {story.story_author}</p>
                     {/* <p>{story.}</p>
                     <p>{story.}</p> */}
+                    <hr></hr>
                 </div>
                 )
             })
         }
+        </fieldset>
         </div>
-        </>
+        </div>
     )
 }

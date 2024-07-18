@@ -147,13 +147,21 @@ const getStorysForSingleSource = async (sourceId) => {
         `, [sourceId]); // might as well get the source
         let related = [];
 
+        if (source.storys_mentioned.length > 0) {
         for (let i = 0; i < source.storys_mentioned.length; i++) {
             const {rows: [story]} = await client.query(`
             SELECT * FROM storys
             WHERE story_id = $1
             ;
             `, [source.storys_mentioned[i]]);
+            const {rows: [author]} = await client.query(`
+            SELECT * FROM authors
+            WHERE author_id = $1
+            ;
+            `, [story.story_author]);
+            story.author = author;
             related.push(story)
+        }
         }
         return {related, source};
     } catch (error) {

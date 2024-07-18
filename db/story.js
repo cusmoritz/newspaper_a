@@ -204,16 +204,16 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
     }
 };
 
-const fetchAllPrimaryCatagories = async () => {
+const fetchAllPrimaryCategories = async () => {
     try {
         const {rows: primaryCats} = await client.query(`
-        SELECT * FROM primary_catagories
-        ORDER BY primary_catagory_id ASC
+        SELECT * FROM primary_categories
+        ORDER BY primary_category_id ASC
         ;
         `, []);
         return primaryCats;
     } catch (error) {
-        console.log('error fetching primary catagories');
+        console.log('error fetching primary categories');
         throw error;
     }
 };
@@ -221,29 +221,29 @@ const fetchAllPrimaryCatagories = async () => {
 const fetchSecondaryCatsForPrimary = async(primaryCatId) => {
     try {
         const {rows: secondary} = await client.query(`
-        SELECT * FROM secondary_catagories
+        SELECT * FROM secondary_categories
         WHERE secondary_parent_id = $1
         ;
         `, [primaryCatId]);
         return secondary;
     } catch (error) {
-        console.log('there was an error fetching secondary catagories');
+        console.log('there was an error fetching secondary categories');
         throw error;
     }
 };
 
 const fetchAllPrimaryAndSecondary = async () => {
     try {
-        const {rows: everyPrimaryCatagory} = await client.query(`
-        SELECT * FROM primary_catagories
-        LEFT JOIN secondary_catagories ON secondary_catagories.secondary_parent_id = primary_catagories.primary_catagory_id
+        const {rows: everyPrimaryCategory} = await client.query(`
+        SELECT * FROM primary_categories
+        LEFT JOIN secondary_categories ON secondary_categories.secondary_parent_id = primary_categories.primary_category_id
         ;
         `, []);
 
-        //console.log('every primary db', everyPrimaryCatagory)
-        return everyPrimaryCatagory;
+        //console.log('every primary db', everyPrimaryCategory)
+        return everyPrimaryCategory;
     } catch (error) {
-        console.log('there was an error fetching all catagories.');
+        console.log('there was an error fetching all categories.');
         throw error;
     }
 };
@@ -252,20 +252,20 @@ const getCatSubCatForStoryMeta = async (storyMainId) => {
     try {
         const {rows: query} = await client.query(`
         SELECT * FROM story_meta
-        JOIN primary_catagories ON story_meta.primary_cat = primary_catagories.primary_catagory_id
-        JOIN secondary_catagories ON story_meta.secondary_cat = secondary_catagories.secondary_catagory_id
+        JOIN primary_categories ON story_meta.primary_cat = primary_categories.primary_category_id
+        JOIN secondary_categories ON story_meta.secondary_cat = secondary_categories.secondary_category_id
         WHERE story_meta.story_main_id = $1
         ;
         `, [storyMainId])
         //console.log('did we do it', query[0]);
         const building = {primary: {id: null, name: null}, secondary: {id: null, name: null}};
-        building.primary.id = query[0].primary_catagory_id;
-        building.primary.name = query[0].primary_catagory_name;
-        building.secondary.id = query[0].secondary_catagory_id;
-        building.secondary.name = query[0].secondary_catagory_name;
+        building.primary.id = query[0].primary_category_id;
+        building.primary.name = query[0].primary_category_name;
+        building.secondary.id = query[0].secondary_category_id;
+        building.secondary.name = query[0].secondary_category_name;
         return building;
     } catch (error) {
-        console.log('there was a database error fetching catagories for this story.');
+        console.log('there was a database error fetching categories for this story.');
         throw error;
     }
 }
@@ -284,7 +284,7 @@ const fetchFrontPage = async () => {
         `, []);
         //console.log('front page', frontPageStorys)
         // JOIN story_tags ON story_id = story_tags.story_tag_id
-        // get catagories
+        // get categories
         for (let i = 0; i < frontPageStorys.length; i++) {
             const cats = await getCatSubCatForStoryMeta(frontPageStorys[i].story_main_id);
             frontPageStorys[i].category = cats;
@@ -331,14 +331,14 @@ const fetchFrontPage = async () => {
 const fetchSingleStoryCatSubCat  = async (primaryId, secondaryId) => {
     try {
         const {rows: primary} = await client.query(`
-        SELECT * FROM primary_catagories
-        WHERE primary_catagory_id = $1
+        SELECT * FROM primary_categories
+        WHERE primary_category_id = $1
         ;
         `, [primaryId]);
 
         const {rows: secondary} = await client.query(`
-        SELECT * FROM secondary_catagories
-        WHERE secondary_catagory_id = $1
+        SELECT * FROM secondary_categories
+        WHERE secondary_category_id = $1
         ;
         `, [secondaryId]);
         const building = {};
@@ -346,7 +346,7 @@ const fetchSingleStoryCatSubCat  = async (primaryId, secondaryId) => {
         building.secondary = secondary[0];
         return building;
     } catch (error) {
-        console.log('there was a database error fetching catagories for one story.');
+        console.log('there was a database error fetching categories for one story.');
         throw error;
     }
 }
@@ -376,19 +376,20 @@ const fetchSinglePageStory = async (storyId) => {
     }
 }
 
-const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a string 'news' etc
-    const catagorySearch = catagory.toUpperCase();
+const fetchStoriesByPrimaryCategory = async (category) => { 
+    const categorySearch = category.toUpperCase();
+    // we make category a num for now
 
     try {
-        // get catagory
-        const {rows: primaryCatagory} = await client.query(`
-        SELECT * FROM primary_catagories
-        WHERE primary_catagory_name = $1
+        // get category
+        const {rows: primaryCategory} = await client.query(`
+        SELECT * FROM primary_categories
+        WHERE primary_category_name = $1
         ;
-        `, [catagorySearch]);
+        `, [category]);
 
-        // get stories for catagory
-        const id = primaryCatagory[0].primary_catagory_id;
+        // get stories for category
+        const id = primaryCategory[0].primary_category_id;
         const {rows: stories} = await client.query(`
         SELECT * FROM storys
         JOIN story_meta ON story_meta.story_main_id = storys.story_id
@@ -408,38 +409,38 @@ const fetchStoriesByPrimaryCatagory = async (catagory) => { //catagory is a stri
         // console.log(stories)
         return stories;
     } catch (error) {
-        console.log('there was a database error fetching by catagory');
+        console.log('there was a database error fetching by category');
         throw error;
     }
 };
 
-const fetchStoriesBySecondaryCatagory = async (primaryCat, secondaryCat) => {
+const fetchStoriesBySecondaryCategory = async (primaryCat, secondaryCat) => {
     const primary = primaryCat.toUpperCase();
     const secondary = secondaryCat.toUpperCase();
     try {
-        // const {rows: primaryCatagory} = await client.query(`
-        // SELECT * FROM primary_catagories
-        // WHERE primary_catagory_name = $1
+        // const {rows: primaryCategory} = await client.query(`
+        // SELECT * FROM primary_categories
+        // WHERE primary_category_name = $1
         // ;
         // `, [primary]);
 
-        const {rows: secondaryCatagory} = await client.query(`
-        SELECT * FROM secondary_catagories
-        /* JOIN primary_catagories ON primary_catagories.primary_catagory_id = secondary_catagories.secondary_parent_id */
-        WHERE secondary_catagory_name = $1
+        const {rows: secondaryCategory} = await client.query(`
+        SELECT * FROM secondary_categories
+        /* JOIN primary_categories ON primary_categories.primary_category_id = secondary_categories.secondary_parent_id */
+        WHERE secondary_category_name = $1
         ;
         `, [secondary])
         // now we have 1 objects with IDs
         // sec_id   sec_parent  sec_cat_name    prim_cat    prim_cat_name
         // 4	    1	        REGIONAL	    1	        NEWS
-        console.log('what we got', secondaryCatagory)
+        console.log('what we got', secondaryCategory)
         // {
-        //     secondary_catagory_id: 2,
+        //     secondary_category_id: 2,
         //     secondary_parent_id: 1,
-        //     secondary_catagory_name: 'CRIME',
+        //     secondary_category_name: 'CRIME',
 
-        //     primary_catagory_id: 1,
-        //     primary_catagory_name: 'NEWS'
+        //     primary_category_id: 1,
+        //     primary_category_name: 'NEWS'
         //   }
 
 
@@ -456,7 +457,7 @@ const fetchStoriesBySecondaryCatagory = async (primaryCat, secondaryCat) => {
         ORDER BY original_publish_date DESC
         LIMIT 10
         ;
-        `, [secondaryCatagory[0].secondary_parent_id, secondaryCatagory[0].secondary_catagory_id]);
+        `, [secondaryCategory[0].secondary_parent_id, secondaryCategory[0].secondary_category_id]);
 
         // get tags
         for (i = 0; i < stories.length; i++) {
@@ -465,30 +466,30 @@ const fetchStoriesBySecondaryCatagory = async (primaryCat, secondaryCat) => {
         //console.log('stories db', stories);
         return stories;
     } catch (error) {
-        console.log('there was a database error fetching stories by secondary catagory');
+        console.log('there was a database error fetching stories by secondary category');
         throw error;
     }
 };
 
 const createPrimary = async (catText) => {
-    const newCatagory = catText.toUpperCase();
+    const newCategory = catText.toUpperCase();
     const {rows: PrimaryCats} = await client.query(`
-        INSERT INTO primary_catagories (primary_catagory_name)
+        INSERT INTO primary_categories (primary_category_name)
         VALUES ($1)
         RETURNING *
         ;
-    `, [newCatagory])
+    `, [newCategory])
     return PrimaryCats;
 };
 
 const createSecondary = async (subCat, primary) => {
-    const newSubCatagory = subCat.toUpperCase();
+    const newSubCategory = subCat.toUpperCase();
     const {rows: secondary} = await client.query(`
-        INSERT INTO secondary_catagories (secondary_catagory_name, secondary_parent_id)
+        INSERT INTO secondary_categories (secondary_category_name, secondary_parent_id)
         VALUES ($1, $2)
         RETURNING *
         ;
-    `, [newSubCatagory, primary]);
+    `, [newSubCategory, primary]);
     return secondary;
 };
 
@@ -515,9 +516,16 @@ const fetchSourcesForOneStory = async (sourceArray) => {
     }
 }
 
-const fakePrimaries = ["NEWS", "ELECTIONS", "OPINION", "COLORADO", "SPORTS", "OUTDOORS", "ENTERTAINMENT"];
+const fakePrimaries = ["NEWS", "ELECTIONS", "OPINION", "OUTDOORS", "SPORTS", "ENTERTAINMENT"];
 
-const fakeSecondary = [{name: "Colorado", parent: 1}, {name: "Crime", parent: 1}, {name: "Obit", parent: 1}, {name: "Regional", parent: 1}, {name: "June 2024 Primaries", parent: 2}, {name: "November 2023 General", parent: 2}, {name: "NoCo", parent: 4}, {name: "Denver", parent: 4}, {name: "Editorial", parent: 3}, {name: "Letters", parent: 3}, {name: "Columns", parent: 3}, {name: "Events", parent: 7}, {name: "Food", parent: 7}, {name: "Football", parent: 5}, {name: "Hockey", parent: 5}, {name: "Baseball", parent: 5}, {name: "Soccer", parent: 5}, {name: "Hiking", parent: 6}, {name: "Public Lands", parent: 6}, {name: "Camping", parent: 6}, {name: "Backpacking", parent: 6},];
+const fakeSecondary = [{name: "Fort Collins", parent: 1}, {name: "Northern Colorado", parent: 1}, {name: "Colorado", parent: 1}, {name: "Nation & World", parent: 1}, {name: "Housing", parent: 1},{name: "Obituaries", parent: 1}, {name: "Crime", parent: 1}, {name: "2023 General", parent: 2}, {name: "2024 General", parent: 2}, {name: "Editorial", parent: 3}, {name: "Letters", parent: 3}, {name: "Columns", parent: 3},  {name: "Hiking", parent: 4}, {name: "Public Lands", parent: 4}, {name: "Camping", parent: 4}, {name: "Backpacking", parent: 4}, {name: "Water", parent: 4}, {name: "Football", parent: 5}, {name: "Hockey", parent: 5}, {name: "Baseball", parent: 5}, {name: "Soccer", parent: 5}, {name: "Events", parent: 6}, {name: "Food", parent: 6}, {name: "Music", parent: 6}];
+
+    // news/fort-collins
+    // news/northern-colorado
+    // news/colorado
+    // news/nation-world
+    // news/obituaries
+    // news/crime
 
 const fakeStorys = [
     {
@@ -537,8 +545,8 @@ const fakeStorys = [
         author: '4',
         led: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
         slug: 'first-story-goes-here',
-        primary: 1,
-        secondary: 1,
+        primary: 3,
+        secondary: 12,
         footnotes: {},
         footnoteURLs: [
             "www.google.com",
@@ -568,8 +576,8 @@ const fakeStorys = [
         author: '3',
         led: "Blake Scott was moving water on his family’s property in Gypsum on the evening of Monday, June 10, when he heard his mother screaming.",
         slug: 'man-kills-bear-gypsum',
-        primary: 4,
-        secondary: 7,
+        primary: 1,
+        secondary: 3,
         footnotes: [
             {
                 "word": [
@@ -612,7 +620,7 @@ const fakeStorys = [
         author: '5',
         led: "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions.",
         slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer',
-        primary: 3,
+        primary: 1,
         secondary: 2,
         footnotes: [
             {
@@ -656,8 +664,8 @@ const fakeStorys = [
         author: '1',
         led: "On Feb. 8, a post appeared in the Eagle County Classifieds Facebook group: Was anyone in East Vail missing a dog?",
         slug: 'what-happened-to-the-barking-dog-in-east-vail',
-        primary: 3,
-        secondary: 1,
+        primary: 1,
+        secondary: 7,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -681,8 +689,8 @@ const fakeStorys = [
         author: '2',
         led: "Just like Yacht Rock made soft rock cool and breezy again, Electric Avenue brings the electronic magic of the 1980s back — complete with its personal stash of vintage synthesizers, drum machines and rare signal processors.",
         slug: 'electric-avenue-the-80s-mtv-experience-comes-to-beaver-creek-saturday',
-        primary: 1,
-        secondary: 3,
+        primary: 6,
+        secondary: 24,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -728,8 +736,8 @@ const fakeStorys = [
         author: '4',
         led: "Tye Stockton returned to the Eagle County Justice Center on Tuesday for a brief court appearance on an accusation of stalking, a domestic violence charge that the Vail real estate giant received in December.",
         slug: 'court-appearance-for-prominent-vail-real-estate-broker-continued',
-        primary: 3,
-        secondary: 2,
+        primary: 1,
+        secondary: 7,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -752,8 +760,8 @@ const fakeStorys = [
         author: '2',
         led: "There are many events in life that can shape and change a person. Some people’s lives forever change after getting married or having a child, while others are transformed by a harrowing and traumatic event.",
         slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good',
-        primary: 3,
-        secondary: 9,
+        primary: 4,
+        secondary: 16,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -781,8 +789,8 @@ const fakeStorys = [
         author: 2,
         led: 'For Marty Koether, the namesake for Vail Mountain’s “Lost Boy” run, his dreams from April 1, 1964, are still vivid.',
         slug: 'lost-boy-marty-koether-returns-for-60th-anniversary',
-        primary: '5',
-        secondary: '19',
+        primary: 4,
+        secondary: 13,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -810,8 +818,8 @@ const fakeStorys = [
         author: 2,
         led: 'In 1942, at the age of ten, I received the First Provincial Award of Ludi Juveniles (a voluntary, compulsory competition for young Italian Fascists — that is, for every young Italian).',
         slug: 'umberto-eco-ur-fascism',
-        primary: '3',
-        secondary: '10',
+        primary: 3,
+        secondary: 12,
         footnotes: [],
         footnoteURLs: [
             "www.google.com",
@@ -845,8 +853,8 @@ const fakeStorys = [
         author: '7',
         led: "On Monday, the mayor of Chicago said the city was unveiling a new plan for increasing city tourism: 'free hotdogs for everyone.'",
         slug: 'chicago-mayor-hotdogs-for-everyone',
-        primary: '7',
-        secondary: '13',
+        primary: 1,
+        secondary: 4,
         breakingFlag: true,
         breakingHeadline: 'Hotdogs for everyone?',
         footnotes: [],
@@ -883,8 +891,8 @@ const fakeStorys = [
         author: '2',
         led: "Total votes counted in Larimer County is 125,341.'",
         slug: "2023-election-summary",
-        primary: '2',
-        secondary: '6',
+        primary: 2,
+        secondary: 8,
         breakingFlag: false,
         breakingHeadline: null,
         footnotes: [],
@@ -928,11 +936,11 @@ module.exports = {
     fetchFrontPage,
     retreiveTags,
     fetchStoriesFromTag,
-    fetchAllPrimaryCatagories,
+    fetchAllPrimaryCategories,
     fetchSecondaryCatsForPrimary,
     fetchAllPrimaryAndSecondary,
-    fetchStoriesByPrimaryCatagory,
-    fetchStoriesBySecondaryCatagory,
+    fetchStoriesByPrimaryCategory,
+    fetchStoriesBySecondaryCategory,
     fetchSinglePageStory,
     addPageView,
 

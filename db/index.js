@@ -25,15 +25,15 @@ const createDatabase = async() => {
             author_blurb TEXT
         );
 
-        CREATE TABLE IF NOT EXISTS primary_catagories (
-            primary_catagory_id SERIAL PRIMARY KEY,
-            primary_catagory_name TEXT UNIQUE NOT NULL
+        CREATE TABLE IF NOT EXISTS primary_categories (
+            primary_category_id SERIAL PRIMARY KEY,
+            primary_category_name TEXT UNIQUE NOT NULL
         );
 
-        CREATE TABLE IF NOT EXISTS secondary_catagories (
-            secondary_catagory_id SERIAL PRIMARY KEY,
-            secondary_parent_id INTEGER REFERENCES primary_catagories(primary_catagory_id),
-            secondary_catagory_name TEXT UNIQUE NOT NULL
+        CREATE TABLE IF NOT EXISTS secondary_categories (
+            secondary_category_id SERIAL PRIMARY KEY,
+            secondary_parent_id INTEGER REFERENCES primary_categories(primary_category_id),
+            secondary_category_name TEXT UNIQUE NOT NULL
         );
 
         CREATE TABLE IF NOT EXISTS storys (
@@ -93,8 +93,8 @@ const createDatabase = async() => {
             story_meta_original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_updated_by INT,
             story_update_date DATE,
-            primary_cat INTEGER REFERENCES primary_catagories(primary_catagory_id) NOT NULL DEFAULT 0,
-            secondary_cat INTEGER REFERENCES secondary_catagories(secondary_catagory_id) DEFAULT NULL
+            primary_cat INTEGER REFERENCES primary_categories(primary_category_id) NOT NULL DEFAULT 0,
+            secondary_cat INTEGER REFERENCES secondary_categories(secondary_category_id) DEFAULT NULL
         );
 
         CREATE TABLE IF NOT EXISTS error_log (
@@ -130,8 +130,8 @@ const destroyDatabase = async () => {
         DROP TABLE IF EXISTS story_meta;
         DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS authors;
-        DROP TABLE IF EXISTS secondary_catagories;
-        DROP TABLE IF EXISTS primary_catagories;
+        DROP TABLE IF EXISTS secondary_categories;
+        DROP TABLE IF EXISTS primary_categories;
 
         `, [])
         console.log('done destroying db...');

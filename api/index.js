@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
-const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCatagories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCatagory, fetchStoriesBySecondaryCatagory, fetchSinglePageStory, addPageView} = require('../db/story');
+const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const { useParams } = require('react-router-dom');
 
@@ -73,53 +73,54 @@ server.get('/api/story/:storyId', async (request, response, next) => {
   }
 });
 
-server.get('/api/all-catagories', async (request, response, next) => {
+server.get('/api/all-categories', async (request, response, next) => {
   try {
-    const primaryCats = await fetchAllPrimaryCatagories()
+    const primaryCats = await fetchAllPrimaryCategories()
 
     for await (let primaryCat of primaryCats) {
-      const secondaryArr = await fetchSecondaryCatsForPrimary(primaryCat.primary_catagory_id);
+      const secondaryArr = await fetchSecondaryCatsForPrimary(primaryCat.primary_category_id);
       primaryCat.secondary = secondaryArr;
     }
 
     if (primaryCats) {
       response.status(200).send(primaryCats);
     } else  {
-      response.status(500).send({Error: "There was a problem fetching all primary catagories."});
+      response.status(500).send({Error: "There was a problem fetching all primary categories."});
     }
   } catch (error) {
-    console.log('error fetching all catagories');
+    console.log('error fetching all categories');
     throw error;
   }
 });
 
-server.get('/api/catagories/:primary/:secondary', async (request, response, next) => {
+server.get('/api/categories/:primary/:secondary', async (request, response, next) => {
   try {
     const {primary} = request.params;
     const {secondary} = request.params;
-    const secondaryStories = await fetchStoriesBySecondaryCatagory(primary, secondary);
+    const secondaryStories = await fetchStoriesBySecondaryCategory(primary, secondary);
     if (secondaryStories) {
       response.send(secondaryStories).status(200);
     } else {
-      response.send({Error: "There was a problem getting stories from this subcatagory"}).status(500);
+      response.send({Error: "There was a problem getting stories from this subcategory"}).status(500);
     }
   } catch (error) {
-    console.log('there was a server error fetching stories for subcatagory');
+    console.log('there was a server error fetching stories for subcategory');
     throw error;
   }
 })
 
-server.get('/api/catagories/:catagory', async (request, response, next) => {
+server.get('/api/categories/:category', async (request, response, next) => {
   try {
-    const {catagory} = request.params;
-    const catagoryStorys = await fetchStoriesByPrimaryCatagory(catagory);
-    if (catagoryStorys) {
-      response.send(catagoryStorys).status(200);
+    const {category} = request.params;
+    console.log('cat in server', category)
+    const categoryStorys = await fetchStoriesByPrimaryCategory(category);
+    if (categoryStorys) {
+      response.send(categoryStorys).status(200);
     } else {
-      response.send({Error: "There was a problem getting stories from this catagory"}).status(500);
+      response.send({Error: "There was a problem getting stories from this category"}).status(500);
     }
   } catch (error) {
-    console.log(`error in server fetching stories for this catagory`);
+    console.log(`error in server fetching stories for this category`);
     throw error;
   }
 });

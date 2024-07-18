@@ -21,6 +21,12 @@ import { ShopHome } from './components/shop/ShopHome';
 import { ElectionCategoryPage } from './components/ElectionCategoryPage';
 import { CreateSource } from './components/admin/CreateSource';
 import { SourceRelatedStorysComponent } from './components/admin/SourceRelatedStorysComponent';
+import { NewsPageComponent } from './components/NewsPageComponent';
+import { ElectionPageComponent } from './components/ElectionPageComponent';
+import { OpinionPageComponent } from './components/OpinionPageComponent';
+import { OutdoorsPageComponent } from './components/OutdoorsPageComponent';
+import { SportsPageComponent } from './components/SportsPageComponent';
+import { EntertainmentPageComponent } from './components/EntertainmenPageComponent';
 
 const App = () => {
 
@@ -89,27 +95,52 @@ const App = () => {
         return (
             <BrowserRouter>
                 <div className="App">
-                <Header 
-                globalBreakingBool={globalBreakingBool} 
-                globalBreakingHeadline={globalBreakingHeadline}
-                globalBreakingNewsPath={globalBreakingNewsPath} />
+                <Header />
                     <Routes>
-                    {/* /search/author should be all authors */}
+                    <Route exact path="/news" element={<NewsPageComponent /> } />
+
+                    <Route exact path="/elections" element={<ElectionPageComponent />} />
+
+                    <Route exact path="/opinion" element={<OpinionPageComponent />} />
+
+                    <Route exact path="/outdoors" element={<OutdoorsPageComponent />} />
+
+                    <Route exact path="/sports" element={<SportsPageComponent />} />
+
+                    <Route exact path="/entertainment" element={<EntertainmentPageComponent />} />
+                    {/* <Route path="/news/recent-stories" element={<RecentStoriesComponent />} />
+                    <Route path="/news/:slug" element={<SingleStoryPage />} />
+
+                    <Route path="/opinion/letters" element={<LettersPageComponent />} />
+                    <Route path="/opinion/columns" element={<ColumnsPageComponent />} />
+                    <Route path="/opinion/editorials" element={<EditorialPageComponent />} />
+
+
+
+
+                    <Route path="/outdoors/water" element={<WaterPageComponent/>} />
+                    <Route path="/outdoors/land-use" element={<LandUsePageComponent />} />
+                    <Route path="/outdoors/play" element={<OutdoorsPlayComponent />} />
+
+
+                    <Route path="/elections/2023" element={<Election2023Component />} />
+                    <Route path="/elections/2024" element={<Elections2024Component />} />
+
+                    
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />
                     <Route path="/search/author/:id" element={<AuthorSearchResults />} />
+
+
                     <Route exact path="/:primary/:secondary/:slug/:storyId" 
-                        element={<SingleStoryPage /> } />
+                        element={<SingleStoryPage /> } /> */}
 {/* TODO:               <Route exact path="/search/" element={<SearchPage />} /> */}
-                    <Route path="/:primaryCat/:secondaryCat" element={<SecondaryCatPage />} />
-                    <Route exact path="/elections" element={<ElectionCategoryPage />} />
+                    {/* <Route path="/:primaryCat/:secondaryCat" element={<SecondaryCatPage />} />
                     <Route path="/:primaryCat" element={<PrimaryCatPage />} />
-                    <Route exact path="/" 
-                        element={<Home 
-                            setGlobalBreakingBool={setGlobalBreakingBool} 
-                            setGlobalBreakingHeadline={setGlobalBreakingHeadline}
-                            setGlobalBreakingNewsPath={setGlobalBreakingNewsPath}/>} 
-                    />
-                    {/* how do we build this out to include primary cactegory, subcategory, story slug and story id? */}
+                    <Route exact path="/news/page/:pageNo" element={<PrimaryCatPage />} /> */}
+                    {/* Do we need page numbers? */}
+
+                    <Route exact path="/" element={<Home />} />
+                    {/* TODO: permalinks? */}
                     </Routes>
                 <Footer />
                 </div>
@@ -120,3 +151,37 @@ const App = () => {
 
 
 export default App;
+
+// /news => homepage
+    // news/fort-collins
+    // news/northern-colorado
+    // news/colorado
+    // news/housing
+    // news/nation-world
+    // news/obituaries
+    // news/crime
+    // news/spanish ?
+    // news/story-slug-here-and-here
+
+// other special areas?
+// /elections
+    // elections/2023
+    // elections/2024
+    // elections/????
+
+// opinion
+    // opinion/columns
+    // opinion/letters
+    // opinion/editorials
+
+// entertainment
+    // entertainment/music
+    // entertainment/shows
+
+// outdoors
+    // outdoors/
+
+// recent-stories
+    // recent-stories/news
+
+// trending-stories/news

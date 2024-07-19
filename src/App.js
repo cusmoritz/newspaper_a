@@ -108,6 +108,10 @@ const App = () => {
                     <Route exact path="/sports" element={<SportsPageComponent />} />
 
                     <Route exact path="/entertainment" element={<EntertainmentPageComponent />} />
+
+                    <Route path="/search/tag/:tag" element={<TagSearchResults />} />
+                    
+                    <Route path="/search/author/:id" element={<AuthorSearchResults />} />
                     {/* <Route path="/news/recent-stories" element={<RecentStoriesComponent />} />
                     <Route path="/news/:slug" element={<SingleStoryPage />} />
 
@@ -125,11 +129,6 @@ const App = () => {
 
                     <Route path="/elections/2023" element={<Election2023Component />} />
                     <Route path="/elections/2024" element={<Elections2024Component />} />
-
-                    
-                    <Route path="/search/tag/:tag" element={<TagSearchResults />} />
-                    <Route path="/search/author/:id" element={<AuthorSearchResults />} />
-
 
                     <Route exact path="/:primary/:secondary/:slug/:storyId" 
                         element={<SingleStoryPage /> } /> */}

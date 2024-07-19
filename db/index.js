@@ -50,7 +50,7 @@ const createDatabase = async() => {
             original_publish_date DATE NOT NULL DEFAULT CURRENT_DATE,
             story_update_author INT,
             most_recent_update DATE,
-            image_flag BOOLEAN NOT NULL DEFAULT false,
+            image_flag BOOLEAN DEFAULT false,
             page_views INT DEFAULT 0,
             sources_mentioned INT[],
             breaking_news_flag BOOLEAN DEFAULT false,

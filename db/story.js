@@ -127,11 +127,11 @@ const createNewStory = async (storyInfo) => {
     storyInfo.footnotes = jsonFootnotes
     try {
         const {rows: story} = await client.query(`
-        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline, footnote_urls, footnote_words, sources_mentioned)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline, footnote_urls, footnote_words, sources_mentioned, image_flag)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         RETURNING *
         ;
-        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes, storyInfo.sourcesMentioned]);
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes, storyInfo.sourcesMentioned, storyInfo.image_flag]);
 
         // console.log('story after db', story[0])
         storyInfo.tags.forEach((tag) => { // this is ugly
@@ -554,7 +554,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ], 
-        sourcesMentioned: [1,5]
+        sourcesMentioned: [1,5],
+        image_flag: true
       },
       {
         title: "Fearing for his life, Gypsum man kills troublesome bear that had eluded wildlife officials",
@@ -604,7 +605,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [3,5]
+        sourcesMentioned: [3,5],
+        image_flag: false
       },
       {
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
@@ -648,7 +650,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [6]
+        sourcesMentioned: [6],
+        image_flag: true
       },
       {
         title: "What happened to the lost, barking dog in East Vail?",
@@ -673,7 +676,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [1,2,3]
+        sourcesMentioned: [1,2,3],
+        image_flag: true
       },
       {
         title: "Electric Avenue: The '80s MTV Experience comes to Beaver Creek Saturday",
@@ -698,7 +702,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [6,1,5]
+        sourcesMentioned: [6,1,5],
+        image_flag: false
       },
       {
         title: "Transportation authority is an opportunity to build for the future",
@@ -722,7 +727,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [1,2,3,4,5,6]
+        sourcesMentioned: [1,2,3,4,5,6],
+        image_flag: true
       },
       {
         title: "Court appearance for prominent Vail real estate broker continued",
@@ -745,7 +751,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [6,3,4]
+        sourcesMentioned: [6,3,4],
+        image_flag: false
       },
       {
         title: "Frisco’s Jay Irwin shares harrowing backcountry experience to inspire adventurers to do good",
@@ -769,7 +776,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [4,2]
+        sourcesMentioned: [4,2],
+        image_flag: false
       },
       {
         title: '‘Lost Boy’ Marty Koether returns for 60th anniversary of incident',
@@ -798,7 +806,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [5]
+        sourcesMentioned: [5],
+        image_flag: true
       },
       {
         title: 'Ur-Fascism',
@@ -827,7 +836,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [4,6,2]
+        sourcesMentioned: [4,6,2],
+        image_flag: false
     },
     {
         title: 'Glizzys, Glam, and Gargantuan Gonads',
@@ -864,7 +874,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: []
+        sourcesMentioned: [],
+        image_flag: false
     },
     {
         title: 'Election Summary Report 2023 Larimer County Coordinated Election',
@@ -902,7 +913,8 @@ const fakeStorys = [
             "www.facebook.com",
             "www.arstechnica.com"
         ],
-        sourcesMentioned: [4]
+        sourcesMentioned: [4],
+        image_flag: true
     }
 ]
 

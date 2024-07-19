@@ -12,48 +12,52 @@ export const SingleStoryPage = () => {
     const [story, setStory] = useState({});
     const [pageView, setPageView] = useState(0);
     const [breadcrumbs, setBreadcrumbs] = useState({});
+    
 
     const updatePageViewsOnLoad = async (id) => {
         await addPageView(id);
         return;
     }
 
-    const parseFootnoteWords = (storyObj) => {
-        let storyText = storyObj.story_text;
-        console.log('story obj', storyText)
-        storyObj.footnote_words.forEach((para) => { // words and paragraph obj
-            console.log('each obj', para) // words will look like "['word here']"
-            // clean up the word
-            para.word.forEach((thing) => {
-                const recursion = "";
-                console.log('thing here', thing)
-                //let wordTrim = thing.trim();
-                let wordReplace = thing.replace(/[\[\]']+/g,'').trim(); // remove square brackets and single quotes
-                console.log('word', wordReplace)
-                // match the word to the paragraph placement in footnoteObj
-                console.log(storyText[para.paragraph])
-                let newPara = storyText[para.paragraph].replace(thing, wordReplace);
-                console.log('new parap', newPara)
+    // const parseFootnoteWords = (storyObj) => {
+    //     let storyText = storyObj.story_text;
+    //     console.log('story obj', storyText)
+    //     storyObj.footnote_words.forEach((para) => { // words and paragraph obj
+    //         console.log('each obj', para) // words will look like "['word here']"
+    //         // clean up the word
+    //         para.word.forEach((thing) => {
+    //             const recursion = "";
+    //             console.log('thing here', thing)
+    //             //let wordTrim = thing.trim();
+    //             let wordReplace = thing.replace(/[\[\]']+/g,'').trim(); // remove square brackets and single quotes
+    //             console.log('word', wordReplace)
+    //             // match the word to the paragraph placement in footnoteObj
+    //             console.log(storyText[para.paragraph])
+    //             let newPara = storyText[para.paragraph].replace(thing, wordReplace);
+    //             console.log('new parap', newPara)
 
-                // do we allow footnotes in the first paragraph? (ie Led); will have to account for that.
+    //             // do we allow footnotes in the first paragraph? (ie Led); will have to account for that.
 
-                //storyText[para] = newPara;
-                //console.log('story text changed', storyText[para])
-            })
-        })
-    }
+    //             //storyText[para] = newPara;
+    //             //console.log('story text changed', storyText[para])
+    //         })
+    //     })
+    // }
 
-    const parseFoonotesRecursive = (storyTextPara, footnoteArr) => { // i can just send the paragraph text, not the whole array
+    const parseFootnotesRecursive = (storyTextPara, footnoteArr) => { // i can just send the paragraph text, not the whole array
+        console.log('we trying', storyTextPara, footnoteArr)
         if (footnoteArr.length <= 0) {
             return;
         }
         let newParagraph = "";
         for (let i = 0; i < footnoteArr.length; i++) {
-            let word = footnoteArr[i].word
+            let word = footnoteArr[i].word[i]
+            console.log(footnoteArr[i].word[i])
             let wordReplace = word.replace(/[\[\]']+/g,'').trim(); // remove square brackets and single quotes
             // match the word to the paragraph placement in footnoteObj
             let editedParagraph = storyTextPara.replace(word, wordReplace);
             newParagraph = editedParagraph;
+            console.log('new paragraph', newParagraph)
             parseFootnotesRecursive(newParagraph, footnoteArr[i++].word)
         }
         return newParagraph;
@@ -109,8 +113,12 @@ export const SingleStoryPage = () => {
                 setBreadcrumbs(req.category);
                 setPageView(req.page_views)
                 updatePageViewsOnLoad(req.story_id);
-                parseFootnoteWords(req);
+                //parseFootnoteWords(req);
                 setStory(req);
+                for (let i = 0; i < req.story_text.length; i++) {
+                    parseFootnotesRecursive(req.story_text[i], req.footnote_words);
+                }
+                
             }
         }
         return;
@@ -160,10 +168,12 @@ export const SingleStoryPage = () => {
             <legend>Sources:</legend>
             {story.sources.map((source) => {
                 return (
+                    // TODO: Add link to search stories by source
                     <div className="individual-source-container" key={source.source_id}>
                         <p>{source.source_name}</p>
                         <p>{source.source_occupation}</p>
                         <p>{source.source_location}</p>
+                        <hr></hr>
                     </div>
                 )
             })}

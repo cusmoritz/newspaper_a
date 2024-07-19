@@ -5,6 +5,7 @@ import { submitNewStory } from "../../api";
 import { fetchAllAuthors } from "../../api";
 // import { Modal } from "./Modal";
 import { fetchFrontPageCatsSubcats } from "../../api";
+import { fetchCurrentSources } from "../../api";
 
 export const CreateStory = () => {
 
@@ -30,6 +31,9 @@ export const CreateStory = () => {
     const [footnotes, setFootnotes] = useState([]);
     const [footnoteUrl, setFootnoteURL] = useState("");
     const [footnoteWords, setFootnoteWords] = useState([]);
+    const [allSources, setAllSources] = useState([]);
+    const [storySources, setStorySources] = useState([]);
+    const [sourceDropDown, setSourceDropDown] = useState(0);
 
     // image loading function that doesn't work. still need image hosting
     // window.addEventListener('load', function() {
@@ -120,6 +124,11 @@ export const CreateStory = () => {
         const authors = await fetchAllAuthors();
         setAllAuthors(authors);
         fetchAllCatagories();
+        var sources = await fetchCurrentSources();
+        if (sources) {
+          console.log('sources', sources)
+          setAllSources(sources)
+        }
         //console.log('Page loaded.', authors)
       };
 
@@ -153,6 +162,7 @@ export const CreateStory = () => {
         setBreakingFlag(false);
         setBreakingHeadline("");
         setFootnotes([]);
+        setStorySources([]);
       }
 
       const setTitleEvent = (targetValue) => {
@@ -173,6 +183,10 @@ export const CreateStory = () => {
       const setStoryEvent = (storyValue) => {
         setStory(storyValue);
         setStoryChar(storyValue.length);
+      };
+
+      const addSourceEvent = () => {
+        console.log('source id', sourceDropDown)
       }
 
       const setTagEvent = (tagValue) => {
@@ -302,6 +316,22 @@ export const CreateStory = () => {
                 <label htmlFor="slug-input">Add a potential SEO URL slug for this story: </label>
                 <input onChange={((event) => setSlug(event.target.value))} className="slug-input" />
                 <button onClick={(() => console.log('loaded'))}>Check Slug</button>
+
+                <label htmlFor="source-dropwdown">Select Sources for this story</label>
+                <select className="source-dropwdown">
+                  {!allSources ? null : 
+                  allSources.map((source) => {
+                    return ( // this will probably have to be a search bar at some point.
+                      <option key={source.source_id} value={source.source_id} onChange={(event) => console.log(event.target.value)}>
+                        {source.source_name}; {source.source_location}; {source.source_occupation}
+                      </option>
+                    )
+                  })
+                  }
+                </select>
+                <button onClick={() => console.log('source' , sourceDropDown)}> Add Source</button>
+                <label htmlFor="no-source-checkbox">Check this box if there are no sources for this story.</label>
+                <input className="no-source-checkbox" type="checkbox" />
 
                 {/* TODO: Add ability to add urls inside of story */}
 

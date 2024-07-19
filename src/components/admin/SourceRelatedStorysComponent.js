@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { getStorysForOneSource } from "../../api";
+import { Link } from "react-router-dom";
 
 export const SourceRelatedStorysComponent = () => {
 
@@ -14,16 +15,16 @@ export const SourceRelatedStorysComponent = () => {
     const fetchStorysForOneSource = async () => {
         const storysAndSource = await getStorysForOneSource(sourceId);
         if (storysAndSource) {
-            console.log('both', storysAndSource)
+            //console.log('both', storysAndSource)
             setStorys(storysAndSource.related);
             setSource(storysAndSource.source)
-            console.log(source)
-            console.log(storys)
+            //console.log(source)
+            //console.log(storys)
         }
     }
 
     const loadPage = async () => {
-        await fetchStorysForOneSource();
+        await fetchStorysForOneSource();    
     };
 
     useEffect(() => {
@@ -65,7 +66,7 @@ export const SourceRelatedStorysComponent = () => {
                 <div key={story.story_id}>
                     <p>Title: {story.story_title}</p>
                     <p>Original Publish Date: {story.original_publish_date}</p>
-                    <p>Author: {story.story_author}</p>
+                    <p>Author: {story.author.first_name} {story.author.last_name} | {story.author.public_role}</p>
                     {/* <p>{story.}</p>
                     <p>{story.}</p> */}
                     <hr></hr>

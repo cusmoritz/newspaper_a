@@ -37,7 +37,7 @@ export const fetchFrontPage = async () => {
 
 export const fetchFrontPageCatsSubcats = async () => {
     try {
-        const request = await fetch(`${BASE_URL}/api/all-catagories`, {
+        const request = await fetch(`${BASE_URL}/api/all-categories`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ export const fetchFrontPageCatsSubcats = async () => {
         const allCats = await request.json();
         return allCats;
     } catch (error) {
-        console.log('there was an error fetching all catagories');
+        console.log('there was an error fetching all categories');
         throw error;
     }
 };
@@ -68,25 +68,25 @@ export const fetchSinglePageStory = async (storyId) => {
     }
 }
 
-export const fetchPrimaryCatStories = async (catagory) => {
+export const fetchPrimaryCatStories = async (category) => {
     try {
-        const request = await fetch(`${BASE_URL}/api/catagories/${catagory}`, {
+        const request = await fetch(`${BASE_URL}/api/categories/${category}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        const catagoryStories = await request.json();
-        return catagoryStories;
+        const categoryStories = await request.json();
+        return categoryStories;
     } catch (error) {
-        console.log(`there was an error fetching stories with catagory ${catagory}`);
+        console.log(`there was an error fetching stories with category ${category}`);
         throw error;
     }
 };
 
 export const fetchSecondaryCatStories = async (primary, secondary) => {
     try {
-        const request = await fetch(`${BASE_URL}/api/catagories/${primary}/${secondary}`, {
+        const request = await fetch(`${BASE_URL}/api/categories/${primary}/${secondary}`, {
             method: "GET",
             header: {
                 'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ export const fetchSecondaryCatStories = async (primary, secondary) => {
         console.log('front here', secondaryStories)
         return secondaryStories;
     } catch (error) {
-        console.log('there was an error fetching stories for those catagories');
+        console.log('there was an error fetching stories for those categories');
         throw error;
     }
 }

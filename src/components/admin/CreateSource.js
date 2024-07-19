@@ -45,7 +45,7 @@ export const CreateSource = () => {
         const currentSources = await fetchCurrentSources();
         if (currentSources) {
             setAllSources(currentSources);
-            console.log('sources', currentSources);
+            //console.log('sources', currentSources);
         }
     };
     

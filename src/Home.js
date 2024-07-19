@@ -5,8 +5,9 @@ import { FrontPageStory } from "./components/FrontPageStory";
 import { fetchFrontPageCatsSubcats } from "./api";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { Link } from "react-router-dom";
 
-export const Home = ({setGlobalBreakingBool, setGlobalBreakingHeadline, setGlobalBreakingNewsPath}) => {
+export const Home = () => {
 
     const [frontPage, setFrontPage] = useState([]);
     const [catagories, setCatagories] = useState({});
@@ -15,15 +16,16 @@ export const Home = ({setGlobalBreakingBool, setGlobalBreakingHeadline, setGloba
             const fPStorys = await fetchFrontPage();
             if (fPStorys) {
                 //console.log('FP', fPStorys)
-                fPStorys.map((story) => {
-                    if (story.breaking_news_flag === true && 
-                        story.breaking_news_banner_headline != null) {
-                            setGlobalBreakingBool(true);
-                            setGlobalBreakingHeadline(story.breaking_news_banner_headline);
-                            setGlobalBreakingNewsPath({primary: story.primary_cat, secondary: story.secondary_cat, slug: story.story_slug, id: story.story_id})
-                            // primary_cat secondary_cat story_slug story_id
-                    }
-                })
+                // fPStorys.map((story) => {
+                //     if (story.breaking_news_flag === true && 
+                //         story.breaking_news_banner_headline != null) {
+                //             setGlobalBreakingBool(true);
+                //             setGlobalBreakingHeadline(story.breaking_news_banner_headline);
+                //             setGlobalBreakingNewsPath({primary: story.primary_cat, secondary: story.secondary_cat, slug: story.story_slug, id: story.story_id})
+                //             // primary_cat secondary_cat story_slug story_id
+                //     }
+                // })
+                // need a better solution for breaking news
                 setFrontPage(fPStorys);
             }
             // const allCatagories = await fetchFrontPageCatsSubcats();
@@ -145,7 +147,7 @@ export const Home = ({setGlobalBreakingBool, setGlobalBreakingHeadline, setGloba
     return (
         <div className="main-content-container">
 
-            <h4>Top Stories of the day:</h4>
+            <h4>Top Story of the day:</h4>
             {!frontPage ? null : frontPage.map((story) => {
                 return (
                     <div key={story.story_id}>
@@ -153,6 +155,7 @@ export const Home = ({setGlobalBreakingBool, setGlobalBreakingHeadline, setGloba
                     </div>
                 )
             })}
+            <Link to={"/news/page/2"}><button>Next Page</button></Link>
         </div>
     );
 };

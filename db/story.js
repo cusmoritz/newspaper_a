@@ -377,19 +377,20 @@ const fetchSinglePageStory = async (storyId) => {
 }
 
 const fetchStoriesByPrimaryCategory = async (category) => { 
-    const categorySearch = category.toUpperCase();
-    // we make category a num for now
+    //const categorySearch = category.toUpperCase();
+    // we make category a int for now
 
     try {
         // get category
-        const {rows: primaryCategory} = await client.query(`
+        const {rows: [primaryCategory]} = await client.query(`
         SELECT * FROM primary_categories
-        WHERE primary_category_name = $1
+        WHERE primary_category_id = $1
         ;
         `, [category]);
 
+        console.log('primary cat all', primaryCategory)
         // get stories for category
-        const id = primaryCategory[0].primary_category_id;
+        const id = primaryCategory.primary_category_id;
         const {rows: stories} = await client.query(`
         SELECT * FROM storys
         JOIN story_meta ON story_meta.story_main_id = storys.story_id

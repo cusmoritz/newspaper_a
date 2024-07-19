@@ -23,20 +23,20 @@ export const NavBar = () => {
             <Link to="/"><div className="primary-catagory-container">HOME</div></Link>
         {!catagories ? null : catagories.map((mainCat) => {
             return (
-            <div className="primary-catagory-container" key={mainCat.primary_catagory_id}>
-                <Link to={`/${mainCat.primary_catagory_name.toLowerCase()}`}>
-                    <div className="primary-catagory" value={mainCat.primary_catagory_id}>{mainCat.primary_catagory_name}      
+            <div className="primary-catagory-container" key={mainCat.primary_category_id}>
+                <Link to={`/${mainCat.primary_category_name.toLowerCase()}`}>
+                    <div className="primary-catagory" value={mainCat.primary_category_id}>{mainCat.primary_category_name}      
                     </div>
                 </Link>
                 <div className="secondary-catagory-container">
                     {mainCat.secondary.map((secondary) => {
-                        let adjustedParam = secondary.secondary_catagory_name.replace(" ","-").toLowerCase();
+                        let adjustedParam = secondary.secondary_category_name.replace(" ","-").toLowerCase();
                         return (
                             <Link 
-                                key={secondary.secondary_catagory_id} 
-                                to={`/${mainCat.primary_catagory_name.toLowerCase()}/${adjustedParam}`}>
+                                key={secondary.secondary_category_id} 
+                                to={`/${mainCat.primary_category_name.toLowerCase()}/${adjustedParam}`}>
                                 <p 
-                                    className="secondary-catagory">{secondary.secondary_catagory_name}</p>
+                                    className="secondary-catagory">{secondary.secondary_category_name}</p>
                             </Link>
                         )
                     })}

@@ -12,42 +12,42 @@ export const ElectionCategoryPage = () => {
     // then what do we do with them? link together? do we create a new ability to make an election story?
 
     // primary cat should always be elections
-    const primary = "ELECTIONS";
+    // const primary = "ELECTIONS";
 
-    const [stories, setStories] = useState([]);
-    const [domain, setDomain] = useState("");
+    // const [stories, setStories] = useState([]);
+    // const [domain, setDomain] = useState("");
 
-    const breadcrumbs = [];
+    // const breadcrumbs = [];
 
-    const fetchPrimaryStories = async () => {
-        const catStories = await fetchPrimaryCatStories(primary);
-        if (catStories) {
-            console.log('election stories?', catStories)
-            setStories(catStories)
-        };
-    };
+    // const fetchPrimaryStories = async () => {
+    //     const catStories = await fetchPrimaryCatStories(primary);
+    //     if (catStories) {
+    //         console.log('election stories?', catStories)
+    //         setStories(catStories)
+    //     };
+    // };
     
-    const loadPage = async () => {
-        fetchPrimaryStories();
-        const domain = window.location.origin;
-        setDomain(domain);
-    };
+    // const loadPage = async () => {
+    //     fetchPrimaryStories();
+    //     const domain = window.location.origin;
+    //     setDomain(domain);
+    // };
 
-    useEffect(() => {
-        loadPage();
-    }, []);
+    // useEffect(() => {
+    //     loadPage();
+    // }, []);
 
-    return (
-        <>
-        <h1>This is the elections main page.</h1>
-        {!stories ? null : 
-        stories.map((story) => {
-            console.log('story', story)
-            return (
-                <FrontPageStory props={story}/>
-            )
-        })
-        }
-        </>
-    )
+    // return (
+    //     <>
+    //     <h1>This is the elections main page.</h1>
+    //     {!stories ? null : 
+    //     stories.map((story) => {
+    //         console.log('story', story)
+    //         return (
+    //             <FrontPageStory props={story}/>
+    //         )
+    //     })
+    //     }
+    //     </>
+    // )
 };

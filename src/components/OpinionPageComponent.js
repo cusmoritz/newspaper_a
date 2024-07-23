@@ -8,11 +8,14 @@ export const OpinionPageComponent = () => {
     const [stories, setStories] = useState([]);
 
     const loadPage = async () => {
-        const primaryStories = await fetchPrimaryCatStories(2);
+        const primaryStories = await fetchPrimaryCatStories(3);
         if (primaryStories) {
+            for (let i = 0; i < primaryStories.length; i++) {
+                let newSecondary = primaryStories[i].secondary.secondary_category_name.replace(" ", "-");
+                primaryStories[i].secondary.secondary_category_name = newSecondary;
+            }
             setStories(primaryStories);
         }
-        console.log('stories', primaryStories)
     };
 
     useEffect(() => {
@@ -25,7 +28,7 @@ export const OpinionPageComponent = () => {
         {!stories ? <div>There are no stories for this category.</div> :
         stories.map((story, index) => {
             return (
-                <StoryPreviewComponent storyObj={story} key={index}/>
+                <StoryPreviewComponent storyObj={story} primaryCat={story.primary.primary_category_name.toLowerCase()} subCat={story.secondary.secondary_category_name.toLowerCase()} key={index}/>
             )
         }) 
         }

@@ -103,6 +103,7 @@ const App = () => {
 
                     <Route exact path="/opinion" element={<OpinionPageComponent />} />
 
+                    <Route exact path="/outdoors/:secondary/:slug/:storyId" element={<SingleStoryPage />} />
                     <Route exact path="/outdoors" element={<OutdoorsPageComponent />} />
 
                     <Route exact path="/sports" element={<SportsPageComponent />} />
@@ -110,7 +111,7 @@ const App = () => {
                     <Route exact path="/entertainment" element={<EntertainmentPageComponent />} />
 
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />
-                    
+
                     <Route path="/search/author/:id" element={<AuthorSearchResults />} />
                     {/* <Route path="/news/recent-stories" element={<RecentStoriesComponent />} />
                     <Route path="/news/:slug" element={<SingleStoryPage />} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const StoryPreviewComponent = ({storyObj}) => {
+export const StoryPreviewComponent = ({storyObj, primaryCat, subCat}) => {
 
     console.log('storyObj', storyObj)
     return (
@@ -15,8 +15,11 @@ export const StoryPreviewComponent = ({storyObj}) => {
                 <img src="https://placehold.jp/350x200.png" className="story-preview-image" />
                 </div>
             }
-            <h3>{storyObj.story_title}</h3>
+            <h3>
+                <Link to={`/${primaryCat}/${subCat}/${storyObj.story_slug}/${storyObj.story_id}`}>{storyObj.story_title}</Link>
+            </h3>
             <p>{storyObj.story_led}</p>
+            <button>Read More</button>
             <fieldset className="story-preview-author-box">
             <p>By <Link to={`/search/author/${storyObj.author_id}`}>{storyObj.first_name} {storyObj.last_name}</Link> | {storyObj.public_role}</p>
             <p>{storyObj.email}</p>

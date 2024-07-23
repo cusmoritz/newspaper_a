@@ -5,7 +5,7 @@ import { fetchPrimaryCatStories } from "../api";
 export const ElectionPageComponent = () => {
 
     const loadPage = async () => {
-        const stories = await fetchPrimaryCatStories(3);
+        const stories = await fetchPrimaryCatStories(2);
         console.log('stories', stories)
     };
 

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export const SingleStoryPage = () => {
 
     // /:primary/:secondary/:slug/:storyId
-    const {primary, secondary, slug, storyId} = useParams();
+    const {secondary, slug, storyId} = useParams(); // primary is handled in App.js
 
     const [story, setStory] = useState({});
     const [pageView, setPageView] = useState(0);
@@ -103,7 +103,8 @@ export const SingleStoryPage = () => {
     // } we need to move this to the backend and parse it there before we save it
 
     const fetchStory = async () => {
-        if (!storyId || !slug || !primary || !secondary) {
+        console.log(storyId, slug, secondary)
+        if (!storyId || !slug || !secondary) {
             return false;
         } else {
             const req = await fetchSinglePageStory(storyId);
@@ -124,14 +125,7 @@ export const SingleStoryPage = () => {
         return;
     }
 
-    // slug is the story slug, but call is to database from storyId?
-    // do we want /story/::storyId::/::storySlug?
-    // I think we want /primaryCat/seconddaryCat/slug-slug-slug/storyId
-    // we should also consider catagories (news , opinion, etc)
-
-    // go and get the story from the story ID
-    // return .com/:primary/:secondary/:slug/:storyId
-    // profit?
+// primary/secondary/story-slug-goes-here
 
     const loadPage = () => {
         fetchStory();
@@ -140,7 +134,7 @@ export const SingleStoryPage = () => {
 
     useEffect(() => {
         loadPage()
-    }, [primary, secondary, slug, storyId]);
+    }, [secondary, slug, storyId]);
 
     return (
         <>

@@ -344,6 +344,7 @@ const fetchSingleStoryCatSubCat  = async (primaryId, secondaryId) => {
         const building = {};
         building.primary = primary[0];
         building.secondary = secondary[0];
+        //console.log('in fetchSingletoryCatSubCat', primary, secondary)
         return building;
     } catch (error) {
         console.log('there was a database error fetching categories for one story.');
@@ -403,17 +404,42 @@ const fetchStoriesByPrimaryCategory = async (category) => {
         ;
         `, [id]);
 
+        console.log('story by prim cat', stories)
         // get tags for story
         for (let i = 0; i < stories.length; i++){
+            const response = await fetchSingleStoryCatSubCat(stories[i].primary_cat, stories[i].secondary_cat);
+            //console.log('whjat now', whatNow)
+            stories[i].primary = response.primary;
+            stories[i].secondary = response.secondary;
+            //await fetchPrimaryAndSecondaryByStoryId(stories[i].story_id);
+            //stories[i].primary_cat_description = primaryCategory.primary_category_name;
             stories[i].tags = await retreiveTags(stories[i].story_id);
         }
-        // console.log(stories)
+         console.log('now what', stories)
         return stories;
     } catch (error) {
         console.log('there was a database error fetching by category');
         throw error;
     }
 };
+
+const fetchPrimaryAndSecondaryByStoryId = async (storyId) => {
+    console.log('story id', storyId)
+    try {
+        const {rows: primSec} = await client.query(`
+        SELECT * FROM story_meta
+        JOIN primary_categories ON primary_categories.primary_category_id = story_meta.story_main_id
+
+        WHERE story_meta.story_main_id = $1
+
+        ;
+        `, [storyId]);
+        console.log('prim for now', primSec);
+    } catch (error) {
+        console.log('there was a database error fetching primary and secondary categories by that story Id.');
+        throw error;
+    }
+}
 
 const fetchStoriesBySecondaryCategory = async (primaryCat, secondaryCat) => {
     const primary = primaryCat.toUpperCase();

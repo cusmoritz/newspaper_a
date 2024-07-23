@@ -977,6 +977,111 @@ const fakeStorys = [
         sourcesMentioned: [6, 3, 2],
         image_flag: true
     },
+    {
+        title: 'QB competition preview: Bo Nix details transition to Broncos',
+        subhead: "Hopes to 'play fast' when training camp begins",
+        story: [
+            "ENGLEWOOD, Colo. — Bo Nix's first weeks in Denver lived up to the expectations he's always held for his NFL career.",
+            `"It's been great," "Nix told DenverBroncos.com in mid-June as the Broncos ended their offseason program.`,
+            `"It's been really fun. I think it's been a great learning curve. It's been all the things that I always thought of the NFL: [the] long, extensive plays with a lot of checks and all this kind of stuff. That's the fun part, and that's what you can't wait to get to the NFL and do. The players are awesome, coaches are great and I'm just excited to be here."`,
+            "After being selected with the 12th-overall pick in April's draft, Nix spent the first six weeks of his NFL career splitting reps with Jarrett Stidham and Zach Wilson in the initial stages of the Broncos' quarterback competition.",
+            "Nix, who completed an NCAA record 77.4 percent of his passes last season at Oregon and was named the 2023 Pac-12 Offensive Player of the Year, showed signs of promise during the Broncos' offseason program.",
+            `"He's further along than most," Head Coach Sean Payton said on May 23. "We're talking about a player who has played 61 [college] games. He's extremely smart. He's picked it up very quickly."`,
+            `A week later, Payton noted that Nix was "throwing the ball extremely well" in practice.`,
+            "As Nix reflected on his initial adjustment to a pro system, he pointed to his college career — which featured two schools and multiple offensive coordinators — for preparing him for the transition.",
+            `"It's just football," Nix said in mid-June. "Some moments I struggle, sometimes I feel like I'm excelling. It's just a happy medium of still feeling like a rookie and everything still feeling new. It's just repetition. It's just going over everything many times, and it's finding ways to connect it with my brain and what I've done in the past. But I think the overall experiences and the knowledge that I have playing in many systems and many offenses and on many teams with many players, I think that's just all going into helping make the transition better."`,
+        ],
+        tags: [ "broncos", "football", "NFL", "Training Camp" ],
+        author: 7,
+        led: "As 2024 Training Camp powered by Ford approaches, we're taking a closer look at all three quarterbacks on the Broncos' roster. Jarrett Stidham, Zach Wilson and Bo Nix are set to compete for Denver's starting job.",
+        slug: "2024-training-camp-broncos-quarterback-roster",
+        primary: 5,
+        secondary: 18,
+        breakingFlag: false,
+        breakingHeadline: null,
+        footnotes: [],
+        footnoteURLs: [
+            "www.si.com",
+            "www.denverbroncos.com",
+            "www.espn.com"
+        ],
+        sourcesMentioned: [1],
+        image_flag: true
+    },
+    {
+        title: 'Cole Bassett earns fifth Team of the Matchday honor of season',
+        subhead: 'He propells Rapids to victory over Real Salt Lake',
+        story: [
+            "Bassett assisted the first two goals of the night from Jonathan Lewis and Sam Vines in the first half, then secured the Cup in the dying moments of the game with an 88th-minute penalty.",
+            "Lewis and Bassett connected in the box in the 35th minute for the Rapids' equalizer after going down early. Lewis drew a foul down in Colorado's half to start the play, and the Rapids connected well to build the play, first finding Moïse Bombito, who dumped a long ball into the attacking third for Rafael Navarro to collect. Navarro's pass to Bassett at the top of the box set the midfielder up for a one-touch pass to Lewis, who commanded the half-volley in front of Salt Lake's net for his second goal of the game and Bassett's fifth assist of the year.",
+            "Bassett and the Rapids struck again just four minutes later when he played a through ball into Lewis on the right side of the box. The winger's low pass across the face of the goal found Vines sliding into the six-yard box to give the Rapids the lead and Vines his first goal of the season.",
+            "It all came down to the wire after Salt Lake equalized early into the second half after a lengthy weather delay. The Rapids saw their chance to secure three points at home and the Rocky Mountain Cup when a Salt Lake player committed a handball in the box on Colorado corner kick.",
+            "Bassett calmly stepped up to the spot and sent a rocket to the back of the net, finding the Rapids' game winner and cementing his place in Rocky Mountain Cup and club history.",
+            "For the Homegrown, the weekend's matchup just meant more.",
+            `"I think this rivalry, more so than other ones, you can just see what it means to the players and the fans," he said after the game. "That was probably the loudest I've heard our stadium in a while in that first half after we scored the second one...I think it was huge for us to have a lot of fans here, and I wish the weather delay didn't happen so that could have continued in the second half. You can feel there's some spice to it. I'm sure if we play against each other later in the year, maybe in playoffs, I think it'll be a little extra spicy, even more so than it was.”`,
+        ],
+        tags: [ "MLS", "soccer", "Rapids", "Colorado Rapids", "Cole Bassett" ],
+        author: 3,
+        led: "Cole Bassett has earned his fifth Team of the Matchday honor of the year for his one goal, two assist-performance against Colorado rivals Real Salt Lake on Saturday night to secure the coveted Rocky Mountain Cup and three points in the Western Conference standings",
+        slug: "cole-bassett-earns-fifth-team-trophy-beats-real-salt-lake",
+        primary: 5,
+        secondary: 21,
+        breakingFlag: false,
+        breakingHeadline: null,
+        footnotes: [],
+        footnoteURLs: [
+            "www.coloradorapids.com", 
+            "www.espn.com"
+        ],
+        sourcesMentioned: [5, 3],
+        image_flag: true
+    },
+    {
+        title: 'HINOTE NAMED EAGLES ASSOCIATE HEAD COACH',
+        subhead: 'Former Avalanche Forward & 2001 Stanley Cup Champion Returns To Organization',
+        story: [
+            "Hinote, 47, returns to the Avalanche organization where he played his first six NHL seasons and won a Stanley Cup in 2001.",
+            "Selected by Colorado in the seventh round (167th overall) of the 1996 NHL Entry Draft, Hinote appeared in 353 regular season games with the Avs from 1999-00 to 2005-06, recording 65 points (27g/38a).  He skated in a career-high 76 contests during the 2000-01 campaign and went on to dress in all 23 playoff games that spring to help Colorado win the Stanley Cup.",
+            "The Leesburg, Florida, native has spent the past four seasons as an assistant coach with the Nashville Predators, helping the team advance to the playoffs in three of those four campaigns. Hinote began his coaching career with the Columbus Blue Jackets in 2010-11, spending four seasons behind the bench (2010-14) before moving into a professional scouting role with the Jackets.",
+            "After four years as a scout (2014-18), he joined the United States National Team Development program, serving as associate coach with Team USA’s Under-17 and Under-18 squads from 2018-20.  Hinote was an assistant coach on the United States’ bronze-medal entry at the 2019 IIHF Under-18 Men's World Championship in Russia.",
+            `“Dan has a diverse background in professional hockey, including a decade as a player in the NHL and nearly a decade as a coach in the NHL,” said Avalanche Assistant General Manager Kevin McDonald.`,
+        ],
+        tags: [ "Eagles Hockey", "Dan Hinote", "hockey" ],
+        author: 6,
+        led: "DENVER – The Colorado Avalanche Hockey Club announced today that Dan Hinote has been named associate head coach of the organization’s American Hockey League affiliate, the Colorado Eagles.",
+        slug: "dan-hinote-eagles-hockey-assistant-head-coach",
+        primary: 5,
+        secondary: 19,
+        breakingFlag: false,
+        breakingHeadline: null,
+        footnotes: [],
+        footnoteURLs: [
+
+        ],
+        sourcesMentioned: [],
+        image_flag: true
+    },
+    // {
+    //     title: '',
+    //     subhead: '',
+    //     story: [
+
+    //     ],
+    //     tags: [  ],
+    //     author: ,
+    //     led: "",
+    //     slug: "",
+    //     primary: ,
+    //     secondary: ,
+    //     breakingFlag: false,
+    //     breakingHeadline: null,
+    //     footnotes: [],
+    //     footnoteURLs: [
+
+    //     ],
+    //     sourcesMentioned: [],
+    //     image_flag: true
+    // },
 
 ]
 

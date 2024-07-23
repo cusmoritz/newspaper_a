@@ -317,6 +317,10 @@ export const CreateStory = () => {
                 <input onChange={((event) => setSlug(event.target.value))} className="slug-input" />
                 <button onClick={(() => console.log('loaded'))}>Check Slug</button>
 
+
+                {/* TODO: Create way to input embedded tweets / facebooks posts?  */}
+
+                
                 <label htmlFor="source-dropwdown">Select Sources for this story</label>
                 <select className="source-dropwdown">
                   {!allSources ? null : 

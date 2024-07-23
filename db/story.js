@@ -941,7 +941,43 @@ const fakeStorys = [
         ],
         sourcesMentioned: [4],
         image_flag: true
-    }
+    },
+    {
+        title: 'Coors Field the likeliest spot to see a cycle',
+        subhead: 'Several of the Coors Field cycles jump out',
+        story: [
+            "Since opening in 1995, Coors Field has hosted 18 cycles -- half by the Rockies, half by opponents. Boston's Fenway Park, which opened in 1912, is tied with 18 -- but that venue's 18th didn't occur until the Astros' Jose Altuve fashioned his on Aug. 28, 2023.",
+            "Imagine, 18 cycles in such comparatively little time.",
+            "Several of the Coors Field cycles jump out:",
+            "Carlos González in 2010 and Nolan Arenado on Father’s Day in '17 accomplished theirs with walk-off home runs. Dante Bichette’s cycle-competing single in 1998 in the 10th inning was good for a walk-off win.",
+            "Arenado’s was the first cycle-completed walk-off homer to occur with the team trailing at the time.",
+            "Mike Lansing in 2000 ended the drama by accomplishing his feat in the first four innings of a lopsided victory.",
+            "Michael Cuddyer in 2014 paired one with his cycle for the Twins in 2009. He joined Bob Watson and John Olerud as the only players with cycles in both leagues.",
+            "In 2018, Charlie Blackmon became the first player to cycle in the 162nd game of the season. It wasn’t the last game, however, because the Rockies played and lost a tiebreaker for the National League West title against the Dodgers.",
+            "Opposing hitters also have enjoyed history-making days at Coors Field:",
+            "• The first Coors Field cycle, by the Cardinals’ John Mabry in 1996, was a “natural cycle” – single, double, triple and home run, in order.",
+            "The Astros’ Craig Biggio, the only Hall of Famer on this list, cycled in the Rockies’ 2002 home opener.",
+            "The Giants’ Fred Lewis’ first career home run was part of his 2007 cycle.",
+            "The Rangers’ Shin-Soo Choo in 2015 became the first Korean player to accomplish the feat.",
+            "The only time a cycle has happened in a Rockies road game was in 2019 -- Washington’s Trea Turner did it at Nationals Park. It was a familiar feeling. Turner accomplished the feat at Coors Field two seasons earlier.",
+            "By the way, as common as cycles are at Coors Field, a no-hitter has happened just once, Hideo Nomo in 1996."
+        ],
+        tags: [ 'Rockies', 'Coors Fiels', 'baseball', 'MLB', 'cycle' ],
+        author: 6,
+        led: "DENVER -- A player hitting for a cycle -- a single, double, triple and home run in the same game -- is rare. But at Coors Field, there's always a chance for such strange and special occurrences.",
+        slug: "coors-field-cycle-hitters-roundup",
+        primary: 5,
+        secondary: 20,
+        breakingFlag: false,
+        breakingHeadline: null,
+        footnotes: [],
+        footnoteURLs: [
+
+        ],
+        sourcesMentioned: [6, 3, 2],
+        image_flag: true
+    },
+
 ]
 
 const insertFakePrimarys = () => {

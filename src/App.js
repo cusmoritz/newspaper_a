@@ -103,9 +103,12 @@ const App = () => {
 
                     <Route exact path="/opinion" element={<OpinionPageComponent />} />
 
-                    <Route exact path="/outdoors/:secondary/:slug/:storyId" element={<SingleStoryPage />} />
+                    <Route exact path="/outdoors/:secondary/:slug/:storyId" 
+                        element={<SingleStoryPage />} />
                     <Route exact path="/outdoors" element={<OutdoorsPageComponent />} />
 
+                    <Route exact path="/sports/:secondary/:slug/:storyId" 
+                        element={<SingleStoryPage />} />
                     <Route exact path="/sports" element={<SportsPageComponent />} />
 
                     <Route exact path="/entertainment" element={<EntertainmentPageComponent />} />

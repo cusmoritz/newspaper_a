@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 
 export const NavBar = () => {
     
-    const [catagories, setCatagories] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     const loadPage = async () => {
-        const allCatagories = await fetchFrontPageCatsSubcats();
-        if (allCatagories) {
-            setCatagories(allCatagories);
+        const allCategories = await fetchFrontPageCatsSubcats();
+        if (allCategories) {
+            console.log('all cats', allCategories)
+            setCategories(allCategories);
         }
     };
 
@@ -21,7 +22,7 @@ export const NavBar = () => {
     return (
         <nav className="nav-bar-container">
             <Link to="/"><div className="primary-catagory-container">HOME</div></Link>
-        {!catagories ? null : catagories.map((mainCat) => {
+        {!categories ? null : categories.map((mainCat) => {
             return (
             <div className="primary-catagory-container" key={mainCat.primary_category_id}>
                 <Link to={`/${mainCat.primary_category_name.toLowerCase()}`}>

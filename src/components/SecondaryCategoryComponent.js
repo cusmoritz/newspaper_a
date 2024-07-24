@@ -13,10 +13,11 @@ export const SecondaryCategoryComponent = ({primaryName}) => {
     // fetch secondary cat, then stories with that ID.
     const [stories, setStories] = useState([]);
 
+    let urlUnstructure = secondaryName.replace("-", " ");
+
     const fetchStories = async () => {
-        const stories = await fetchSecondaryCatStories(primaryName, secondaryName);
+        const stories = await fetchSecondaryCatStories(primaryName, urlUnstructure);
         if (stories) {
-            // console.log('storoes', stories)
             setStories(stories);
         }
     };
@@ -27,12 +28,12 @@ export const SecondaryCategoryComponent = ({primaryName}) => {
 
     useEffect(() => {
         loadPage();
-    }, [secondaryName, primaryName]) // secondary or primary probably
+    }, [secondaryName, primaryName]);
 
     return (
         <>
         This is the secondary category page component.
-        {!stories ? <div>There are no stories for this category.</div> :
+        {stories.length < 1 ? (<p>There are no stories for {urlUnstructure}.</p>) :
         stories.map((story, index) => {
             return (
                 <StoryPreviewComponent storyObj={story} primaryCat={primaryName} subCat={secondaryName} key={index}/>

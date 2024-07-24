@@ -445,51 +445,35 @@ const fetchStoriesBySecondaryCategory = async (primaryCat, secondaryCat) => {
     const primary = primaryCat.toUpperCase();
     const secondary = secondaryCat.toUpperCase();
     try {
-        // const {rows: primaryCategory} = await client.query(`
-        // SELECT * FROM primary_categories
-        // WHERE primary_category_name = $1
-        // ;
-        // `, [primary]);
-
-        const {rows: secondaryCategory} = await client.query(`
+        const {rows: [secondaryCategory]} = await client.query(`
         SELECT * FROM secondary_categories
-        /* JOIN primary_categories ON primary_categories.primary_category_id = secondary_categories.secondary_parent_id */
         WHERE secondary_category_name = $1
         ;
         `, [secondary])
-        // now we have 1 objects with IDs
-        // sec_id   sec_parent  sec_cat_name    prim_cat    prim_cat_name
-        // 4	    1	        REGIONAL	    1	        NEWS
-        console.log('what we got', secondaryCategory)
-        // {
-        //     secondary_category_id: 2,
-        //     secondary_parent_id: 1,
-        //     secondary_category_name: 'CRIME',
-
-        //     primary_category_id: 1,
-        //     primary_category_name: 'NEWS'
-        //   }
-
-
 
         // fetch stories
         const {rows: stories} = await client.query(`
         SELECT * FROM storys
         JOIN story_meta ON story_meta.story_main_id = storys.story_id
         JOIN authors ON authors.author_id = storys.story_author
-        WHERE story_meta.primary_cat = $1
-        AND story_meta.secondary_cat = $2 
+        WHERE story_meta.secondary_cat = $1 
         AND original_publish_date <= CURRENT_DATE 
         AND story_active_flag = TRUE
         ORDER BY original_publish_date DESC
         LIMIT 10
         ;
-        `, [secondaryCategory[0].secondary_parent_id, secondaryCategory[0].secondary_category_id]);
+        `, [secondaryCategory.secondary_category_id]);
 
         // get tags
         for (i = 0; i < stories.length; i++) {
             stories[i].tags = await retreiveTags(stories[i].story_id);
-        }
+            // const response = await fetchSingleStoryCatSubCat(stories[i].primary_cat, stories[i].secondary_cat);
+            // //console.log('whjat now', whatNow)
+            // stories[i].primary = response.primary;
+            // stories[i].secondary = response.secondary;
+            // we already know that it will be in a specific category AND subcategory, and the story contains the slug.
+        };
+
         //console.log('stories db', stories);
         return stories;
     } catch (error) {

@@ -27,6 +27,7 @@ import { OpinionPageComponent } from './components/OpinionPageComponent';
 import { OutdoorsPageComponent } from './components/OutdoorsPageComponent';
 import { SportsPageComponent } from './components/SportsPageComponent';
 import { EntertainmentPageComponent } from './components/EntertainmenPageComponent';
+import { SecondaryCategoryComponent } from './components/SecondaryCategoryComponent';
 
 const App = () => {
 
@@ -97,20 +98,40 @@ const App = () => {
                 <div className="App">
                 <Header />
                     <Routes>
+                    <Route exact path="/news/:secondaryName" 
+                        element={<SecondaryCategoryComponent primaryName={"news"} />} />
+                    <Route exact path="/news/:secondary/:slug/:storyId" 
+                        element={<SingleStoryPage />} />
                     <Route exact path="/news" element={<NewsPageComponent /> } />
 
+                    <Route exact path="/elections/:secondaryName" 
+                        element={<SecondaryCategoryComponent primaryName={"elections"} />} />
+                        <Route exact path="/elections/:secondary/:slug/:storyId" 
+                        element={<SingleStoryPage />} />
                     <Route exact path="/elections" element={<ElectionPageComponent />} />
 
+                    <Route exact path="/opinion/:secondaryName" 
+                        element={<SecondaryCategoryComponent primaryName={"opinion"} />} />
+                        <Route exact path="/opinion/:secondary/:slug/:storyId" 
+                        element={<SingleStoryPage />} />
                     <Route exact path="/opinion" element={<OpinionPageComponent />} />
 
+                    <Route exact path="/outdoors/:secondaryName" 
+                        element={<SecondaryCategoryComponent primaryName={"outdoors"} />} />
                     <Route exact path="/outdoors/:secondary/:slug/:storyId" 
                         element={<SingleStoryPage />} />
                     <Route exact path="/outdoors" element={<OutdoorsPageComponent />} />
 
+                    <Route exact path="/sports/:secondaryName" 
+                        element={<SecondaryCategoryComponent primaryName={"sports"} />} />
                     <Route exact path="/sports/:secondary/:slug/:storyId" 
                         element={<SingleStoryPage />} />
                     <Route exact path="/sports" element={<SportsPageComponent />} />
 
+                    <Route exact path="/entertainment/:secondaryName" 
+                        element={<SecondaryCategoryComponent primaryName={"entertainment"} />} />
+                    <Route exact path="/entertainment/:secondary/:slug/:storyId" 
+                        element={<SingleStoryPage />} />
                     <Route exact path="/entertainment" element={<EntertainmentPageComponent />} />
 
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />

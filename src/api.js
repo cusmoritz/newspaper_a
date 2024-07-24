@@ -99,7 +99,7 @@ export const fetchSecondaryCatStories = async (primary, secondary) => {
         console.log('there was an error fetching stories for those categories');
         throw error;
     }
-}
+};
 
 export const addPageView = async (storyId) => {
     try {

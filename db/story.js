@@ -33,6 +33,13 @@ const fetchStoriesFromTag = async (tag) => {
         LIMIT 10
         ;
         `, [tag]);
+        console.log('searchR', searchResults)
+        for (let i = 0; i < searchResults.length; i++) {
+            searchResults[i].category = await getCatSubCatForStoryMeta(searchResults[i].story_id);
+            searchResults[i].tags = await retreiveTags(searchResults[i].story_id);
+            let authorReturn = await fetchAuthorByAuthorId(searchResults.author_id);
+            console.log('author return', authorReturn); // we gonna redo the whole story retrival situation
+        }
         return searchResults;
     } catch (error) {
         console.log('there was a database error fetching stories with tags.');
@@ -203,6 +210,21 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
         throw error;
     }
 };
+
+const fetchAuthorByAuthorId = async (authorId) => {
+    try {
+        const {rows: [author]} = await client.query(`
+        SELECT * FROM authors
+        WHERE author_id = $1
+        ;
+        `, [authorId]);
+        console.log('author', author);
+        return author;
+    } catch (error) {
+        console.log('there was a database error fetching an author for a story.');
+        throw error;
+    }
+}
 
 const fetchAllPrimaryCategories = async () => {
     try {

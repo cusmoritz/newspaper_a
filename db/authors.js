@@ -2,6 +2,7 @@
 // author functions
 const {client} = require('./index');
 const {logEverything} = require('./errors');
+//const {retreiveTags} = require('./story');
 
 const createAuthor = async (values) => {
     // console.log('author values db', values)
@@ -67,6 +68,40 @@ const fetchAllAuthors = async() => {
     };
 };
 
+const retreiveStoryTags = async (storyId) => {
+    const {rows: tags} = await client.query(`
+        SELECT (tag)
+        FROM story_tags
+        WHERE story_tag_id = $1
+        ORDER BY tag_id ASC
+        ;
+    `, [storyId]);
+    //console.log('tags get', tags);
+    return tags;
+};
+
+const getCatSubCatForStoryAuthorSearch = async (storyMainId) => {
+    try {
+        const {rows: query} = await client.query(`
+        SELECT * FROM story_meta
+        JOIN primary_categories ON story_meta.primary_cat = primary_categories.primary_category_id
+        JOIN secondary_categories ON story_meta.secondary_cat = secondary_categories.secondary_category_id
+        WHERE story_meta.story_main_id = $1
+        ;
+        `, [storyMainId])
+        //console.log('did we do it', query[0]);
+        const building = {primary: {id: null, name: null}, secondary: {id: null, name: null}};
+        building.primary.id = query[0].primary_category_id;
+        building.primary.name = query[0].primary_category_name;
+        building.secondary.id = query[0].secondary_category_id;
+        building.secondary.name = query[0].secondary_category_name;
+        return building;
+    } catch (error) {
+        console.log('there was a database error fetching categories for this story.');
+        throw error;
+    }
+}
+
 const fetchStoriesByAuthorId = async (authorId) => {
     try {
         const {rows: searchResults} = await client.query(`
@@ -77,6 +112,12 @@ const fetchStoriesByAuthorId = async (authorId) => {
         ;
         `, [authorId]);
         console.log('search results db', searchResults);
+
+        for (i = 0; i < searchResults.length; i++) {
+            searchResults[i].tags = await retreiveStoryTags(searchResults[i].story_id);
+            console.log('search results i', searchResults[i])
+            searchResults[i].category = await getCatSubCatForStoryAuthorSearch(searchResults[i].story_id)
+        }
         return searchResults;
     } catch (error) {
         console.log('there was a database error fetching stories by author.');

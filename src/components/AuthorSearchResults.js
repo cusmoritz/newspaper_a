@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { fetchStoriesByAuthorId } from "../api";
+import { StoryPreviewComponent } from "./StoryPreviewComponent";
 
 export const AuthorSearchResults = () => {
 
@@ -37,6 +38,9 @@ export const AuthorSearchResults = () => {
         <div>There are no results for that author.</div> 
         : 
         searchResults.map((story) => {
+            console.log('story', story)
+            let fixPrimary = story.category.primary.name.replace(" ", "-").toLowerCase();
+            let fixSecondary = story.category.secondary.name.replace(" ", "-").toLowerCase();
             return (
                 <>
                 <fieldset className="author-bio-search-results">
@@ -49,12 +53,7 @@ export const AuthorSearchResults = () => {
                     <p>{searchResults[0].twitter_profile}</p>
                     <p>{searchResults[0].other_profile}</p>
                 </fieldset>
-                <fieldset key={story.story_id}>
-                    <h3>{story.story_title}</h3>
-                    <h4>{story.story_subhead}</h4>
-                    <p>{story.story_led}</p>
-                    <p>Original publication date: {story.original_publish_date.slice(0,10)}</p>
-                </fieldset>
+                <StoryPreviewComponent storyObj={story} primaryCat={fixPrimary} subCat={fixSecondary} authorSearchFlag={true}/>
                 </>
             )
         })

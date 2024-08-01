@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { fetchStoriesWithTag } from '../api';
+import { StoryPreviewComponent } from './StoryPreviewComponent';
 
 export const TagSearchResults = () => {
 
@@ -31,15 +32,13 @@ export const TagSearchResults = () => {
             <div>There are no stories with that tag.</div> 
             :   
             searchResults.map((story) => {
+                console.log('tag story', story)
+                let fixPrimary = story.category.primary.name.replace(" ", "-").toLowerCase();
+                let fixSecondary = story.category.secondary.name.replace(" ", "-").toLowerCase();
                 return (
-                <div key={story.story_id} className="individual-search-story">
-                        <fieldset>
-                            <h2>{story.story_title}</h2>
-                            <h3>{story.story_subhead}</h3>
-                            <p>{story.story_led}</p>
-                            <p>Original publish date: {story.original_publish_date.slice(0,10)}</p>
-                        </fieldset>
-                </div>
+                    <>
+                    <StoryPreviewComponent storyObj={story} primaryCat={fixPrimary} subCat={fixSecondary}/>
+                    </>
                 )
             })
             }

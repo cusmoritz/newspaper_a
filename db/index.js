@@ -105,7 +105,7 @@ const createDatabase = async() => {
 
         CREATE TABLE IF NOT EXISTS story_tags (
             tag_id SERIAL PRIMARY KEY,
-            story_tag_id INTEGER REFERENCES storys(story_id) NOT NULL,
+            tag_story_list INTEGER[],
             tag TEXT NOT NULL
         );
        

@@ -5,6 +5,69 @@ const {client} = require('./index');
 
 /////////////// FRONT END FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
+const fetchStoryById = async (storyId) => {
+    try {
+        const {rows: [story]} = await client.query(`
+        SELECT * FROM storys
+        WHERE story_id = $1
+        ;
+        `, [storyId]);
+        return story;
+    } catch (error) {
+        console.log('there was a database error fetching a story by an id');
+        throw error;
+    }
+};
+
+const fetchAuthorByAuthorId = async (authorId) => {
+    try {
+        const {rows: [author]} = await client.query(`
+        SELECT * FROM authors
+        WHERE author_id = $1
+        ;
+        `, [authorId]);
+        console.log('author', author);
+        return author;
+    } catch (error) {
+        console.log('there was a database error fetching an author for a story.');
+        throw error;
+    }
+};
+
+const retreiveTags = async (storyId) => {
+    const {rows: tags} = await client.query(`
+        SELECT (tag)
+        FROM story_tags
+        WHERE story_tag_id = $1
+        ORDER BY tag_id ASC
+        ;
+    `, [storyId]);
+    //console.log('tags get', tags);
+    return tags;
+};
+
+const getCatSubCatForStoryMeta = async (storyMainId) => {
+    try {
+        const {rows: query} = await client.query(`
+        SELECT * FROM story_meta
+        JOIN primary_categories ON story_meta.primary_cat = primary_categories.primary_category_id
+        JOIN secondary_categories ON story_meta.secondary_cat = secondary_categories.secondary_category_id
+        WHERE story_meta.story_main_id = $1
+        ;
+        `, [storyMainId])
+        //console.log('did we do it', query[0]);
+        const building = {primary: {id: null, name: null}, secondary: {id: null, name: null}};
+        building.primary.id = query[0].primary_category_id;
+        building.primary.name = query[0].primary_category_name;
+        building.secondary.id = query[0].secondary_category_id;
+        building.secondary.name = query[0].secondary_category_name;
+        return building;
+    } catch (error) {
+        console.log('there was a database error fetching categories for this story.');
+        throw error;
+    }
+}
+
 const returnAllActiveStorys = async () => {
     try {
         const {rows: activeStorys} = await client.query(`
@@ -89,27 +152,96 @@ const addPageView = async (storyId) => {
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
-const createTag = async (storyId, tag) => {
-    const {rows: tags} = await client.query(`
-    INSERT INTO story_tags (story_tag_id, tag)
-    VALUES ($1, $2)
-    RETURNING *
-    ;
-    `, [storyId, tag]);
-    return tags;
+const getAllTagsInformation = async () => { // will use this to see if the tag exists already
+    try {
+        const {rows: allTags} = await client.query(`
+        SELECT * FROM story_tags
+        ;
+        `, []);
+        console.log('all tags', allTags);
+        return allTags;
+    } catch (error) {
+        console.log('there was a database error getting all tag information');
+        throw error;
+    }
+}
+
+const updateTagStoryList = async (storyId, tag) => { // if it does exist, update it with storyid
+    try {
+        console.log('story id tag', storyId, tag);
+        newTag = tag.toUpperCase();
+        const {rows: tags} = await client.query(`
+        UPDATE story_tags 
+        SET tag_story_list = ARRAY_APPEND(tag_story_list, $1)
+        WHERE tag = $2
+        RETURNING *
+        ;
+        `, [storyId, tag]);
+        console.log('tags', tags)
+        // UPDATE sources
+        // SET storys_mentioned = ARRAY_APPEND(storys_mentioned, $1)
+        // WHERE source_id = $2
+        // RETURNING *
+        // ;
+        return tags;
+    } catch (error) {
+        console.log('there was a database error updating the tag story list')
+        throw error;
+    }
 };
 
-const retreiveTags = async (storyId) => {
-    const {rows: tags} = await client.query(`
-        SELECT (tag)
-        FROM story_tags
-        WHERE story_tag_id = $1
-        ORDER BY tag_id ASC
-        ;
-    `, [storyId]);
-    //console.log('tags get', tags);
-    return tags;
+const submitTag = async (storyId, tag) => { 
+    // if the tag doesn't exist, create it and update it. safe to assume it will be the first story
+    console.log('story id tag', storyId, tag);
+    const allTags = await getAllTagsInformation(tag);
+    console.log('all tags', allTags);
+    const tagExistFlag = false;
+    for (let i = 0; i < allTags.length; i++) {
+        if (allTags[i].tag.toUpperCase() === tag.toUpperCase()) {
+            tagExistFlag = true; // check if the tag already exists
+        }
+    };
+
+    // if it doesNOT EXIST, insert tag
+    if (tagExistFlag === false) {
+        const newTag = await createTag(tag);
+        if (newTag) {
+            return;
+        }
+    } else { // tag exists, update it
+        const tagList = await updateTagStoryList(storyId, tag)
+        if (tagList) {
+            return;
+        }
+    }
 };
+
+const createTag = async (tag) => {
+    try {
+        const {rows: [newTag]} = await client.query(`
+        INSERT INTO story_tags (tag)
+        VALUES ($1)
+        RETURNING *
+        ;
+        `, [tag]);
+        return newTag;
+    } catch (error) {
+        console.log('there was a database error adding a tag');
+        throw error;
+    }
+}
+
+// const retreiveTags = async (storyId) => {
+//     const {rows: tags} = await client.query(`
+//         SELECT (tag)
+//         FROM story_tags
+//         WHERE story_tag_id = $1
+//         ORDER BY tag_id ASC
+//         ;
+//     `, [storyId]);
+//     //console.log('tags get', tags);
+//     return tags;
+// };
 
 const updateSourceTableWithStory = async (storyId, sourceId) => {
     try {
@@ -211,20 +343,20 @@ const oneStoryStats = async (storyId) => { // this is not right on the JOIN
     }
 };
 
-const fetchAuthorByAuthorId = async (authorId) => {
-    try {
-        const {rows: [author]} = await client.query(`
-        SELECT * FROM authors
-        WHERE author_id = $1
-        ;
-        `, [authorId]);
-        console.log('author', author);
-        return author;
-    } catch (error) {
-        console.log('there was a database error fetching an author for a story.');
-        throw error;
-    }
-}
+// const fetchAuthorByAuthorId = async (authorId) => {
+//     try {
+//         const {rows: [author]} = await client.query(`
+//         SELECT * FROM authors
+//         WHERE author_id = $1
+//         ;
+//         `, [authorId]);
+//         console.log('author', author);
+//         return author;
+//     } catch (error) {
+//         console.log('there was a database error fetching an author for a story.');
+//         throw error;
+//     }
+// }
 
 const fetchAllPrimaryCategories = async () => {
     try {
@@ -269,28 +401,6 @@ const fetchAllPrimaryAndSecondary = async () => {
         throw error;
     }
 };
-
-const getCatSubCatForStoryMeta = async (storyMainId) => {
-    try {
-        const {rows: query} = await client.query(`
-        SELECT * FROM story_meta
-        JOIN primary_categories ON story_meta.primary_cat = primary_categories.primary_category_id
-        JOIN secondary_categories ON story_meta.secondary_cat = secondary_categories.secondary_category_id
-        WHERE story_meta.story_main_id = $1
-        ;
-        `, [storyMainId])
-        //console.log('did we do it', query[0]);
-        const building = {primary: {id: null, name: null}, secondary: {id: null, name: null}};
-        building.primary.id = query[0].primary_category_id;
-        building.primary.name = query[0].primary_category_name;
-        building.secondary.id = query[0].secondary_category_id;
-        building.secondary.name = query[0].secondary_category_name;
-        return building;
-    } catch (error) {
-        console.log('there was a database error fetching categories for this story.');
-        throw error;
-    }
-}
 
 const fetchFrontPage = async () => {
     try {

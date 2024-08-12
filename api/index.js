@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
-const {createNewStory, fetchFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView} = require('../db/story');
+const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const { useParams } = require('react-router-dom');
 
@@ -39,10 +39,10 @@ server.use((request, response, next) => {
 
 /////////////// FRONT END FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
-server.get('/api/story/frontpage', async (request, response, next) => {
+server.get(`/api/story/frontpage/:pageNo`, async (request, response, next) => {
     try {
-        // const pageNumber = request.params;
-        const frontPage = await fetchFrontPage();
+        const {pageNo} = request.params;
+        const frontPage = await fetchTenStoriesForFrontPage(pageNo);
         if (frontPage) {
           response.status(200).send(frontPage);
         } else {

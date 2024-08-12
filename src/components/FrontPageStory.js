@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 export const FrontPageStory = ({props}) => {
     const story = props;
     //console.log('one story in FrontPageStory', story)
+    let newPrim = story.category.primary.name.toLowerCase().replace(" ", "-");
+    let newSec = story.category.secondary.name.toLowerCase().replace(" ", "-");
     return (
         <div className="front-page-story-container" id={story.story_id}>
             <div>
@@ -11,7 +13,7 @@ export const FrontPageStory = ({props}) => {
                 <img src="https://placehold.jp/150x150.png" className="logo" alt="The Tooth logo"/>
             </div>
             <h2 className="front-page-headline" value={story.story_id}>
-                <Link to={`/${story.primary_cat}/${story.secondary_cat}/${story.story_slug}/${story.story_id}`}>{story.story_title}</Link>
+                <Link to={`/${newPrim}/${newSec}/${story.story_slug}/${story.story_id}`}>{story.story_title}</Link>
                 {/* :primary/:secondary/:slug/:storyId */}
             </h2>
             <h3 className="front-page-story-deck">{story.story_subhead}</h3>
@@ -26,9 +28,9 @@ export const FrontPageStory = ({props}) => {
             <div className="front-page-fieldset-contianer">
                 <fieldset className="front-page-tag-container">
                     <p>Tags: &nbsp;</p> 
-                    {story.tags.map((tag) => {
+                    {story.tags.map((tag, index) => {
                         return (
-                            <Link to={`/search/tag/${tag}`} key={tag}>#{tag}</Link>
+                            <Link to={`/search/tag/${tag}`} key={`"${tag}${index}"`}>#{tag}</Link>
                         )
                     })}
                 </fieldset>

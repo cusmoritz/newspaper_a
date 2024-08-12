@@ -163,6 +163,7 @@ const App = () => {
                     <Route exact path="/news/page/:pageNo" element={<PrimaryCatPage />} /> */}
                     {/* Do we need page numbers? */}
 
+                    <Route path="/page/:pageNo" element={ <Home /> } /> 
                     <Route exact path="/" element={<Home />} />
                     {/* TODO: permalinks? */}
                     </Routes>

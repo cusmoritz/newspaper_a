@@ -19,9 +19,10 @@ export const globalBreakingFlip = (breakingBool) => {
 // then tie the breaking flag to the story? 
 // that would fix it being outside the top 10 stories as well
 
-export const fetchFrontPage = async () => {
+export const fetchTenMostRecent = async (pageNo) => {
     try {
-        const request = await fetch(`${BASE_URL}/api/story/frontpage`, {
+        console.log('pageno api', pageNo)
+        const request = await fetch(`${BASE_URL}/api/story/frontpage/${pageNo}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'

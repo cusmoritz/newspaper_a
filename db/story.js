@@ -96,11 +96,14 @@ const fetchStoriesFromTag = async (tag) => {
         `, [tag]);
         console.log('searchR', searchResults)
         for (let i = 0; i < searchResults.length; i++) {
-            searchResults[i].category = await getCatSubCatForStoryMeta(searchResults[i].story_id);
-            searchResults[i].tags = await retreiveTags(searchResults[i].story_id);
-            let authorReturn = await fetchAuthorByAuthorId(searchResults.author_id);
-            console.log('author return', authorReturn); // we gonna redo the whole story retrival situation
+            for (let k = 0; k < searchResults[i].tag_story_list.length; k++) {
+                searchResults[i].category = await getCatSubCatForStoryMeta(searchResults[i].tag_story_list[k]);
+                searchResults[i].tags = await retreiveTags(searchResults[i].tag_story_list[k]);
+                //let authorReturn = await fetchAuthorByAuthorId(searchResults.author_id);
+                //console.log('author return', authorReturn); // we gonna redo the whole story retrival situation
+            }
         }
+        console.log('saerch after', searchResults)
         return searchResults;
     } catch (error) {
         console.log('there was a database error fetching stories with tags.');

@@ -10,7 +10,7 @@ export const NavBar = () => {
     const loadPage = async () => {
         const allCategories = await fetchFrontPageCatsSubcats();
         if (allCategories) {
-            console.log('all cats', allCategories)
+            //console.log('all cats', allCategories)
             setCategories(allCategories);
         }
     };

@@ -11,7 +11,8 @@ export const CreateStory = () => {
 
     const [title, setTitle] = useState("");
     const [subhead, setSubhead] = useState("");
-    const [story, setStory] = useState([]);
+    const [story, setStory] = useState("");
+    const [storyParagraphs, setStoryParagraphs] = useState([]);
     const [tags, setTags] = useState([]);
     const [author, setAuthor] = useState(0);
     const [slug, setSlug] = useState("");
@@ -22,8 +23,8 @@ export const CreateStory = () => {
     const [ledChar, setLedChar] = useState(0);
     const [storyChar, setStoryChar] = useState(0);
     const [showModal, setShowModal] = useState("none");
-    const [primary, setPrimary] = useState([]);
-    const [secondary, setSecondary] = useState([]);
+    const [primary, setPrimary] = useState(0);
+    const [secondary, setSecondary] = useState(0);
     const [allPrimaryCats, setPrimaryCats] = useState([]);
     const [allSecondaryCats, setSecondaryCats] = useState([]);
     const [breakingFlag, setBreakingFlag] = useState(false);
@@ -31,8 +32,9 @@ export const CreateStory = () => {
     const [footnotes, setFootnotes] = useState([]);
     const [footnoteUrl, setFootnoteURL] = useState("");
     const [footnoteWords, setFootnoteWords] = useState([]);
-    const [allSources, setAllSources] = useState([]);
-    const [storySources, setStorySources] = useState([]);
+    const [allSources, setAllSources] = useState([]); // for drop down
+    const [storySources, setStorySources] = useState([]); //ids, for submitting
+    const [displaySources, setDisplaySources] = useState([]); // array so can display
     const [sourceDropDown, setSourceDropDown] = useState(0);
 
     // image loading function that doesn't work. still need image hosting
@@ -52,7 +54,6 @@ export const CreateStory = () => {
       const parseStoryText = (storyText) => {
         const paragraphs = [];
         const paragraph = storyText.split(/(\r\n|\n|\r)/gm);
-        //paragraphs.push(paragraph);
         for (let i = 0; i < paragraph.length; i++) {
           if (paragraph[i].length < 1 || paragraph[i] === "\n" || paragraph[i] === "\r" || paragraph[i] === "\r\n") {
             // do nothing
@@ -61,19 +62,13 @@ export const CreateStory = () => {
             paragraphs.push(paragraph[i]);
           }
         }
-        setStory(paragraphs)
-        console.log('storyParse', paragraphs)
-        // might be easier to check each paragraph for footnotes? instead of the whole story at once.
+        setStoryParagraphs(paragraphs)
+        console.log('storyParse', storyParagraphs)
 
-        // wrap the whole thing in single quotes?
-        // remove line breaks, replace with {{ ' + CHAR(13) + ' }} for SQL
-        // find all bracket words, store in array
-        // strip brackets from words, replace words in story
-        // send story text?
         //const brackets = RegExp(/\[(.*?)\]/g);
         let hyperlinkWord = [];
         //const noBreaks = storyText.replace(/(\r\n|\n|\r)/gm, "" + '<p></p>' + "");
-        paragraphs.forEach(function(paragraph, index) {
+        storyParagraphs.forEach(function(paragraph, index) {
           const hyperlink = paragraph.match(/\[(.*?)\]/g);
           console.log('hyperlink', hyperlink, index)
 
@@ -82,10 +77,10 @@ export const CreateStory = () => {
             hyperlinkWord.push({word: hyperlink, paragraph: index})
           }
         });
-        console.log('array of arrays?', hyperlinkWord)
-        console.log('still story text', paragraphs)
+        console.log('array of objects', hyperlinkWord)
+        console.log('still story text', storyParagraphs)
         setFootnoteWords(hyperlinkWord)
-        console.log('footnotes? ', footnotes)
+        console.log('footnotes? ', footnoteWords)
         //const bracketsOut = storyText.match(/\[(.*?)\]/g);
         //console.log('what', noBreaks)
         //console.log('urls?', bracketsOut)
@@ -111,7 +106,7 @@ export const CreateStory = () => {
       }
 
       const submitStory = async () => {
-        const result = await submitNewStory({title, subhead, story, tags, author, led, slug, primary, secondary, breakingFlag, breakingHeadline});
+        const result = await submitNewStory({title, subhead, storyParagraphs, tags, author: 4, led, slug, primary, secondary, breakingFlag, breakingHeadline});
         return result;
       }
 
@@ -123,7 +118,7 @@ export const CreateStory = () => {
       const loadPage = async () => {
         const authors = await fetchAllAuthors();
         setAllAuthors(authors);
-        fetchAllCatagories();
+        await fetchAllCatagories();
         var sources = await fetchCurrentSources();
         if (sources) {
           console.log('sources', sources)
@@ -185,10 +180,6 @@ export const CreateStory = () => {
         setStoryChar(storyValue.length);
       };
 
-      const addSourceEvent = () => {
-        console.log('source id', sourceDropDown)
-      }
-
       const setTagEvent = (tagValue) => {
         if (tagValue.length < 1) {
           return;
@@ -212,21 +203,21 @@ export const CreateStory = () => {
         }
       };
 
-      const submitPrimaryCatagory = (primary) => { // just a number
+      const submitPrimaryCategory = (primary) => { // just a number
         setPrimary(primary)
         let arr = primary - 1;
         setSecondaryCats(allPrimaryCats[arr].secondary)
       };
 
-      // const addNewFootnote = () => {
-      //   let current = footnotes;
-      //   let anotherFootnote = [];
-      //   let length = footnotes.length;
-      //   console.log(current, length)
-      //   setFootnotes(...footnotes, anotherFootnote)
-      // }
-
-      // }
+      const addSourceEvent = () => {
+        // we want to update the display and the array for submitting
+        setStorySources([...storySources, Number(sourceDropDown)]);
+        // find the obj from allSources and bump into displaySources
+        let addingSource = allSources.find((s) => s.source_id == sourceDropDown);
+        setDisplaySources([...displaySources, addingSource]);
+        //console.log('storySources', storySources)
+        return;
+      }
 
     return (
         <div className="create-story-container">
@@ -248,14 +239,6 @@ export const CreateStory = () => {
 
                 }
                 </select>
-
-                {/* <select className="author-dropdown" onChange={(event) => setAuthor(event.target.value)}>
-                    <option value="5">Author A</option>
-                    <option value="4">Author B</option>
-                    <option value="3">Author C</option>
-                    <option value="2">Author D</option>
-                    <option value="1">Author E</option>
-                </select> */}
 
                 <label htmlFor="title-input">Title:</label>
                 <input className="title-input" maxLength="150" placeholder="Get to the point, but be accurate and truthful." value={title} onChange={(event) => setTitleEvent(event.target.value)}></input>
@@ -321,48 +304,58 @@ export const CreateStory = () => {
                 {/* TODO: Create way to input embedded tweets / facebooks posts?  */}
 
                 
-                <label htmlFor="source-dropwdown">Select Sources for this story</label>
-                <select className="source-dropwdown">
+                <label htmlFor="source-dropdown">Select Sources for this story</label>
+                <select className="source-dropdown" onChange={(event) => setSourceDropDown(event.target.value)}>
                   {!allSources ? null : 
                   allSources.map((source) => {
                     return ( // this will probably have to be a search bar at some point.
-                      <option key={source.source_id} value={source.source_id} onChange={(event) => console.log(event.target.value)}>
+                      <option key={source.source_id} value={source.source_id}>
                         {source.source_name}; {source.source_location}; {source.source_occupation}
                       </option>
                     )
                   })
                   }
                 </select>
-                <button onClick={() => console.log('source' , sourceDropDown)}> Add Source</button>
+                <button onClick={() => addSourceEvent()}> Add Source</button>
+                {!displaySources ? null :  
+                displaySources.map((source) => {
+                    return (
+                      <>
+                      <p key={source.source_id}>{source.source_name}; {source.source_location}; {source.source_occupation}</p>
+                      {/* <button key={source.source_id + "delete"}>Delete</button> */}
+                      </>
+                    )
+                  })
+                }
                 <label htmlFor="no-source-checkbox">Check this box if there are no sources for this story.</label>
                 <input className="no-source-checkbox" type="checkbox" />
 
                 {/* TODO: Add ability to add urls inside of story */}
 
-                <label htmlFor="catagory-input">Add a primary catagory.</label>
+                <label htmlFor="category-input">Add a primary category.</label>
                 <select 
-                  className="catagory-input" 
-                  onChange={(event) => {submitPrimaryCatagory(event.target.value)}}>
+                  className="category-input" 
+                  onChange={(event) => {submitPrimaryCategory(event.target.value)}}>
                 {!allPrimaryCats ? null : 
                   allPrimaryCats.map((primary) => {
                     return (
-                      <option value={primary.primary_catagory_id} key={primary.primary_catagory_id}>
-                        {primary.primary_catagory_name}
+                      <option value={primary.primary_category_id} key={primary.primary_category_id}>
+                        {primary.primary_category_name}
                       </option>
                       )
                   })
                 }       
                 </select>
 
-            <label htmlFor="catagory-input">Add a secondary catagory.</label>
+            <label htmlFor="category-input">Add a secondary category.</label>
             <select onChange={(event) => setSecondary(event.target.value)}>
             {!allSecondaryCats ? null : 
               allSecondaryCats.map((secondary) => {
                 return (
                   <option 
-                    value={secondary.secondary_catagory_id} 
-                    key={secondary.secondary_catagory_id}>
-                    {secondary.secondary_catagory_name}
+                    value={secondary.secondary_category_id} 
+                    key={secondary.secondary_category_id}>
+                    {secondary.secondary_category_name}
                   </option>
                 )
               })

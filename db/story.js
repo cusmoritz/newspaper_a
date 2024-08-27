@@ -299,7 +299,7 @@ const updateSourceTableWithStory = async (storyId, sourceId) => {
 };
 
 const createNewStory = async (storyInfo) => {
-    //console.log('story info db', storyInfo)
+    console.log('story info db', storyInfo)
     // change the footnote words in JSON format for storing
     let jsonFootnotes = JSON.stringify(storyInfo.footnotes);
     storyInfo.footnotes = jsonFootnotes
@@ -309,7 +309,7 @@ const createNewStory = async (storyInfo) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         RETURNING *
         ;
-        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.story, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes, storyInfo.sourcesMentioned, storyInfo.image_flag]);
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.storyParagraphs, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes, storyInfo.sourcesMentioned, storyInfo.image_flag]);
 
         //console.log('story after db', story)
         storyInfo.tags.forEach( async (tag) => { // this is ugly
@@ -714,7 +714,7 @@ const fakeStorys = [
     {
         title: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
         subhead: "Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.",
-        story: 
+        storyParagraphs: 
           [
             "\"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters.\\n\" +",
             "          \"Title here and it can be a lot longer that you think it can but that doesn't mean you have to use all one hundred and fifty characters. \\n\" +",
@@ -742,7 +742,7 @@ const fakeStorys = [
       {
         title: "Fearing for his life, Gypsum man kills troublesome bear that had eluded wildlife officials",
         subhead: "The killing was legally justified, according to an investigation by Colorado Parks and Wildlife",
-        story: [
+        storyParagraphs: [
             "Bear 935 first appeared in Eagle County last year, when it was [relocated] to near LEDE Reservoir in Gypsum after being identified as a nuisance bear in the Kremmling area.",
             "“It was loitering near town, near residential areas. They attempted hazing. It wasn’t leaving the area. They wanted to get rid of it, get it out of that area, into suitable habitat before it became too comfortable,” said Matt Yamashita, Colorado Parks and Wildlife area wildlife manager.",
             "Bear 935 did not remain in isolation for long.",
@@ -793,7 +793,7 @@ const fakeStorys = [
       {
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
         subhead: "The Shift Bike program allows residents and guests to rent e-bikes by the minute from Vail to Edwards",
-        story: [
+        storyParagraphs: [
             "The Shift Bike program allows individuals to [rent] e-bikes from stations throughout these communities on a pay-as-you-go model. ",
             "The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 [stations]. ",
             "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions. ",
@@ -838,7 +838,7 @@ const fakeStorys = [
       {
         title: "What happened to the lost, barking dog in East Vail?",
         subhead: "After nearly three weeks, search continues for elusive pooch, despite limited leads",
-        story: [
+        storyParagraphs: [
             "A dog had been heard barking incessantly high up on one of the hiking trails in East Vail, near the Gore Creek Trail, on the Deluge Lake side. ",
             "It did not seem to respond to whistling or calling, and it would not stop barking. ",
             "As with most cases of missing pets, the issue was quickly taken to the Pets of Eagle County Facebook page. ",
@@ -864,7 +864,7 @@ const fakeStorys = [
       {
         title: "Electric Avenue: The '80s MTV Experience comes to Beaver Creek Saturday",
         subhead: "Yacht Rock",
-        story: [
+        storyParagraphs: [
             "\"But the band doesn't just rely on technical gadgets. The musicians all have been session players for so many top artists, it'd be a column of alphabet soup to name, but it includes the likes of Lionel Richie, Paul Simon, Emmy Lou Harris, B-52s, Tracy Chapman, Boston, Collective Soul, Boyz II Men and many more. ",
             "As such, they've all contributed to gold and platinum records.",
             " Their talent, and meticulous playing, compel them to recreate the ’80s note by note with every nuance in every sound — every time. ",
@@ -890,7 +890,7 @@ const fakeStorys = [
       {
         title: "Transportation authority is an opportunity to build for the future",
         subhead: "Daily Editorial",
-        story: [
+        storyParagraphs: [
             "However, as identified by local business owners, economic councils and municipal leaders in 2020, public transit has been failing to meet a lot of the Eagle River Valley’s most pressing needs for a while.",
             " This is why a regional effort sprung up in 2021 to see how a new transportation authority could solve not only a large workforce challenge but bring an improved experience for residents and guests alike. ",
             "This effort combined stakeholders from eight local governments, numerous employers (big and small) across the valley, existing transit agencies in the county, and community organizations — all working toward a singular goal. ",
@@ -915,7 +915,7 @@ const fakeStorys = [
       {
         title: "Court appearance for prominent Vail real estate broker continued",
         subhead: "Stockton appeared Tuesday — his second court appearance — alongside his attorney, Jesse Wiens.",
-        story: [
+        storyParagraphs: [
             "Stockton has not yet had a preliminary hearing on the matter or entered a plea; his court appearance on Tuesday was listed as a preliminary demand, where the defendant either demands to have a preliminary hearing or waives the preliminary hearing, and that appearance was continued to March 26.",
             " Stockton, on Tuesday, was granted permission to travel by Judge Inga Causey. ",
             "His March 26 continuation was set for 11 a.m. Stockton, who lives in Vail, received the stalking charge on Dec. 27 as a result of an incident in which he is accused of placing an air tag tracking device in the vehicle of the alleged victim, according to arrest records.",
@@ -939,7 +939,7 @@ const fakeStorys = [
       {
         title: "Frisco’s Jay Irwin shares harrowing backcountry experience to inspire adventurers to do good",
         subhead: "Some people’s lives forever change",
-        story: [
+        storyParagraphs: [
             "For longtime Summit County resident Jay Irwin, his life was changed by the latter, when he was caught in an avalanche on Vail Pass back in 2008. ",
             "Feautured  as the second speaker in the Friends of the Dillon Ranger District’s adventure speaker series, which Irwin co-founded, Irwin stood in front of dozens of people inside Keystone’s Warren Station on Wednesday, Feb. 28, and told the crowd about how his misadventure in the backcountry gave him an extra chance at life.",
             " In the talk, Irwin detailed the avalanche in extensive detail. ",
@@ -964,7 +964,7 @@ const fakeStorys = [
       {
         title: '‘Lost Boy’ Marty Koether returns for 60th anniversary of incident',
         subhead: 'Event made him a legend in Vail',
-        story: [
+        storyParagraphs: [
             "Koether shared those dreams and more in an emotional trip to the Colorado Snowsports Museum on April 2. ",
             "The visit coincided with the 60-year anniversary of Koether’s fateful night alone on Vail Mountain, in which he slept in a tree well after making a wrong turn into Game Creek Bowl, which had not yet been developed for skiing.",
             "By the summer of 1969, when Game Creek Bowl was being developed, mountain managers had already come up with a name for several of the runs, including Lost Boy.",
@@ -994,7 +994,7 @@ const fakeStorys = [
       {
         title: 'Ur-Fascism',
         subhead: 'The New York Review of Books',
-        story: [
+        storyParagraphs: [
             "I elaborated with rhetorical skill on the subject “Should we die for the glory of Mussolini and the immortal destiny of Italy?” My answer was positive. I was a smart boy.",
             "'I spent two of my early years among the SS, Fascists, Republicans, and partisans shooting at one another, and I learned how to dodge bullets. It was good exercise.",
             "'In April 1945, the partisans took over in Milan. Two days later they arrived in the small town where I was living at the time. It was a moment of joy. The main square was crowded with people singing and waving flags, calling in loud voices for Mimo, the partisan leader of that area. A former maresciallo of the Carabinieri, Mimo joined the supporters of General Badoglio, Mussolini’s successor, and lost a leg during one of the first clashes with Mussolini’s remaining forces. Mimo showed up on the balcony of the city hall, pale, leaning on his crutch, and with one hand tried to calm the crowd. I was waiting for his speech because my whole childhood had been marked by the great historic speeches of Mussolini, whose most significant passages we memorized in school. Silence. Mimo spoke in a hoarse voice, barely audible. He said: “Citizens, friends. After so many painful sacrifices … here we are. Glory to those who have fallen for freedom.” And that was it. He went back inside. The crowd yelled, the partisans raised their guns and fired festive volleys. We kids hurried to pick up the shells, precious items, but I had also learned that freedom of speech means freedom from rhetoric.",
@@ -1024,7 +1024,7 @@ const fakeStorys = [
     {
         title: 'Glizzys, Glam, and Gargantuan Gonads',
         subhead: 'Chicago remains unbeaten in its quest for hotdog dominance',
-        story: [
+        storyParagraphs: [
             "With 3 million residents and millions more who visit during the course of a year, free hotdogs for everyone sounds like a daunting task. \"I know it sounds like a lot of hotdogs,\" Mayor Doug Dibbenow said. \"But the reality of the situation is that free hotdogs for everyone would drastically increase city revenue, improve food availability for those who don't have a secure meal every day, and make good use of the city's already healthy meat industry.\"",
             "        'How will free hotdogs improve city revenue?",
             "        `\"It's one hotdog, Michael. What could it cost, ten dollars?\" Dibbenow said, smirking as he referenced an oft-used quip from the TV show \"Arrested Development\" which is usually reserved to imply the reach are out of touch with reality and the cost of things.",
@@ -1062,7 +1062,7 @@ const fakeStorys = [
     {
         title: 'Election Summary Report 2023 Larimer County Coordinated Election',
         subhead: 'Summary for: All Contests, All Districts, All Tabulators, All Counting Groups Official Results. November 7, 2023',
-        story: [
+        storyParagraphs: [
             "City of Fort Collins Mayor",
             "Candidate Party Total",
             "Jeni Arndt 34,950",
@@ -1101,7 +1101,7 @@ const fakeStorys = [
     {
         title: 'Coors Field the likeliest spot to see a cycle',
         subhead: 'Several of the Coors Field cycles jump out',
-        story: [
+        storyParagraphs: [
             "Since opening in 1995, Coors Field has hosted 18 cycles -- half by the Rockies, half by opponents. Boston's Fenway Park, which opened in 1912, is tied with 18 -- but that venue's 18th didn't occur until the Astros' Jose Altuve fashioned his on Aug. 28, 2023.",
             "Imagine, 18 cycles in such comparatively little time.",
             "Several of the Coors Field cycles jump out:",
@@ -1136,7 +1136,7 @@ const fakeStorys = [
     {
         title: 'QB competition preview: Bo Nix details transition to Broncos',
         subhead: "Hopes to 'play fast' when training camp begins",
-        story: [
+        storyParagraphs: [
             "ENGLEWOOD, Colo. — Bo Nix's first weeks in Denver lived up to the expectations he's always held for his NFL career.",
             `"It's been great," "Nix told DenverBroncos.com in mid-June as the Broncos ended their offseason program.`,
             `"It's been really fun. I think it's been a great learning curve. It's been all the things that I always thought of the NFL: [the] long, extensive plays with a lot of checks and all this kind of stuff. That's the fun part, and that's what you can't wait to get to the NFL and do. The players are awesome, coaches are great and I'm just excited to be here."`,
@@ -1167,7 +1167,7 @@ const fakeStorys = [
     {
         title: 'Cole Bassett earns fifth Team of the Matchday honor of season',
         subhead: 'He propells Rapids to victory over Real Salt Lake',
-        story: [
+        storyParagraphs: [
             "Bassett assisted the first two goals of the night from Jonathan Lewis and Sam Vines in the first half, then secured the Cup in the dying moments of the game with an 88th-minute penalty.",
             "Lewis and Bassett connected in the box in the 35th minute for the Rapids' equalizer after going down early. Lewis drew a foul down in Colorado's half to start the play, and the Rapids connected well to build the play, first finding Moïse Bombito, who dumped a long ball into the attacking third for Rafael Navarro to collect. Navarro's pass to Bassett at the top of the box set the midfielder up for a one-touch pass to Lewis, who commanded the half-volley in front of Salt Lake's net for his second goal of the game and Bassett's fifth assist of the year.",
             "Bassett and the Rapids struck again just four minutes later when he played a through ball into Lewis on the right side of the box. The winger's low pass across the face of the goal found Vines sliding into the six-yard box to give the Rapids the lead and Vines his first goal of the season.",
@@ -1195,7 +1195,7 @@ const fakeStorys = [
     {
         title: 'HINOTE NAMED EAGLES ASSOCIATE HEAD COACH',
         subhead: 'Former Avalanche Forward & 2001 Stanley Cup Champion Returns To Organization',
-        story: [
+        storyParagraphs: [
             "Hinote, 47, returns to the Avalanche organization where he played his first six NHL seasons and won a Stanley Cup in 2001.",
             "Selected by Colorado in the seventh round (167th overall) of the 1996 NHL Entry Draft, Hinote appeared in 353 regular season games with the Avs from 1999-00 to 2005-06, recording 65 points (27g/38a).  He skated in a career-high 76 contests during the 2000-01 campaign and went on to dress in all 23 playoff games that spring to help Colorado win the Stanley Cup.",
             "The Leesburg, Florida, native has spent the past four seasons as an assistant coach with the Nashville Predators, helping the team advance to the playoffs in three of those four campaigns. Hinote began his coaching career with the Columbus Blue Jackets in 2010-11, spending four seasons behind the bench (2010-14) before moving into a professional scouting role with the Jackets.",

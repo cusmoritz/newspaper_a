@@ -45,7 +45,7 @@ export const SingleStoryPage = () => {
     // }
 
     const parseFootnotesRecursive = (storyTextPara, footnoteArr) => { // i can just send the paragraph text, not the whole array
-        console.log('we trying', storyTextPara, footnoteArr)
+        //console.log('we trying', storyTextPara, footnoteArr)
         if (footnoteArr.length <= 0) {
             return;
         }
@@ -157,6 +157,20 @@ export const SingleStoryPage = () => {
         {!story.story_text ? null : story.story_text.map((paragraph, index) => {
             return (<p key={index} className="story-paragraph">{paragraph}</p>)
         })}
+
+        {!story.footnote_urls ? null : 
+        <fieldset className="footnote-urls">
+            <legend>Footnotes:</legend>
+            {story.footnote_urls.map((footnote, index) => {
+                return (
+                    <div className="footnote-containing-div">
+                        <p>{index + 1}: <a href={footnote}>{footnote}</a></p>
+                    </div>
+                )
+            })}
+        </fieldset>
+        }
+
         {!story.sources ? null :
         <fieldset className="story-sources">
             <legend>Sources:</legend>

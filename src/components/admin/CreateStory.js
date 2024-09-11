@@ -29,13 +29,15 @@ export const CreateStory = () => {
     const [allSecondaryCats, setSecondaryCats] = useState([]);
     const [breakingFlag, setBreakingFlag] = useState(false);
     const [breakingHeadline, setBreakingHeadline] = useState("");
+
     const [footnotes, setFootnotes] = useState([]);
     const [footnoteUrl, setFootnoteURL] = useState("");
     const [footnoteWords, setFootnoteWords] = useState([]);
+
     const [allSources, setAllSources] = useState([]); // for drop down
-    const [storySources, setStorySources] = useState([]); //ids, for submitting
+    const [sourcesMentioned, setStorySources] = useState([]); //ids, for submitting
     const [displaySources, setDisplaySources] = useState([]); // array so can display
-    const [sourceDropDown, setSourceDropDown] = useState(0);
+    const [sourceDropDown, setSourceDropDown] = useState(0); // id of dropdown
 
     // image loading function that doesn't work. still need image hosting
     // window.addEventListener('load', function() {
@@ -62,29 +64,45 @@ export const CreateStory = () => {
             paragraphs.push(paragraph[i]);
           }
         }
-        setStoryParagraphs(paragraphs)
-        console.log('storyParse', storyParagraphs)
+        console.log('storyParse', paragraphs)
 
-        //const brackets = RegExp(/\[(.*?)\]/g);
+        setStoryParagraphs(paragraphs)
+
         let hyperlinkWord = [];
-        //const noBreaks = storyText.replace(/(\r\n|\n|\r)/gm, "" + '<p></p>' + "");
+
         storyParagraphs.forEach(function(paragraph, index) {
           const hyperlink = paragraph.match(/\[(.*?)\]/g);
           console.log('hyperlink', hyperlink, index)
 
           if (hyperlink) {
+            // take square brackets off
             hyperlink.flat(); 
-            hyperlinkWord.push({word: hyperlink, paragraph: index})
+            for (let i = 0; i < hyperlink.length; i++) { 
+              // more than 1 hyperlink in paragraph
+              // take the brackets off the word or phrase
+              let noBrackets = hyperlink[i].replace(/[\[\]']+/g, ""); 
+              //console.log('no brackets', noBrackets)
+              let position = paragraph.indexOf(hyperlink);
+              let newpara = paragraph.at(position).replace(hyperlink, noBrackets);
+              console.log('new parap', newpara)
+              hyperlinkWord.push({word: noBrackets, paragraph: index})
+            }
+            // var bracket = 
+            // console.log('bracket')
+            //hyperlink.replace(/[\[\]']+/g, "");
+            
           }
         });
         console.log('array of objects', hyperlinkWord)
         console.log('still story text', storyParagraphs)
+
         setFootnoteWords(hyperlinkWord)
-        console.log('footnotes? ', footnoteWords)
         //const bracketsOut = storyText.match(/\[(.*?)\]/g);
         //console.log('what', noBreaks)
         //console.log('urls?', bracketsOut)
         //setFootnoteWords(bracketsOut);
+        console.log('footnotes? ', footnoteWords)
+
 
         // const serializeEditorValueAsString = value => {
         //   value
@@ -106,7 +124,7 @@ export const CreateStory = () => {
       }
 
       const submitStory = async () => {
-        const result = await submitNewStory({title, subhead, storyParagraphs, tags, author: 4, led, slug, primary, secondary, breakingFlag, breakingHeadline});
+        const result = await submitNewStory({title, subhead, storyParagraphs, tags, author, led, slug, primary, secondary, breakingFlag, breakingHeadline, footnoteWords, footnotes, sourcesMentioned});
         return result;
       }
 
@@ -121,7 +139,7 @@ export const CreateStory = () => {
         await fetchAllCatagories();
         var sources = await fetchCurrentSources();
         if (sources) {
-          console.log('sources', sources)
+          //console.log('sources', sources)
           setAllSources(sources)
         }
         //console.log('Page loaded.', authors)
@@ -191,7 +209,7 @@ export const CreateStory = () => {
             tagArray.push(words[i].trim())
         }
         setTags(tagArray);
-        console.log('words', tagArray)
+        //console.log('words', tagArray)
       };
 
       const setBreakingEvent = () => {
@@ -211,7 +229,7 @@ export const CreateStory = () => {
 
       const addSourceEvent = () => {
         // we want to update the display and the array for submitting
-        setStorySources([...storySources, Number(sourceDropDown)]);
+        setStorySources([...sourcesMentioned, Number(sourceDropDown)]);
         // find the obj from allSources and bump into displaySources
         let addingSource = allSources.find((s) => s.source_id == sourceDropDown);
         setDisplaySources([...displaySources, addingSource]);
@@ -227,13 +245,13 @@ export const CreateStory = () => {
             <fieldset className="story-fieldset">
             <legend>New story fields:</legend>
             <label htmlFor="author-dropdown" className="author-dropdown">Author:</label>
-                <select className="author-dropdown">
+                <select className="author-dropdown" onChange={(event) => {setAuthor(event.target.value)}}>
                 {!allAuthors 
                 ? null 
                 : 
                     allAuthors.map((author) => {
                         return (
-                            <option onChange={(event) => {setAuthor(event.target.value)}} key={author.author_id} value={author.author_id}>{author.first_name} {author.last_name} | {author.public_role}</option>
+                            <option key={author.author_id} value={author.author_id}>{author.first_name} {author.last_name} | {author.public_role}</option>
                         )
                     })
 

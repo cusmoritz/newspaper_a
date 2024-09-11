@@ -301,17 +301,17 @@ const updateSourceTableWithStory = async (storyId, sourceId) => {
 const createNewStory = async (storyInfo) => {
     console.log('story info db', storyInfo)
     // change the footnote words in JSON format for storing
-    let jsonFootnotes = JSON.stringify(storyInfo.footnotes);
-    storyInfo.footnotes = jsonFootnotes
+    let jsonFootnotes = JSON.stringify(storyInfo.footnoteWords);
+    storyInfo.footnoteWords = jsonFootnotes
     try {
         const {rows: [story]} = await client.query(`
         INSERT INTO storys (story_title, story_subhead, story_led, story_text, story_author, story_slug, breaking_news_flag, breaking_news_banner_headline, footnote_urls, footnote_words, sources_mentioned, image_flag)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         RETURNING *
         ;
-        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.storyParagraphs, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnoteURLs, storyInfo.footnotes, storyInfo.sourcesMentioned, storyInfo.image_flag]);
-
-        //console.log('story after db', story)
+        `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.storyParagraphs, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnotes, storyInfo.footnoteWords, storyInfo.sourcesMentioned, storyInfo.image_flag]);
+//footnoteWords, footnotes, storySources
+        console.log('story after db', story)
         storyInfo.tags.forEach( async (tag) => { // this is ugly
             await submitTag(story.story_id, tag);
         });
@@ -730,11 +730,11 @@ const fakeStorys = [
         slug: 'first-story-goes-here',
         primary: 3,
         secondary: 12,
-        footnotes: {},
-        footnoteURLs: [
-            "www.google.com",
-            "www.facebook.com",
-            "www.arstechnica.com"
+        footnoteWords: [],
+        footnotes: [
+            'www.google.com',
+            'www.facebook.com',
+            'www.arstechnica.com'
         ], 
         sourcesMentioned: [1,5],
         image_flag: true
@@ -762,7 +762,7 @@ const fakeStorys = [
         slug: 'man-kills-bear-gypsum',
         primary: 1,
         secondary: 3,
-        footnotes: [
+        footnoteWords: [
             {
                 "word": [
                     "hazing"
@@ -782,7 +782,7 @@ const fakeStorys = [
                 "paragraph": 10
             }
         ],
-        footnoteURLs: [
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -807,7 +807,7 @@ const fakeStorys = [
         slug: 'upvalley-shift-e-bike-share-between-vail-eaglevail-avon-and-edwards-to-return-for-third-summer',
         primary: 1,
         secondary: 2,
-        footnotes: [
+        footnoteWords: [
             {
                 "word": [
                     "[rent]"
@@ -827,7 +827,7 @@ const fakeStorys = [
                 "paragraph": 5
             }
         ],
-        footnoteURLs: [
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -852,8 +852,8 @@ const fakeStorys = [
         slug: 'what-happened-to-the-barking-dog-in-east-vail',
         primary: 1,
         secondary: 7,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -878,8 +878,8 @@ const fakeStorys = [
         slug: 'electric-avenue-the-80s-mtv-experience-comes-to-beaver-creek-saturday',
         primary: 6,
         secondary: 24,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -903,8 +903,8 @@ const fakeStorys = [
         slug: 'our-view-transportation-authority-is-an-opportunity-to-build-for-the-future',
         primary: 1,
         secondary: 1,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -927,8 +927,8 @@ const fakeStorys = [
         slug: 'court-appearance-for-prominent-vail-real-estate-broker-continued',
         primary: 1,
         secondary: 7,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -952,8 +952,8 @@ const fakeStorys = [
         slug: 'friscos-jay-irwin-shares-harrowing-backcountry-experience-to-inspire-adventurers-to-do-good',
         primary: 4,
         secondary: 16,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -982,8 +982,8 @@ const fakeStorys = [
         slug: 'lost-boy-marty-koether-returns-for-60th-anniversary',
         primary: 4,
         secondary: 13,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -1012,8 +1012,8 @@ const fakeStorys = [
         slug: 'umberto-eco-ur-fascism',
         primary: 3,
         secondary: 12,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -1050,8 +1050,8 @@ const fakeStorys = [
         secondary: 4,
         breakingFlag: true,
         breakingHeadline: 'Hotdogs for everyone?',
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -1089,8 +1089,8 @@ const fakeStorys = [
         secondary: 8,
         breakingFlag: false,
         breakingHeadline: null,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.google.com",
             "www.facebook.com",
             "www.arstechnica.com"
@@ -1126,10 +1126,8 @@ const fakeStorys = [
         secondary: 20,
         breakingFlag: false,
         breakingHeadline: null,
+        footnoteWords: [],
         footnotes: [],
-        footnoteURLs: [
-
-        ],
         sourcesMentioned: [6, 3, 2],
         image_flag: true
     },
@@ -1155,8 +1153,8 @@ const fakeStorys = [
         secondary: 18,
         breakingFlag: false,
         breakingHeadline: null,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.si.com",
             "www.denverbroncos.com",
             "www.espn.com"
@@ -1184,8 +1182,8 @@ const fakeStorys = [
         secondary: 21,
         breakingFlag: false,
         breakingHeadline: null,
-        footnotes: [],
-        footnoteURLs: [
+        footnoteWords: [],
+        footnotes: [
             "www.coloradorapids.com", 
             "www.espn.com"
         ],
@@ -1210,17 +1208,46 @@ const fakeStorys = [
         secondary: 19,
         breakingFlag: false,
         breakingHeadline: null,
+        footnoteWords: [],
         footnotes: [],
-        footnoteURLs: [
-
-        ],
         sourcesMentioned: [],
+        image_flag: true
+    },
+        {
+        title: 'How high will insurance rates rise next year in Colorado’s High Country?',
+        subhead: 'Individual market rates could increase by around 5%, while small-group employers could by 8%, according to initial proposal',
+        storyParagraphs: [
+            'Small-group employers could see an average premium increase of around 8%.',
+            'Colorado’s Department of Regulatory Agencies’ Division of Insurance [released] the proposed rate increases in July, closing a public comment period on Wednesday, Aug. 14. The division reports that the final plans and premiums will be approved in mid-October.',
+            'Adam Fox, deputy director of the statewide nonprofit advocacy group Colorado Consumer Health Initiative, said that these increases were something to be “cautiously optimistic about.”',
+            '“We’re seeing a lower average increase this year than we did last year. Most of the increases last year were sort of in the 8% to 11% range in the individual market,” Fox said. “In general, that’s better for Coloradans, obviously, but what we also know is that people are still struggling with health care costs and affordability, so any increase is an area of concern.”',
+            'In the preliminary 2025 rates, Colorado Option plans proposed an average rate increase of 4% compared to 6% for non-Colorado Option plans.',
+            'Colorado Option plans were first initiated in 2023 to create a lower-cost option for individuals and small employers (defined as those with 99 or fewer employees).',
+            'And while plans are not finalized, Vincent Plymell, assistant commissioner for communications and outreach for the Division of Insurance, said the state “can confidently say that Colorado Option plans will be the lowest cost plans across metal tiers (Bronze, Silver, Gold and Platinum) in the vast majority of the state once again.”',
+            'According to the Colorado Consumer Health Initiative, the lowest cost Colorado Option plans are 10% cheaper than non-option plans in many places throughout the state in the preliminary rates.',
+            'Among the proposed increases for individual premiums, Anthem — the largest carrier in Colorado — filed for the smallest proposed increase at 1.1%. However, Anthem had the highest-proposed increase for small employer groups, proposing a 14.43% jump in 2025.',
+            'Other providers — Denver Health Medical Plan and Rocky Mountain HMO — proposed increases above 8% in the individual market, while the proposed rates for Cigna, Select Health and Kaiser Foundation Health Plan fall between 7% and 8%.',
+            'In 2024, the [Western rate region] — which encompasses all Western Colorado counties except Mesa County — [saw an average increase in individual premiums] of 9.5%, slightly below the average statewide increase of 9.7%. Within the region, Routt County saw an average increase of 11.1%, Eagle County saw a 10.5% increase, Summit County a 10.3% increase, Grand County a 10.2% increase, Pitkin County a 8.7% increase and Garfield County an 8.6% increase.',
+            'For [small group plans], the average increase across Colorado’s Western counties was 9.6% compared to a state average of 8%. Within this region, small group increases were 11.1% in Eagle County, 10.4% in Summit, 10.1% in Routt, 9.3% in Pitkin, 9.1% in Grand and 7.3% in Garfield.'
+        ],
+        tags: [ "housing", "high country", "colorado", "insurance" ],
+        author: 7,
+        led: "Coloradans enrolling in individual health insurance plans for 2025 could see an average premium rate increase of around 5%, according to the preliminary health insurance premium rates proposed by Colorado’s health insurance companies.",
+        slug: "2025-health-insurance-premiums",
+        primary: 1,
+        secondary: 2,
+        breakingFlag: false,
+        breakingHeadline: null,
+        footnoteWords: [],
+        footnotes: ["https://doi.colorado.gov/polis-primavera-administrations-landmark-reinsurance-program-to-save-coloradans-477-million-on", "https://drive.google.com/file/d/1ylfnAPSQzTZpjcnoTB-LrpS3KOia6UeS/view", "https://drive.google.com/file/d/1nQmkxx4Am6cyFvtffAqXAVObom8O66dl/view", "https://drive.google.com/file/d/1hyQaIqRoyV5kQo-u3_Awjjza2F9jTv8D/view"
+        ],
+        sourcesMentioned: [4, 2],
         image_flag: true
     },
     // {
     //     title: '',
     //     subhead: '',
-    //     story: [
+    //     storyParagraphs: [
 
     //     ],
     //     tags: [  ],
@@ -1231,8 +1258,8 @@ const fakeStorys = [
     //     secondary: ,
     //     breakingFlag: false,
     //     breakingHeadline: null,
-    //     footnotes: [],
-    //     footnoteURLs: [
+    //     footnoteWords: [],
+    //     footnotes: [
 
     //     ],
     //     sourcesMentioned: [],

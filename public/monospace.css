@@ -61,3 +61,55 @@ h1, h2, h3, h4, h5, h6 {
     margin: calc(var(--line-height) * 2) 0 var(--line-height);
     line-height: var(--line-height);
 }
+
+table {
+    position: relative;
+    top: calc(var(--line-height) / 2);
+    width: calc(round(down, 100%, 1ch));
+    border-collapse: collapse;
+    margin: 0 0 calc(var(--line-height) * 2);
+}
+
+th, td {
+    border: var(--border-thickness) solid var(--text-color);
+    padding: 
+      calc((var(--line-height) / 2))
+      calc(1ch - var(--border-thickness) / 2)
+      calc((var(--line-height) / 2) - (var(--border-thickness)))
+    ;
+    line-height: var(--line-height);
+    vertical-align: top;
+    text-align: left;
+}
+  table tbody tr:first-child > * {
+    padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
+}
+
+
+
+
+
+/* DEBUG UTILITIES */
+
+.debug .debug-grid {
+    --color: color-mix(in srgb, var(--text-color) 10%, var(--background-color) 90%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image:
+      repeating-linear-gradient(var(--color) 0 1px, transparent 1px 100%),
+      repeating-linear-gradient(90deg, var(--color) 0 1px, transparent 1px 100%);
+    background-size: 1ch var(--line-height);
+    margin: 0;
+  }
+  
+  .debug .off-grid {
+    background: rgba(255, 0, 0, 0.1);
+  }
+  
+  .debug-toggle-label {
+    text-align: right;
+  }

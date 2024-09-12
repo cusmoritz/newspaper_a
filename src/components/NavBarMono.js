@@ -58,11 +58,11 @@ export const NavBarMono = () => {
                         {mainCat.secondary.map((secondary) => {
                         let adjustedParam = secondary.secondary_category_name.replace(" ","-").toLowerCase();
                         return (
-                            <Link 
+                            <p><Link 
                                 key={secondary.secondary_category_id} 
                                 to={`/${mainCat.primary_category_name.toLowerCase()}/${adjustedParam}`}>
                                 <p className="">{secondary.secondary_category_name}</p>
-                            </Link>
+                            </Link></p>
                             
                         )
                     })}

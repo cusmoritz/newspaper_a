@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { Home } from './Home';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { FooterMono } from './components/FooterMono';
 import { useState } from 'react';
 import { AdminHome } from './components/admin/AdminHome';
 import { CreateStory } from './components/admin/CreateStory';
@@ -70,7 +71,7 @@ const App = () => {
 
 
                     </Routes>
-                <Footer />
+                <FooterMono />
                 </div>
             </BrowserRouter>
 
@@ -87,7 +88,7 @@ const App = () => {
                         <Route path="/authorpage" element={<AuthorPage/>} />
                         <Route path="/image-upload" element={<ImageUpload />} /> */}
                     </Routes>
-                <Footer />
+                <FooterMono />
                 </div>
             </BrowserRouter>
 
@@ -167,7 +168,8 @@ const App = () => {
                     <Route exact path="/" element={<Home />} />
                     {/* TODO: permalinks? */}
                     </Routes>
-                <Footer />
+                    <hr></hr>
+                <FooterMono />
                 </div>
             </BrowserRouter>
             );

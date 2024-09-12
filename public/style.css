@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/catull');
+
 :root {
     --darkBlue: #1d2a35;
     --lightGrey: #bcbcbc;
@@ -5,12 +7,12 @@
 }
 
 /* #################### GLOBAL ########################### */
-@font-face {
+/* @font-face {
     font-family: 'Catull';
     font-style: normal;
     font-weight: normal;
     src: url('../src/fonts/catull.woff') format('woff');
-}
+} */
 
 .footer-container {
     background-color: var(--darkBlue);

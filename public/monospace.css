@@ -85,6 +85,46 @@ th, td {
     padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
 }
 
+input, button, textarea {
+    border: var(--border-thickness) solid var(--text-color);
+    padding: 
+      calc(var(--line-height) / 2 - var(--border-thickness))
+      calc(1ch - var(--border-thickness));
+    margin: 0;
+    font: inherit;
+    font-weight: inherit;
+    height: calc(var(--line-height) * 2);
+    width: auto;
+    overflow: visible;
+    background: var(--background-color);
+    color: var(--text-color);
+    line-height: normal;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+  }
+
+  .grid {
+    --grid-cells: 0;
+    display: flex;
+    gap: 1ch;
+    width: calc(round(down, 100%, (1ch * var(--grid-cells)) - (1ch * var(--grid-cells) - 1)));
+    margin-bottom: var(--line-height);
+  }
+
+.grid > *, .grid > details {
+  flex: 0 0 calc(round(down, (100% - (1ch * (var(--grid-cells) - 1))) / var(--grid-cells), 1ch));
+}
+
+/* .grid:has(> :last-child:nth-child(1)) { --grid-cells: 1; }
+.grid:has(> :last-child:nth-child(2)) { --grid-cells: 2; }
+.grid:has(> :last-child:nth-child(3)) { --grid-cells: 3; }
+.grid:has(> :last-child:nth-child(4)) { --grid-cells: 4; }
+.grid:has(> :last-child:nth-child(5)) { --grid-cells: 5; }
+.grid:has(> :last-child:nth-child(6)) { --grid-cells: 6; }
+.grid:has(> :last-child:nth-child(7)) { --grid-cells: 7; }
+.grid:has(> :last-child:nth-child(8)) { --grid-cells: 8; }
+.grid:has(> :last-child:nth-child(9)) { --grid-cells: 9; } */
 
 
 

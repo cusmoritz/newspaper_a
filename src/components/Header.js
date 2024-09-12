@@ -1,5 +1,6 @@
 import React from "react";
 import { NavBar } from "./NavBar";
+import { NavBarMono } from "./NavBarMono";
 import { Link } from "react-router-dom";
 
 export const Header = ({globalBreakingBool, globalBreakingHeadline, globalBreakingNewsPath}) => {
@@ -47,7 +48,7 @@ export const Header = ({globalBreakingBool, globalBreakingHeadline, globalBreaki
             <h2>The source.</h2>
             <div>This is the header</div> */}
             <hr></hr>
-            <NavBar />
+            <NavBarMono />
         </div>
     );
 };

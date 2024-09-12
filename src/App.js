@@ -9,6 +9,7 @@ import { FooterMono } from './components/FooterMono';
 import { useState } from 'react';
 import { AdminHome } from './components/admin/AdminHome';
 import { CreateStory } from './components/admin/CreateStory';
+import { CreateStoryMono } from './components/admin/CreateStoryMono';
 import { StoryStats } from './components/StoryStats';
 import { AuthorPage } from './components/admin/AuthorPage';
 import { TagSearchResults } from './components/TagSearchResults';
@@ -57,12 +58,12 @@ const App = () => {
         return (
             <BrowserRouter>
                 <div className="App">
-                <Header />
+                <Header subdomain={subdomain}/>
                     <Routes>
                         <Route exact path="/" element={<AdminHome 
                             globalBreakingBool={globalBreakingBool} 
                             setGlobalBreakingBool={setGlobalBreakingBool}/>} />
-                        <Route path="/createstory" element={<CreateStory/>} />
+                        <Route path="/createstory" element={<CreateStoryMono/>} />
                         <Route path="/storystats" element={<StoryStats/>} />
                         <Route path="/authorpage" element={<AuthorPage/>} />
                         <Route path="/image-upload" element={<ImageUpload />} />
@@ -71,6 +72,8 @@ const App = () => {
 
 
                     </Routes>
+                    <hr></hr>
+
                 <FooterMono />
                 </div>
             </BrowserRouter>
@@ -97,7 +100,7 @@ const App = () => {
         return (
             <BrowserRouter>
                 <div className="App">
-                <Header />
+                <Header subdomain={subdomain}/>
                     <Routes>
                     <Route exact path="/news/:secondaryName" 
                         element={<SecondaryCategoryComponent primaryName={"news"} />} />

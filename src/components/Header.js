@@ -3,10 +3,11 @@ import { NavBar } from "./NavBar";
 import { NavBarMono } from "./NavBarMono";
 import { Link } from "react-router-dom";
 
-export const Header = ({globalBreakingBool, globalBreakingHeadline, globalBreakingNewsPath}) => {
+export const Header = ({subdomain}) => {
     //console.log(globalBreakingBool, globalBreakingHeadline, globalBreakingNewsPath)
     ///:primary/:secondary/:slug/:storyId
     return (
+
         <div className="header-container">
             {/* {!globalBreakingBool ? null :
             <div id="breaking-news-banner-container">
@@ -19,7 +20,8 @@ export const Header = ({globalBreakingBool, globalBreakingHeadline, globalBreaki
             <table className="header">
                 <tbody>
                     <tr>
-                        <td colspan="2" rowspan="2">
+                        <td colSpan="2" rowSpan="2">
+                            {/* <img src="https://placehold.jp/50x50.png" className="logo" alt="The Tooth logo"/> */}
                             <h1 className="title">The Tooth News</h1>
                             <span className="subtitle">Your source for news about the Teeth</span>
                         </td>
@@ -48,7 +50,11 @@ export const Header = ({globalBreakingBool, globalBreakingHeadline, globalBreaki
             <h2>The source.</h2>
             <div>This is the header</div> */}
             <hr></hr>
+            {subdomain === "admin" ?
+            null
+            : 
             <NavBarMono />
+            }
         </div>
     );
 };

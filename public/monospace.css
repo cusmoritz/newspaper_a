@@ -101,7 +101,27 @@ th, td {
   max-height: 25px;
 }
 
-input, button, textarea {
+fieldset {
+  margin-top: 20px;
+  border: var(--border-thickness) solid var(--text-color);
+  font: inherit;
+  font-weight: inherit;
+  /* height: calc(var(--line-height) * 2); */
+  width: auto;
+  overflow: visible;
+  background: var(--background-color);
+  color: var(--text-color);
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+
+label {
+  padding: calc(var(--line-height) * 2);
+}
+
+input, button, textarea, select {
     border: var(--border-thickness) solid var(--text-color);
     padding: 
       calc(var(--line-height) / 2 - var(--border-thickness))
@@ -152,6 +172,24 @@ td > details ::not [open] {
     background-color: red;
 }
 
+.create-story > * {
+  margin-bottom: 10px;
+}
+
+.create-story > div {
+  padding: 
+  calc(var(--line-height) / 2 - var(--border-thickness))
+  calc(1ch - var(--border-thickness));
+}
+
+.create-story > input,
+.create-story > textarea {
+  width: 70ch;
+}
+
+/* .create-story > textarea {
+  min-height: 10ch;
+} */
 
 /* .grid > *, .grid > details {
   flex: 0 0 calc(round(down, (100% - (1ch * (var(--grid-cells) - 1))) / var(--grid-cells), 1ch));

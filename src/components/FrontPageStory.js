@@ -10,7 +10,7 @@ export const FrontPageStory = ({props}) => {
         <div className="front-page-story-container" id={story.story_id}>
             <div>
                 {/* <a href={`http://localhost.com/3000/${story.story_title}`}>#</a> */}
-                <img src="https://placehold.jp/150x150.png" className="logo" alt="The Tooth logo"/>
+                <img src="https://placehold.jp/500x400.png" className="logo" alt="The Tooth logo"/>
             </div>
             <h2 className="front-page-headline" value={story.story_id}>
                 <Link to={`/${newPrim}/${newSec}/${story.story_slug}/${story.story_id}`}>{story.story_title}</Link>

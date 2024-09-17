@@ -299,7 +299,7 @@ const updateSourceTableWithStory = async (storyId, sourceId) => {
 };
 
 const createNewStory = async (storyInfo) => {
-    console.log('story info db', storyInfo)
+    //console.log('story info db', storyInfo)
     // change the footnote words in JSON format for storing
     let jsonFootnotes = JSON.stringify(storyInfo.footnoteWords);
     storyInfo.footnoteWords = jsonFootnotes
@@ -311,7 +311,7 @@ const createNewStory = async (storyInfo) => {
         ;
         `, [storyInfo.title, storyInfo.subhead, storyInfo.led, storyInfo.storyParagraphs, storyInfo.author, storyInfo.slug, storyInfo.breakingFlag, storyInfo.breakingHeadline, storyInfo.footnotes, storyInfo.footnoteWords, storyInfo.sourcesMentioned, storyInfo.image_flag]);
 //footnoteWords, footnotes, storySources
-        console.log('story after db', story)
+        //console.log('story after db', story)
         storyInfo.tags.forEach( async (tag) => { // this is ugly
             await submitTag(story.story_id, tag);
         });

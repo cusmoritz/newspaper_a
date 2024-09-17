@@ -27,6 +27,7 @@ server.listen(port, () => {
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
 const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
+const {createNewResource} = require ('../db/resources');
 const { useParams } = require('react-router-dom');
 
 server.use((request, response, next) => {

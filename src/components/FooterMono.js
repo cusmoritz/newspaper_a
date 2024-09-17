@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const FooterMono = () => {
 
@@ -6,6 +7,11 @@ export const FooterMono = () => {
     return (
         <table>
             <tbody>
+                <tr>
+                    <td colSpan={4}>
+                    <p><Link to={`/resources`}>Community Resources</Link></p>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <p>About Us</p>

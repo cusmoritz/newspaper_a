@@ -65,10 +65,8 @@ export const NavBarMono = () => {
                         return (
                             <p><Link 
                                 key={secondary.secondary_category_id} 
-                                to={`/${mainCat.primary_category_name.toLowerCase()}/${adjustedParam}`}>
-                                <p className="">{secondary.secondary_category_name}</p>
+                                to={`/${mainCat.primary_category_name.toLowerCase()}/${adjustedParam}`}>{secondary.secondary_category_name}
                             </Link></p>
-                            
                         )
                     })}
                     </details>

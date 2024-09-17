@@ -20,6 +20,7 @@ import { SecondaryCatPage } from './components/SecondaryCatPage';
 import { SingleStoryPage } from './components/SingleStoryPage';
 import { SingleStoryPageMono } from './components/SingleStoryPageMono';
 import {ImageUpload} from './components/admin/ImageUpload';
+import { ResourcesMono } from './components/ResourcesMono';
 import { ShopHeader } from './components/shop/ShopHeader';
 import { ShopHome } from './components/shop/ShopHome';
 import { ElectionCategoryPage } from './components/ElectionCategoryPage';
@@ -144,6 +145,8 @@ const App = () => {
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />
 
                     <Route path="/search/author/:id" element={<AuthorSearchResults />} />
+
+                    <Route path="/resources" element={<ResourcesMono />} />
                     {/* <Route path="/news/recent-stories" element={<RecentStoriesComponent />} />
                     <Route path="/news/:slug" element={<SingleStoryPage />} />
 

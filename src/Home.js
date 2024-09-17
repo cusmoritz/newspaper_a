@@ -19,6 +19,29 @@ export const Home = () => {
         pageNo = 0;
     }
 
+    var details = [...document.querySelectorAll('details')];
+    // var detailChildren = [];
+    // console.log('details', details)
+    // if (details.length) {
+    //     for (let detail of details) {
+    //         console.log('detail', detail.children);
+    //         if (detail.children) {
+    //             for (let domElement of detail.children) {
+    //                 console.log('dom element', domElement)
+    //                 detailChildren.push(domElement);
+    //             }
+    //         }
+    //     }
+    // }
+
+    document.addEventListener('click', function(e) {
+        if (!details.some(f => f.contains(e.target))) {
+            details.forEach(f => f.removeAttribute('open'));
+        } else {
+            details.forEach(f => !f.contains(e.target) ? f.removeAttribute('open') : '');
+        }
+    })
+
     const loadPage = async () => {
             const fPStorys = await fetchTenMostRecent(pageNo);
             if (fPStorys) {

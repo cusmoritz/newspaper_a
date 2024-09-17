@@ -12,6 +12,7 @@ import { CreateStory } from './components/admin/CreateStory';
 import { CreateStoryMono } from './components/admin/CreateStoryMono';
 import { StoryStats } from './components/StoryStats';
 import { AuthorPage } from './components/admin/AuthorPage';
+import { AuthorPageMono } from './components/admin/AuthorPageMono';
 import { TagSearchResults } from './components/TagSearchResults';
 import { AuthorSearchResults } from './components/AuthorSearchResults';
 import {PrimaryCatPage} from './components/PrimaryCatPage';
@@ -66,7 +67,7 @@ const App = () => {
                             setGlobalBreakingBool={setGlobalBreakingBool}/>} />
                         <Route path="/createstory" element={<CreateStoryMono/>} />
                         <Route path="/storystats" element={<StoryStats/>} />
-                        <Route path="/authorpage" element={<AuthorPage/>} />
+                        <Route path="/authorpage" element={<AuthorPageMono/>} />
                         <Route path="/image-upload" element={<ImageUpload />} />
                         <Route path="/sources/related-stories/:sourceId" element={<SourceRelatedStorysComponent />} /> 
                         <Route path="/sources" element={<CreateSource />} />

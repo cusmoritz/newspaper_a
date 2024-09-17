@@ -275,12 +275,12 @@ export const CreateStory = () => {
                 <textarea className="led-input" maxLength="250" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="Your best, catchiest sentence. This will be displayed on the front page of the website."></textarea>
                 <div className="character-counter">Led character limit: {ledChar}/250</div>
 
-                <label htmlFor="story-input" className="tooltip">Story:
+               <label htmlFor="story-input" className="tooltip">Story:
                   <span className="tooltiptext">To link a footnote URL to a word, wrap the word in square brackets. [Like] this.
                   </span>
                 </label>
                 <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." onChange={(event) => setStoryEvent(event.target.value)}></textarea>
-                <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
+                <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div> 
 
                 <button className="story-format-tips" onClick={() => parseStoryText(story)}>Format tips</button>
                 {/* <Modal state={showModal}/> */}

@@ -31,7 +31,7 @@ export const Header = ({subdomain}) => {
                     <tr>
                         <th>Updated:</th>
                         <td className="width-min">
-                            <time>2024-09-11</time>
+                            <time>2024-09-16</time>
                         </td>
                     </tr>
                     <tr>

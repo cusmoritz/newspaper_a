@@ -248,6 +248,7 @@ export const CreateStoryMono = () => {
 
                 <label  className="">Author:</label>
                 <select className="" onChange={(event) => {setAuthor(event.target.value)}}>
+                  <option value={null}>Select an option</option>
                 {!allAuthors 
                 ? null 
                 : 
@@ -279,7 +280,143 @@ export const CreateStoryMono = () => {
                 <input className="led-input" maxLength="250" value={led} onChange={(event) => setLedEvent(event.target.value)} placeholder="This will be displayed on the front page of the website."></input>
                 <div className="">Led character limit: {ledChar}/250</div>
 
+                <label htmlFor="story-input" className="tooltip">Story:
+                  {/* <span className="tooltiptext">To link a footnote URL to a word, wrap the word in square brackets. [Like] this.
+                  </span> */}
+                </label>
+                <textarea className="story-input" maxLength="10000" placeholder="Input story text here. For formatting (urls, italics, etc), click Format Tips button." onChange={(event) => setStoryEvent(event.target.value)}></textarea>
+                <div className="character-counter">Story character limit: {storyChar}/10,000 (Carriage returns [ ¶ ] count as a character)</div>
+
+                <label htmlFor="footnotes-input" className="tooltip">Footnote URLs:
+                  {/* <span className="tooltiptext">To add a new footnote input, click the button. These are automatically linked -- IN ORDER -- to the link tags in your story.
+                  </span> */}
+                </label>
+                {/* {footnotes.map((footnote) => {
+                  return (
+                    <input key={footnote} onChange={(e) => footnote = e.target.value}></input>
+                  )
+                })} */}
+                <input value={footnoteUrl} onChange={(e) => setFootnoteURL(e.target.value)}></input>
+
+                <button onClick={() => setFootnotes([...footnotes, footnoteUrl])}>Add Footnote URL</button>
+                <div>
+                  {footnotes.length > 0 ? <h3>Entered footnotes: </h3> : null}
+                  {footnotes.map((footnote, index) => {
+                    //console.log(footnotes)
+                    return (
+                      <>
+                      <p key={footnote.index}>{index + 1}: {footnote}</p><button>Delete</button>
+                      </>
+                    )
+                  })}
+                </div>
+
+                <p>Add tags to this story. To add multiple tags, serparate tags with a comma.</p>
+                <label htmlFor="tag-input">Tags:</label>
+                <input className="tag-input" value={tags} onChange={(event) => setTags(event.target.value)}></input>
+
+                <button onClick={() => setTagEvent(tags)}> Submit tags</button>
+                
+
+                <p>Add a potential SEO URL slug for this story. Good practice is to include keywords from the title and story.</p>
+                <label htmlFor="slug-input">SEO slug:</label>
+                <input onChange={((event) => setSlug(event.target.value))} className="slug-input" />
+                <button onClick={(() => console.log('loaded'))}>Check Slug</button>
+
+                <p>Select sources you communicated with for this story.</p>
+                <label htmlFor="source-dropdown">Sources:</label>
+                <select className="source-dropdown" onChange={(event) => setSourceDropDown(event.target.value)}>
+                  <option value={null}>Select an option</option>
+                  {!allSources ? null : 
+                  allSources.map((source) => {
+                    return ( // this will probably have to be a search bar at some point.
+                      <option key={source.source_id} value={source.source_id}>
+                        {source.source_name}; {source.source_location}; {source.source_occupation}
+                      </option>
+                    )
+                  })
+                  }
+                </select>
+
+                <button onClick={() => addSourceEvent()}> Add Source</button>
+                <br></br>
+                {!displaySources ? null :  
+                displaySources.map((source) => {
+                    return (
+                      <>
+                      <p key={source.source_id}>{source.source_name}; {source.source_location}; {source.source_occupation}</p>
+                      {/* <button key={source.source_id + "delete"}>Delete</button> */}
+                      </>
+                    )
+                  })
+                }
+
+                <label htmlFor="category-input">Add a primary category.</label>
+                <select 
+                  className="category-input" 
+                  onChange={(event) => {submitPrimaryCategory(event.target.value)}}>
+                    <option value={null}>Select an option</option>
+                  {!allPrimaryCats ? null : 
+                  allPrimaryCats.map((primary) => {
+                    return (
+                      <option value={primary.primary_category_id} key={primary.primary_category_id}>
+                        {primary.primary_category_name}
+                      </option>
+                      )
+                  })
+                }       
+                </select>
+
+                <br></br>
+
+                <label htmlFor="category-input">Add a secondary category.</label>
+                <select onChange={(event) => setSecondary(event.target.value)}>
+                  <option value={null}>Select an option</option>
+                {!allSecondaryCats ? null : 
+                  allSecondaryCats.map((secondary) => {
+                    return (
+                      <option 
+                        value={secondary.secondary_category_id} 
+                        key={secondary.secondary_category_id}>
+                        {secondary.secondary_category_name}
+                      </option>
+                    )
+                  })
+                }    
+                </select>
+
+                <br></br>
+
+                {/* <label htmlFor="breaking-news-flag">Is this Breaking News?</label>
+                <input className="breaking-news-flag" type="checkbox" onChange={() => setBreakingEvent()} />
+                {!breakingFlag ? null :
+                <>
+                <label htmlFor="breaking-headline">Write a brief headline.</label>
+                <input className="breaking-headline" onChange={(event) => setBreakingHeadline(event.target.value)}></input>
+                </>
+                } */}
+
             </fieldset>
+
+            <fieldset>
+                <label htmlFor="feature-image-input">Feature image:</label>
+                <input type="file"></input>
+                <label htmlFor="additional-image-input">Additional images:</label>
+                <input type="file"></input>
+                <br></br>
+            </fieldset>
+
+            <br></br>
+
+
+            <div>
+
+                {/* TODO: add photo slug search feature?????? */}
+                {/* TODO: Add Photo alt / photographer fields */}
+                {/* TODO: Add ability to publish later */}
+
+            </div>
+            <button onClick={() => submitStory(story)}>Submit new story</button>
         </div>
       )
 }

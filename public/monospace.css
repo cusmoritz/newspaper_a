@@ -160,12 +160,28 @@ input, button, textarea, select {
     height: 0;
   }
 
-  .grid {
-    --grid-cells: 0;
+  .grid > * {
+    --grid-cells: 1;
     display: flex;
     gap: 1ch;
     width: calc(round(down, 100%, (1ch * var(--grid-cells)) - (1ch * var(--grid-cells) - 1)));
     margin-bottom: var(--line-height);
+  }
+
+  /* home button */
+  nav > .grid { 
+      --grid-cells: 1;
+      display: flex;
+      gap: 1ch;
+      width: calc(round(down, 100%, (1ch * var(--grid-cells)) - (1ch * var(--grid-cells) - 1)));
+      margin-bottom: var(--line-height);
+      border: var(--border-thickness) solid var(--text-color);
+      padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
+      
+  }
+
+  nav > .grid {
+    padding-left: 47%;
   }
 
 td > details ::not [open] {
@@ -191,9 +207,7 @@ td > details ::not [open] {
   min-height: 10ch;
 } */
 
-/* .grid > *, .grid > details {
-  flex: 0 0 calc(round(down, (100% - (1ch * (var(--grid-cells) - 1))) / var(--grid-cells), 1ch));
-} */
+
 
 /* .grid:has(> :last-child:nth-child(1)) { --grid-cells: 1; }
 .grid:has(> :last-child:nth-child(2)) { --grid-cells: 2; }

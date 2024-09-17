@@ -22,27 +22,42 @@ export const StoryPreviewComponent = ({storyObj, primaryCat, subCat, authorSearc
             <button>Read More</button>
 
             {authorSearchFlag === true ? null : 
-                <fieldset className="story-preview-author-box">
-                <p>By <Link to={`/search/author/${storyObj.author_id}`}>{storyObj.first_name} {storyObj.last_name}</Link> | {storyObj.public_role}</p>
-                <p>{storyObj.email}</p>
-                </fieldset>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                        <details className="story-preview-author-box">
+                        <summary>By: <Link to={`/search/author/${storyObj.author_id}`}>{storyObj.first_name} {storyObj.last_name}</Link></summary>
+                        <p>
+                    {/* By <Link to={`/search/author/${storyObj.author_id}`}>{storyObj.first_name} {storyObj.last_name}</Link> |  */}
+                        {storyObj.public_role}</p>
+                        <p>{storyObj.email}</p>
+                        </details>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
             }
 
             {!storyObj.tags.length ? null : 
-                
-
-                <fieldset className="story-preview-tags-fieldset">
-                    <legend>Tags:</legend>
-                    {storyObj.tags.map((tag, index) => {
-                        return (
-                            <Link to={`/search/tag/${tag.tag}`} key={index}>#{tag.tag}</Link>
-                        )
-                    })}
-                </fieldset>
-                
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                        <details className="story-preview-tags-fieldset">
+                        <summary>Tags</summary>
+                        {storyObj.tags.map((tag, index) => {
+                            return (
+                                <Link to={`/search/tag/${tag.tag}`} key={index}>#{tag.tag}</Link>
+                            )
+                        })}
+                        </details>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>                
             }
-
-
 
         </fieldset>
         </>

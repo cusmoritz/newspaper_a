@@ -21,7 +21,10 @@ export const NavBarMono = () => {
 
     return (
         <nav className="">
-            <Link to="/"><div className="grid">HOME</div></Link>
+            <div class="grid">
+            <Link to="/"><div>HOME</div></Link>
+            </div>
+            
         <table>
             <tbody>
             <tr>

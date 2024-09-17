@@ -17,6 +17,7 @@ import { AuthorSearchResults } from './components/AuthorSearchResults';
 import {PrimaryCatPage} from './components/PrimaryCatPage';
 import { SecondaryCatPage } from './components/SecondaryCatPage';
 import { SingleStoryPage } from './components/SingleStoryPage';
+import { SingleStoryPageMono } from './components/SingleStoryPageMono';
 import {ImageUpload} from './components/admin/ImageUpload';
 import { ShopHeader } from './components/shop/ShopHeader';
 import { ShopHome } from './components/shop/ShopHome';
@@ -91,7 +92,7 @@ const App = () => {
                         <Route path="/authorpage" element={<AuthorPage/>} />
                         <Route path="/image-upload" element={<ImageUpload />} /> */}
                     </Routes>
-                <FooterMono />
+                <Footer />
                 </div>
             </BrowserRouter>
 
@@ -105,37 +106,37 @@ const App = () => {
                     <Route exact path="/news/:secondaryName" 
                         element={<SecondaryCategoryComponent primaryName={"news"} />} />
                     <Route exact path="/news/:secondary/:slug/:storyId" 
-                        element={<SingleStoryPage />} />
+                        element={<SingleStoryPageMono />} />
                     <Route exact path="/news" element={<NewsPageComponent /> } />
 
                     <Route exact path="/elections/:secondaryName" 
                         element={<SecondaryCategoryComponent primaryName={"elections"} />} />
                         <Route exact path="/elections/:secondary/:slug/:storyId" 
-                        element={<SingleStoryPage />} />
+                        element={<SingleStoryPageMono />} />
                     <Route exact path="/elections" element={<ElectionPageComponent />} />
 
                     <Route exact path="/opinion/:secondaryName" 
                         element={<SecondaryCategoryComponent primaryName={"opinion"} />} />
                         <Route exact path="/opinion/:secondary/:slug/:storyId" 
-                        element={<SingleStoryPage />} />
+                        element={<SingleStoryPageMono />} />
                     <Route exact path="/opinion" element={<OpinionPageComponent />} />
 
                     <Route exact path="/outdoors/:secondaryName" 
                         element={<SecondaryCategoryComponent primaryName={"outdoors"} />} />
                     <Route exact path="/outdoors/:secondary/:slug/:storyId" 
-                        element={<SingleStoryPage />} />
+                        element={<SingleStoryPageMono />} />
                     <Route exact path="/outdoors" element={<OutdoorsPageComponent />} />
 
                     <Route exact path="/sports/:secondaryName" 
                         element={<SecondaryCategoryComponent primaryName={"sports"} />} />
                     <Route exact path="/sports/:secondary/:slug/:storyId" 
-                        element={<SingleStoryPage />} />
+                        element={<SingleStoryPageMono />} />
                     <Route exact path="/sports" element={<SportsPageComponent />} />
 
                     <Route exact path="/entertainment/:secondaryName" 
                         element={<SecondaryCategoryComponent primaryName={"entertainment"} />} />
                     <Route exact path="/entertainment/:secondary/:slug/:storyId" 
-                        element={<SingleStoryPage />} />
+                        element={<SingleStoryPageMono />} />
                     <Route exact path="/entertainment" element={<EntertainmentPageComponent />} />
 
                     <Route path="/search/tag/:tag" element={<TagSearchResults />} />

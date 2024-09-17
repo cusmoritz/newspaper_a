@@ -160,6 +160,10 @@ input, button, textarea, select {
     height: 0;
   }
 
+  a:link, a:visited {
+    color: var(--text-color);
+  }
+
   .grid > * {
     --grid-cells: 1;
     display: flex;

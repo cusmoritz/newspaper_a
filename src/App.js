@@ -24,6 +24,7 @@ import { ShopHeader } from './components/shop/ShopHeader';
 import { ShopHome } from './components/shop/ShopHome';
 import { ElectionCategoryPage } from './components/ElectionCategoryPage';
 import { CreateSource } from './components/admin/CreateSource';
+import { CreateSourceMono } from './components/admin/CreateSourceMono';
 import { SourceRelatedStorysComponent } from './components/admin/SourceRelatedStorysComponent';
 import { NewsPageComponent } from './components/NewsPageComponent';
 import { ElectionPageComponent } from './components/ElectionPageComponent';
@@ -70,7 +71,7 @@ const App = () => {
                         <Route path="/authorpage" element={<AuthorPageMono/>} />
                         <Route path="/image-upload" element={<ImageUpload />} />
                         <Route path="/sources/related-stories/:sourceId" element={<SourceRelatedStorysComponent />} /> 
-                        <Route path="/sources" element={<CreateSource />} />
+                        <Route path="/sources" element={<CreateSourceMono />} />
 
 
                     </Routes>

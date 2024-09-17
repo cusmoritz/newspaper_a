@@ -19,11 +19,11 @@ export const AdminHome = (props) => {
                 <p>There is breaking news.</p>
             </div>
             } */}
-            <Link to="/createstory"><button>New story</button></Link>
-            <Link to="/storystats"><button>Story stats</button></Link>
-            <Link to="/authorpage"><button>Author Page</button></Link>
-            <Link to="/image-upload"><button>Image Upload</button></Link>
-            <Link to="/sources"><button>Check Sources</button></Link>
+            <button><Link to="/createstory">New story</Link></button>
+            <button><Link to="/storystats">Story stats</Link></button>
+            <button><Link to="/authorpage">Author Page</Link></button>
+            <button><Link to="/image-upload">Image Upload</Link></button>
+            <button><Link to="/sources">Check Sources</Link></button>
         </div>
     );
 };

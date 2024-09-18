@@ -109,10 +109,16 @@ const createDatabase = async() => {
             tag TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS resource_categories (
+            resource_cat_id SERIAL PRIMARY KEY,
+            resource_name TEXT,
+            resource_associate_id INTEGER[]
+        );
+
         CREATE TABLE IF NOT EXISTS resources (
             resource_id SERIAL PRIMARY KEY,
             resource_url TEXT NOT NULL,
-            resource_category INT NOT NULL,
+            resource_category INTEGER REFERENCES resource_categories(resource_cat_id),
             resource_sub_category INT,
             resource_create_date DATE NOT NULL DEFAULT CURRENT_DATE,
             resource_display_text TEXT,
@@ -140,9 +146,12 @@ const destroyDatabase = async () => {
         DROP TABLE IF EXISTS story_meta;
         DROP TABLE IF EXISTS storys;
         DROP TABLE IF EXISTS authors;
+
+        DROP TABLE IF EXISTS resources;
+        DROP TABLE IF EXISTS resource_categories;
         DROP TABLE IF EXISTS secondary_categories;
         DROP TABLE IF EXISTS primary_categories;
-        DROP TABLE IF EXISTS resources;
+
 
         `, [])
         console.log('done destroying db...');

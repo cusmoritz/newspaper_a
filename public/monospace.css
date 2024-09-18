@@ -97,7 +97,8 @@ th, td {
     padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
 }
 
-th > h1 {
+th > h1, 
+.resources {
   text-align: center;
 }
 

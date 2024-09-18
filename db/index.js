@@ -115,7 +115,8 @@ const createDatabase = async() => {
             resource_category INT NOT NULL,
             resource_sub_category INT,
             resource_create_date DATE NOT NULL DEFAULT CURRENT_DATE,
-            resource_display_text TEXT
+            resource_display_text TEXT,
+            admin_bool BOOL DEFAULT FALSE
         );
        
 

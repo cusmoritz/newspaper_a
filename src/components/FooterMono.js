@@ -9,7 +9,7 @@ export const FooterMono = () => {
             <tbody>
                 <tr>
                     <td colSpan={4}>
-                    <p><Link to={`/resources`}>Community Resources</Link></p>
+                    <p className="resources"><Link to={`/resources`}>Community Resources</Link></p>
                     </td>
                 </tr>
                 <tr>

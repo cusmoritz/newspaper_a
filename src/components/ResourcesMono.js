@@ -10,6 +10,7 @@ export const ResourcesMono = () => {
         const resources = await fetchFrontEndResources();
         if (resources) {
             setAllResources(resources);
+            console.log('resources', resources)
         }
     }
 
@@ -24,9 +25,23 @@ export const ResourcesMono = () => {
     return (
         <>
         <h1>Community Resources</h1>
+        <p>These resources are for everyone in the community.</p>
+        <p>A lot of these resources are broken up by ... </p>
+        <p>There are some involving food insecurity; conntacting your local senetors or congressman; housing assistance; and much else.</p>
+        <p>If you know of a resource that would fit well here, please <a href="mailto:whatever@gmail.com">send us an email</a></p>
         <table>
             <tbody>
-                <th></th>
+                <tr>
+                    <td>
+                        <details>
+                            <summary>Voting</summary>
+                            
+                        </details>
+
+                    </td>
+
+                </tr>
+                
                 {/* <tr>
                     <td>
                         <p>About Us</p>

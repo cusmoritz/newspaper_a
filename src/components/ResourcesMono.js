@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { fetchFrontEndResources } from "../api";
+import { useState } from "react";
 
 export const ResourcesMono = () => {
 
+    const [allResources, setAllResources] = useState([]);
 
+    const fetchAllResources = async () => {
+        const resources = await fetchFrontEndResources();
+        if (resources) {
+            setAllResources(resources);
+        }
+    }
+
+    const loadPage = () => {
+        fetchAllResources();
+    }
+
+    useEffect(() => {
+        loadPage();
+    }, []);
 
     return (
+        <>
+        <h1>Community Resources</h1>
         <table>
             <tbody>
+                <th></th>
                 {/* <tr>
                     <td>
                         <p>About Us</p>
@@ -37,5 +57,7 @@ export const ResourcesMono = () => {
                 </tr> */}
             </tbody>
         </table>
+        </>
+        
     );
 };

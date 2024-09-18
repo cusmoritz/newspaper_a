@@ -21,14 +21,14 @@ export const NavBarMono = () => {
 
     return (
         <nav className="">
-            <div class="grid">
+            <div className="grid">
             <Link to="/"><div>HOME</div></Link>
             </div>
             
         <table>
             <tbody>
             <tr>
-        {!categories ? null : categories.map((mainCat) => {
+        {!categories ? null : categories.map((mainCat, index) => {
             return (
                 // <div className="grid">
                 // <details className="" key={mainCat.primary_category_id}>
@@ -53,17 +53,17 @@ export const NavBarMono = () => {
 
                 
 
-                <td>
+                <td key={index}>
                     <details>
                         <summary>
                         <Link to={`/${mainCat.primary_category_name.toLowerCase()}`}>
                         {mainCat.primary_category_name}
                         </Link>                        
                         </summary>
-                        {mainCat.secondary.map((secondary) => {
+                        {mainCat.secondary.map((secondary, index) => {
                         let adjustedParam = secondary.secondary_category_name.replace(" ","-").toLowerCase();
                         return (
-                            <p><Link 
+                            <p key={index}><Link 
                                 key={secondary.secondary_category_id} 
                                 to={`/${mainCat.primary_category_name.toLowerCase()}/${adjustedParam}`}>{secondary.secondary_category_name}
                             </Link></p>

@@ -52,6 +52,22 @@ export const fetchFrontPageCatsSubcats = async () => {
     }
 };
 
+export const fetchFrontEndResources = async () => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/resources`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const allResources = await request.json();
+        return allResources;
+    } catch (error) {
+        console.log('there was client side server error fetching all resources');
+        throw error;
+    }
+}
+
 export const fetchSinglePageStory = async (storyId) => {
     try {
         const request = await fetch(`${BASE_URL}/api/story/${storyId}`, {

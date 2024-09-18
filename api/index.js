@@ -27,7 +27,7 @@ server.listen(port, () => {
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
 const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
-const {createNewResource} = require ('../db/resources');
+const {createNewResource, fetchAllFrontEndResources} = require ('../db/resources');
 const { useParams } = require('react-router-dom');
 
 server.use((request, response, next) => {
@@ -56,6 +56,20 @@ server.get(`/api/story/frontpage/:pageNo`, async (request, response, next) => {
         throw error;
     }
 });
+
+server.get('/api/resources', async (request, response, next) => {
+  try {
+    const resources = await fetchAllFrontEndResources();
+    if (resources) {
+      response.status(200).send(resources);
+    } else {
+      response.status(500).send({Error: "There was a database problem fetching all resources."});
+    }
+  } catch (error) {
+    console.log('there was a server error fetching all resources');
+    throw error;
+  }
+})
 
 server.get('/api/story/:storyId', async (request, response, next) => {
   const {storyId} = request.params;

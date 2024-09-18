@@ -97,6 +97,10 @@ th, td {
     padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
 }
 
+th > h1 {
+  text-align: center;
+}
+
 .social-row > td > img {
   max-height: 25px;
 }

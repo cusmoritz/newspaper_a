@@ -19,6 +19,25 @@ const createNewResource = async (resourceObj) => {
 
 
 
+
+
+
+
+// ##################### FRONT END FUNCTION ######################
+const fetchAllFrontEndResources = async () => {
+    try {
+        const {rows: resources} = await client.query(`
+        SELECT * FROM resources
+        ;
+        `, []);
+        return resources; 
+    } catch (error) {
+        console.log('there was a database error fetching all resources');
+        throw error;
+    }
+}
+
+
 const startingResources = [{
     url: "https://www.fcgov.com/elections/faq",
     display_text: "Fort Collins Government Voting FAQ",
@@ -57,11 +76,9 @@ const startingResources = [{
 // }
 ];
 
-console.log('resources all', startingResources)
-
 const insertResources = async (array) => {
     array.forEach(resource => {
-        console.log('resource', resource)
+        //console.log('resource', resource)
         createNewResource(resource);
     });
 }
@@ -70,6 +87,7 @@ insertResources(startingResources);
 
 module.exports = {
     createNewResource,
+    fetchAllFrontEndResources,
 
 
 }

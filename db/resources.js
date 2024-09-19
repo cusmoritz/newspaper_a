@@ -64,16 +64,20 @@ const createNewResourceCategory = async(resourceObj) => {
 
 const fetchResourcesForCategory = async(categoryResourceArr) => {
     try {
+        console.log('here', categoryResourceArr)
         let resources = [];
 
-        for (let i = 0; i < categoryResourceArr.length; i++) {
-            const {rows: [resource]} = await client.query(`
-            SELECT * FROM resources
-            WHERE resource_id = $1
-            ;
-            `,[categoryResourceArr[i]]);
-            resources.push(resource);
+        if (categoryResourceArr != null) {
+            for (let i = 0; i < categoryResourceArr.length; i++) {
+                const {rows: [resource]} = await client.query(`
+                SELECT * FROM resources
+                WHERE resource_id = $1
+                ;
+                `,[categoryResourceArr[i]]);
+                resources.push(resource);
+            }
         }
+
         return resources;
     } catch (error) {
         console.log('there was a database error fetching resources for a category');
@@ -100,10 +104,13 @@ const fetchAllFrontEndResources = async () => {
         let categories = await fetchAllResourceCategories();
         
         // go get resources for category
-        for (let i = 0; i < categories.length; i++){
-            let resource = await fetchResourcesForCategory(categories[i].resource_associate_id);
-            categories[i].resources = resource;
+        if (categories.length > 0) {
+            for (let i = 0; i < categories.length; i++){
+                let resource = await fetchResourcesForCategory(categories[i].resource_associate_id);
+                categories[i].resources = resource;
+            }
         }
+
         return categories; 
     } catch (error) {
         console.log('there was a database error fetching all resources');
@@ -143,7 +150,7 @@ const startingResources = [{
 {
     url: "https://timnathpdco.justfoia.com/publicportal/home/newrequest",
     display_text: "Timnath, CO police records request form",
-    category: 3, // criminal justice
+    category: 9, // internal use / public resource
     subcategory: 1,
     admin_bool: true
 },
@@ -164,7 +171,7 @@ const startingResources = [{
 {
     url: "https://www.211colorado.org/reports/",
     display_text: "2-1-1 Colorado reporting dashboard",
-    category: 6,// co- statewide
+    category: 9,// internal / publicc use
     subcategory: 1,
     admin_bool: true
 },
@@ -215,6 +222,9 @@ const fakeResourceCategories = [
     {
         resource_name: "Education"
     },
+    {
+        resource_name: "Newspaper Internal Resources / Public Resources"
+    }
 ];
 
 const insertResources = async (array) => {

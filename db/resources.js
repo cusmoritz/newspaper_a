@@ -36,6 +36,20 @@ const updateCategoryWithResource = async(resourceId, categoryId) => {
         console.log('there was a database error updating a category with a resource');
         throw error;
     }
+};
+
+const fetchAllAdminResources = async() => {
+    try {
+        const {rows: resources} = await client.query(`
+        SELECT * FROM resources
+        JOIN resource_categories ON resources.resource_category = resource_categories.resource_cat_id
+        ;
+        `, []);
+        return resources;
+    } catch (error) {
+        console.log('there was a database error fetching all admin resources');
+        throw error;
+    }
 }
 
 const createNewResourceCategory = async(resourceObj) => {
@@ -246,6 +260,7 @@ insertResources(startingResources);
 module.exports = {
     createNewResource,
     fetchAllFrontEndResources,
+    fetchAllAdminResources,
 
 
 }

@@ -169,6 +169,22 @@ export const fetchStoriesByAuthorId = async (authorId) => {
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
+export const fetchAllResourcesAdmin = async () => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/admin/all-resources`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const allResources = await request.json();
+        return allResources;
+    } catch (error) {
+        console.log('there was a client side error fetching all admin resources');
+        throw error;
+    }
+}
+
 export const fetchAllAuthors = async () => {
     try {
         console.log('yup')

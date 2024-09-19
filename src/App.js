@@ -34,6 +34,7 @@ import { OutdoorsPageComponent } from './components/OutdoorsPageComponent';
 import { SportsPageComponent } from './components/SportsPageComponent';
 import { EntertainmentPageComponent } from './components/EntertainmenPageComponent';
 import { SecondaryCategoryComponent } from './components/SecondaryCategoryComponent';
+import { AdminResourcesMono } from './components/admin/AdminResourcesMono';
 
 const App = () => {
 
@@ -73,6 +74,7 @@ const App = () => {
                         <Route path="/image-upload" element={<ImageUpload />} />
                         <Route path="/sources/related-stories/:sourceId" element={<SourceRelatedStorysComponent />} /> 
                         <Route path="/sources" element={<CreateSourceMono />} />
+                        <Route path="/resources" element={<AdminResourcesMono />} />
 
 
                     </Routes>

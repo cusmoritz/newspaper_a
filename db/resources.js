@@ -78,7 +78,7 @@ const createNewResourceCategory = async(resourceObj) => {
 
 const fetchResourcesForCategory = async(categoryResourceArr) => {
     try {
-        console.log('here', categoryResourceArr)
+        //console.log('here', categoryResourceArr)
         let resources = [];
 
         if (categoryResourceArr != null) {

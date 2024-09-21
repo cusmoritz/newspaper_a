@@ -22,7 +22,7 @@ export const Header = ({subdomain}) => {
                     <tr>
                         <td colSpan="2" rowSpan="2">
                             {/* <img src="https://placehold.jp/50x50.png" className="logo" alt="The Tooth logo"/> */}
-                            <h1 className="title">The Tooth News</h1>
+                            <h1 className="title"><a href="/">The Tooth News</a></h1>
                             <span className="subtitle">Your source for news about the Teeth</span>
                         </td>
                         <th>Version</th>

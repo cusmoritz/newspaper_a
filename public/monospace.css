@@ -102,6 +102,10 @@ th > h1,
   text-align: center;
 }
 
+h1.title > a {
+  text-decoration: none;
+}
+
 .social-row > td > img {
   max-height: 25px;
 }
@@ -214,6 +218,10 @@ input, button, textarea, select {
 
 td > details ::not [open] {
     background-color: red;
+}
+
+textarea.story-input {
+  min-height: 500px;
 }
 
 .create-story > * {

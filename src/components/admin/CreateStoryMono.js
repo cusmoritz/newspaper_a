@@ -400,9 +400,10 @@ export const CreateStoryMono = () => {
 
             <fieldset>
                 <label htmlFor="feature-image-input">Feature image:</label>
-                <input type="file"></input>
+                <input className="feature-image-input" type="file"></input>
+                <br></br>
                 <label htmlFor="additional-image-input">Additional images:</label>
-                <input type="file"></input>
+                <input className="additional-image-input" type="file"></input>
                 <br></br>
             </fieldset>
 

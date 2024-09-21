@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchAllResourcesAdmin } from "../../api";
+import { EditResourceMono } from "./EditResourceMono";
 
 export const AdminResourcesMono = () => {
 
     const [adminResources, setAdminResources] = useState([]);
     const [communityResources, setCommunityResources] = useState([]);
+    const [editBool, setEditBool] = useState(false);
+    const [editResource, setEditResource] = useState({});
 
     const loadPage = async () => {
         var allResources = await fetchAllResourcesAdmin();
@@ -26,6 +29,16 @@ export const AdminResourcesMono = () => {
         }
     };
 
+    const setEditingResource = (resource) => {
+        if (resource) {
+            if (editBool === true) {
+                setEditBool(false);
+            }
+            setEditResource(resource)
+            setEditBool(true)
+        }
+    }
+
     useEffect(() => {
         loadPage();
     }, [])
@@ -33,6 +46,9 @@ export const AdminResourcesMono = () => {
 return (
     <div>
         <h2>Resource management page</h2>
+        {!editBool ? null : 
+        <EditResourceMono resource={editResource} editResourceBool={editBool} setEditBool={setEditBool}/>
+        }
         <table>
             <tbody>
                 <tr>
@@ -45,7 +61,9 @@ return (
                                 <div key={index}>
                                     <p><a href={resource.resource_url}>{resource.resource_display_text}</a> | {resource.resource_create_date} </p>
                                     <p>{resource.resource_category_name}</p>
-                                    <button>Edit</button>
+                                    <button onClick={() => setEditingResource(resource)}>
+                                        <a href="#edit-resource">Edit</a>
+                                    </button>
                                     <button>Delete</button>
                                     {adminResources.length - 1 == index
                                     ? <p></p> 
@@ -65,7 +83,9 @@ return (
                                 <div key={index}>
                                     <p><a href={resource.resource_url}>{resource.resource_display_text}</a> | {resource.resource_create_date} </p>
                                     <p>{resource.resource_category_name}</p>
-                                    <button>Edit</button>
+                                    <button onClick={() => setEditingResource(resource)}>
+                                        <a href="#edit-resource">Edit</a>
+                                    </button>
                                     <button>Delete</button>
                                     {communityResources.length - 1 == index
                                     ? <p></p> 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchAllAuthors } from "../../api";
 import { useEffect } from "react";
 import { CreateAuthorComponent } from "./CreateAuthorComponent";
-import { EditAuthorComponent } from "./EditAuthorComponent";
+import { EditAuthorComponentMono } from "./EditAuthorComponentMono";
 
 export const AuthorPage = () => {
 
@@ -50,7 +50,7 @@ return (
             null
         }
         {!newAuthorBool ? null : <CreateAuthorComponent setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
-        {!editAuthorBool ? null : <EditAuthorComponent editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} loadPage={loadPage}/> }
+        {!editAuthorBool ? null : <EditAuthorComponentMono editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} loadPage={loadPage}/> }
         {(newAuthorBool == false && editAuthorBool == false) ?
             <div className="current-authors-container">
             <h4>Current authors:</h4>

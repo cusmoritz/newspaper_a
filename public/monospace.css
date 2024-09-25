@@ -111,7 +111,8 @@ h1.title > a {
 }
 
 fieldset {
-  margin-top: 20px;
+  padding-top: calc(var(--line-height));
+  padding-bottom: calc(var(--line-height));
   border: var(--border-thickness) solid var(--text-color);
   font: inherit;
   font-weight: inherit;

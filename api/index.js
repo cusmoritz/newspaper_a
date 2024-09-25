@@ -61,6 +61,11 @@ server.put('/api/admin/edit-resource', async (request, response, next) => {
   try {
     let {editedResource} = request.body;
     let confirmEdit = await editCurrentResource(editedResource);
+    if (confirmEdit) {
+      response.status(200).send(confirmEdit)
+    } else {
+      response.status(500).send({Error: "There was a database error editing that resource."});
+    }
   } catch (error) {
     console.log('there was a server error editing a resource');
     throw error;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchAllResourcesAdmin } from "../../api";
 import { EditResourceMono } from "./EditResourceMono";
+import { CreateNewResourceMono } from "./CreateNewResourceMono";
 
 export const AdminResourcesMono = () => {
 
@@ -10,6 +11,7 @@ export const AdminResourcesMono = () => {
     const [communityResources, setCommunityResources] = useState([]);
     const [editBool, setEditBool] = useState(false);
     const [editResource, setEditResource] = useState({});
+    const [createNewBool, setCreateNewBool] = useState(false);
 
     const loadPage = async () => {
         var allResources = await fetchAllResourcesAdmin();
@@ -41,13 +43,16 @@ export const AdminResourcesMono = () => {
 
     useEffect(() => {
         loadPage();
-    }, [])
+    }, [editBool])
 
 return (
     <div>
         <h2>Resource management page</h2>
         {!editBool ? null : 
         <EditResourceMono resource={editResource} editResourceBool={editBool} setEditBool={setEditBool}/>
+        }
+        {!createNewBool ? <button onClick={() => setCreateNewBool(true)}>Create Resource</button> :
+        <CreateNewResourceMono setCreateNewBool={setCreateNewBool}/>
         }
         <table>
             <tbody>
@@ -59,11 +64,14 @@ return (
                         adminResources.map((resource, index) => {
                             return (
                                 <div key={index}>
-                                    <p><a href={resource.resource_url}>{resource.resource_display_text}</a> | {resource.resource_create_date} </p>
-                                    <p>{resource.resource_category_name}</p>
+                                    <p><a href={resource.resource_url}>{resource.resource_display_text}</a> | Created on {resource.resource_create_date} </p>
+                                    {resource.resource_most_updated_date ?
+                                    <p>Most recently updated on {resource.resource_most_updated_date}</p>
+                                    : null}
+                                    <p>In the {resource.resource_name} category</p>
                                     <button onClick={() => setEditingResource(resource)}>
                                         <a href="#edit-resource">Edit</a>
-                                    </button>
+                                    </button> &nbsp;
                                     <button>Delete</button>
                                     {adminResources.length - 1 == index
                                     ? <p></p> 
@@ -79,13 +87,18 @@ return (
                             <summary>View / Edit Community Resources</summary>
                             {!communityResources ? null :
                             communityResources.map((resource, index) => {
+                                console.log('resource FE', resource)
                             return (
                                 <div key={index}>
-                                    <p><a href={resource.resource_url}>{resource.resource_display_text}</a> | {resource.resource_create_date} </p>
-                                    <p>{resource.resource_category_name}</p>
+                                    <p><a href={resource.resource_url}>{resource.resource_display_text}</a></p>
+                                    <p>Created on {resource.resource_create_date} </p>
+                                    {resource.resource_most_updated_date ?
+                                    <p>Most recently updated on {resource.resource_most_updated_date}</p>
+                                    : null}
+                                    <p>In the {resource.resource_name} category</p>
                                     <button onClick={() => setEditingResource(resource)}>
                                         <a href="#edit-resource">Edit</a>
-                                    </button>
+                                    </button> &nbsp;
                                     <button>Delete</button>
                                     {communityResources.length - 1 == index
                                     ? <p></p> 

@@ -5,6 +5,9 @@ const {client} = require('./index');
 // ##################### ADMIN FUNCTIONS ####################
 const createNewResource = async (resourceObj) => {
     try {
+        if (resourceObj.subcategory == null || resourceObj.subcategory == 0) {
+            resourceObj.subcategory = 1;
+        }
         const {rows: [resource]} = await client.query(`
         INSERT INTO resources (resource_url, resource_display_text, resource_category, resource_sub_category, admin_bool)
         VALUES ($1, $2, $3, $4, $5)
@@ -71,7 +74,7 @@ const editCurrentResource = async (resourceObj) =>{
     try {
         console.log('what obj,', resourceObj)
         let updateDate = `${new Date().getFullYear()}-` + `${new Date().getMonth() + 1}-` + `${new Date().getDate()}`;
-        const {rows: resource} = await client.query(`
+        const {rows: [resource]} = await client.query(`
         UPDATE resources
         SET resource_display_text = $1,
             resource_url = $2,
@@ -82,13 +85,7 @@ const editCurrentResource = async (resourceObj) =>{
         ;
         `, [resourceObj.resource_display_text, resourceObj.resource_url, resourceObj.resource_category, updateDate, resourceObj.id]);
 
-        //resourceObj., resourceObj., resourceObj., resourceObj., 
-
-        // UPDATE sources
-        // SET source_occupation = $2
-        // WHERE source_id = $1
-        // RETURNING *
-        // ;
+        return resource;
     } catch (error) {
         console.log('there was a database error editing a current resource');
         throw error;

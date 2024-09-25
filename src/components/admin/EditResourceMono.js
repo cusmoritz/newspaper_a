@@ -29,7 +29,17 @@ export const EditResourceMono = ({resource, editResourceBool, setEditBool}) => {
         if (newCategory <= 0) {
             setNewCategory(resource.resource_category)
         }
-        let editedResource = await sendEditedResource({id: resource.resource_id, resource_display_text: newDisplayText, resource_url: newUrl, resource_category: newCategory})
+        let editedResource = await sendEditedResource({id: resource.resource_id, resource_display_text: newDisplayText, resource_url: newUrl, resource_category: newCategory});
+        if (editedResource) {
+            console.log('eidited here', editedResource)
+            alert('Resource successfully edited.');
+            setNewDisplayText("");
+            setNewUrl("");
+            setNewCategory(0);
+            setEditBool(false);
+            setEditBool(false);
+        }
+        return;
     }
     console.log('new resource?', resource)
     return (

@@ -65,6 +65,34 @@ const createNewResourceCategory = async(resourceObj) => {
         console.log('there was a database error creating a new resource category');
         throw error;
     }
+};
+
+const editCurrentResource = async (resourceObj) =>{
+    try {
+        console.log('what obj,', resourceObj)
+        let updateDate = `${new Date().getFullYear()}-` + `${new Date().getMonth() + 1}-` + `${new Date().getDate()}`;
+        const {rows: resource} = await client.query(`
+        UPDATE resources
+        SET resource_display_text = $1,
+            resource_url = $2,
+            resource_category = $3,
+            resource_most_updated_date = $4
+        WHERE resource_id = $5
+        RETURNING *
+        ;
+        `, [resourceObj.resource_display_text, resourceObj.resource_url, resourceObj.resource_category, updateDate, resourceObj.id]);
+
+        //resourceObj., resourceObj., resourceObj., resourceObj., 
+
+        // UPDATE sources
+        // SET source_occupation = $2
+        // WHERE source_id = $1
+        // RETURNING *
+        // ;
+    } catch (error) {
+        console.log('there was a database error editing a current resource');
+        throw error;
+    }
 }
 
 
@@ -261,6 +289,7 @@ module.exports = {
     createNewResource,
     fetchAllFrontEndResources,
     fetchAllAdminResources,
+    editCurrentResource,
 
 
 }

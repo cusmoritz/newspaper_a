@@ -183,6 +183,25 @@ export const fetchAllResourcesAdmin = async () => {
         console.log('there was a client side error fetching all admin resources');
         throw error;
     }
+};
+
+export const sendEditedResource = async (editedResourceObj) => {
+    try {
+        const posting = await fetch(`${BASE_URL}/api/admin/edit-resource`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                editedResource: editedResourceObj
+            })
+        });
+        const editingConfirm = posting.json();
+        return editingConfirm;
+    } catch (error) {
+        console.log('there was a client error submitting an edited resource');
+        throw error;
+    }
 }
 
 export const fetchAllAuthors = async () => {

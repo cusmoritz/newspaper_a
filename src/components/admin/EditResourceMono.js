@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { sendEditedResource } from "../../api";
 
 export const EditResourceMono = ({resource, editResourceBool, setEditBool}) => {
 
@@ -7,12 +8,29 @@ export const EditResourceMono = ({resource, editResourceBool, setEditBool}) => {
     const [newUrl, setNewUrl] = useState("");
     const [newCategory, setNewCategory] = useState(0);
 
+    // const [submitDisplayText, setDisplayText] = useState("");
+    // const [submitUrl, setSubmitUrl] = useState("");
+    // const [submitCategory, setSubmitCategory] = useState(0);
+
     const cancelEditing = () => {
         setNewDisplayText("");
         setNewUrl("");
         setNewCategory(0);
         setEditBool(false);
     };
+
+    const submitEditedResource = async () => {
+        if (newDisplayText.length < 1) {
+            setNewDisplayText(resource.resource_display_text);
+        }
+        if (newUrl.length < 1) {
+            setNewUrl(resource.resource_url);
+        }
+        if (newCategory <= 0) {
+            setNewCategory(resource.resource_category)
+        }
+        let editedResource = await sendEditedResource({id: resource.resource_id, resource_display_text: newDisplayText, resource_url: newUrl, resource_category: newCategory})
+    }
     console.log('new resource?', resource)
     return (
         <fieldset id="edit-resource">
@@ -36,20 +54,21 @@ export const EditResourceMono = ({resource, editResourceBool, setEditBool}) => {
             <p></p>
             <label>New Display Category:</label>
             <select onChange={(e) => setNewCategory(e.target.value)}>
-                <option value={null}>Select an option</option>
-                <option value={null}>Housing</option>
-                <option value={null}>Voting</option>
-                <option value={null}>Criminal Justice</option>
-                <option value={null}>Food Assistance</option>
-                <option value={null}>Elected Government</option>
-                <option value={null}>CO - Statewide</option>
-                <option value={null}>Employment / Unionization</option>
-                <option value={null}>Education</option>
-                <option value={null}>Newspaper Internal Resources / Public Resources</option>
+                <option value={0}>Select an option</option>
+                <option value={1}>Housing</option>
+                <option value={2}>Voting</option>
+                <option value={3}>Criminal Justice</option>
+                <option value={4}>Food Assistance</option>
+                <option value={5}>Elected Government</option>
+                <option value={6}>CO - Statewide</option>
+                <option value={7}>Employment / Unionization</option>
+                <option value={8}>Education</option>
+                <option value={9}>Newspaper Internal Resources / Public Resources</option>
             </select>
             <p>Current Category: <i>{resource.resource_name}</i></p>
-            <button onClick={() => cancelEditing}>Cancel</button> &nbsp;
-            <button>Submit</button>
+            
+            <button onClick={cancelEditing}>Cancel</button> &nbsp;
+            <button onClick={submitEditedResource}>Submit</button>
         </fieldset>
     );
 };

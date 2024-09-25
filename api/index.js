@@ -27,7 +27,7 @@ server.listen(port, () => {
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
 const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
-const {createNewResource, fetchAllFrontEndResources, fetchAllAdminResources} = require ('../db/resources');
+const {createNewResource, fetchAllFrontEndResources, fetchAllAdminResources, editCurrentResource} = require ('../db/resources');
 const { useParams } = require('react-router-dom');
 
 server.use((request, response, next) => {
@@ -56,6 +56,16 @@ server.get(`/api/story/frontpage/:pageNo`, async (request, response, next) => {
         throw error;
     }
 });
+
+server.put('/api/admin/edit-resource', async (request, response, next) => {
+  try {
+    let {editedResource} = request.body;
+    let confirmEdit = await editCurrentResource(editedResource);
+  } catch (error) {
+    console.log('there was a server error editing a resource');
+    throw error;
+  }
+})
 
 server.get('/api/admin/all-resources', async (request, response, next) => {
   try {

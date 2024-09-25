@@ -87,7 +87,6 @@ return (
                             <summary>View / Edit Community Resources</summary>
                             {!communityResources ? null :
                             communityResources.map((resource, index) => {
-                                console.log('resource FE', resource)
                             return (
                                 <div key={index}>
                                     <p><a href={resource.resource_url}>{resource.resource_display_text}</a></p>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { newResourceSubmit } from "../../api";
 
 export const CreateNewResourceMono = ({setCreateNewBool}) => {
 
@@ -16,11 +17,20 @@ export const CreateNewResourceMono = ({setCreateNewBool}) => {
         setCreateNewBool(false);
     }
 
-    const submitNewResource = () => {
+    const submitNewResource = async () => {
         if (newDisplayText.length < 1 || newUrl.length < 1 || newCategory <= 0) {
             return false;
         } else {
-            newResourceSubmit({resource_display_text: newDisplayText, resource_url: newUrl, resource_category: newCategory, admin_bool: adminBool})
+            let newResource = await newResourceSubmit({display_text: newDisplayText, resource_url: newUrl, category: newCategory, admin_bool: adminBool});
+            if (newResource) {
+                alert('New Resource Created Successfully.');
+                setNewDisplayText("");
+                setNewUrl("");
+                setNewCategory(0);
+                setAdminBool(false);
+                setCreateNewBool(false);
+                return newResource;
+            }
         }
     }
 

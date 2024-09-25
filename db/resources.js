@@ -5,18 +5,17 @@ const {client} = require('./index');
 // ##################### ADMIN FUNCTIONS ####################
 const createNewResource = async (resourceObj) => {
     try {
-        if (resourceObj.subcategory == null || resourceObj.subcategory == 0) {
+        if (!resourceObj.subcategory || resourceObj.subcategory == 0 || resourceObj.subcategory == null) {
             resourceObj.subcategory = 1;
         }
         const {rows: [resource]} = await client.query(`
         INSERT INTO resources (resource_url, resource_display_text, resource_category, resource_sub_category, admin_bool)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *
-        `, [resourceObj.url, resourceObj.display_text, resourceObj.category, resourceObj.subcategory, resourceObj.admin_bool]);
-        //console.log('resource db', resource) // resource_id & resource_category
+        `, [resourceObj.resource_url, resourceObj.display_text, resourceObj.category, resourceObj.subcategory, resourceObj.admin_bool]);
 
-        let what = await updateCategoryWithResource(resource.resource_id, resource.resource_category);
-        //console.log('what db', what);
+        await updateCategoryWithResource(resource.resource_id, resource.resource_category);
+
         return resource;
     } catch (error) {
         console.log('there was a database error creating a new resource');
@@ -159,77 +158,77 @@ const fetchAllFrontEndResources = async () => {
 
 
 const startingResources = [{
-    url: "https://www.fcgov.com/elections/faq",
+    resource_url: "https://www.fcgov.com/elections/faq",
     display_text: "Fort Collins Government Voting FAQ",
     category: 2, // voting
     subcategory: 2,
     admin_bool: false
 },
 {
-    url: "https://peak.my.site.com/peak/s/benefit-information/benefit-detail?language=en_US&category=food-assistance-programs",
+    resource_url: "https://peak.my.site.com/peak/s/benefit-information/benefit-detail?language=en_US&category=food-assistance-programs",
     display_text: "Colorado Applications for SNAP (food assistance) and WIC",
     category: 4, //food
     subcategory: 3,
     admin_bool: false
 },
 {
-    url: "https://www.cde.state.co.us/cdeboard/congressional_district_map",
+    resource_url: "https://www.cde.state.co.us/cdeboard/congressional_district_map",
     display_text: "Colorado State Government Website Regional Congressional District Map",
     category: 5, // elected government
     subcategory: 4,
     admin_bool: false
 },
 {
-    url: "https://doh.colorado.gov/housing-voucher-programs",
+    resource_url: "https://doh.colorado.gov/housing-voucher-programs",
     display_text: "Colorado Housing Voucher FAQ",
     category: 1, // housing
     subcategory: 5,
     admin_bool: false
 },
 {
-    url: "https://timnathpdco.justfoia.com/publicportal/home/newrequest",
+    resource_url: "https://timnathpdco.justfoia.com/publicportal/home/newrequest",
     display_text: "Timnath, CO police records request form",
     category: 9, // internal use / public resource
     subcategory: 1,
     admin_bool: true
 },
 {
-    url: "https://doh.colorado.gov/emergency-rental-assistance",
+    resource_url: "https://doh.colorado.gov/emergency-rental-assistance",
     display_text: "Colorado Debartment of Local Affairs emergency rental assistance FAQ",
     category: 1, //housing
     subcategory: 1,
     admin_bool: false
 },
 {
-    url: "https://www.211colorado.org/#category",
+    resource_url: "https://www.211colorado.org/#category",
     display_text: "2-1-1 Colorado, supplemental assistance program search",
     category: 6, //co - statewide
     subcategory: 3,
     admin_bool: false
 },
 {
-    url: "https://www.211colorado.org/reports/",
+    resource_url: "https://www.211colorado.org/reports/",
     display_text: "2-1-1 Colorado reporting dashboard",
     category: 9,// internal / publicc use
     subcategory: 1,
     admin_bool: true
 },
 {
-    url: "https://www.causeiq.com/organizations/teamsters-267,841096171/",
+    resource_url: "https://www.causeiq.com/organizations/teamsters-267,841096171/",
     display_text: "Fort Collins Teamsters 267 revenue, stats",
     category: 7,
     subcategory:7,
     admin_bool: true
 },
 {
-    url: "https://www.cde.state.co.us/cdeadult",
+    resource_url: "https://www.cde.state.co.us/cdeadult",
     display_text: "Colorado Adult Education Initiative website",
     category: 8,
     subcategory: 3,
     admin_bool: false
 }
 // {
-//     url: ,
+//     resource_url: ,
 //     display_text: ,
 //     category: , // public safety?
 //     subcategory: 

@@ -185,6 +185,25 @@ export const fetchAllResourcesAdmin = async () => {
     }
 };
 
+export const newResourceSubmit = async (newResourceObj) => {
+    try {
+        const request = await fetch(`${BASE_URL}/api/admin/new-resource`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                newResourceObj
+            })
+        })
+        let newResource = await request.json();
+        return newResource;
+    } catch (error) {
+        console.log('there was a client side error submitting a new resource');
+        throw error;
+    }
+}
+
 export const sendEditedResource = async (editedResourceObj) => {
     try {
         const posting = await fetch(`${BASE_URL}/api/admin/edit-resource`, {
@@ -196,7 +215,7 @@ export const sendEditedResource = async (editedResourceObj) => {
                 editedResource: editedResourceObj
             })
         });
-        const editingConfirm = posting.json();
+        const editingConfirm = await posting.json();
         return editingConfirm;
     } catch (error) {
         console.log('there was a client error submitting an edited resource');

@@ -57,6 +57,21 @@ server.get(`/api/story/frontpage/:pageNo`, async (request, response, next) => {
     }
 });
 
+server.post('/api/admin/new-resource', async (request, response, next) => {
+  try {
+    let {newResourceObj} = request.body;
+    let submitNewResource = await createNewResource(newResourceObj);
+    if (submitNewResource) {
+      response.status(200).send(submitNewResource);
+    } else {
+      response.status(500).send({Error: "There was a database error creating a new resource."});
+    }
+  } catch (error) {
+    console.log('there was a server error submitting a new resource.');
+    throw error;
+  }
+})
+
 server.put('/api/admin/edit-resource', async (request, response, next) => {
   try {
     let {editedResource} = request.body;

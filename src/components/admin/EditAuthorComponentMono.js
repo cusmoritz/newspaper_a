@@ -47,6 +47,7 @@ export const EditAuthorComponentMono = ({editAuthorBool, setEditAuthorBool, auth
         <>
         <div className="create-author-container">
             <fieldset>
+                <legend>Edit author:</legend>
                 <label htmlFor="first-name-input" >First Name:</label>
                 <input type="text" className="first-name-input" required value={firstName} onChange={(event) => setFirstName(event.target.value)} />
                 <p></p>
@@ -80,8 +81,8 @@ export const EditAuthorComponentMono = ({editAuthorBool, setEditAuthorBool, auth
                 <label htmlFor="author-blurb-input">What would you like the people to know?</label>
                 <textarea className="author-blurb-input" onChange={(event) => setAuthorBlurb(event.target.value)} placeholder="Limit your blurb to 300 words." maxLength="300" value={authorBlurb}></textarea>
             </fieldset>
-            <button onClick={() => editAuthorEvent()}>Confirm Edits</button>
-            <button onClick={()  => clearFields()}>Cancel Edits</button>
+            <button onClick={() => editAuthorEvent()}>Confirm Edits</button> &nbsp;
+            <button onClick={()  => clearFields()}>Cancel Edits</button> &nbsp;
             <button className="delete-author" onClick={() => deleteAuthorEvent()}>Delete Author</button>
         </div>
         </>

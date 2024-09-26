@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchAllAuthors } from "../../api";
+import { fetchAllAuthors } from "../../../api";
 import { useEffect } from "react";
-import { CreateAuthorComponent } from "./CreateAuthorComponent";
-import { EditAuthorComponentMono } from "./EditAuthorComponentMono";
+import { CreateAuthorComponentMono } from "../CreateAuthorComponentMono";
+import { EditAuthorComponentMono } from "../EditAuthorComponentMono";
 
 export const AuthorPage = () => {
 
@@ -41,7 +41,7 @@ export const AuthorPage = () => {
 
 return (
     <div className="author-page-container">
-        {!newAuthorBool ? 
+        {newAuthorBool == false ? 
             <button className="new-author-button" 
             onClick={() => {setNewAuthorBool(true)}}>
                 Create New Author
@@ -49,7 +49,7 @@ return (
             : 
             null
         }
-        {!newAuthorBool ? null : <CreateAuthorComponent setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
+        {!newAuthorBool ? null : <CreateAuthorComponentMono setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
         {!editAuthorBool ? null : <EditAuthorComponentMono editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} loadPage={loadPage}/> }
         {(newAuthorBool == false && editAuthorBool == false) ?
             <div className="current-authors-container">

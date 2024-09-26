@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { editAuthorProfile } from "../../api";
+import { editAuthorProfile } from "../../../api";
 
 export const EditAuthorComponent = ({editAuthorBool, setEditAuthorBool, authorObj, loadPage}) => {
     const clearFields = () => {

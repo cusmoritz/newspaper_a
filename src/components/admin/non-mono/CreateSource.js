@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchCurrentSources } from "../../api";
-import { EditSourceComponent } from "./EditSourceComponent";
-import { submitNewSource } from "../../api";
+import { fetchCurrentSources } from "../../../api";
+import { EditSourceComponent } from "../EditSourceComponent";
+import { submitNewSource } from "../../../api";
 import { Link } from "react-router-dom";
 
 export const CreateSource = () => {

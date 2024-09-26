@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import { useState } from "react";
 import { submitNewAuthor } from "../../api";
 
@@ -35,14 +35,19 @@ export const CreateAuthorComponentMono = ({setNewAuthorBool, newAuthorBool}) => 
     return (
         <div className="create-author-container">
             <fieldset>
+                <legend>Create new author:</legend>
                 <label htmlFor="first-name-input" >First Name:</label>
                 <input type="text" className="first-name-input" required value={firstName} onChange={(event) => setFirstName(event.target.value)}></input>
+                <p></p>
                 <label htmlFor="last-name-input">Last Name:</label>
                 <input type="text" className="last-name-input" required value={lastName} onChange={(event) => setLastName(event.target.value)}></input>
+                <p></p>
                 <label htmlFor="email-input">Email:</label>
                 <input type="text" className="email-input" required value={email} onChange={(event) => setEmail(event.target.value)}></input>
-                <label htmlFor="public-role-input">Public Role (Business Writer, Intern, etc...)</label>
+                <p></p>
+                <label htmlFor="public-role-input">Public Display Role (Business Writer, Intern, etc...)</label>
                 <input className="public-role-input" placeholder="Music Critic" onChange={(event) => setPublicRole(event.target.value)}></input>
+                <p></p>
                 <label htmlFor="internal-role-input">Internal Role:</label>
                 <select className="internal-role-input" required value={internalRole} onChange={(event) => setInternalRole(event.target.value)}>
                     <option value={3}>Other</option>
@@ -50,17 +55,22 @@ export const CreateAuthorComponentMono = ({setNewAuthorBool, newAuthorBool}) => 
                     <option value={1}>Editor</option>
                     <option value={0}>Admin</option>
                 </select>
+                <p></p>
                 <label htmlFor="twitter-profile-input">Twitter Profile?</label>
                 <input className="twitter-profile-input" onChange={(event) => setTwitterProfile(event.target.value)}></input>
+                <p></p>
                 <label htmlFor="facebook-profile-input">Facebook Profile?</label>
                 <input className="facebook-profile-input" onChange={(event) => setFacebookProfile(event.target.value)}></input>
+                <p></p>
                 <label htmlFor="other-profile-input">Other Profile or Website?</label>
                 <input className="other-profile-input" onChange={(event) => setOtherProfile(event.target.value)}></input>
+                <p></p>
                 <label htmlFor="author-blurb-input">What would you like the people to know?</label>
                 <textarea className="author-blurb-input" onChange={(event) => setAuthorBlurb(event.target.value)} placeholder="Limit your blurb to 300 words." maxLength="300"></textarea>
-            </fieldset>
-            <button onClick={() => submitNewWriter()}>Submit</button>
+                <p></p>
+            <button onClick={() => submitNewWriter()}>Submit</button> &nbsp;
             <button onClick={()  => clearFields()}>Cancel</button>
+            </fieldset>
         </div>
     )
 };

@@ -240,6 +240,11 @@ textarea.story-input {
   width: 70ch;
 }
 
+.delete {
+  /* light-ish red */
+  background-color: #be2528;
+}
+
 /* .create-story > textarea {
   min-height: 10ch;
 } */

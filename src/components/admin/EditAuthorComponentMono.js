@@ -57,11 +57,11 @@ export const EditAuthorComponentMono = ({editAuthorBool, setEditAuthorBool, auth
                 <label htmlFor="email-input">Email:</label>
                 <input type="text" className="email-input" required value={email} onChange={(event) => setEmail(event.target.value)}></input>
                 <p></p>
-                <label htmlFor="public-role-input">Public Role (Business Writer, Intern, etc...)</label>
+                <label htmlFor="public-role-input">Public Displayed Role (Business Writer, Intern, etc...)</label>
                 <input className="public-role-input" placeholder="Music Critic" onChange={(event) => setPublicRole(event.target.value)} value={publicRole}></input>
                 <p></p>
                 <label htmlFor="internal-role-input">Internal Role:</label>
-                <select className="internal-role-input" required value={null} onChange={(event) => setInternalRole(event.target.value)}>
+                <select className="internal-role-input" required value={""} onChange={(event) => setInternalRole(event.target.value)}>
                     <option value={null}>Select an option</option>
                     <option value={3}>Other</option>
                     <option value={2}>Writer</option>
@@ -80,10 +80,11 @@ export const EditAuthorComponentMono = ({editAuthorBool, setEditAuthorBool, auth
                 <p></p>
                 <label htmlFor="author-blurb-input">What would you like the people to know?</label>
                 <textarea className="author-blurb-input" onChange={(event) => setAuthorBlurb(event.target.value)} placeholder="Limit your blurb to 300 words." maxLength="300" value={authorBlurb}></textarea>
-            </fieldset>
-            <button onClick={() => editAuthorEvent()}>Confirm Edits</button> &nbsp;
+                <p></p>
             <button onClick={()  => clearFields()}>Cancel Edits</button> &nbsp;
-            <button className="delete-author" onClick={() => deleteAuthorEvent()}>Delete Author</button>
+            <button onClick={() => editAuthorEvent()}>Confirm Edits</button> &nbsp;
+            <button className="delete-author delete" onClick={() => deleteAuthorEvent()}>Delete Author</button>
+            </fieldset>
         </div>
         </>
     )

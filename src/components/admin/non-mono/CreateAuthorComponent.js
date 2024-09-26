@@ -1,6 +1,6 @@
 import react from "react";
 import { useState } from "react";
-import { submitNewAuthor } from "../../api";
+import { submitNewAuthor } from "../../../api";
 
 export const CreateAuthorComponent = ({setNewAuthorBool, newAuthorBool}) => {
     

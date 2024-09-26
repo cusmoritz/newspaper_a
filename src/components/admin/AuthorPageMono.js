@@ -42,19 +42,17 @@ export const AuthorPageMono = () => {
 return (
     <div className="author-page-container">
         <h2>Author Page</h2>
-        {!editAuthorBool ? null : 
-        <>
-            <button><Link to={'/'}>Back</Link></button> &nbsp;
-                {!newAuthorBool ? 
-                    <button className="new-author-button" 
-                    onClick={() => {setNewAuthorBool(true)}}>
-                        Create New Author
-                    </button> 
-                    : 
-                    null
-                }
-        </>
-        }
+
+        <button><Link to={'/'}>Back</Link></button> &nbsp;
+            {!newAuthorBool ? 
+                <button className="new-author-button" 
+                onClick={() => {setNewAuthorBool(true)}}>
+                    Create New Author
+                </button> 
+                : 
+                null
+            }
+
         {!newAuthorBool ? null : <CreateAuthorComponentMono setNewAuthorBool={setNewAuthorBool} newAuthorBool={newAuthorBool}/> }
         {!editAuthorBool ? null : <EditAuthorComponentMono editAuthorBool={editAuthorBool} setEditAuthorBool={setEditAuthorBool} authorObj={editAuthoObj} loadPage={loadPage}/> }
         {(newAuthorBool == false && editAuthorBool == false) ?

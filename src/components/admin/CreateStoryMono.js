@@ -239,10 +239,10 @@ export const CreateStoryMono = () => {
 
       return (
         <div>
-            <h3>
-                Create a story by populating the fields below.
-            </h3>
-            <button className=""><Link to="/" onClick={() => clearFields}>Cancel</Link></button>
+            <h2>
+                Create story page.
+            </h2>
+            <button><Link to={'/'}>Back</Link></button>
             <fieldset className="create-story">
                 <legend className="grid">New story fields:</legend>
 
@@ -416,7 +416,9 @@ export const CreateStoryMono = () => {
                 {/* TODO: Add Photo alt / photographer fields */}
                 {/* TODO: Add ability to publish later */}
 
-            </div>
+            </div>            
+            <button className=""><Link to="/" onClick={() => clearFields}>Cancel</Link></button>
+            &nbsp;
             <button onClick={() => submitStory(story)}>Submit new story</button>
         </div>
       )

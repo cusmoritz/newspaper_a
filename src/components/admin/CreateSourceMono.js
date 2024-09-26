@@ -60,53 +60,55 @@ export const CreateSourceMono = () => {
     return (
         <div className="admin-source-page-container">
         {editBool === false ? null : <EditSourceComponent sourceObj={sourceObj} editBool={editBool} setEditBool={setEditBool}/>}
-        <h1>This is the create source page.</h1>
-        
+        <h2>Sources</h2>
+        <button><Link to={'/'}>Back</Link></button> &nbsp;
         {createBool === false ? <button onClick={createSourceEvent}>Create New Source</button> : 
-        <table>
-            <tbody>
-                <tr>Create New Source</tr>
-                <tr>
-                    <td>
-                    <p>First name: <input className="source-first-name" value={firstName} onChange={(event) => {setFirstName(event.target.value)}}></input></p>
+        <fieldset>
+            <legend>Create new source</legend>
+                <label htmlFor="first-name">First name:</label>
+                <input className="first-name" value={firstName} onChange={(event) => {setFirstName(event.target.value)}}></input>
+                <p></p>
+                <label htmlFor="last-name">Last name:</label> 
+                <input className="last-name" value={lastName} onChange={(event) => {setLastName(event.target.value)}}></input>
+                <p></p>
+                <label htmlFor="occupation">Occupation: </label>
+                <input className="occupation" value={sourceOccupation} onChange={(event) => {setOccuaption(event.target.value)}}></input>
+                <p></p>
 
-                    <p>Last name: <input className="source-last-name" value={lastName} onChange={(event) => {setLastName(event.target.value)}}></input></p>
-
-                    <p>Occupation: <input className="source-occupation" value={sourceOccupation} onChange={(event) => {setOccuaption(event.target.value)}}></input></p>
-
-                    <p>Race / Ethnicity: <select className="source-race" value={sourceRace} onChange={(event) => {setRace(event.target.value)}}>
-                    <option value={null}>Select an option</option>    
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                    <option value={6}>6</option>
-                    </select></p>
-
-                    <p>Age: <input className="source-age" type="number" value={sourceAge} onChange={(event) => {setAge(event.target.value)}}></input></p>
-
-                    <p>Elected Official? <input className="source-elected" type="checkbox" value={sourceElectedBool} onChange={(event) => {setElected(event.target.value)}}></input></p>
-
-                    <p>Phone number: <input className="source-phone" type="number" value={sourcePhone} onChange={(event) => {setPhoneNum(event.target.value)}}></input></p>
-
-                    <p>Location (City, State): <input className="source-location" type="text" value={sourceLocation} onChange={(e) => {e.preventDefault(); setSourceLocation(e.target.value)}}></input></p>
-
-                    <p>Select the most recent contact date: <input type="date" className="most-recent-contact"/></p>
-
-                    <p>Check this box if the 'Most Recent Contact Date' is also the first time this person has been contacted for a story: <input className="original-date-checkbox" type="checkbox"/></p>
-
-                    <button onClick={createNewSource}>Submit Source</button>
-                    <button onClick={createSourceEvent}>Cancel</button>
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-            
+                <label htmlFor="ethnicity">Race / Ethnicity:</label>
+                <select className="ethnicity" value={sourceRace} onChange={(event) => {setRace(event.target.value)}}>
+                <option value={null}>Select an option</option>    
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+                </select>
+                <p></p>
+                <label htmlFor="age">Age:</label>
+                <input className="source-age" type="number" value={sourceAge} onChange={(event) => {setAge(event.target.value)}}></input>
+                <p></p>
+                <label htmlFor="elected">Elected official?</label>
+                <input className="elected" type="checkbox" value={sourceElectedBool} onChange={(event) => {setElected(event.target.value)}}></input>
+                <p></p>
+                <label htmlFor="phone">Phone number: </label>
+                <input className="source-phone" type="number" value={sourcePhone} onChange={(event) => {setPhoneNum(event.target.value)}}></input>
+                <p></p>
+                <label htmlFor="location">Location (City, State):</label>
+                <input className="source-location" type="text" value={sourceLocation} onChange={(e) => {e.preventDefault(); setSourceLocation(e.target.value)}}></input>
+                <p></p>
+                <label htmlFor="most-recent">Select the most recent contact date: </label>
+                <input type="date" className="most-recent"/>
+                <p></p>
+                <label htmlFor="original-date">Check this box if the 'Most Recent Contact Date' is also the first time this person has been contacted for a story:</label>
+                <input className="original-date" type="checkbox"/>
+                <p></p>
+                <button onClick={createNewSource}>Submit Source</button> &nbsp;
+                <button onClick={createSourceEvent}>Cancel</button>
+        </fieldset>
         }
         
-
         <div>
             <table>
                 <tbody>

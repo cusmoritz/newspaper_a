@@ -2,39 +2,63 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Home } from './Home';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { FooterMono } from './components/FooterMono';
 import { useState } from 'react';
-import { AdminHome } from './components/admin/AdminHome';
-import { CreateStory } from './components/admin/CreateStory';
-import { CreateStoryMono } from './components/admin/CreateStoryMono';
-import { StoryStats } from './components/StoryStats';
-import { AuthorPage } from './components/admin/AuthorPage';
-import { AuthorPageMono } from './components/admin/AuthorPageMono';
+import { Home } from './Home';
+
+import { Header } from './components/Header'; // Header is mono
+
+//import { Footer } from './components/Footer';
+import { FooterMono } from './components/FooterMono';
+
+// FRONT END COMPONENTS
 import { TagSearchResults } from './components/TagSearchResults';
 import { AuthorSearchResults } from './components/AuthorSearchResults';
+
 import {PrimaryCatPage} from './components/PrimaryCatPage';
 import { SecondaryCatPage } from './components/SecondaryCatPage';
-import { SingleStoryPage } from './components/SingleStoryPage';
+import { SecondaryCategoryComponent } from './components/SecondaryCategoryComponent';
+
+//import { SingleStoryPage } from './components/SingleStoryPage';
 import { SingleStoryPageMono } from './components/SingleStoryPageMono';
-import {ImageUpload} from './components/admin/ImageUpload';
+
 import { ResourcesMono } from './components/ResourcesMono';
-import { ShopHeader } from './components/shop/ShopHeader';
-import { ShopHome } from './components/shop/ShopHome';
+// no resources non-mono
+
 import { ElectionCategoryPage } from './components/ElectionCategoryPage';
-import { CreateSource } from './components/admin/CreateSource';
-import { CreateSourceMono } from './components/admin/CreateSourceMono';
-import { SourceRelatedStorysComponent } from './components/admin/SourceRelatedStorysComponent';
+
 import { NewsPageComponent } from './components/NewsPageComponent';
 import { ElectionPageComponent } from './components/ElectionPageComponent';
 import { OpinionPageComponent } from './components/OpinionPageComponent';
 import { OutdoorsPageComponent } from './components/OutdoorsPageComponent';
 import { SportsPageComponent } from './components/SportsPageComponent';
 import { EntertainmentPageComponent } from './components/EntertainmenPageComponent';
-import { SecondaryCategoryComponent } from './components/SecondaryCategoryComponent';
+
+
+// ADMIN TOOL COMPONENTS
+import { AdminHome } from './components/admin/AdminHome';
+import { CreateStoryMono } from './components/admin/CreateStoryMono';
+// import { CreateStory } from './components/admin/CreateStory';
+
+import { StoryStats } from './components/StoryStats';
+
+// import { AuthorPage } from './components/admin/AuthorPage';
+import { AuthorPageMono } from './components/admin/AuthorPageMono';
+
 import { AdminResourcesMono } from './components/admin/AdminResourcesMono';
+// no admin resources non-mono
+
+import {ImageUpload} from './components/admin/ImageUpload';
+
+// import { CreateSource } from './components/admin/CreateSource';
+import { CreateSourceMono } from './components/admin/CreateSourceMono';
+
+import { SourceRelatedStorysComponent } from './components/admin/SourceRelatedStorysComponent';
+
+
+// SHOP PAGE COMPONENTS
+import { ShopHeader } from './components/shop/ShopHeader';
+import { ShopHome } from './components/shop/ShopHome';
+
 
 const App = () => {
 

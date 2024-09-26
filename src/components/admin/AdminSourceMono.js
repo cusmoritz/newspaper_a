@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { fetchCurrentSources } from "../../api";
-import { EditSourceComponent } from "./EditSourceComponent";
+import { EditSourceComponentMono } from "./EditSourceComponentMono";
 import { submitNewSource } from "../../api";
 import { Link } from "react-router-dom";
 
-export const CreateSourceMono = () => {
+export const AdminSourceMono = () => {
     
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -59,7 +59,7 @@ export const CreateSourceMono = () => {
 
     return (
         <div className="admin-source-page-container">
-        {editBool === false ? null : <EditSourceComponent sourceObj={sourceObj} editBool={editBool} setEditBool={setEditBool}/>}
+        {editBool === false ? null : <EditSourceComponentMono sourceObj={sourceObj} editBool={editBool} setEditBool={setEditBool}/>}
         <h2>Sources</h2>
         <button><Link to={'/'}>Back</Link></button> &nbsp;
         {createBool === false ? <button onClick={createSourceEvent}>Create New Source</button> : 

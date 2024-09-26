@@ -50,7 +50,7 @@ import { AdminResourcesMono } from './components/admin/AdminResourcesMono';
 import {ImageUpload} from './components/admin/ImageUpload';
 
 // import { CreateSource } from './components/admin/CreateSource';
-import { CreateSourceMono } from './components/admin/CreateSourceMono';
+import { AdminSourceMono } from './components/admin/AdminSourceMono';
 
 import { SourceRelatedStorysComponent } from './components/admin/SourceRelatedStorysComponent';
 
@@ -97,7 +97,7 @@ const App = () => {
                         <Route path="/authorpage" element={<AuthorPageMono/>} />
                         <Route path="/image-upload" element={<ImageUpload />} />
                         <Route path="/sources/related-stories/:sourceId" element={<SourceRelatedStorysComponent />} /> 
-                        <Route path="/sources" element={<CreateSourceMono />} />
+                        <Route path="/sources" element={<AdminSourceMono />} />
                         <Route path="/resources" element={<AdminResourcesMono />} />
 
 
@@ -121,7 +121,7 @@ const App = () => {
                         <Route path="/authorpage" element={<AuthorPage/>} />
                         <Route path="/image-upload" element={<ImageUpload />} /> */}
                     </Routes>
-                <Footer />
+                <FooterMono />
                 </div>
             </BrowserRouter>
 

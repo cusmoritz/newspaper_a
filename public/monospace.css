@@ -150,6 +150,10 @@ input, button, textarea, select {
     -webkit-appearance: none;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   hr {
     position: relative;
     display: block;

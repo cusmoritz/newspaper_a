@@ -8,6 +8,12 @@ export const SourceRelatedStorysComponent = () => {
 
     const {sourceId} = useParams();
 
+    const domain = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+
+    const host = domain.split('.')[1];// we should always be in admin subdomain
+
+    let linkBuild = `${window.location.protocol}//${host}/`;
+
     const [id, setId] = useState(0);
     const [storys, setStorys] = useState([]);
     const [source, setSource] = useState({});
@@ -15,7 +21,7 @@ export const SourceRelatedStorysComponent = () => {
     const fetchStorysForOneSource = async () => {
         const storysAndSource = await getStorysForOneSource(sourceId);
         if (storysAndSource) {
-            //console.log('both', storysAndSource)
+            console.log('both', storysAndSource)
             setStorys(storysAndSource.related);
             setSource(storysAndSource.source)
             //console.log(source)
@@ -33,6 +39,7 @@ export const SourceRelatedStorysComponent = () => {
 
     return (
         <div className="source-story-related">
+            <button><Link to={'/sources'}>Back</Link></button>
         <div className="source-container">
         {!source ? null : 
             <fieldset key={source.source_id}>
@@ -52,30 +59,47 @@ export const SourceRelatedStorysComponent = () => {
                 <p>{source.source_elected_official.toString()}</p> */}
                 <p>Age: {source.source_age}</p>
                 <p>Race: {source.source_race}</p>
+                <p>Mentioned in {storys.length} stories</p>
             </fieldset>
         }
         </div>
-        <div className="right-column-stories">
-        <fieldset>
-        <legend>Stories: </legend>
-        {!storys ? null : 
+
+        <table>
+            <tbody>
+            {!storys ? null : 
             storys.map((story, index) => {
-                //console.log('length', storys.length)
-                //console.log('stroy', index)
                 return (
-                <div key={story.story_id}>
-                    <p>Title: {story.story_title}</p>
-                    <p>Original Publish Date: {story.original_publish_date}</p>
-                    <p>Author: {story.author.first_name} {story.author.last_name} | {story.author.public_role}</p>
-                    {/* <p>{story.}</p>
-                    <p>{story.}</p> */}
-                    <hr></hr>
-                </div>
+                    <tr>
+                        <td>
+                            <details>
+                                <summary>{story.story_title}</summary>
+                                <h3></h3>
+                                {/* we should link to the story from here but dont have categories */}
+                                <p>Originally published on {story.original_publish_date}</p>
+                                <p>Written by {story.author.first_name} {story.author.last_name}</p>
+                            </details>
+
+                        </td>
+                    </tr>
                 )
             })
         }
-        </fieldset>
-        </div>
+            </tbody>
+        </table>
+
         </div>
     )
 }
+
+/*
+<div key={story.story_id}>
+<p>Title: {story.story_title}</p>
+<a href={`${linkBuild}${story.story_slug}/${story.story_id}`} target="_blank"></a>
+<p>Original Publish Date: {story.original_publish_date}</p>
+<p>Author: {story.author.first_name} {story.author.last_name} | {story.author.public_role}</p>
+{/* <p>{story.}</p>
+<p>{story.}</p>
+
+{index != storys.length - 1 ? <hr></hr> : null }
+</div>
+*/

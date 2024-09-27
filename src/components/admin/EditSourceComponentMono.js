@@ -11,12 +11,6 @@ export const EditSourceComponentMono = (props) => {
 
     }
 
-    //trim name
-
-    // if (!sourceObj) {
-    //     return;
-    // }
-
     const [firstName, setFirstName] = useState("Marcus");
     const [lastName, setLastName] = useState("Moritz");
     const [sourceOccupation, setOccuaption] = useState(sourceObj.source_occupation);

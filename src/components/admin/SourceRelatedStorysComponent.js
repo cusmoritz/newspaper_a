@@ -69,7 +69,7 @@ export const SourceRelatedStorysComponent = () => {
             {!storys ? null : 
             storys.map((story, index) => {
                 return (
-                    <tr>
+                    <tr key={story.story_id * index }>
                         <td>
                             <details>
                                 <summary>{story.story_title}</summary>

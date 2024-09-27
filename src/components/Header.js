@@ -31,7 +31,7 @@ export const Header = ({subdomain}) => {
                     <tr>
                         <th>Updated:</th>
                         <td className="width-min">
-                            <time>2024-09-16</time>
+                            <time>2024-09-26</time>
                         </td>
                     </tr>
                     <tr>
@@ -41,7 +41,7 @@ export const Header = ({subdomain}) => {
                                 <cite>Marcus Moritz</cite>
                             </a>
                         </td>
-                        <td className="width-min">License</td>
+                        <td className="width-min" >License</td>
                         <td>Not yet</td>
                     </tr>
                 </tbody>

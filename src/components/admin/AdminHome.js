@@ -24,7 +24,11 @@ export const AdminHome = (props) => {
             <button><Link to="/authorpage">Author Page</Link></button>
             <button><Link to="/image-upload">Image Upload</Link></button>
             <button><Link to="/sources">Check Sources</Link></button>
-            <button><Link to="resources">Manage / View Community Resources</Link></button>
+            <button><Link to="/resources">Manage / View Community Resources</Link></button>
+            <button><Link to="/search">Advanced Story Search</Link></button>
+            {/* <p></p>
+            <label htmlfFor="search">StorySearch:</label>
+            <input className="search"/> */}
         </div>
     );
 };

@@ -676,6 +676,20 @@ const createSecondary = async (subCat, primary) => {
     return secondary;
 };
 
+///////////////////// SEARCH FUNCTIONS ///////////////////
+const fetchStoriesByDate = async (dateString) => {
+    try {
+        const {rows: stories} = await client.query(`
+        SELECT * FROM storys 
+        WHERE original_publish_date = $1
+        ;
+        `, [dateString]);
+        return stories;
+    } catch (error) {
+        console.log('there was a database error fetching stories by date.');
+        throw error;
+    }
+}
 
 
 //////////////////////// SOURCE FUNCTIONS //////////////////
@@ -1306,5 +1320,6 @@ module.exports = {
     fetchStoriesBySecondaryCategory,
     fetchSinglePageStory,
     addPageView,
+    fetchStoriesByDate,
 
 }

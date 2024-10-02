@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
-const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView} = require('../db/story');
+const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView, fetchStoriesByDate} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const {createNewResource, fetchAllFrontEndResources, fetchAllAdminResources, editCurrentResource} = require ('../db/resources');
 const { useParams } = require('react-router-dom');
@@ -56,6 +56,8 @@ server.get(`/api/story/frontpage/:pageNo`, async (request, response, next) => {
         throw error;
     }
 });
+
+//////////////////// RESOURCE FUNCTIONS /////////////////////////
 
 server.post('/api/admin/new-resource', async (request, response, next) => {
   try {
@@ -111,6 +113,23 @@ server.get('/api/resources', async (request, response, next) => {
     }
   } catch (error) {
     console.log('there was a server error fetching all resources');
+    throw error;
+  }
+})
+
+////////////////////// SEARCH FUNCTIONS ////////////////////////
+server.get(`/api/admin/search/:dateString`, async (request, response, next) => {
+  let {dateString} = request.params;
+
+  try {
+    const request = await fetchStoriesByDate(dateString);
+    if (request) {
+      response.status(200).send(request);
+    } else {
+      response.status(500).send({Error: "There was a database error searching for stories by that date."});
+    }
+  } catch (error) {
+    console.log('there was a server error searching for stories by date');
     throw error;
   }
 })

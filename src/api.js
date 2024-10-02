@@ -223,6 +223,24 @@ export const sendEditedResource = async (editedResourceObj) => {
     }
 }
 
+///////////////////// SEARCH API FUNCTIONS /////////////////////
+
+export const searchStoriesByDate = async (dateString) => {
+    try {
+        const fetching = await fetch(`${BASE_URL}/api/admin/search/${dateString}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const storiesReturn = await fetching.json();
+        return storiesReturn;
+    } catch (error) {
+        console.log('there was a client side error searching stories');
+        throw error;
+    }
+}
+
 export const fetchAllAuthors = async () => {
     try {
         console.log('yup')

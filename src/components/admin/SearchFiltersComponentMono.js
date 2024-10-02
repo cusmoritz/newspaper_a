@@ -1,14 +1,28 @@
 import React from "react";
+import { useState } from "react";
+import { searchStoriesByDate } from "../../api";
 
 export const SearchFilterComponentMono = () => {
 
+    const [stories, setStories] = useState([]);
+    const [searchDate, setSearchDate] = useState(new Date());
+
+
+    const searchByDate = async () => {
+        console.log('date', searchDate)
+        let returnStories = await searchStoriesByDate(searchDate);
+        if (returnStories){
+            console.log('stories', returnStories);
+            setStories(returnStories);
+        }
+    }
     return (
         <div>
         Search filters component.
         <p></p>
         <label htmlFor="date-search">Search stories by date published:</label>
-        <input className="date-search" type="date" /> &nbsp;
-        <button>Search</button>
+        <input className="date-search" type="date" onChange={(e) => setSearchDate(e.target.value)}/> &nbsp;
+        <button onClick={() => searchByDate()}>Search</button>
         <p></p>
         <label htmlFor="include-date">Include date in keyword search:</label>
         <input className="include-date" type="checkbox" />

@@ -239,6 +239,22 @@ export const searchStoriesByDate = async (dateString) => {
         console.log('there was a client side error searching stories');
         throw error;
     }
+};
+
+export const searchStoriesByDateRange = async (startDate, endDate) => {
+    try {
+        const fetching = await fetch(`${BASE_URL}/api/admin/search/range/${startDate}/${endDate}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const returnStories = fetching.json();
+        return returnStories;
+    } catch (error) {
+        console.log('there was a client-side error searching by date range');
+        throw error;
+    }
 }
 
 export const fetchAllAuthors = async () => {

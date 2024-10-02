@@ -1,24 +1,48 @@
 import React from "react";
 import { useState } from "react";
 import { searchStoriesByDate } from "../../api";
+import { searchStoriesByDateRange } from "../../api";
 
-export const SearchFilterComponentMono = () => {
+export const SearchFilterComponentMono = ({stories, setStories, setSearchDisplayQuery}) => {
 
-    const [stories, setStories] = useState([]);
-    const [searchDate, setSearchDate] = useState(new Date());
+    const [searchDate, setSearchDate] = useState("");
+    const [rangeDateStart, setRangeDateStart] = useState("");
+    const [rangeDateEnd, setRangeDateEnd] = useState("");
 
+    const clearFilters = () => {
+        setStories([]);
+        setSearchDisplayQuery("");
+        setSearchDate("");
+    }
 
     const searchByDate = async () => {
         console.log('date', searchDate)
+        setSearchDisplayQuery(searchDate);
         let returnStories = await searchStoriesByDate(searchDate);
         if (returnStories){
+            console.log('stories', returnStories);
+            setStories(returnStories);
+        }
+    };
+
+    const searchByDateRange = async () => {
+        console.log('ping')
+        // if (rangeDateEnd.length < 1 || rangeDateStart.length < 1) {
+        //     return false;
+        // }
+        setRangeDateEnd("2024-10-01");
+        setRangeDateStart("2024-09-30");
+        setSearchDisplayQuery(`${rangeDateStart}-${rangeDateEnd}`);
+        console.log(rangeDateStart, rangeDateEnd)
+        let returnStories = await searchStoriesByDateRange(rangeDateStart, rangeDateEnd);
+        if (returnStories) {
             console.log('stories', returnStories);
             setStories(returnStories);
         }
     }
     return (
         <div>
-        Search filters component.
+        <button onClick={() => clearFilters()}>Clear filters</button>
         <p></p>
         <label htmlFor="date-search">Search stories by date published:</label>
         <input className="date-search" type="date" onChange={(e) => setSearchDate(e.target.value)}/> &nbsp;
@@ -26,14 +50,18 @@ export const SearchFilterComponentMono = () => {
         <p></p>
         <label htmlFor="include-date">Include date in keyword search:</label>
         <input className="include-date" type="checkbox" />
+
+        <p></p>
+        <p>Search by date range:</p>
+        <p></p>
+        <label htmlFor="start-range-search">Start Date:</label>
+        <input className="start-range-search" type="date" onChange={(e) => setRangeDateStart(e.target.value)} /> &nbsp;
+        <label htmlFor="end-range-search">End date:</label>
+        <input className="end-range-search" type="date" onChange={(e) => setRangeDateEnd(e.target.value)} /> &nbsp;
+        <button onClick={() => searchByDateRange()}>Search</button>
         <p></p>
         <label htmlFor="include-date-range">Include date range in keyword search:</label>
         <input className="include-date-range" type="checkbox" />
-        <p></p>
-        <label htmlFor="range-search">Search by date range:</label>
-        <input className="range-search" type="date" /> &nbsp;
-        <input className="range-search" type="date" /> &nbsp;
-        <button>Search</button>
         <p></p>
         <label htmlFor="author-search">Search by author:</label>
         <select>
@@ -48,7 +76,8 @@ export const SearchFilterComponentMono = () => {
         <p>Note: Headline keyword search can take up to a minute or more.</p>
         <p></p>
         <label htmlFor="body-text-search">Body text search</label>
-        <input className="body-text-search" type="text" />
+        <input className="body-text-search" type="text" /> &nbsp;
+        <button>Search</button>
         <p>Note: Body text search can take several minutes. To make it faster, include a date range.</p>
         <p></p>
         </div>

@@ -25,7 +25,7 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
-const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView, fetchStoriesByDate} = require('../db/story');
+const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView, fetchStoriesByDate, fetchStoriesByDateRange} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const {createNewResource, fetchAllFrontEndResources, fetchAllAdminResources, editCurrentResource} = require ('../db/resources');
 const { useParams } = require('react-router-dom');
@@ -130,6 +130,22 @@ server.get(`/api/admin/search/:dateString`, async (request, response, next) => {
     }
   } catch (error) {
     console.log('there was a server error searching for stories by date');
+    throw error;
+  }
+});
+
+server.get('/api/admin/search/range/:startDate/:endDate', async (request, response, next) => {
+  const {startDate} = request.params;
+  const {endDate} = request.params;
+  try {
+    const stories = await fetchStoriesByDateRange(startDate, endDate);
+    if (stories) {
+      response.status(200).send(stories);
+    } else {
+      response.status(500).send({Error: "There was a database error fetching stories by date range."});
+    }
+  } catch (error) {
+    console.log('there was a server error searching by date range.');
     throw error;
   }
 })

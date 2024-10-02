@@ -689,6 +689,21 @@ const fetchStoriesByDate = async (dateString) => {
         console.log('there was a database error fetching stories by date.');
         throw error;
     }
+};
+
+const fetchStoriesByDateRange = async (startDate, endDate) => {
+    try {
+        const {rows: stories} = await client.query(`
+        SELECT * FROM storys
+        WHERE original_publish_date >= $1
+        AND original_publish_date <= $2
+        ;
+        `, [startDate, endDate]);
+        return stories;
+    } catch (error) {
+        console.log('there was a database error fetching stories by date range.');
+        throw error;
+    }
 }
 
 
@@ -1321,5 +1336,6 @@ module.exports = {
     fetchSinglePageStory,
     addPageView,
     fetchStoriesByDate,
-
+    fetchStoriesByDateRange,
+    
 }

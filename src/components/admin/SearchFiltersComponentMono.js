@@ -13,6 +13,8 @@ export const SearchFilterComponentMono = ({stories, setStories, setSearchDisplay
         setStories([]);
         setSearchDisplayQuery("");
         setSearchDate("");
+        setRangeDateStart("");
+        setRangeDateEnd("");
     }
 
     const searchByDate = async () => {
@@ -27,11 +29,10 @@ export const SearchFilterComponentMono = ({stories, setStories, setSearchDisplay
 
     const searchByDateRange = async () => {
         console.log('ping')
-        // if (rangeDateEnd.length < 1 || rangeDateStart.length < 1) {
-        //     return false;
-        // }
-        setRangeDateEnd("2024-10-01");
-        setRangeDateStart("2024-09-30");
+        if (rangeDateEnd.length < 1 || rangeDateStart.length < 1) {
+            return false;
+        }
+
         setSearchDisplayQuery(`${rangeDateStart}-${rangeDateEnd}`);
         console.log(rangeDateStart, rangeDateEnd)
         let returnStories = await searchStoriesByDateRange(rangeDateStart, rangeDateEnd);
@@ -39,7 +40,8 @@ export const SearchFilterComponentMono = ({stories, setStories, setSearchDisplay
             console.log('stories', returnStories);
             setStories(returnStories);
         }
-    }
+    };
+
     return (
         <div>
         <button onClick={() => clearFilters()}>Clear filters</button>
@@ -55,11 +57,13 @@ export const SearchFilterComponentMono = ({stories, setStories, setSearchDisplay
         <p>Search by date range:</p>
         <p></p>
         <label htmlFor="start-range-search">Start Date:</label>
-        <input className="start-range-search" type="date" onChange={(e) => setRangeDateStart(e.target.value)} /> &nbsp;
-        <label htmlFor="end-range-search">End date:</label>
-        <input className="end-range-search" type="date" onChange={(e) => setRangeDateEnd(e.target.value)} /> &nbsp;
-        <button onClick={() => searchByDateRange()}>Search</button>
+        <input className="start-range-search" type="date" value={rangeDateStart} onChange={(e) => setRangeDateStart(e.target.value)} /> &nbsp;
         <p></p>
+        <label htmlFor="end-range-search">End date:</label>
+        <input className="end-range-search" type="date" value={rangeDateEnd} onChange={(e) => setRangeDateEnd(e.target.value)} />
+        <p>asdf</p>
+        <button onClick={() => searchByDateRange()}>Search</button>
+        <p>asdf</p>
         <label htmlFor="include-date-range">Include date range in keyword search:</label>
         <input className="include-date-range" type="checkbox" />
         <p></p>

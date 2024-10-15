@@ -14,7 +14,7 @@ export const FooterMono = () => {
                 </tr>
                 <tr>
                     <td>
-                        <p>About Us</p>
+                        <p><Link to="/about">About Us</Link></p>
                     </td>
                     <td>
                         <p>Contact</p>

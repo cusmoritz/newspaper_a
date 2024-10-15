@@ -33,6 +33,8 @@ import { OutdoorsPageComponent } from './components/OutdoorsPageComponent';
 import { SportsPageComponent } from './components/SportsPageComponent';
 import { EntertainmentPageComponent } from './components/EntertainmenPageComponent';
 
+import { AboutUsPageMono } from './components/AboutUsPageMono';
+
 
 // ADMIN TOOL COMPONENTS
 import { AdminHome } from './components/admin/AdminHome';
@@ -175,6 +177,8 @@ const App = () => {
                     <Route path="/search/author/:id" element={<AuthorSearchResults />} />
 
                     <Route path="/resources" element={<ResourcesMono />} />
+
+                    <Route exact path="/about" element={<AboutUsPageMono />} />
                     {/* <Route path="/news/recent-stories" element={<RecentStoriesComponent />} />
                     <Route path="/news/:slug" element={<SingleStoryPage />} />
 

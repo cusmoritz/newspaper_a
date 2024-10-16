@@ -24,7 +24,7 @@ server.listen(port, () => {
 });
 
 
-const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile} = require('../db/authors');
+const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile, fetchOneAuthor, fetchOneAuthorByAuthorId} = require('../db/authors');
 const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView, fetchStoriesByDate, fetchStoriesByDateRange} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const {createNewResource, fetchAllFrontEndResources, fetchAllAdminResources, editCurrentResource} = require ('../db/resources');
@@ -234,10 +234,25 @@ server.get('/api/search/tag/:tag', async (request, response, next) => {
   }
 });
 
-server.get('/api/search/author/:authorId', async (request, response, next) => {
+server.get('/api/search/author/:id', async (request, response, next) => {
+  try {
+    const {id} = request.params;
+    const findAuthor = fetchOneAuthorByAuthorId(id);
+    if (findAuthor) {
+      response.send(findAuthor).status(200);
+    } else {
+      response.send({Error: `There was a database error finding an author by id ${id}`});
+    }
+  } catch (error) {
+    console.log('there was a server error fetching an author by Id');
+    throw error;
+  }
+})
+
+server.get('/api/search/author/stories/:authorId', async (request, response, next) => {
   try {
     const { authorId } = request.params;
-    console.log('authorId in api', authorId);
+    //console.log('authorId in api', authorId);
     const searchResults = await fetchStoriesByAuthorId(authorId);
     if (searchResults) {
       response.send(searchResults).status(200);

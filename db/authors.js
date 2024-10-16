@@ -52,6 +52,20 @@ const fetchOneAuthor = async(value) => {
         console.log("there was an error fetching an author:", error);
         throw error;
     }
+};
+
+const fetchOneAuthorByAuthorId = async(authorId) => {
+    try {
+        const {rows: [author]} = client.query(`
+        SELECT * FROM authors
+        WHERE author_id = $1
+        ;
+        `, [authorId]);
+        return author;
+    } catch (error) {
+        console.log(`there was a database error finding an author by id ${authorId}`);
+        throw error;
+    }
 }
 
 const fetchAllAuthors = async() => {
@@ -70,9 +84,9 @@ const fetchAllAuthors = async() => {
 
 const retreiveStoryTags = async (storyId) => {
     const {rows: tags} = await client.query(`
-        SELECT (tag)
+        SELECT *
         FROM story_tags
-        WHERE story_tag_id = $1
+        WHERE $1 = Any(tag_story_list)
         ORDER BY tag_id ASC
         ;
     `, [storyId]);
@@ -150,5 +164,6 @@ module.exports = {
     createAuthor,
     fetchStoriesByAuthorId,
     editAuthorProfile,
-
+    fetchOneAuthorByAuthorId,
+    
 }

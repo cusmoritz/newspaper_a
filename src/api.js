@@ -152,13 +152,14 @@ export const fetchStoriesWithTag = async (tag) => {
 
 export const fetchStoriesByAuthorId = async (authorId) => {
     try {
-        const request = await fetch(`${BASE_URL}/api/search/author/${authorId}`, {
+        const request = await fetch(`${BASE_URL}/api/search/author/stories/${authorId}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        const results = request.json();
+        const results = await request.json();
+        //console.log('client results', results)
         return results;
     } catch (error) {
         console.log('there was an error fetching stories by this author');
@@ -386,6 +387,22 @@ export const fetchOneStoryStats = async(storyId) => {
         throw error;
     }
 };
+
+export const fetchOneAuthorById = async(authorId) => {
+    try {
+        const request = fetch(`${BASE_URL}/api/search/author/:id`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const author = await request.json();
+        return author;
+    } catch (error) {
+        console.log('there was a client error fetching an author by Id');
+        throw error;
+    }
+}
 
 //////////////////////// ADMIN SOURCE FUNCTIONS ///////////////
 

@@ -169,14 +169,16 @@ const getAllTagsInformation = async () => { // will use this to see if the tag e
 
 const tagExistCheck = async (tag) => {
     try {
+        //console.log('tag exists', tag)
         const upTag = tag.toUpperCase();
         //console.log('upTag', upTag)
-        const {rows: _tag} = await client.query(`
+        const {rows: [_tag]} = await client.query(`
         SELECT * FROM story_tags
         WHERE tag = $1
         ;
         `, [upTag]);
-        if (_tag.tag_id) {
+        console.log('underscore', _tag)
+        if (_tag == undefined) { // there is no tag in the db
             return true;
         } else {
             return false;
@@ -226,8 +228,14 @@ const createTag = async (storyId, tag) => {
 const submitTag = async (storyId, tag) => { 
     //console.log('tag', tag)
     // check if it exists already
-    const _exists = await tagExistCheck(tag);
-    //console.log('exists', _exists)
+    const _exists = await tagExistCheck(tag).then((results) => {
+        if (results === false){
+            console.log('false')
+        } else {
+            console.log('true')
+        }
+    });
+    //console.log('exists', _exists, tag)
     // if it doesn't, create it
     if (_exists === false) {
         const newTag = await createTag(storyId, tag);
@@ -313,7 +321,15 @@ const createNewStory = async (storyInfo) => {
 //footnoteWords, footnotes, storySources
         //console.log('story after db', story)
         storyInfo.tags.forEach( async (tag) => { // this is ugly
-            await submitTag(story.story_id, tag);
+            var newTag = await tagExistCheck(tag).then((results) => {
+                //console.log('results', results)
+                if (results === false){
+                    console.log('we are false');
+                } else {
+                    createTag(story.story_id, tag)
+                    console.log('true')
+                }
+            });
         });
 
         // add story id to appropriate Source
@@ -730,7 +746,7 @@ const fetchSourcesForOneStory = async (sourceArray) => {
 
 const fakePrimaries = ["NEWS", "ELECTIONS", "OPINION", "OUTDOORS", "SPORTS", "ENTERTAINMENT"];
 
-const fakeSecondary = [{name: "Fort Collins", parent: 1}, {name: "Northern Colorado", parent: 1}, {name: "Colorado", parent: 1}, {name: "Nation & World", parent: 1}, {name: "Housing", parent: 1},{name: "Obituaries", parent: 1}, {name: "Crime", parent: 1}, {name: "2023 General", parent: 2}, {name: "2024 General", parent: 2}, {name: "Editorial", parent: 3}, {name: "Letters", parent: 3}, {name: "Columns", parent: 3},  {name: "Hiking", parent: 4}, {name: "Public Lands", parent: 4}, {name: "Camping", parent: 4}, {name: "Backpacking", parent: 4}, {name: "Water", parent: 4}, {name: "Football", parent: 5}, {name: "Hockey", parent: 5}, {name: "Baseball", parent: 5}, {name: "Soccer", parent: 5}, {name: "Events", parent: 6}, {name: "Food", parent: 6}, {name: "Music", parent: 6}];
+const fakeSecondary = [{name: "Fort Collins", parent: 1}, {name: "Northern Colorado", parent: 1}, {name: "Colorado", parent: 1}, {name: "Nation And World", parent: 1}, {name: "Housing", parent: 1},{name: "Obituaries", parent: 1}, {name: "Crime", parent: 1}, {name: "2023 General", parent: 2}, {name: "2024 General", parent: 2}, {name: "Editorial", parent: 3}, {name: "Letters", parent: 3}, {name: "Columns", parent: 3},  {name: "Hiking", parent: 4}, {name: "Public Lands", parent: 4}, {name: "Camping", parent: 4}, {name: "Backpacking", parent: 4}, {name: "Water", parent: 4}, {name: "Football", parent: 5}, {name: "Hockey", parent: 5}, {name: "Baseball", parent: 5}, {name: "Soccer", parent: 5}, {name: "Events", parent: 6}, {name: "Food", parent: 6}, {name: "Music", parent: 6}];
 
     // news/fort-collins
     // news/northern-colorado

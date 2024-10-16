@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export const FrontPageStory = ({props}) => {
     const story = props;
     //console.log('one story in FrontPageStory', story)
-    let newPrim = story.category.primary.name.toLowerCase().replace(" ", "-");
-    let newSec = story.category.secondary.name.toLowerCase().replace(" ", "-");
+    let newPrim = story.category.primary.name.toLowerCase().replaceAll(" ", "-");
+    let newSec = story.category.secondary.name.toLowerCase().replaceAll(" ", "-");
     return (
         <div className="front-page-story-container" id={story.story_id}>
             <div>

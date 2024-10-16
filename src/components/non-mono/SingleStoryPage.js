@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { addPageView, fetchSinglePageStory } from "../api";
+import { addPageView, fetchSinglePageStory } from "../../api";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -110,7 +110,7 @@ export const SingleStoryPage = () => {
             const req = await fetchSinglePageStory(storyId);
             if (req){
 
-                console.log('story', req)
+                console.log('story 1', req)
                 setBreadcrumbs(req.category);
                 setPageView(req.page_views)
                 updatePageViewsOnLoad(req.story_id);
@@ -171,7 +171,7 @@ export const SingleStoryPage = () => {
         </fieldset>
         }
 
-        {!story.sources ? null :
+        {story.sources.length < 1 ? null :
         <fieldset className="story-sources">
             <legend>Sources:</legend>
             {story.sources.map((source) => {

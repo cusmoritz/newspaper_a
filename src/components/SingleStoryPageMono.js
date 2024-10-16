@@ -12,6 +12,7 @@ export const SingleStoryPageMono = () => {
     const [story, setStory] = useState({});
     const [pageView, setPageView] = useState(0);
     const [breadcrumbs, setBreadcrumbs] = useState({});
+    const [sources, setSources] = useState([]);
     
 
     const updatePageViewsOnLoad = async (id) => {
@@ -110,15 +111,16 @@ export const SingleStoryPageMono = () => {
             const req = await fetchSinglePageStory(storyId);
             if (req){
 
-                console.log('story', req)
+                console.log('story 1 mono', req.sources.length)
                 setBreadcrumbs(req.category);
                 setPageView(req.page_views)
                 updatePageViewsOnLoad(req.story_id);
+                setSources(req.sources)
                 //parseFootnoteWords(req);
                 setStory(req);
-                for (let i = 0; i < req.story_text.length; i++) {
-                    parseFootnotesRecursive(req.story_text[i], req.footnote_words);
-                }
+                // for (let i = 0; i < req.story_text.length; i++) {
+                //     parseFootnotesRecursive(req.story_text[i], req.footnote_words);
+                // }
                 
             }
         }
@@ -177,7 +179,7 @@ export const SingleStoryPageMono = () => {
                     <summary>Footnotes:</summary>
                     {story.footnote_urls.map((footnote, index) => {
                     return (
-                            <div>
+                            <div key={index}>
                                 <p>{index + 1}: <a href={footnote}>{footnote}</a></p>
                             </div>
                         )
@@ -190,21 +192,21 @@ export const SingleStoryPageMono = () => {
 
         }
 
-        {!story.sources ? null :
+        {!sources.length ? null :
         <table>
             <tbody>
                 <tr>
                     <td>
                     <details>
                     <summary>Sources:</summary>
-                    {story.sources.map((source) => {
+                    {sources.map((source, index) => {
                         return (
                             // TODO: Add link to search stories by source
                             <div key={source.source_id}>
                                 <p>{source.source_name}</p>
                                 <p>{source.source_occupation}</p>
                                 <p>{source.source_location}</p>
-                                <hr></hr>
+                                {source.index == sources[-1] ? null : <hr></hr>}
                             </div>
                         )
                     })}

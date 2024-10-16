@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 
 export const StoryPreviewComponent = ({storyObj, primaryCat, subCat, authorSearchFlag}) => {
 
-    console.log('storyObj', storyObj)
+    //console.log('storyObj', storyObj, authorSearchFlag)
     return (
         <>
-
-        
         <fieldset className="story-preview-fieldset" key={storyObj.story_id}>
             <legend></legend>
             {storyObj.image_flag === false ? null :

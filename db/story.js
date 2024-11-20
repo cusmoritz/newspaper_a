@@ -839,12 +839,12 @@ const fakeStorys = [
         title: "Upvalley Shift e-bike share between Vail, EagleVail, Avon and Edwards to return for third summer",
         subhead: "The Shift Bike program allows residents and guests to rent e-bikes by the minute from Vail to Edwards",
         storyParagraphs: [
-            "The Shift Bike program allows individuals to [rent] e-bikes from stations throughout these communities on a pay-as-you-go model. ",
-            "The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 [stations]. ",
+            "The Shift Bike program allows individuals to rent<sup><a href=#footnote-1>[1]</a></sup> e-bikes from stations throughout these communities on a pay-as-you-go model. ",
+            "The program launched in 2022 between Vail, EagleVail and Avon. In the first summer, the three communities had 90 e-bikes across 15 stations<sup><a href=#footnote-2>[2]</a></sup>. ",
             "The idea was to provide residents and guests with an alternative mobility option, aligning with the county's climate action goals, specifically, the Eagle County Climate Action Collaborative's goal to reduce greenhouse emissions. ",
             "Single-occupancy vehicles account for around 40% of the county's emissions, so the idea was that providing an alternative mobility option would reduce the number of these vehicle trips in the region.",
             " The first summer saw a total of 7,393 trips for a total of 21,735.4 miles, with the average ride being 2.94 miles for around 30 minutes.",
-            " Ninety percent of the trips were under 60 minutes long. Reportedly, the program was responsible for the reduction of 8.68 metric tons of [greenhouse] gas emissions — the equivalent of 1,000 gallons of gasoline — in [2022]."
+            " Ninety percent of the trips were under 60 minutes long. Reportedly, the program was responsible for the reduction of 8.68 metric tons of greenhouse<sup><a href=#footnote-3>[3]</a></sup> gas emissions — the equivalent of 1,000 gallons of gasoline — in 2022<sup><a href=#footnote-4>[4]</a></sup>."
         ],
         tags: ['news', 'vail', 'edwards', 'scooters'],
         author: '5',
@@ -875,7 +875,8 @@ const fakeStorys = [
         footnotes: [
             "www.google.com",
             "www.facebook.com",
-            "www.arstechnica.com"
+            "www.arstechnica.com",
+            "www.w3schools.org"
         ],
         sourcesMentioned: [6],
         image_flag: true
@@ -1010,16 +1011,16 @@ const fakeStorys = [
         title: '‘Lost Boy’ Marty Koether returns for 60th anniversary of incident',
         subhead: 'Event made him a legend in Vail',
         storyParagraphs: [
-            "Koether shared those dreams and more in an emotional trip to the Colorado Snowsports Museum on April 2. ",
+            "Koether shared those dreams and more in an emotional trip to the Colorado Snowsports Museum<sup><a href=#footnote-1>[1]</a></sup> on April 2. ",
             "The visit coincided with the 60-year anniversary of Koether’s fateful night alone on Vail Mountain, in which he slept in a tree well after making a wrong turn into Game Creek Bowl, which had not yet been developed for skiing.",
             "By the summer of 1969, when Game Creek Bowl was being developed, mountain managers had already come up with a name for several of the runs, including Lost Boy.",
             "Koether said he can’t remember exactly when he learned there was a run being named after him and his experience, but it was decades before he became fully aware of how renowned the run was on Vail Mountain.",
             "“I’ve had so many experiences in life beyond the Lost Boy, that this just didn’t seem that monumental to me,” he said, adding that he hoped the statement didn’t come across as egotistical.",
             "“It was just something that happened,” he said of being lost on Vail Mountain. “I lived through it, it was great, and I pretty much just put it in the back closet after that. But now that I’m here, I never realized how many people liked the story.”",
-            "Koether was invited to town by John D’Angelo, general manager of The Sebastian, who developed an interest in the Lost Boy story after learning to ski last year.",
+            "Koether was invited to town by John D’Angelo, general manager of The Sebastian<sup><a href=#footnote-2>[2]</a></sup>, who developed an interest in the Lost Boy story after learning to ski last year.",
             "D’Angelo said the effort to bring Koether to town started with a question.",
             "“I know Riva Ridge, and I know Pepi’s Face — a lot of these have stories behind them. What is the story behind the Lost Boy?” he said.",
-            "After learning the story, he found Koether on Facebook and began developing a relationship with him.",
+            "After learning the story, he found Koether on Facebook<sup><a href=#footnote-3>[3]</a></sup> and began developing a relationship with him.",
         ],
         tags: [ 'vail', 'skiing', 'incident', 'mountain', 'Marty' ],
         author: 2,
@@ -1078,14 +1079,14 @@ const fakeStorys = [
             "        `\"They aren't going to like it, but I'm going to take 10 percent of their annual spend, and instead give it back to the people,\" Dibbenow said.\"",
             "        'Ten percent would yield $130 million dollars a year, for the math-averse. That could potentially buy a lot of hotdogs. Taking the Jewel-Osco price of a ten-pack of Oscar Meyer weiners, $130 million would get you 21,666,666 packages. Twenty-one million packages of hotdogs times ten hotdogs a piece is 216,666,666 million hotdogs. Three-hundred and sixty five days in a year with 216 million hotdogs at your disposal evens out to 593,607 hot dogs per day.\"",
             "        \"Half a million hotdogs for 3 million people, per day? The math just doesn't add up.\"",
-            "        `\"The thing is, not everyone wants a hotdog a day,\" the mayor said. \"Sometimes you are full, sometimes you're busy, sometimes you brown-bagged your own lunch in the park. This isn't supposed to be the end-all, be all for everyone. It's for people who maybe can't afford food every day of the week. It's for the British tourists who really want to experience Chicago the [[Chicago]] way.\"`",
+            "        `\"The thing is, not everyone wants a hotdog a day,\" the mayor said. \"Sometimes you are full, sometimes you're busy, sometimes you brown-bagged your own lunch in the park. This isn't supposed to be the end-all, be all for everyone. It's for people who maybe can't afford food every day of the week. It's for the British tourists who really want to experience Chicago the Chicago<sup><a href=#footnote-1>[1]</a></sup> way.\"`",
             "        'When asked about distribution, the mayor said he already had a plan in place.",
             "        `\"There's people out there right now slingin' dogs,\" he said. \"We are going to hire them, make them full-time city employees, give them health insurance, give them PTO, and ask them to help feed the nation.\"",
-            "        'A hotdog on every corner? [[What about vegans | www./example/]]?'",
+            "        'A hotdog on every corner? What about vegans?<sup><a href=#footnote-2>[2]</a></sup>'",
             "        `\"I didn't even consider vegans,' the mayor said.\"",
             "        'A vegan pack of hotdogs runs a bit higher than an all-beef Frank you see on store shelves.",
             "        `\"But again,\" the mayor continued, \"this isn't supposed to be for everyone. This is supposed to be an additional safety net. It just happens to be in the shape of a hotdog.\"",
-            "        \"Glizzy Nation? It's still to early to tell. The mayor's ordinance goes up for vote November 2024, just in time for [[re-election]] season.\""
+            "        \"Glizzy Nation? It's still to early to tell. The mayor's ordinance goes up for vote November 2024, just in time for re-election<sup><a href=#footnote-3>[3]</a></sup> season.\""
         ],
         tags: [ 'hotdog', 'glizzy', 'chicago', 'ordinance 482', 'mayor Dibbenow' ],
         author: '7',
@@ -1182,10 +1183,10 @@ const fakeStorys = [
         storyParagraphs: [
             "ENGLEWOOD, Colo. — Bo Nix's first weeks in Denver lived up to the expectations he's always held for his NFL career.",
             `"It's been great," "Nix told DenverBroncos.com in mid-June as the Broncos ended their offseason program.`,
-            `"It's been really fun. I think it's been a great learning curve. It's been all the things that I always thought of the NFL: [the] long, extensive plays with a lot of checks and all this kind of stuff. That's the fun part, and that's what you can't wait to get to the NFL and do. The players are awesome, coaches are great and I'm just excited to be here."`,
+            `"It's been really fun. I think it's been a great learning curve. It's been all the things that I always thought of the NFL: the<sup><a href=#footnote-1>1</a></sup> long, extensive plays with a lot of checks and all this kind of stuff. That's the fun part, and that's what you can't wait to get to the NFL and do. The players are awesome, coaches are great and I'm just excited to be here."`,
             "After being selected with the 12th-overall pick in April's draft, Nix spent the first six weeks of his NFL career splitting reps with Jarrett Stidham and Zach Wilson in the initial stages of the Broncos' quarterback competition.",
             "Nix, who completed an NCAA record 77.4 percent of his passes last season at Oregon and was named the 2023 Pac-12 Offensive Player of the Year, showed signs of promise during the Broncos' offseason program.",
-            `"He's further along than most," Head Coach Sean Payton said on May 23. "We're talking about a player who has played 61 [college] games. He's extremely smart. He's picked it up very quickly."`,
+            `"He's further along than most," Head Coach Sean Payton said on May 23. "We're talking about a player who has played 61 college<sup><a href=#footnote-2>2</a></sup> games. He's extremely smart. He's picked it up very quickly."`,
             `A week later, Payton noted that Nix was "throwing the ball extremely well" in practice.`,
             "As Nix reflected on his initial adjustment to a pro system, he pointed to his college career — which featured two schools and multiple offensive coordinators — for preparing him for the transition.",
             `"It's just football," Nix said in mid-June. "Some moments I struggle, sometimes I feel like I'm excelling. It's just a happy medium of still feeling like a rookie and everything still feeling new. It's just repetition. It's just going over everything many times, and it's finding ways to connect it with my brain and what I've done in the past. But I think the overall experiences and the knowledge that I have playing in many systems and many offenses and on many teams with many players, I think that's just all going into helping make the transition better."`,
@@ -1214,9 +1215,9 @@ const fakeStorys = [
             "Bassett assisted the first two goals of the night from Jonathan Lewis and Sam Vines in the first half, then secured the Cup in the dying moments of the game with an 88th-minute penalty.",
             "Lewis and Bassett connected in the box in the 35th minute for the Rapids' equalizer after going down early. Lewis drew a foul down in Colorado's half to start the play, and the Rapids connected well to build the play, first finding Moïse Bombito, who dumped a long ball into the attacking third for Rafael Navarro to collect. Navarro's pass to Bassett at the top of the box set the midfielder up for a one-touch pass to Lewis, who commanded the half-volley in front of Salt Lake's net for his second goal of the game and Bassett's fifth assist of the year.",
             "Bassett and the Rapids struck again just four minutes later when he played a through ball into Lewis on the right side of the box. The winger's low pass across the face of the goal found Vines sliding into the six-yard box to give the Rapids the lead and Vines his first goal of the season.",
-            "It all came down to the wire after Salt Lake equalized early into the second half after a lengthy weather delay. The Rapids saw their chance to secure three points at home and the Rocky Mountain Cup when a Salt Lake player committed a handball in the box on Colorado corner kick.",
+            "It all came down to the wire after Salt Lake equalized<sup><a href=#footnote-1>[1]</a></sup> early into the second half after a lengthy weather delay. The Rapids saw their chance to secure three points at home and the Rocky Mountain Cup when a Salt Lake player committed a handball in the box on Colorado corner kick.",
             "Bassett calmly stepped up to the spot and sent a rocket to the back of the net, finding the Rapids' game winner and cementing his place in Rocky Mountain Cup and club history.",
-            "For the Homegrown, the weekend's matchup just meant more.",
+            "For the Homegrown, the weekend's matchup just meant more.<sup><a href=#footnote-2>[2]</a></sup>",
             `"I think this rivalry, more so than other ones, you can just see what it means to the players and the fans," he said after the game. "That was probably the loudest I've heard our stadium in a while in that first half after we scored the second one...I think it was huge for us to have a lot of fans here, and I wish the weather delay didn't happen so that could have continued in the second half. You can feel there's some spice to it. I'm sure if we play against each other later in the year, maybe in playoffs, I think it'll be a little extra spicy, even more so than it was.”`,
         ],
         tags: [ "MLS", "soccer", "Rapids", "Colorado Rapids", "Cole Bassett" ],
@@ -1263,7 +1264,7 @@ const fakeStorys = [
         subhead: 'Individual market rates could increase by around 5%, while small-group employers could by 8%, according to initial proposal',
         storyParagraphs: [
             'Small-group employers could see an average premium increase of around 8%.',
-            'Colorado’s Department of Regulatory Agencies’ Division of Insurance [released] the proposed rate increases in July, closing a public comment period on Wednesday, Aug. 14. The division reports that the final plans and premiums will be approved in mid-October.',
+            'Colorado’s Department of Regulatory Agencies’ Division of Insurance released<sup><a href=#footnote-1>[1]</a></sup> the proposed rate increases in July, closing a public comment period on Wednesday, Aug. 14. The division reports that the final plans and premiums will be approved in mid-October.',
             'Adam Fox, deputy director of the statewide nonprofit advocacy group Colorado Consumer Health Initiative, said that these increases were something to be “cautiously optimistic about.”',
             '“We’re seeing a lower average increase this year than we did last year. Most of the increases last year were sort of in the 8% to 11% range in the individual market,” Fox said. “In general, that’s better for Coloradans, obviously, but what we also know is that people are still struggling with health care costs and affordability, so any increase is an area of concern.”',
             'In the preliminary 2025 rates, Colorado Option plans proposed an average rate increase of 4% compared to 6% for non-Colorado Option plans.',
@@ -1272,8 +1273,8 @@ const fakeStorys = [
             'According to the Colorado Consumer Health Initiative, the lowest cost Colorado Option plans are 10% cheaper than non-option plans in many places throughout the state in the preliminary rates.',
             'Among the proposed increases for individual premiums, Anthem — the largest carrier in Colorado — filed for the smallest proposed increase at 1.1%. However, Anthem had the highest-proposed increase for small employer groups, proposing a 14.43% jump in 2025.',
             'Other providers — Denver Health Medical Plan and Rocky Mountain HMO — proposed increases above 8% in the individual market, while the proposed rates for Cigna, Select Health and Kaiser Foundation Health Plan fall between 7% and 8%.',
-            'In 2024, the [Western rate region] — which encompasses all Western Colorado counties except Mesa County — [saw an average increase in individual premiums] of 9.5%, slightly below the average statewide increase of 9.7%. Within the region, Routt County saw an average increase of 11.1%, Eagle County saw a 10.5% increase, Summit County a 10.3% increase, Grand County a 10.2% increase, Pitkin County a 8.7% increase and Garfield County an 8.6% increase.',
-            'For [small group plans], the average increase across Colorado’s Western counties was 9.6% compared to a state average of 8%. Within this region, small group increases were 11.1% in Eagle County, 10.4% in Summit, 10.1% in Routt, 9.3% in Pitkin, 9.1% in Grand and 7.3% in Garfield.'
+            'In 2024, the Western rate region<sup><a href=#footnote-2>[2]</a></sup> — which encompasses all Western Colorado counties except Mesa County — saw an average increase in individual premiums<sup><a href=#footnote-3>[3]</a></sup> of 9.5%, slightly below the average statewide increase of 9.7%. Within the region, Routt County saw an average increase of 11.1%, Eagle County saw a 10.5% increase, Summit County a 10.3% increase, Grand County a 10.2% increase, Pitkin County a 8.7% increase and Garfield County an 8.6% increase.',
+            'For small group plans<sup><a href=#footnote-4>[4]</a></sup>, the average increase across Colorado’s Western counties was 9.6% compared to a state average of 8%. Within this region, small group increases were 11.1% in Eagle County, 10.4% in Summit, 10.1% in Routt, 9.3% in Pitkin, 9.1% in Grand and 7.3% in Garfield.'
         ],
         tags: [ "housing", "high country", "colorado", "insurance" ],
         author: 7,

@@ -64,54 +64,27 @@ export const CreateStoryMono = () => {
             paragraphs.push(paragraph[i]);
           }
         }
-        console.log('storyParse', paragraphs)
+        let parsedParagraphs = [];
+        paragraphs.forEach(function(paragraph, index) {
+          if (typeof(paragraph) == "string" && (paragraph.includes("[") || paragraph.includes("]"))) { // paragraph has a footnote link in it
 
-        setStoryParagraphs(paragraphs)
+            let noteIndex = paragraph.search("]");
+            let prependString = paragraph.slice(0, noteIndex);
+            let postpendString = paragraph.slice(noteIndex);
+            // dont want to tie together this way
+            // have to tie the <a> tag on the front end
+            let newPostpendString = postpendString.replace("]", `<sub><a href=#footnote-${index + 1}>[${index + 1}]</a></sub>`); 
+            let newPrependString = prependString.replace("[", "");// we maybe underline the whole 'link'?
 
-        let hyperlinkWord = [];
-
-        storyParagraphs.forEach(function(paragraph, index) {
-          const hyperlink = paragraph.match(/\[(.*?)\]/g);
-          console.log('hyperlink', hyperlink, index)
-
-          if (hyperlink) {
-            // take square brackets off
-            hyperlink.flat(); 
-            for (let i = 0; i < hyperlink.length; i++) { 
-              // more than 1 hyperlink in paragraph
-              // take the brackets off the word or phrase
-              let noBrackets = hyperlink[i].replace(/[\[\]']+/g, ""); 
-              //console.log('no brackets', noBrackets)
-              let position = paragraph.indexOf(hyperlink);
-              let newpara = paragraph.at(position).replace(hyperlink, noBrackets);
-              console.log('new parap', newpara)
-              hyperlinkWord.push({word: noBrackets, paragraph: index})
-            }
-            // var bracket = 
-            // console.log('bracket')
-            //hyperlink.replace(/[\[\]']+/g, "");
-            
+            let newPara = newPrependString.concat(newPostpendString);
+            parsedParagraphs.push(newPara);
+          } else {
+            parsedParagraphs.push(paragraph);
           }
-        });
-        console.log('array of objects', hyperlinkWord)
-        console.log('still story text', storyParagraphs)
+        })
 
-        setFootnoteWords(hyperlinkWord)
-        //const bracketsOut = storyText.match(/\[(.*?)\]/g);
-        //console.log('what', noBreaks)
-        //console.log('urls?', bracketsOut)
-        //setFootnoteWords(bracketsOut);
-        console.log('footnotes? ', footnoteWords)
-
-
-        // const serializeEditorValueAsString = value => {
-        //   value
-        //   //Return the string content of each paragraph in the value's children
-        //   .map(n => Node.toString(n))//slate node? 31:03 https://www.youtube.com/watch?v=kMpLh2XCWqM
-        //   // join them all with line breaks denoting paragraphs
-        //   .join('\n')// he's saving the text as a string and the body_data as a json object
-        // }
-        // serializeEditorValueAsString(storyText)
+        setStoryParagraphs(parsedParagraphs)
+        console.log('parsed and all: ' ,storyParagraphs )
       }
 
       const fetchAllCatagories = async () => {
@@ -145,15 +118,15 @@ export const CreateStoryMono = () => {
         //console.log('Page loaded.', authors)
       };
 
-      const openModal = () => {
-        const modal = document.getElementById("modal-container");
-        modal.style.display = inline;
-        return (
-          <></>
-            //<ReactModal inputText={createStoryText}/>
-        )
+      // const openModal = () => {
+      //   const modal = document.getElementById("modal-container");
+      //   modal.style.display = inline;
+      //   return (
+      //     <></>
+      //       //<ReactModal inputText={createStoryText}/>
+      //   )
 
-      }
+      // }
 
       useState(() => {
         loadPage();
@@ -420,6 +393,8 @@ export const CreateStoryMono = () => {
             <button className=""><Link to="/" onClick={() => clearFields}>Cancel</Link></button>
             &nbsp;
             <button onClick={() => submitStory(story)}>Submit new story</button>
+            &nbsp;
+            <button onClick={() => parseStoryText(story)}>Parse</button>
         </div>
       )
 }

@@ -167,7 +167,11 @@ export const SingleStoryPageMono = () => {
         <p>{story.story_led}</p>
 
         {!story.story_text ? null : story.story_text.map((paragraph, index) => {
-            return (<p key={index}>{paragraph}</p>)
+            if (paragraph.includes("sup")) {
+                return ( <p key={index} dangerouslySetInnerHTML={{__html: paragraph}}></p> ) // ??
+            } else {
+                return (<p key={index}>{paragraph}</p>)
+            }
         })}
 
         {!story.footnote_urls ? null : 
@@ -180,7 +184,7 @@ export const SingleStoryPageMono = () => {
                     {story.footnote_urls.map((footnote, index) => {
                     return (
                             <div key={index}>
-                                <p>{index + 1}: <a href={footnote}>{footnote}</a></p>
+                                <p id={`footnote-${index}`}>{index + 1}: <a href={footnote} target="_blank">{footnote}</a></p>
                             </div>
                         )
                     })}

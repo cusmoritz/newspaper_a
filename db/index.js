@@ -125,7 +125,38 @@ const createDatabase = async() => {
             admin_bool BOOL DEFAULT FALSE,
             resource_most_updated_date DATE
         );
-       
+
+        CREATE TABLE IF NOT EXISTS story_all_views (
+            story_id INT PRIMARY KEY NOT NULL,
+            story_view_year INT NOT NULL DEFAULT 2024,
+            story_view_month INT NOT NULL DEFAULT 1,
+            story_view_day INT NOT NULL DEFAULT 1,
+            story_view_hour_0 INT DEFAULT 0,
+            story_view_hour_1 INT DEFAULT 0,
+            story_view_hour_2 INT DEFAULT 0,
+            story_view_hour_3 INT DEFAULT 0,
+            story_view_hour_4 INT DEFAULT 0,
+            story_view_hour_5 INT DEFAULT 0,
+            story_view_hour_6 INT DEFAULT 0,
+            story_view_hour_7 INT DEFAULT 0,
+            story_view_hour_8 INT DEFAULT 0,
+            story_view_hour_9 INT DEFAULT 0,
+            story_view_hour_10 INT DEFAULT 0,
+            story_view_hour_11 INT DEFAULT 0,
+            story_view_hour_12 INT DEFAULT 0,
+            story_view_hour_13 INT DEFAULT 0,
+            story_view_hour_14 INT DEFAULT 0,
+            story_view_hour_15 INT DEFAULT 0,
+            story_view_hour_16 INT DEFAULT 0,
+            story_view_hour_17 INT DEFAULT 0,
+            story_view_hour_18 INT DEFAULT 0,
+            story_view_hour_19 INT DEFAULT 0,
+            story_view_hour_20 INT DEFAULT 0,
+            story_view_hour_21 INT DEFAULT 0,
+            story_view_hour_22 INT DEFAULT 0,
+            story_view_hour_23 INT DEFAULT 0,
+            story_view_hour_24 INT DEFAULT 0
+        );
 
         `, []);
         console.log('Done creating database...')
@@ -134,6 +165,25 @@ const createDatabase = async() => {
         throw error;
     }
 };
+
+// CREATE TABLE IF NOT EXISTS story_views_agg (
+//     story_id INT PRIMARY KEY NOT NULL,
+//     story_total_views INT DEFAULT NULL
+// );
+
+// CREATE TABLE IF NOT EXISTS story_views_day_month (
+//     story_id INT PRIMARY KEY NOT NULL,
+//     story_view_month INT NOT NULL,
+//     story_view_day INT NOT NULL,
+//     story_views INT NOT NULL DEFAULT 0
+// );
+
+// CREATE TABLE IF NOT EXISTS story_views_month_only (
+//     story_id INT PRIMARY KEY NOT NULL,
+//     story_view_month INT NOT NULL DEFAULT 1,
+//     story_view_year INT NOT NULL DEFAULT 2024,
+//     story_month_views INT NOT NULL DEFAULT 0
+// );
 
 // CREATE INDEX IF NOT EXISTS idx_pagination ON storys(original_publish_date) USING btree DESC;
 
@@ -153,6 +203,7 @@ const destroyDatabase = async () => {
         DROP TABLE IF EXISTS secondary_categories;
         DROP TABLE IF EXISTS primary_categories;
 
+        DROP TABLE IF EXISTS story_all_views;
 
         `, [])
         console.log('done destroying db...');

@@ -26,6 +26,7 @@ export const AdminHome = (props) => {
             <button><Link to="/sources">Check Sources</Link></button>
             <button><Link to="/resources">Manage / View Community Resources</Link></button>
             <button><Link to="/search">Advanced Story Search</Link></button>
+            <button><Link to="/page-views">Story Page Views</Link></button>
             {/* <p></p>
             <label htmlfFor="search">StorySearch:</label>
             <input className="search"/> */}

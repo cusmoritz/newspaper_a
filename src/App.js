@@ -58,6 +58,8 @@ import { SourceRelatedStorysComponent } from './components/admin/SourceRelatedSt
 
 import { SearchPageMono } from './components/admin/SearchPageMono';
 
+import { StoryPageViewsMono } from './components/admin/StoryPageViewsMono';
+
 // SHOP PAGE COMPONENTS
 import { ShopHeader } from './components/shop/ShopHeader';
 import { ShopHome } from './components/shop/ShopHome';
@@ -103,6 +105,7 @@ const App = () => {
                         <Route path="/sources" element={<AdminSourceMono />} />
                         <Route path="/resources" element={<AdminResourcesMono />} />
                         <Route path="/search" element={<SearchPageMono />} />
+                        <Route path="/page-views" element={<StoryPageViewsMono />} />
 
 
                     </Routes>

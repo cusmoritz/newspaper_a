@@ -28,7 +28,7 @@ const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile,
 const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, fetchStoriesByDate, fetchStoriesByDateRange} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const {createNewResource, fetchAllFrontEndResources, fetchAllAdminResources, editCurrentResource} = require ('../db/resources');
-const {addPageView} = require ('../db/views');
+const {addPageView, fetchPageViewsForOneStoryOneDate} = require ('../db/views');
 const { useParams } = require('react-router-dom');
 
 server.use((request, response, next) => {
@@ -277,6 +277,30 @@ server.post('/api/story/:storyId/addpageview', async(request, response, next) =>
     throw error;
   }
 });
+
+server.get('/api/admin/page-views/:storyId/:date', async (request, response, next) => {
+  const {storyId} = request.params;
+  const {date} = request.params;
+  console.log('params in server: ', storyId, date)
+  const year = 2024;
+  const month = 12;
+  const day = 7;
+  try {
+
+    //console.log('server year', year)
+
+    const views = await fetchPageViewsForOneStoryOneDate(11, year, month, day);
+    console.log('views server: ', views);
+    if (views) {
+      response.send(views).status(200);
+    } else {
+      response.send({Error: `There was a database error fetching page views for story ${storyId}`}).status(500);
+    };
+  } catch (error) {
+    console.log(`there was a server error fetching page views for story id ${storyId}`);
+    throw error;
+  }
+})
 
 // server.put('/api/story/pageview/:storyId', async (request, response, next) => {
 //     try {

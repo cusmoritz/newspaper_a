@@ -170,6 +170,23 @@ export const fetchStoriesByAuthorId = async (authorId) => {
 
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
+export const getPageViewsForOneStoryOneDay = async (storyId, date) => {
+    console.log('client server', storyId, date)
+    try {
+        const request = await fetch(`${BASE_URL}/api/admin/page-views/${storyId}/${date}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const results = await request.json();
+        return results;
+    } catch (error) {
+        console.log(`there was a client api error in getAdminPageViews seraching for story id ${storyId}`);
+        throw error;
+    }
+}
+
 export const fetchAllResourcesAdmin = async () => {
     try {
         const request = await fetch(`${BASE_URL}/api/admin/all-resources`, {

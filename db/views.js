@@ -8,7 +8,8 @@ const checkViewDateExists = async(storyId, year, month, day) => {
         console.log('data in checkView Date: ', data)
         return data.exists; // bool
     } catch (error) {
-        console.log('database error checking if row exists')
+        console.log(`there was a database error in checkViewDateExists for story id ${storyId}`);
+        throw error;
     }
 };
 
@@ -21,14 +22,14 @@ const updatePageView = async(storyId, viewYear, viewMonth, viewDay) => {
         AND story_view_year = $2
         AND story_view_month = $3
         AND story_view_day = $4
-
         RETURNING *
         ;
     `, [storyId, viewYear, viewMonth, viewDay]);
     console.log('page views db: ', pageViews);
     return pageViews;
     } catch (error) {
-        
+        console.log(`there was a database error in updatePageView for story id ${storyId}`);
+        throw error;
     }
 };
 
@@ -42,7 +43,8 @@ const addNewViewRow = async (storyId, viewYear, viewMonth, viewDay, viewHour) =>
     `, [storyId, viewYear, viewMonth, viewDay, viewHour]);
     return newRow;
     } catch (error) {
-        
+        console.log(`there was a database error in addNewViewRow for story id ${storyId}`);
+        throw error;
     }
 }
 
@@ -68,7 +70,7 @@ const addPageView = async (storyId, date) => { // we will remove the date at som
             }
         })
     } catch (error) {
-        console.log(`there was a database error adding a page view to story ${storyId}`);
+        console.log(`there was a database error in addPageView for story id ${storyId}`);
         throw error;
     }
 };

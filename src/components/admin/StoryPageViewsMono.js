@@ -13,6 +13,7 @@ export const StoryPageViewsMono = () => {
         const date = new Date(2024, 11, 7);
         const pageViews = await getPageViewsForOneStoryOneDay(storyId, date);
         if (pageViews) {
+            console.log('page views FE', pageViews)
             setPageViews(pageViews);
             return;
         } else {

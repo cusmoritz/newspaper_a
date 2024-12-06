@@ -1,20 +1,22 @@
 const {client} = require('./index');
 
 const fetchPageViewsForOneStoryOneDate = async(storyId, year, month, day) => {
-    console.log('database date;, ', storyId + " , " + year, month, day);
+    //console.log('database date;, ', storyId + " , " + year, month, day);
 
     try {
         // let viewMonth = date.getMonth() + 1; // 0 to 11
         // let viewDay = date.getDate(); // 1 to 31
         // let viewHour = date.getHours();
         // console.log('database info: ', viewYear);
-        const {rows: views} = await client.query(`
+        const {rows: [views]} = await client.query(`
         SELECT * FROM story_all_views
         WHERE story_id = $1
-
+        AND story_view_year = $2
+        AND story_view_month = $3
+        AND story_view_day = $4
         ;
-        `, [storyId]);
-        console.log('database views', views);
+        `, [storyId, year, month, day]);
+        //console.log('database views', views);
         return views;
     } catch (error) {
         console.log(`there was a database error in fetchPageViewsForOneStoryOneDate fetching views for story id ${storyId}`);

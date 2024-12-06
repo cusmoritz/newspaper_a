@@ -289,8 +289,8 @@ server.get('/api/admin/page-views/:storyId/:date', async (request, response, nex
 
     //console.log('server year', year)
 
-    const views = await fetchPageViewsForOneStoryOneDate(11, year, month, day);
-    console.log('views server: ', views);
+    const views = await fetchPageViewsForOneStoryOneDate(storyId, year, month, day);
+    //console.log('views server: ', views);
     if (views) {
       response.send(views).status(200);
     } else {

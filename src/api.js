@@ -171,7 +171,7 @@ export const fetchStoriesByAuthorId = async (authorId) => {
 /////////////// ADMIN FUNCTIONS \\\\\\\\\\\\\\\\\\\\
 
 export const getPageViewsForOneStoryOneDay = async (storyId, date) => {
-    console.log('client server', storyId, date)
+    //console.log('client server', storyId, date)
     try {
         const request = await fetch(`${BASE_URL}/api/admin/page-views/${storyId}/${date}`, {
             method: "GET",

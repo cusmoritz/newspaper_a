@@ -4,10 +4,6 @@ const fetchPageViewsForOneStoryOneDate = async(storyId, year, month, day) => {
     //console.log('database date;, ', storyId + " , " + year, month, day);
 
     try {
-        // let viewMonth = date.getMonth() + 1; // 0 to 11
-        // let viewDay = date.getDate(); // 1 to 31
-        // let viewHour = date.getHours();
-        // console.log('database info: ', viewYear);
         const {rows: [views]} = await client.query(`
         SELECT * FROM story_all_views
         WHERE story_id = $1

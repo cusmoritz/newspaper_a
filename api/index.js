@@ -281,10 +281,11 @@ server.post('/api/story/:storyId/addpageview', async(request, response, next) =>
 server.get('/api/admin/page-views/:storyId/:date', async (request, response, next) => {
   const {storyId} = request.params;
   const {date} = request.params;
-  console.log('params in server: ', storyId, date)
-  const year = 2024;
-  const month = 12;
-  const day = 7;
+  //console.log('params in server: ', storyId, date)
+  var newDate = new Date(date);
+  const year = newDate.getFullYear();
+  const month = newDate.getMonth() + 1;
+  const day = newDate.getDate();
   try {
 
     //console.log('server year', year)

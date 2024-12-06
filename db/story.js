@@ -177,7 +177,7 @@ const tagExistCheck = async (tag) => {
         WHERE tag = $1
         ;
         `, [upTag]);
-        console.log('underscore', _tag)
+        //console.log('underscore', _tag)
         if (_tag == undefined) { // there is no tag in the db
             return true;
         } else {
@@ -232,7 +232,7 @@ const submitTag = async (storyId, tag) => {
         if (results === false){
             console.log('false')
         } else {
-            console.log('true')
+            //console.log('true')
         }
     });
     //console.log('exists', _exists, tag)
@@ -327,7 +327,7 @@ const createNewStory = async (storyInfo) => {
                     console.log('we are false');
                 } else {
                     createTag(story.story_id, tag)
-                    console.log('true')
+                    //console.log('true')
                 }
             });
         });

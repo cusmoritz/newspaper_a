@@ -25,9 +25,10 @@ server.listen(port, () => {
 
 
 const {fetchAllAuthors, fetchStoriesByAuthorId, createAuthor, editAuthorProfile, fetchOneAuthor, fetchOneAuthorByAuthorId} = require('../db/authors');
-const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, addPageView, fetchStoriesByDate, fetchStoriesByDateRange} = require('../db/story');
+const {createNewStory, fetchTenStoriesForFrontPage, retreiveTags, fetchStoriesFromTag, fetchAllPrimaryCategories, fetchSecondaryCatsForPrimary, fetchAllPrimaryAndSecondary, fetchStoriesByPrimaryCategory, fetchStoriesBySecondaryCategory, fetchSinglePageStory, fetchStoriesByDate, fetchStoriesByDateRange} = require('../db/story');
 const {createNewSource, getOneSource, getAllSources, updateSourceContactDate, updateSourcePhoneNumber, updateSourceOccupation, updateSourceElectedOfficial, getStorysForSingleSource} = require ('../db/sources');
 const {createNewResource, fetchAllFrontEndResources, fetchAllAdminResources, editCurrentResource} = require ('../db/resources');
+const {addPageView} = require ('../db/views');
 const { useParams } = require('react-router-dom');
 
 server.use((request, response, next) => {
@@ -263,24 +264,36 @@ server.get('/api/search/author/stories/:authorId', async (request, response, nex
     console.log('there was an error fetching author stories in the api');
     throw error;
   }
-})
+});
 
-server.put('/api/story/pageview/:storyId', async (request, response, next) => {
-    try {
-        const {storyId} = request.params;
-        console.log('storyid', storyId)
-        const viewUpdate = await addPageView(storyId);
-        console.log('update server', viewUpdate)
-        if (viewUpdate) {
-          response.sendStatus(200);
-        } else {
-            response.send({Error: "Could not update page views"}).status(500);
-        };
-    } catch (error) {
-        //logEverything(error);
-        throw error;
-    }
-})
+server.post('/api/story/:storyId/addpageview', async(request, response, next) => {
+  try {
+    const {storyId} = request.params;
+    const views = await addPageView(storyId);
+    console.log('views server: ', views);
+    response.sendStatus(200);
+  } catch (error) {
+    console.log(`there was a server error adding a page view for story ${storyId}`);
+    throw error;
+  }
+});
+
+// server.put('/api/story/pageview/:storyId', async (request, response, next) => {
+//     try {
+//         const {storyId} = request.params;
+//         console.log('storyid', storyId)
+//         const viewUpdate = await addPageView(storyId);
+//         console.log('update server', viewUpdate)
+//         if (viewUpdate) {
+//           response.sendStatus(200);
+//         } else {
+//             response.send({Error: "Could not update page views"}).status(500);
+//         };
+//     } catch (error) {
+//         //logEverything(error);
+//         throw error;
+//     }
+// })
 
 // server.get('/api/:tag/:pageNumber', async (request, response, next) => {
 //     try {

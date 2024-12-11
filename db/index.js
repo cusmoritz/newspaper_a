@@ -155,8 +155,7 @@ const createDatabase = async() => {
             _20 INT DEFAULT 0,
             _21 INT DEFAULT 0,
             _22 INT DEFAULT 0,
-            _23 INT DEFAULT 0,
-            _24 INT DEFAULT 0
+            _23 INT DEFAULT 0
         );
 
         `, []);

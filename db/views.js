@@ -5,14 +5,29 @@ const fetchPageViewsForOneStoryOneDate = async(storyId, year, month, day) => {
 
     try {
         const {rows: [views]} = await client.query(`
-        SELECT * FROM story_all_views
+        SELECT story_view_id, story_id, story_view_year, story_view_month, story_view_day FROM story_all_views
         WHERE story_id = $1
         AND story_view_year = $2
         AND story_view_month = $3
         AND story_view_day = $4
         ;
         `, [storyId, year, month, day]);
-        //console.log('database views', views);
+
+        const {rows: [dbhours]} = await client.query(`
+        SELECT _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23 FROM story_all_views
+        WHERE story_id = $1
+        AND story_view_year = $2
+        AND story_view_month = $3
+        AND story_view_day = $4
+        ;
+        `, [storyId, year, month, day]);
+
+        var hours = [];
+
+        Object.entries(dbhours).forEach(function(entry, index) {
+            hours.push(entry[1])
+        });
+        views.hours = hours;
         return views;
     } catch (error) {
         console.log(`there was a database error in fetchPageViewsForOneStoryOneDate fetching views for story id ${storyId}`);

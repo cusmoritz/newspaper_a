@@ -42,11 +42,16 @@ export const StoryPageViewsMono = () => {
             {!viewHours.length ? null : 
             <div>
                 <p>Page views for story id {pageViews.story_id} on {pageViewResultsDate}</p>
+                <svg height="400" width="100%">
+                <line x1="0" y1="0" x2="0" y2="400" style={{stroke: "white", width: 3 }}/>
                 {viewHours.map((hour, index) => {
+                    console.log('hour, index', hour, index)
                     return (
-                        <p>For hour {index+1}: {hour} views.</p>
+                        <rect height={hour*10} width="25" x={index*30+10} y={400-(hour*10)-10} fill="blue">Name</rect>
                     )
                 })}
+                <line x1="0" y1="400" x2="1000" y2="400" style={{stroke: "white", width: 3}}/>
+                </svg>
             </div>
             }
         </div>

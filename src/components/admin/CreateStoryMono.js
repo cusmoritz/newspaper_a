@@ -39,6 +39,8 @@ export const CreateStoryMono = () => {
     const [displaySources, setDisplaySources] = useState([]); // array so can display
     const [sourceDropDown, setSourceDropDown] = useState(0); // id of dropdown
 
+    const [featureImage, setFeatureImage] = useState();
+
     // image loading function that doesn't work. still need image hosting
     // window.addEventListener('load', function() {
     //     document.querySelector('input[type="file"]').addEventListener('change', function() {
@@ -149,6 +151,7 @@ export const CreateStoryMono = () => {
         setBreakingHeadline("");
         setFootnotes([]);
         setStorySources([]);
+        setFeatureImage();
       }
 
       const setTitleEvent = (targetValue) => {
@@ -208,6 +211,16 @@ export const CreateStoryMono = () => {
         setDisplaySources([...displaySources, addingSource]);
         //console.log('storySources', storySources)
         return;
+      }
+
+      const handleImageUpload = (e) => {
+        const file = e.target.files;
+        if (file && file.length > 0) {
+          console.log('file: ', file[0]);
+          var image = URL.createObjectURL(e.target.files[0])
+          console.log('image: ', image)
+          setFeatureImage(image);
+        }
       }
 
       return (
@@ -373,10 +386,13 @@ export const CreateStoryMono = () => {
 
             <fieldset>
                 <label htmlFor="feature-image-input">Feature image:</label>
-                <input className="feature-image-input" type="file"></input>
+                <input className="feature-image-input" type="file" accept="image/jpeg,image/png" onChange={handleImageUpload}></input>
+                {!featureImage ? null :
+                <img src={featureImage}></img>
+                }
                 <br></br>
                 <label htmlFor="additional-image-input">Additional images:</label>
-                <input className="additional-image-input" type="file"></input>
+                <input className="additional-image-input" type="file" accept="image/jpeg,image/png"></input>
                 <br></br>
             </fieldset>
 

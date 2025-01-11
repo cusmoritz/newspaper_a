@@ -40,6 +40,7 @@ export const CreateStoryMono = () => {
     const [sourceDropDown, setSourceDropDown] = useState(0); // id of dropdown
 
     const [featureImage, setFeatureImage] = useState();
+    const [additionalImages, setAdditionalImages] = useState([]);
 
     // image loading function that doesn't work. still need image hosting
     // window.addEventListener('load', function() {
@@ -152,6 +153,7 @@ export const CreateStoryMono = () => {
         setFootnotes([]);
         setStorySources([]);
         setFeatureImage();
+        setAdditionalImages([]);
       }
 
       const setTitleEvent = (targetValue) => {
@@ -213,13 +215,19 @@ export const CreateStoryMono = () => {
         return;
       }
 
-      const handleImageUpload = (e) => {
+      const handleMainImageUpload = (e) => {
         const file = e.target.files;
         if (file && file.length > 0) {
-          console.log('file: ', file[0]);
           var image = URL.createObjectURL(e.target.files[0])
-          console.log('image: ', image)
           setFeatureImage(image);
+        }
+      };
+
+      const handleAdditionalImageUpload = (e) => {
+        const file = e.target.files;
+        if (file && file.length > 0) {
+          var image = URL.createObjectURL(e.target.files[0]);
+          setAdditionalImages([...additionalImages, image]);
         }
       }
 
@@ -386,14 +394,25 @@ export const CreateStoryMono = () => {
 
             <fieldset>
                 <label htmlFor="feature-image-input">Feature image:</label>
-                <input className="feature-image-input" type="file" accept="image/jpeg,image/png" onChange={handleImageUpload}></input>
+                <input className="feature-image-input" type="file" accept="image/jpeg,image/png" onChange={handleMainImageUpload}></input>
                 {!featureImage ? null :
                 <img src={featureImage}></img>
                 }
                 <br></br>
                 <label htmlFor="additional-image-input">Additional images:</label>
-                <input className="additional-image-input" type="file" accept="image/jpeg,image/png"></input>
+                <input className="additional-image-input" type="file" accept="image/jpeg,image/png" onChange={handleAdditionalImageUpload}></input>
                 <br></br>
+                {!additionalImages ? null : 
+                additionalImages.map((image, index) => {
+                  return (
+                    <div key={index}>
+                    <img src={image}></img>
+                    <br></br>
+                    </div>
+
+                  )
+                })
+                }
             </fieldset>
 
             <br></br>

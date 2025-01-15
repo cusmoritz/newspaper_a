@@ -302,3 +302,17 @@ textarea.story-input {
 }
 
 /* ################ END ADMIN HOME PAGE ###################### */
+
+/* ################## ADMIN CREATE STORY SPECIAL ############## */
+
+.additional-images-admin {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.additional-images-admin > div {
+  width: 50%;
+}
+/* ################# END ADMIN CREATE STORY SPECIAL ############ */

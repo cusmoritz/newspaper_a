@@ -402,17 +402,20 @@ export const CreateStoryMono = () => {
                 <label htmlFor="additional-image-input">Additional images:</label>
                 <input className="additional-image-input" type="file" accept="image/jpeg,image/png" onChange={handleAdditionalImageUpload}></input>
                 <br></br>
-                {!additionalImages ? null : 
-                additionalImages.map((image, index) => {
-                  return (
-                    <div key={index}>
-                    <img src={image}></img>
-                    <br></br>
-                    </div>
+                <div className="additional-images-admin">
+                  {!additionalImages ? null : 
+                  additionalImages.map((image, index) => {
+                    return (
+                      <div key={index}>
+                      <img src={image}></img>
+                      <br></br>
+                      </div>
 
-                  )
-                })
-                }
+                    )
+                  })
+                  }
+                </div>
+
             </fieldset>
 
             <br></br>

@@ -416,6 +416,17 @@ server.post('/api/admin/story/submitnewstory', async (request, response, next) =
     }
 });
 
+server.post(`/api/admin/images/upload`, async (request, response, next) => {
+  try {
+    const {imageArr} = request.body;
+    console.log('image array server: ', imageArr);
+    
+  } catch (error) {
+    console.log('there was a server error during new image upload');
+    throw error;
+  }
+})
+
 // server.post('/api/admin/story/checkslug', async (request, response, next) => {
 //     try {
 //         const {checkSlug} = request.body.slug;

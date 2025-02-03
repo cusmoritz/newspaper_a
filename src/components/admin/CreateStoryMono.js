@@ -6,6 +6,7 @@ import { fetchAllAuthors } from "../../api";
 // import { Modal } from "./Modal";
 import { fetchFrontPageCatsSubcats } from "../../api";
 import { fetchCurrentSources } from "../../api";
+import { submitNewStoryPhotos } from "../../api";
 
 export const CreateStoryMono = () => {
 
@@ -231,6 +232,12 @@ export const CreateStoryMono = () => {
         }
       }
 
+      const handleSubmitAdditionalImages = async () => {
+        console.log('additional images: ', additionalImages);
+        // what url do we store these with? story-url/images/0 ?
+        return await submitNewStoryPhotos(additionalImages);
+      }
+
       return (
         <div>
             <h2>
@@ -401,6 +408,7 @@ export const CreateStoryMono = () => {
                 <br></br>
                 <label htmlFor="additional-image-input">Additional images:</label>
                 <input className="additional-image-input" type="file" accept="image/jpeg,image/png" onChange={handleAdditionalImageUpload}></input>
+                &nbsp; <button onClick={handleSubmitAdditionalImages}>Submit</button>
                 <br></br>
                 <div className="additional-images-admin">
                   {!additionalImages ? null : 

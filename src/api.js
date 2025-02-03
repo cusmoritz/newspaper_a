@@ -317,6 +317,32 @@ export const submitNewStory = async (storyObj) => {
     }
 };
 
+export const submitNewStoryPhotos = async (imageArr) => {
+    try {
+        console.log('image arry client side: ', imageArr);
+        console.log('image as Json : ', JSON.stringify({imageArr}))
+
+        const request = await fetch(`${BASE_URL}/api/admin/images/upload`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            body: JSON.stringify({
+                imageArr: imageArr
+            })
+        });
+        if (!request) {
+            return error;
+        } else {
+            const response = request.json();
+            return response;
+        }
+    } catch (error) {
+        console.log('there was a client-side error uploading new story images');
+        throw error;
+    }
+}
+
 export const submitNewAuthor = async (authorObj) => {
     try {
         const request = await fetch(`${BASE_URL}/api/admin/author/new`, {
